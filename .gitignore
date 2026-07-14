@@ -11,6 +11,22 @@ CTestTestfile.cmake
 _deps
 CMakeUserPresets.json
 
+!CMakePresets.json
+
+/.vscode/
+**/bin/
+**/bin-int/
+.vs/
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
+**.log
+**.ini
+**.json
+script/
+.clang-format
+
 # CLion
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
