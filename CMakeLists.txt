@@ -9,6 +9,7 @@ target_sources(crawler
     PRIVATE
         source/main.cpp
         source/Buffer.cpp
+        source/FileDataSource.cpp
 )
 
 target_compile_definitions(crawler
@@ -22,8 +23,21 @@ target_sources(BufferTest
         test/BufferTest.cpp
         source/Buffer.cpp
 )
+
+add_executable(FileDataSourceTest)
+set_property(TARGET FileDataSourceTest PROPERTY CXX_STANDARD 20)
+target_sources(FileDataSourceTest
+    PRIVATE
+        test/FileDataSourceTest.cpp
+        source/FileDataSource.cpp
+)
+
 enable_testing()
 add_test(
     NAME BufferTest
     COMMAND $<TARGET_FILE:BufferTest>
+)
+add_test(
+    NAME FileDataSourceTest
+    COMMAND $<TARGET_FILE:FileDataSourceTest>
 )
