@@ -15,7 +15,7 @@ namespace Crawler
     {
         std::vector<spdlog::sink_ptr> sinks;
         sinks.push_back(std::make_shared<spdlog::sinks::basic_file_sink_mt>(
-            std::format("{}{:%Y%m%d-%H:%M:%S}", LOG_DIR, std::chrono::system_clock::now())));
+            std::format("{}{:%Y%m%d-%H%M%S}", LOG_DIR, std::chrono::system_clock::now())));
 
         sinks[0]->set_pattern("[%T] [%t] [%n] [%l]: %v");
         sinks.push_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
