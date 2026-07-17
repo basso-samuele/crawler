@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-#include "../source/FileDataSource.h"
+#include "FileDataSource.h"
 
 static std::filesystem::path GenerateUniquePath() {
     std::random_device rd;
