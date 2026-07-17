@@ -36,14 +36,17 @@ target_sources(core
 )
 
 if (LINUX)
-    message(TRACE "Platform linux")
     add_subdirectory(platform/linux)
     target_include_directories(core
         PUBLIC
             ${CMAKE_CURRENT_SOURCE_DIR}/platform/linux
     )
-elseif (WINDOWS)
-    message(FATAL_ERROR "Missing implementation")
+elseif (WIN32)
+    add_subdirectory(platform/windows)
+    target_include_directories(core
+        PUBLIC
+            ${CMAKE_CURRENT_SOURCE_DIR}/platform/windows
+    )
 else ()
     message(FATAL_ERROR "Unsupported OS")
 endif ()

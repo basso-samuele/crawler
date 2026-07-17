@@ -72,13 +72,13 @@ int normalReading() {
     const size_t size = content.size();
 
     Crawler::FileDataSource fileDataSource(temp.GetPath());
-    std::byte byteDataFromDisk[size];
+    std::vector<std::byte> byteDataFromDisk(size);
     size_t readBytes;
 
-    fileDataSource.Read(byteDataFromDisk, &readBytes, size);
+    fileDataSource.Read(byteDataFromDisk.data(), &readBytes, size);
 
     assert(size == readBytes);
-    assert(std::equal(byteDataFromDisk, byteDataFromDisk + readBytes, byteData, byteData + size));
+    assert(std::equal(byteDataFromDisk.data(), byteDataFromDisk.data() + readBytes, byteData, byteData + size));
 
     return 0;
 }
@@ -98,13 +98,13 @@ int normalPeek() {
     const size_t size = content.size();
 
     Crawler::FileDataSource fileDataSource(temp.GetPath());
-    std::byte byteDataFromDisk[size];
+    std::vector<std::byte> byteDataFromDisk(size);
     size_t readBytes;
 
-    fileDataSource.Peek(byteDataFromDisk, &readBytes, size);
+    fileDataSource.Peek(byteDataFromDisk.data(), &readBytes, size);
 
     assert(size == readBytes);
-    assert(std::equal(byteDataFromDisk, byteDataFromDisk + readBytes, byteData, byteData + size));
+    assert(std::equal(byteDataFromDisk.data(), byteDataFromDisk.data() + readBytes, byteData, byteData + size));
 
     return 0;
 }
@@ -124,15 +124,15 @@ int readNilCount() {
     const size_t size = content.size();
 
     Crawler::FileDataSource fileDataSource(temp.GetPath());
-    std::byte byteDataFromDisk[size];
+    std::vector<std::byte> byteDataFromDisk(size);
     size_t readBytes;
 
     const size_t nil = 0;
 
-    fileDataSource.Read(byteDataFromDisk, &readBytes, nil);
+    fileDataSource.Read(byteDataFromDisk.data(), &readBytes, nil);
     assert(readBytes == nil);
 
-    fileDataSource.Peek(byteDataFromDisk, &readBytes, nil);
+    fileDataSource.Peek(byteDataFromDisk.data(), &readBytes, nil);
     assert(readBytes == nil);
 
     return 0;
@@ -153,13 +153,13 @@ int readWithWrongCount() {
     const size_t size = content.size();
 
     Crawler::FileDataSource fileDataSource(temp.GetPath());
-    std::byte byteDataFromDisk[size];
+    std::vector<std::byte> byteDataFromDisk(size);
     size_t readBytes;
 
-    fileDataSource.Read(byteDataFromDisk, &readBytes, size * 2);
+    fileDataSource.Read(byteDataFromDisk.data(), &readBytes, size * 2);
 
     assert(size == readBytes);
-    assert(std::equal(byteDataFromDisk, byteDataFromDisk + readBytes, byteData, byteData + size));
+    assert(std::equal(byteDataFromDisk.data(), byteDataFromDisk.data() + readBytes, byteData, byteData + size));
 
     return 0;
 }
@@ -172,10 +172,10 @@ int emptyFile() {
     const size_t size = content.size();
 
     Crawler::FileDataSource fileDataSource(temp.GetPath());
-    std::byte byteDataFromDisk[size];
+    std::vector<std::byte> byteDataFromDisk(size);
     size_t readBytes;
 
-    fileDataSource.Read(byteDataFromDisk, &readBytes, 10);
+    fileDataSource.Read(byteDataFromDisk.data(), &readBytes, 10);
 
     assert(0 == readBytes);
 
