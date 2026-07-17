@@ -11,7 +11,7 @@
 #include <condition_variable>
 #include <cstddef>
 
-#include "DataSource.h"
+#include "data/DataSource.h"
 
 namespace Crawler
 {

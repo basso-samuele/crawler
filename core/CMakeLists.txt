@@ -23,16 +23,20 @@ target_compile_features(core
 target_compile_definitions(core
     PUBLIC
         $<$<CONFIG:Debug>:DEBUG>
+        -DLOG_DIR="${CMAKE_CURRENT_BINARY_DIR}/log/"
 )
 
 target_sources(core
     PRIVATE
-        Buffer.cpp
+        data/Buffer.cpp
+        utils/Log.cpp
     PUBLIC
     FILE_SET HEADERS
     FILES
-        Buffer.h
-        DataSource.h
+        data/Buffer.h
+        data/DataSource.h
+        utils/Log.h
+        utils/Singleton.h
 )
 
 if (LINUX)

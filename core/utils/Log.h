@@ -1,0 +1,63 @@
+#pragma once
+
+#include <memory>
+#include <spdlog/logger.h>
+
+#include "Singleton.h"
+
+namespace Crawler
+{
+
+    class Log : public Singleton<Log>
+    {
+    private:
+        std::shared_ptr<spdlog::logger> p_CoreLogger;
+        std::shared_ptr<spdlog::logger> p_ClientLogger;
+
+    public:
+        Log();
+        ~Log() override;
+
+        std::shared_ptr<spdlog::logger> Core();
+        std::shared_ptr<spdlog::logger> Client();
+    };
+
+}
+
+#ifdef DEBUG
+
+#define CLIENT_TRACE(...) Crawler::Log::GetInstance().Client()->trace(__VA_ARGS__)
+#define CLIENT_DEBUG(...) Crawler::Log::GetInstance().Client()->debug(__VA_ARGS__)
+#define CLIENT_INFO(...) Crawler::Log::GetInstance().Client()->info(__VA_ARGS__)
+#define CLIENT_WARN(...) Crawler::Log::GetInstance().Client()->warn(__VA_ARGS__)
+#define CLIENT_ERROR(...) Crawler::Log::GetInstance().Client()->error(__VA_ARGS__)
+#define CLIENT_CRITICAL(...) Crawler::Log::GetInstance().Client()->critical(__VA_ARGS__)
+
+#define CORE_TRACE(...) Crawler::Log::GetInstance().Core()->trace(__VA_ARGS__)
+#define CORE_DEBUG(...) Crawler::Log::GetInstance().Core()->debug(__VA_ARGS__)
+#define CORE_INFO(...) Crawler::Log::GetInstance().Core()->info(__VA_ARGS__)
+#define CORE_WARN(...) Crawler::Log::GetInstance().Core()->warn(__VA_ARGS__)
+#define CORE_ERROR(...) Crawler::Log::GetInstance().Core()->error(__VA_ARGS__)
+#define CORE_CRITICAL(...) Crawler::Log::GetInstance().Core()->critical(__VA_ARGS__)
+
+#define CORE_ASSERT(condition, message) assert(condition &&message)
+
+#else
+
+#define CLIENT_TRACE(...)
+#define CLIENT_DEBUG(...)
+#define CLIENT_INFO(...)
+#define CLIENT_WARN(...)
+#define CLIENT_ERROR(...)
+#define CLIENT_CRITICAL(...)
+
+#define CORE_TRACE(...)
+#define CORE_DEBUG(...)
+#define CORE_INFO(...)
+#define CORE_WARN(...)
+#define CORE_ERROR(...)
+#define CORE_CRITICAL(...)
+
+#define CORE_ASSERT(condition, message)
+
+#endif
