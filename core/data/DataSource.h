@@ -12,6 +12,8 @@ namespace Crawler
 
         virtual void Read(std::byte* destination, size_t* readBytes, size_t count) = 0;
         virtual void Peek(std::byte* destination, size_t* readBytes, size_t count) = 0;
+
+        virtual size_t Size() = 0;
     };
 
 }

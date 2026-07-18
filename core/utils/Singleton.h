@@ -22,7 +22,7 @@ namespace Crawler
         Singleton(const Singleton &) = delete;
         Singleton(Singleton &&) = delete;
         Singleton &operator=(const Singleton &) = delete;
-        Singleton &operator=(const Singleton &&) = delete;
+        Singleton &operator=(Singleton &&) = delete;
         virtual ~Singleton() = default;
 
     private:

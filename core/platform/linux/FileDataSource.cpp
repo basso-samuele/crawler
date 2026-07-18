@@ -7,7 +7,9 @@ namespace Crawler
 {
 
     FileDataSource::FileDataSource(const std::filesystem::path& path)
-    : p_Path(path), p_FD(-1), p_MappedMemory(nullptr), p_FileSize(0), p_IsMapped(false), p_ReadingPosition(0) { }
+    : p_Path(path), p_FD(-1), p_MappedMemory(nullptr), p_FileSize(0), p_IsMapped(false), p_ReadingPosition(0) {
+        this->MapFileToMemory();
+    }
 
     FileDataSource::~FileDataSource() {
         if (this->p_MappedMemory != nullptr && this->p_MappedMemory != MAP_FAILED) {
@@ -74,6 +76,10 @@ namespace Crawler
 
         std::byte* source = static_cast<std::byte*>(this->p_MappedMemory);
         std::memcpy(destination, source + this->p_ReadingPosition, bytesToRead * sizeof(std::byte));
+    }
+
+    size_t FileDataSource::Size() {
+        return this->p_FileSize;
     }
 
 }
