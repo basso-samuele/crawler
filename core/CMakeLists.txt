@@ -37,6 +37,7 @@ target_sources(core
         data/DataSource.h
         utils/Log.h
         utils/Singleton.h
+        decode/BOM.h
 )
 
 if (LINUX)
