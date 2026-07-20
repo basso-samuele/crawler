@@ -26,26 +26,18 @@ target_compile_features(FileDataSourceTest
         cxx_std_20
 )
 
-add_executable(BOMTest)
-target_sources(BOMTest
+add_executable(EncodingTest)
+target_sources(EncodingTest
     PRIVATE
-        BOMTest.cpp
+        EncodingTest.cpp
 )
-target_link_libraries(BOMTest
+target_link_libraries(EncodingTest
     PRIVATE
         core
 )
-target_compile_features(BOMTest
+target_compile_features(EncodingTest
     PUBLIC
         cxx_std_20
-)
-set(ASSETS_TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/assets)
-target_compile_definitions(BOMTest
-    PRIVATE
-        -DBOM_TEST_INDEX="${ASSETS_TEST_DIR}/index.html"
-        -DBOM_TEST_UTF8="${ASSETS_TEST_DIR}/utf8.html"
-        -DBOM_TEST_UTF16BE="${ASSETS_TEST_DIR}/utf16be.html"
-        -DBOM_TEST_UTF16LE="${ASSETS_TEST_DIR}/utf16le.html"
 )
 
 add_test(
@@ -57,6 +49,6 @@ add_test(
     COMMAND $<TARGET_FILE:FileDataSourceTest>
 )
 add_test(
-    NAME BOMTest
-    COMMAND $<TARGET_FILE:BOMTest>
+    NAME EncodingTest
+    COMMAND $<TARGET_FILE:EncodingTest>
 )

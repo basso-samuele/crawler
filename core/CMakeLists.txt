@@ -30,6 +30,7 @@ target_sources(core
     PRIVATE
         data/Buffer.cpp
         utils/Log.cpp
+        Encoding.cpp
     PUBLIC
     FILE_SET HEADERS
     FILES
@@ -37,7 +38,7 @@ target_sources(core
         data/DataSource.h
         utils/Log.h
         utils/Singleton.h
-        decode/BOM.h
+        Encoding.hpp
 )
 
 if (LINUX)
