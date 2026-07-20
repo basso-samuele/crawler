@@ -28,30 +28,28 @@ target_compile_definitions(core
 
 target_sources(core
     PRIVATE
-        data/Buffer.cpp
-        utils/Log.cpp
+        Log.cpp
+        Buffer.cpp
         Encoding.cpp
     PUBLIC
     FILE_SET HEADERS
     FILES
-        data/Buffer.h
-        data/DataSource.h
-        utils/Log.h
-        utils/Singleton.h
+        Log.hpp
+        Singleton.hpp
+        Buffer.hpp
+        DataSource.hpp
         Encoding.hpp
 )
 
 if (LINUX)
-    add_subdirectory(platform/linux)
-    target_include_directories(core
-        PUBLIC
-            ${CMAKE_CURRENT_SOURCE_DIR}/platform/linux
+    target_sources(core
+        PRIVATE
+            DataSourceLinux.cpp
     )
 elseif (WIN32)
-    add_subdirectory(platform/windows)
-    target_include_directories(core
-        PUBLIC
-            ${CMAKE_CURRENT_SOURCE_DIR}/platform/windows
+    target_sources(core
+        PRIVATE
+            DataSourceWindows.cpp
     )
 else ()
     message(FATAL_ERROR "Unsupported OS")

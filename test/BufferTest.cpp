@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <cassert>
 
-#include "data/Buffer.h"
+#include "Buffer.hpp"
 
 int writeAndPeek() {
     std::byte bytes[5] = { std::byte{1}, std::byte{2}, std::byte{3}, std::byte{4}, std::byte{5} };

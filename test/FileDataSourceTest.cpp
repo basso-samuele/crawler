@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-#include "FileDataSource.h"
+#include "DataSource.hpp"
 
 static std::filesystem::path GenerateUniquePath() {
     std::random_device rd;
@@ -68,40 +68,14 @@ int normalReading() {
 
     File temp(content);
 
-    const std::byte* byteData = reinterpret_cast<const std::byte*>(content.data());
+    const uint8_t* byteData = reinterpret_cast<const uint8_t*>(content.data());
     const size_t size = content.size();
 
     Crawler::FileDataSource fileDataSource(temp.GetPath());
-    std::vector<std::byte> byteDataFromDisk(size);
+    std::vector<uint8_t> byteDataFromDisk(size);
     size_t readBytes;
 
     fileDataSource.Read(byteDataFromDisk.data(), &readBytes, size);
-
-    assert(size == readBytes);
-    assert(std::equal(byteDataFromDisk.data(), byteDataFromDisk.data() + readBytes, byteData, byteData + size));
-
-    return 0;
-}
-
-int normalPeek() {
-    const std::string content =
-        "<html>"
-            "<head></head>"
-            "<body>"
-                "<div><p>Hello, world!</p></div>"
-            "</body>"
-        "</html>";
-
-    File temp(content);
-
-    const std::byte* byteData = reinterpret_cast<const std::byte*>(content.data());
-    const size_t size = content.size();
-
-    Crawler::FileDataSource fileDataSource(temp.GetPath());
-    std::vector<std::byte> byteDataFromDisk(size);
-    size_t readBytes;
-
-    fileDataSource.Peek(byteDataFromDisk.data(), &readBytes, size);
 
     assert(size == readBytes);
     assert(std::equal(byteDataFromDisk.data(), byteDataFromDisk.data() + readBytes, byteData, byteData + size));
@@ -120,19 +94,16 @@ int readNilCount() {
 
     File temp(content);
 
-    const std::byte* byteData = reinterpret_cast<const std::byte*>(content.data());
+    const uint8_t* byteData = reinterpret_cast<const uint8_t*>(content.data());
     const size_t size = content.size();
 
     Crawler::FileDataSource fileDataSource(temp.GetPath());
-    std::vector<std::byte> byteDataFromDisk(size);
+    std::vector<uint8_t> byteDataFromDisk(size);
     size_t readBytes;
 
     const size_t nil = 0;
 
     fileDataSource.Read(byteDataFromDisk.data(), &readBytes, nil);
-    assert(readBytes == nil);
-
-    fileDataSource.Peek(byteDataFromDisk.data(), &readBytes, nil);
     assert(readBytes == nil);
 
     return 0;
@@ -149,11 +120,11 @@ int readWithWrongCount() {
 
     File temp(content);
 
-    const std::byte* byteData = reinterpret_cast<const std::byte*>(content.data());
+    const uint8_t* byteData = reinterpret_cast<const uint8_t*>(content.data());
     const size_t size = content.size();
 
     Crawler::FileDataSource fileDataSource(temp.GetPath());
-    std::vector<std::byte> byteDataFromDisk(size);
+    std::vector<uint8_t> byteDataFromDisk(size);
     size_t readBytes;
 
     fileDataSource.Read(byteDataFromDisk.data(), &readBytes, size * 2);
@@ -172,7 +143,7 @@ int emptyFile() {
     const size_t size = content.size();
 
     Crawler::FileDataSource fileDataSource(temp.GetPath());
-    std::vector<std::byte> byteDataFromDisk(size);
+    std::vector<uint8_t> byteDataFromDisk(size);
     size_t readBytes;
 
     fileDataSource.Read(byteDataFromDisk.data(), &readBytes, 10);
@@ -185,7 +156,6 @@ int emptyFile() {
 int main(int argc, char** argv) {
     int testResult = 0;
     testResult |= normalReading();
-    testResult |= normalPeek();
     testResult |= readNilCount();
     testResult |= readWithWrongCount();
     testResult |= emptyFile();
