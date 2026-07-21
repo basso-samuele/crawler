@@ -96,6 +96,8 @@ enum class GetAttrState
     FINALPROCESS
 };
 
-std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, size_t count, size_t* pos);
+std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, size_t count, size_t* const pos);
+
+Encoding GetAnXMLEncoding(const uint8_t* const data, size_t count, size_t* const pos);
 
 }

@@ -4,8 +4,10 @@
 #include <map>
 #include <string>
 #include <cassert>
+#include <algorithm>
 
 #include "Patterns.hpp"
+#include "EncodingLabels.hpp"
 
 namespace Crawler
 {
@@ -60,7 +62,7 @@ size_t Pattern::Length() const {
     return this->p_ByteSpecs.size();
 }
 
-std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, size_t count, size_t* pos) {
+std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, size_t count, size_t* const pos) {
     GetAttrState state = GetAttrState::START;
     std::string attributeName, attributeValue;
     assert(attributeName.empty());
@@ -162,6 +164,92 @@ std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, si
     }
 
     return { attributeName, attributeValue };
+}
+
+Encoding GetAnXMLEncoding(const uint8_t* const data, size_t count, size_t* const pos) {
+    size_t encodingPosition = *pos;
+    size_t xmlDeclarationEnd = *pos;
+
+    size_t encodingEndPosition;
+
+    uint8_t quoteMark;
+
+    if (!Patterns::XMLOPENTAG.Match(data + encodingPosition, count - encodingPosition)) {
+        return Encoding::UNDEFINED;
+    }
+
+    /* Look for the first 0x3E '>' in the stream. If there is no such byte, return failure. */
+    while ((xmlDeclarationEnd < count) && !Patterns::CLOSETAG.Match(data + xmlDeclarationEnd, count - xmlDeclarationEnd)) {
+        xmlDeclarationEnd++;
+    }
+    if (!Patterns::CLOSETAG.Match(data + xmlDeclarationEnd, count - xmlDeclarationEnd)) {
+        return Encoding::UNDEFINED;
+    }
+
+    /* Look for the 'encoding' subsequence in the declaration. */
+    while ((encodingPosition < xmlDeclarationEnd) && !Patterns::XMLENCODING.Match(data + encodingPosition, count - encodingPosition)) {
+        encodingPosition++;
+    }
+    if (!Patterns::XMLENCODING.Match(data + encodingPosition, count - encodingPosition)) {
+        return Encoding::UNDEFINED;
+    }
+
+    do {
+        encodingPosition++;
+    } while (!Patterns::XMLG.Match(data + encodingPosition, count - encodingPosition));
+    encodingPosition++;
+    assert(encodingPosition < xmlDeclarationEnd);
+
+    while (Patterns::XMLSPACEORCONTROL.Match(data + encodingPosition, count - encodingPosition)) {
+        encodingPosition++;
+    }
+
+    if (!Patterns::GETATTREQ.Match(data + encodingPosition, count - encodingPosition)) {
+        return Encoding::UNDEFINED;
+    }
+    encodingPosition++;
+    /* Here the encodingPosition is just after '='. */
+
+    while (Patterns::XMLSPACEORCONTROL.Match(data + encodingPosition, count - encodingPosition)) {
+        encodingPosition++;
+    }
+
+    quoteMark = data[encodingPosition];
+    /* If I cannot find a quote, then failure. */
+    if (!Patterns::GETATTRQUOTE.Match(&quoteMark, 1)) {
+        return Encoding::UNDEFINED;
+    }
+    encodingPosition++;
+
+    const Pattern quote({
+        { quoteMark, ByteSpecPolicy::MANDATORY }
+    });
+
+    encodingEndPosition = encodingPosition;
+    while ((encodingEndPosition < xmlDeclarationEnd) && !quote.Match(data + encodingEndPosition, count - encodingEndPosition)) {
+        encodingEndPosition++;
+    }
+    if (!quote.Match(data + encodingEndPosition, count - encodingEndPosition)) {
+        return Encoding::UNDEFINED;
+    }
+
+    bool hasSpace = std::any_of(
+        data + encodingPosition,
+        data + encodingEndPosition,
+        [](uint8_t b) { return Patterns::XMLSPACEORCONTROL.Match(&b, 1); }
+    );
+    if (hasSpace) {
+        return Encoding::UNDEFINED;
+    }
+
+    std::string potentialEncoding(reinterpret_cast<const char*>(data + encodingPosition), encodingEndPosition - encodingPosition);
+
+    Encoding enc = EncodingLabelLookup(potentialEncoding);
+    if (enc == Encoding::UTF16BE || enc == Encoding::UTF16LE) {
+        enc = Encoding::UTF8;
+    }
+
+    return enc;
 }
 
 }

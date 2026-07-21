@@ -120,6 +120,33 @@ inline const Pattern GETATTRQUOTE({
     { { 0x22, 0x27 }, M }
 });
 
+inline const Pattern XMLOPENTAG({
+    { 0x3C, M },
+    { 0x3F, M },
+    { 0x78, M },
+    { 0x6D, M },
+    { 0x6C, M }
+});
+
+inline const Pattern XMLENCODING({
+    { 0x65, M },
+    { 0x6E, M },
+    { 0x63, M },
+    { 0x6F, M },
+    { 0x64, M },
+    { 0x69, M },
+    { 0x6E, M },
+    { 0x67, M }
+});
+
+inline const Pattern XMLG({
+    { 0x67, M }
+});
+
+inline const Pattern XMLSPACEORCONTROL({
+    { 0x00, 0x20, M }
+});
+
 }
 
 }

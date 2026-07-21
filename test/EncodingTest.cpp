@@ -95,6 +95,48 @@ int testGenAnAttribute() {
     return ris;
 }
 
+struct EncodingTest
+{
+    std::string input;
+    Crawler::Encoding expectedEncoding;
+};
+
+int runEncodingTest(const EncodingTest& test) {
+    std::vector<uint8_t> data(test.input.begin(), test.input.end());
+    size_t pos = 0;
+
+    Crawler::Encoding actual = Crawler::GetAnXMLEncoding(data.data(), data.size(), &pos);
+
+    assert(actual == test.expectedEncoding);
+
+    return 0;
+}
+
+int testGetAnXMLEncoding() {
+    std::vector<EncodingTest> tests({
+        { "<?xml encoding='UTF8'>", Crawler::Encoding::UTF8 },
+        { "<?xmp", Crawler::Encoding::UNDEFINED },
+        { " <?xml", Crawler::Encoding::UNDEFINED },
+        { "<?xml", Crawler::Encoding::UNDEFINED },
+        { "<?xml >", Crawler::Encoding::UNDEFINED },
+        { "<?xml encoding=>", Crawler::Encoding::UNDEFINED },
+        { "<?xml encoding=", Crawler::Encoding::UNDEFINED },
+        { "<?xml encoding='UT F8'>", Crawler::Encoding::UNDEFINED },
+        { "<?xml encoding    =  'uNicOde20utf8'>", Crawler::Encoding::UTF8 },
+        { "<?xml encoding \t \n \v \f \r =  'non-existent-encoding'>", Crawler::Encoding::UNDEFINED },
+        { "<?xml encoding\t\n= \t \n \v \f \r 'csunIcode'>", Crawler::Encoding::UTF8 },
+        { "<?xml encoding='CP1254' someotherstuff>", Crawler::Encoding::WINDOWS1254 },
+        { "<?xml encoding='big5' encoding='utF8'>", Crawler::Encoding::BIG5 },
+        { "<?xml encoding='bi\tg5'>", Crawler::Encoding::UNDEFINED }
+    });
+
+    int ris = 0;
+    for (const EncodingTest& t : tests) {
+        ris |= runEncodingTest(t);
+    }
+    return ris;
+}
+
 int main(int argc, char** argv) {
     int testResult = 0;
     testResult |= encodingMatchExact();
@@ -103,6 +145,7 @@ int main(int argc, char** argv) {
     testResult |= encodingMatchRange();
 
     testResult |= testGenAnAttribute();
+    testResult |= testGetAnXMLEncoding();
 
     return testResult;
 }
