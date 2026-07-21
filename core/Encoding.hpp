@@ -6,6 +6,9 @@
 #include <utility>
 #include <initializer_list>
 #include <vector>
+#include <map>
+#include <string>
+#include <utility>
 
 namespace Crawler
 {
@@ -73,7 +76,8 @@ private:
 public:
     Pattern(std::initializer_list<ByteSpec> specs);
 
-    bool Match(const std::vector<uint8_t>& data, size_t pos) const;
+    bool Match(const uint8_t* const data, size_t count) const;
+    size_t Length() const;
 };
 
 struct EncodingDetectionResult
@@ -82,6 +86,16 @@ struct EncodingDetectionResult
     Confidence confidence;
 };
 
-EncodingDetectionResult DetectBOMHeader(const std::vector<uint8_t>& data);
+enum class GetAttrState
+{
+    START,
+    PROCESSBYTE,
+    SPACES,
+    VALUE,
+    QUOTELOOP,
+    FINALPROCESS
+};
+
+std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, size_t count, size_t* pos);
 
 }

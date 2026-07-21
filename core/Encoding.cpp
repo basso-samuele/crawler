@@ -1,6 +1,11 @@
 #include "Encoding.hpp"
 
 #include <numeric>
+#include <map>
+#include <string>
+#include <cassert>
+
+#include "Patterns.hpp"
 
 namespace Crawler
 {
@@ -30,50 +35,133 @@ const std::set<uint8_t>& ByteSpec::GetSet() const {
 Pattern::Pattern(std::initializer_list<ByteSpec> specs)
 : p_ByteSpecs(specs) { }
 
-bool Pattern::Match(const std::vector<uint8_t>& data, size_t pos) const {
+bool Pattern::Match(const uint8_t* const data, size_t count) const {
+    size_t pos = 0;
+
     for (const ByteSpec& spec : this->p_ByteSpecs) {
-        bool byteMatchSuccess =
-            (spec.GetPolicy() == ByteSpecPolicy::OPTIONAL) ||
-            (spec.GetSet().find(data[pos]) != spec.GetSet().end());
-        if (!byteMatchSuccess) {
+        bool isByteMandatory = spec.GetPolicy() == ByteSpecPolicy::MANDATORY;
+
+        if (!(pos < count)) {
             return false;
         }
-        pos++;
+        bool byteMatchSuccess = spec.GetSet().find(data[pos]) != spec.GetSet().end();
+
+        if (byteMatchSuccess) {
+            pos++;
+        } else if (isByteMandatory) {
+            return false;
+        }
     }
 
     return true;
 }
 
-EncodingDetectionResult DetectBOMHeader(const std::vector<uint8_t>& data) {
-    const Pattern UTF16BE_PAT({
-        { 0xFE, ByteSpecPolicy::MANDATORY },
-        { 0xFF, ByteSpecPolicy::MANDATORY }
-    });
+size_t Pattern::Length() const {
+    return this->p_ByteSpecs.size();
+}
 
-    if (UTF16BE_PAT.Match(data, 0)) {
-        return { Encoding::UTF16BE, Confidence::CERTAIN };
+std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, size_t count, size_t* pos) {
+    GetAttrState state = GetAttrState::START;
+    std::string attributeName, attributeValue;
+    assert(attributeName.empty());
+    assert(attributeValue.empty());
+
+    uint8_t quoteLoopB;
+
+    while((*pos) < count) {
+        switch (state) {
+
+        case GetAttrState::START:
+            if (Patterns::GETATTRSKIP.Match(data + *pos, count - *pos)) {
+                (*pos)++;
+            } else if (Patterns::CLOSETAG.Match(data + *pos, count - *pos)) {
+                return { "", "" };
+            } else {
+                state = GetAttrState::PROCESSBYTE;
+            }
+            break;
+
+        case GetAttrState::PROCESSBYTE:
+            if (Patterns::GETATTREQ.Match(data + *pos, count - *pos) && !attributeName.empty()) {
+                (*pos)++;
+                state = GetAttrState::VALUE;
+            } else if (Patterns::GETATTRIFSPACES.Match(data + *pos, count - *pos)) {
+                state = GetAttrState::SPACES;
+            } else if (Patterns::GETATTRBYTEABORT.Match(data + *pos, count - *pos)) {
+                assert(attributeValue.empty());
+                return { attributeName, attributeValue };
+            } else if (Patterns::GETATTRMAIUSCLETTERS.Match(data + *pos, count - *pos)) {
+                attributeName += static_cast<char>(data[*pos]+0x20);
+                (*pos)++;
+            } else {
+                attributeName += static_cast<char>(data[*pos]);
+                (*pos)++;
+            }
+            break;
+
+        case GetAttrState::SPACES:
+            if (Patterns::GETATTRIFSPACES.Match(data + *pos, count - *pos)) {
+                (*pos)++;
+            } else if (!Patterns::GETATTREQ.Match(data + *pos, count - *pos)) {
+                assert(attributeValue.empty());
+                return { attributeName, attributeValue };
+            } else {
+                (*pos)++;
+                state = GetAttrState::VALUE;
+            }
+            break;
+
+        case GetAttrState::VALUE:
+            if (Patterns::GETATTRIFSPACES.Match(data + *pos, count - *pos)) {
+                (*pos)++;
+            } else if (Patterns::GETATTRQUOTE.Match(data + *pos, count - *pos)) {
+                quoteLoopB = data[*pos];
+                state = GetAttrState::QUOTELOOP;
+            } else if (Patterns::CLOSETAG.Match(data + *pos, count - *pos)) {
+                assert(attributeValue.empty());
+                return { attributeName, attributeValue };
+            } else if (Patterns::GETATTRMAIUSCLETTERS.Match(data + *pos, count - *pos)) {
+                attributeValue += static_cast<char>(data[*pos]+0x20);
+                (*pos)++;
+                state = GetAttrState::FINALPROCESS;
+            } else {
+                attributeValue += static_cast<char>(data[*pos]);
+                (*pos)++;
+                state = GetAttrState::FINALPROCESS;
+            }
+            break;
+
+        case GetAttrState::QUOTELOOP:
+            (*pos)++;
+            if ((*pos) < count) {
+                if (data[*pos] == quoteLoopB) {
+                    (*pos)++;
+                    return { attributeName, attributeValue };
+                } else if (Patterns::GETATTRMAIUSCLETTERS.Match(data + *pos, count - *pos)) {
+                    attributeValue += static_cast<char>(data[*pos]+0x20);
+                } else {
+                    attributeValue += static_cast<char>(data[*pos]);
+                }
+            }
+            break;
+
+        case GetAttrState::FINALPROCESS:
+            if (Patterns::SKIPSEQUENCE.Match(data + *pos, count - *pos)) {
+                return { attributeName, attributeValue };
+            } else if (Patterns::GETATTRMAIUSCLETTERS.Match(data + *pos, count - *pos)) {
+                attributeValue += static_cast<char>(data[*pos]+0x20);
+            } else {
+                attributeValue += static_cast<char>(data[*pos]);
+            }
+            (*pos)++;
+            break;
+
+        default:
+            break;
+        }
     }
 
-    const Pattern UTF16LE_PAT({
-        { 0xFF, ByteSpecPolicy::MANDATORY },
-        { 0xFE, ByteSpecPolicy::MANDATORY }
-    });
-
-    if (UTF16LE_PAT.Match(data, 0)) {
-        return { Encoding::UTF16LE, Confidence::CERTAIN };
-    }
-
-    const Pattern UTF8_PAT({
-        { 0xEF, ByteSpecPolicy::MANDATORY },
-        { 0xBB, ByteSpecPolicy::MANDATORY },
-        { 0xBF, ByteSpecPolicy::MANDATORY }
-    });
-
-    if (UTF8_PAT.Match(data, 0)) {
-        return { Encoding::UTF8, Confidence::CERTAIN };
-    }
-
-    return { Encoding::UNDEFINED, Confidence::UNDEFINED };
+    return { attributeName, attributeValue };
 }
 
 }
