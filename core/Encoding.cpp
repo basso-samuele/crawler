@@ -1,10 +1,11 @@
 #include "Encoding.hpp"
 
 #include <numeric>
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <cassert>
 #include <algorithm>
+#include <string>
 
 #include "Patterns.hpp"
 #include "EncodingLabels.hpp"
@@ -250,6 +251,167 @@ Encoding GetAnXMLEncoding(const uint8_t* const data, size_t count, size_t* const
     }
 
     return enc;
+}
+
+Encoding ExtractEncodingFromMetaElement(const std::string& value) {
+    size_t len = value.length();
+    size_t pos = 0;
+
+    while (true) {
+        std::string sLower = value;
+        std::transform(sLower.begin(), sLower.end(), sLower.begin(), ::tolower);
+
+        const std::string cset("charset");
+        size_t charsetPos = sLower.find(cset, pos);
+        if (charsetPos == std::string::npos) {
+            return Encoding::UNDEFINED;
+        }
+
+        // move past "charset"
+        pos = charsetPos + cset.length();
+
+        while (pos < value.length() && (value[pos] == ' ' || value[pos] == '\t' || 
+            value[pos] == '\n' || value[pos] == '\r' || value[pos] == '\f')) {
+            pos++;
+        }
+
+        if ((pos < value.length()) && value[pos] != '=') {
+            continue;
+        }
+
+        pos++;
+
+        while (pos < value.length() && (value[pos] == ' ' || value[pos] == '\t' || 
+               value[pos] == '\n' || value[pos] == '\r' || value[pos] == '\f')) {
+            pos++;
+        }
+        
+        if (pos >= value.length()) {
+            return Encoding::UNDEFINED;
+        }
+
+        if (value[pos] == '"') {
+            size_t endQuote = value.find('"', pos + 1);
+            if (endQuote != std::string::npos) {
+                std::string encodingString = value.substr(pos + 1, endQuote - pos - 1);
+                return EncodingLabelLookup(encodingString);
+            } else {
+                return Encoding::UNDEFINED;
+            }
+        } else if (value[pos] == '\'') {
+            size_t endQuote = value.find('\'', pos + 1);
+            if (endQuote != std::string::npos) {
+                std::string encodingStr = value.substr(pos + 1, endQuote - pos - 1);
+                return EncodingLabelLookup(encodingStr);
+            } else {
+                return Encoding::UNDEFINED;
+            }
+        } else {
+            size_t endPos = pos;
+            while (endPos < value.length() && value[endPos] != ' ' && value[endPos] != '\t' && 
+                   value[endPos] != '\n' && value[endPos] != '\r' && value[endPos] != '\f' && 
+                   value[endPos] != ';') {
+                endPos++;
+            }
+            
+            std::string encodingString = value.substr(pos, endPos - pos);
+            return EncodingLabelLookup(encodingString);
+        }
+    }
+}
+
+Encoding Prescan(const uint8_t* const data, size_t count, size_t* const pos) {
+    size_t originalPos = *pos;
+
+    if (Patterns::UTF16LEXML.Match(data + *pos, count - *pos)) {
+        return Encoding::UTF16LE;
+    }
+    if (Patterns::UTF16BEXML.Match(data + *pos, count - *pos)) {
+        return Encoding::UTF16BE;
+    }
+
+    while ((*pos) < count) {
+        if (Patterns::OPENCOMMENT.Match(data + *pos, count - *pos)) {
+            while (((*pos) < count) && !Patterns::CLOSECOMMENT.Match(data + *pos, count - *pos)) {
+                (*pos)++;
+            }
+        } else if (Patterns::OPENMETA.Match(data + *pos, count - *pos)) {
+            while (((*pos) < count) && !Patterns::GETATTRSKIP.Match(data + *pos, count - *pos)) {
+                (*pos)++;
+            }
+
+            // Steps 2 to 5
+            std::unordered_map<std::string, std::string> attributes;
+            bool gotPragma = false;
+
+            bool needPragmaValue = false;
+            bool* needPragma = nullptr;
+
+            Encoding charsetValue = Encoding::UNDEFINED;
+            Encoding* charset = nullptr;
+
+            if (!((*pos) < count)) continue;
+            std::pair<std::string, std::string> attVal = GetAnAttribute(data, count, pos);
+            while (!attVal.first.empty()) {
+                if (attributes.find(attVal.first) == attributes.end()) {
+                    attributes.insert({ attVal.first, attVal.second });
+
+                    if (attVal.first.compare("http-equiv")) {
+                        gotPragma = attVal.second.compare("content-type");
+                    } else if (attVal.first.compare("content")) {
+                        if (charset == nullptr) {
+                            Encoding enc = ExtractEncodingFromMetaElement(attVal.second);
+                            if (enc != Encoding::UNDEFINED) {
+                                charsetValue = enc;
+                                charset = &charsetValue;
+
+                                needPragmaValue = true;
+                                needPragma = &needPragmaValue;
+                            }
+                        }
+                    } else if (attVal.first.compare("charset")) {
+                        charsetValue = EncodingLabelLookup(attVal.second);
+                        charset = &charsetValue;
+                        needPragmaValue = false;
+                        needPragma = &needPragmaValue;
+                    }
+                }
+                attVal = GetAnAttribute(data, count, pos);
+            }
+
+            if (needPragma != nullptr) {
+                if (!(needPragma && !gotPragma)) {
+                    assert(charset != nullptr);
+                    if (*charset != Encoding::UNDEFINED) {
+                        if (*charset == Encoding::UTF16BE || *charset == Encoding::UTF16LE) {
+                            charsetValue = Encoding::UTF8;
+                        } else if (*charset == Encoding::XUSERDEFINED) {
+                            charsetValue = Encoding::WINDOWS1252;
+                        }
+
+                        return charsetValue;
+                    }
+                }
+            }
+        } else if (Patterns::THREEC.Match(data + *pos, count - *pos)) {
+            while (((*pos) < count) && !Patterns::SKIPSEQUENCE.Match(data + *pos, count - *pos)) {
+                (*pos)++;
+            }
+            while ((*pos) < count) {
+                std::string first = GetAnAttribute(data, count, pos).first;
+                if (first.empty()) break;
+            }
+        } else if (Patterns::ESQ.Match(data + *pos, count - *pos)) {
+            while (((*pos) < count) && !Patterns::CLOSETAG.Match(data + *pos, count - *pos)) {
+                (*pos)++;
+            }
+        }
+
+        (*pos)++;
+    }
+
+    *pos = originalPos;
+    return GetAnXMLEncoding(data, count, pos);
 }
 
 }
