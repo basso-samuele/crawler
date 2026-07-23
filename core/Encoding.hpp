@@ -100,6 +100,8 @@ std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, si
 
 Encoding GetAnXMLEncoding(const uint8_t* const data, size_t count, size_t* const pos);
 
+Encoding ExtractEncodingFromMetaElement(const std::string& value);
+
 Encoding Prescan(const uint8_t* const data, size_t count, size_t* const pos);
 
 }

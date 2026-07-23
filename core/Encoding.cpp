@@ -356,9 +356,9 @@ Encoding Prescan(const uint8_t* const data, size_t count, size_t* const pos) {
                 if (attributes.find(attVal.first) == attributes.end()) {
                     attributes.insert({ attVal.first, attVal.second });
 
-                    if (attVal.first.compare("http-equiv")) {
-                        gotPragma = attVal.second.compare("content-type");
-                    } else if (attVal.first.compare("content")) {
+                    if (!attVal.first.compare("http-equiv")) {
+                        gotPragma = !attVal.second.compare("content-type");
+                    } else if (!attVal.first.compare("content")) {
                         if (charset == nullptr) {
                             Encoding enc = ExtractEncodingFromMetaElement(attVal.second);
                             if (enc != Encoding::UNDEFINED) {
@@ -369,7 +369,7 @@ Encoding Prescan(const uint8_t* const data, size_t count, size_t* const pos) {
                                 needPragma = &needPragmaValue;
                             }
                         }
-                    } else if (attVal.first.compare("charset")) {
+                    } else if (!attVal.first.compare("charset")) {
                         charsetValue = EncodingLabelLookup(attVal.second);
                         charset = &charsetValue;
                         needPragmaValue = false;
@@ -380,7 +380,7 @@ Encoding Prescan(const uint8_t* const data, size_t count, size_t* const pos) {
             }
 
             if (needPragma != nullptr) {
-                if (!(needPragma && !gotPragma)) {
+                if (!(*needPragma && !gotPragma)) {
                     assert(charset != nullptr);
                     if (*charset != Encoding::UNDEFINED) {
                         if (*charset == Encoding::UTF16BE || *charset == Encoding::UTF16LE) {
