@@ -11,8 +11,7 @@
 namespace Crawler
 {
 
-Log::Log()
-{
+Log::Log() {
     std::vector<spdlog::sink_ptr> sinks;
     sinks.push_back(std::make_shared<spdlog::sinks::basic_file_sink_mt>(
         std::format("{}{:%Y%m%d-%H%M%S}", LOG_DIR, std::chrono::system_clock::now())));
@@ -24,13 +23,11 @@ Log::Log()
     this->p_Logger->flush_on(spdlog::level::trace);
 }
 
-Log::~Log()
-{
+Log::~Log() {
     spdlog::shutdown();
 }
 
-std::shared_ptr<spdlog::logger> Log::Core()
-{
+std::shared_ptr<spdlog::logger> Log::Logger() {
     return this->p_Logger;
 }
 

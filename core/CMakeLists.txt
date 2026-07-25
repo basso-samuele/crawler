@@ -28,29 +28,18 @@ target_compile_definitions(core
 
 target_sources(core
     PRIVATE
-        Log.cpp
-        Buffer.cpp
-        Encoding.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Encoding.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/FileInputStream.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/InputStream.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Log.cpp
     PUBLIC
     FILE_SET HEADERS
     FILES
-        Log.hpp
-        Singleton.hpp
-        Buffer.hpp
-        DataSource.hpp
-        Encoding.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Encoding.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/EncodingLabels.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/FileInputStream.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/InputStream.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Log.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Patterns.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Singleton.hpp
 )
-
-if (LINUX)
-    target_sources(core
-        PRIVATE
-            DataSourceLinux.cpp
-    )
-elseif (WIN32)
-    target_sources(core
-        PRIVATE
-            DataSourceWindows.cpp
-    )
-else ()
-    message(FATAL_ERROR "Unsupported OS")
-endif ()

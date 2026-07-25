@@ -6,13 +6,10 @@ namespace Crawler
 template <typename Derived> class Singleton
 {
 public:
-    static Derived &GetInstance() noexcept(std::is_nothrow_default_constructible<Derived>::value)
-    {
+    static Derived &GetInstance() noexcept(std::is_nothrow_default_constructible<Derived>::value) {
         struct TInstantiable final : Derived
         {
-            void TClassNotInstantiable() const noexcept override
-            {
-            }
+            void TClassNotInstantiable() const noexcept override { }
         } static instance;
         return instance;
     }

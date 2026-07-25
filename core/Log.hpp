@@ -17,31 +17,31 @@ public:
     Log();
     ~Log() override;
 
-    std::shared_ptr<spdlog::logger> Core();
+    std::shared_ptr<spdlog::logger> Logger();
 };
 
 }
 
 #ifdef DEBUG
 
-#define CORE_TRACE(...) Crawler::Log::GetInstance().Core()->trace(__VA_ARGS__)
-#define CORE_DEBUG(...) Crawler::Log::GetInstance().Core()->debug(__VA_ARGS__)
-#define CORE_INFO(...) Crawler::Log::GetInstance().Core()->info(__VA_ARGS__)
-#define CORE_WARN(...) Crawler::Log::GetInstance().Core()->warn(__VA_ARGS__)
-#define CORE_ERROR(...) Crawler::Log::GetInstance().Core()->error(__VA_ARGS__)
-#define CORE_CRITICAL(...) Crawler::Log::GetInstance().Core()->critical(__VA_ARGS__)
+#define TRACE(...) Crawler::Log::GetInstance().Logger()->trace(__VA_ARGS__)
+#define DEBUG(...) Crawler::Log::GetInstance().Logger()->debug(__VA_ARGS__)
+#define INFO(...) Crawler::Log::GetInstance().Logger()->info(__VA_ARGS__)
+#define WARN(...) Crawler::Log::GetInstance().Logger()->warn(__VA_ARGS__)
+#define ERROR(...) Crawler::Log::GetInstance().Logger()->error(__VA_ARGS__)
+#define CRITICAL(...) Crawler::Log::GetInstance().Logger()->critical(__VA_ARGS__)
 
-#define CORE_ASSERT(condition, message) assert(condition &&message)
+#define ASSERT(condition, message) assert(condition &&message)
 
 #else
 
-#define CORE_TRACE(...)
-#define CORE_DEBUG(...)
-#define CORE_INFO(...)
-#define CORE_WARN(...)
-#define CORE_ERROR(...)
-#define CORE_CRITICAL(...)
+#define TRACE(...)
+#define DEBUG(...)
+#define INFO(...)
+#define WARN(...)
+#define ERROR(...)
+#define CRITICAL(...)
 
-#define CORE_ASSERT(condition, message)
+#define ASSERT(condition, message)
 
 #endif
