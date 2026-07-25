@@ -22,8 +22,7 @@ target_compile_features(core
 
 target_compile_definitions(core
     PUBLIC
-        $<$<CONFIG:Debug>:DEBUG>
-        -DLOG_DIR="${CMAKE_CURRENT_BINARY_DIR}/log/"
+        -DCRAWLERLOGDIR="${CMAKE_CURRENT_BINARY_DIR}/log/"
 )
 
 target_sources(core
@@ -31,7 +30,7 @@ target_sources(core
         ${CMAKE_CURRENT_SOURCE_DIR}/Encoding.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/FileInputStream.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/InputStream.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Log.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/vendor/spdlog/SPDLog.cpp
     PUBLIC
     FILE_SET HEADERS
     FILES
@@ -42,4 +41,5 @@ target_sources(core
         ${CMAKE_CURRENT_SOURCE_DIR}/Log.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Patterns.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Singleton.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/ServiceLocator.hpp
 )
