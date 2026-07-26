@@ -13,32 +13,18 @@
 namespace Crawler
 {
 
-ByteSpec::ByteSpec(uint8_t exact, ByteSpecPolicy policy)
-: p_Policy(policy), p_Set({ exact }) { }
-
-ByteSpec::ByteSpec(std::initializer_list<uint8_t> set, ByteSpecPolicy policy)
-: p_Policy(policy), p_Set(set) { }
-
-ByteSpec::ByteSpec(uint8_t b1, uint8_t b2, ByteSpecPolicy policy)
-: p_Policy(policy),
-  p_Set([&]{
-    std::vector<uint8_t> v(b2 - b1 + 1);
-    std::iota(v.begin(), v.end(), b1);
-    return std::set<uint8_t>(v.begin(), v.end());
-  }()) { }
-
 ByteSpecPolicy ByteSpec::GetPolicy() const {
     return this->p_Policy;
 }
 
-const std::set<uint8_t>& ByteSpec::GetSet() const {
+const std::set<std::byte>& ByteSpec::GetSet() const {
     return this->p_Set;
 }
 
 Pattern::Pattern(std::initializer_list<ByteSpec> specs)
 : p_ByteSpecs(specs) { }
 
-bool Pattern::Match(const uint8_t* const data, size_t count) const {
+bool Pattern::Match(const std::byte* const data, size_t count) const {
     size_t pos = 0;
 
     for (const ByteSpec& spec : this->p_ByteSpecs) {
@@ -63,13 +49,13 @@ size_t Pattern::Length() const {
     return this->p_ByteSpecs.size();
 }
 
-std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, size_t count, size_t* const pos) {
+std::pair<std::string, std::string> GetAnAttribute(const std::byte* const data, size_t count, size_t* const pos) {
     GetAttrState state = GetAttrState::START;
     std::string attributeName, attributeValue;
     assert(attributeName.empty());
     assert(attributeValue.empty());
 
-    uint8_t quoteLoopB;
+    std::byte quoteLoopB;
 
     while((*pos) < count) {
         switch (state) {
@@ -94,7 +80,8 @@ std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, si
                 assert(attributeValue.empty());
                 return { attributeName, attributeValue };
             } else if (Patterns::GETATTRMAIUSCLETTERS.Match(data + *pos, count - *pos)) {
-                attributeName += static_cast<char>(data[*pos]+0x20);
+                char c = static_cast<char>(data[*pos]);
+                attributeName += (c + 0x20);
                 (*pos)++;
             } else {
                 attributeName += static_cast<char>(data[*pos]);
@@ -124,7 +111,8 @@ std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, si
                 assert(attributeValue.empty());
                 return { attributeName, attributeValue };
             } else if (Patterns::GETATTRMAIUSCLETTERS.Match(data + *pos, count - *pos)) {
-                attributeValue += static_cast<char>(data[*pos]+0x20);
+                char c = static_cast<char>(data[*pos]);
+                attributeValue += (c + 0x20);
                 (*pos)++;
                 state = GetAttrState::FINALPROCESS;
             } else {
@@ -141,7 +129,8 @@ std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, si
                     (*pos)++;
                     return { attributeName, attributeValue };
                 } else if (Patterns::GETATTRMAIUSCLETTERS.Match(data + *pos, count - *pos)) {
-                    attributeValue += static_cast<char>(data[*pos]+0x20);
+                    char c = static_cast<char>(data[*pos]);
+                    attributeValue += (c + 0x20);
                 } else {
                     attributeValue += static_cast<char>(data[*pos]);
                 }
@@ -152,7 +141,8 @@ std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, si
             if (Patterns::SKIPSEQUENCE.Match(data + *pos, count - *pos)) {
                 return { attributeName, attributeValue };
             } else if (Patterns::GETATTRMAIUSCLETTERS.Match(data + *pos, count - *pos)) {
-                attributeValue += static_cast<char>(data[*pos]+0x20);
+                char c = static_cast<char>(data[*pos]);
+                attributeValue += (c + 0x20);
             } else {
                 attributeValue += static_cast<char>(data[*pos]);
             }
@@ -167,13 +157,13 @@ std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, si
     return { attributeName, attributeValue };
 }
 
-Encoding GetAnXMLEncoding(const uint8_t* const data, size_t count, size_t* const pos) {
+Encoding GetAnXMLEncoding(const std::byte* const data, size_t count, size_t* const pos) {
     size_t encodingPosition = *pos;
     size_t xmlDeclarationEnd = *pos;
 
     size_t encodingEndPosition;
 
-    uint8_t quoteMark;
+    std::byte quoteMark;
 
     if (!Patterns::XMLOPENTAG.Match(data + encodingPosition, count - encodingPosition)) {
         return Encoding::UNDEFINED;
@@ -223,7 +213,7 @@ Encoding GetAnXMLEncoding(const uint8_t* const data, size_t count, size_t* const
     encodingPosition++;
 
     const Pattern quote({
-        { quoteMark, ByteSpecPolicy::MANDATORY }
+        { ByteSpecPolicy::MANDATORY, quoteMark }
     });
 
     encodingEndPosition = encodingPosition;
@@ -237,7 +227,7 @@ Encoding GetAnXMLEncoding(const uint8_t* const data, size_t count, size_t* const
     bool hasSpace = std::any_of(
         data + encodingPosition,
         data + encodingEndPosition,
-        [](uint8_t b) { return Patterns::XMLSPACEORCONTROL.Match(&b, 1); }
+        [](std::byte b) { return Patterns::XMLSPACEORCONTROL.Match(&b, 1); }
     );
     if (hasSpace) {
         return Encoding::UNDEFINED;
@@ -320,7 +310,7 @@ Encoding ExtractEncodingFromMetaElement(const std::string& value) {
     }
 }
 
-Encoding Prescan(const uint8_t* const data, size_t count, size_t* const pos) {
+Encoding Prescan(const std::byte* const data, size_t count, size_t* const pos) {
     size_t originalPos = *pos;
 
     if (Patterns::UTF16LEXML.Match(data + *pos, count - *pos)) {

@@ -57,15 +57,22 @@ class ByteSpec
 {
 private:
     const ByteSpecPolicy p_Policy;
-    std::set<uint8_t> p_Set;
+    std::set<std::byte> p_Set;
 
 public:
-    ByteSpec(uint8_t exact, ByteSpecPolicy policy);
-    ByteSpec(std::initializer_list<uint8_t> set, ByteSpecPolicy policy);
-    ByteSpec(uint8_t b1, uint8_t b2, ByteSpecPolicy policy);
+    template<std::integral T>
+    ByteSpec(ByteSpecPolicy policy, T exact)
+    : p_Policy(policy), p_Set({ static_cast<std::byte>(exact) }) { }
+
+    ByteSpec(ByteSpecPolicy policy, std::byte exact)
+    : p_Policy(policy), p_Set({ exact }) { }
+
+    template<std::integral... Ts>
+    ByteSpec(ByteSpecPolicy policy, Ts... set)
+    : p_Policy(policy), p_Set({ static_cast<std::byte>(set)... }) { }
 
     ByteSpecPolicy GetPolicy() const;
-    const std::set<uint8_t>& GetSet() const;
+    const std::set<std::byte>& GetSet() const;
 };
 
 class Pattern
@@ -76,7 +83,7 @@ private:
 public:
     Pattern(std::initializer_list<ByteSpec> specs);
 
-    bool Match(const uint8_t* const data, size_t count) const;
+    bool Match(const std::byte* const data, size_t count) const;
     size_t Length() const;
 };
 
@@ -96,12 +103,12 @@ enum class GetAttrState
     FINALPROCESS
 };
 
-std::pair<std::string, std::string> GetAnAttribute(const uint8_t* const data, size_t count, size_t* const pos);
+std::pair<std::string, std::string> GetAnAttribute(const std::byte* const data, size_t count, size_t* const pos);
 
-Encoding GetAnXMLEncoding(const uint8_t* const data, size_t count, size_t* const pos);
+Encoding GetAnXMLEncoding(const std::byte* const data, size_t count, size_t* const pos);
 
 Encoding ExtractEncodingFromMetaElement(const std::string& value);
 
-Encoding Prescan(const uint8_t* const data, size_t count, size_t* const pos);
+Encoding Prescan(const std::byte* const data, size_t count, size_t* const pos);
 
 }

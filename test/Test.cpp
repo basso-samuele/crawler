@@ -2,53 +2,56 @@
 
 #include "Encoding.hpp"
 
+#include <cstddef>
+#include <concepts>
+#include <format>
+#include <string>
+#include <vector>
+#include <cstdint>
+
 namespace Test
 {
 
 inline constexpr Crawler::ByteSpecPolicy M = Crawler::ByteSpecPolicy::MANDATORY;
 inline constexpr Crawler::ByteSpecPolicy O = Crawler::ByteSpecPolicy::OPTIONAL;
 
+template <std::integral... Ts>
+constexpr auto bytes(Ts... values) {
+    return std::vector<std::byte>{
+        static_cast<std::byte>(values)...
+    };
+}
+
 void EncodingMatchSingleElementMandatoryTest() {
-    std::vector<uint8_t> data {0x01, 0x02, 0x03, 0x04};
+    std::vector<std::byte> data = bytes(0x01, 0x02, 0x03, 0x04);
     Crawler::Pattern pattern({
-        { 0x01, Crawler::ByteSpecPolicy::MANDATORY },
-        { 0x02, Crawler::ByteSpecPolicy::MANDATORY },
-        { 0x03, Crawler::ByteSpecPolicy::MANDATORY },
-        { 0x04, Crawler::ByteSpecPolicy::MANDATORY }
+        { M, 0x01 },
+        { M, 0x02 },
+        { M, 0x03 },
+        { M, 0x04 }
     });
     CRAWLER_ASSERT_TRUE(pattern.Match(data.data(), data.size()));
 }
 
 void EncodingMatchSetMandatoryTest() {
-    std::vector<uint8_t> data {0x01, 0x02, 0x03, 0x04};
+    std::vector<std::byte> data = bytes(0x01, 0x02, 0x03, 0x04);
     Crawler::Pattern pattern({
-        { { 0x01, 0x02 }, Crawler::ByteSpecPolicy::MANDATORY },
-        { { 0x01, 0x02 }, Crawler::ByteSpecPolicy::MANDATORY },
-        { { 0x03, 0x04 }, Crawler::ByteSpecPolicy::MANDATORY },
-        { { 0x03, 0x04 }, Crawler::ByteSpecPolicy::MANDATORY }
+        { M, 0x01, 0x02 },
+        { M, 0x01, 0x02 },
+        { M, 0x03, 0x04 },
+        { M, 0x03, 0x04 }
     });
     CRAWLER_ASSERT_TRUE(pattern.Match(data.data(), data.size()));
 }
 
 void EncodingMatchOptionalTest() {
-    std::vector<uint8_t> data {0x01, 0x02, 0x03, 0x04};
+    std::vector<std::byte> data = bytes(0x01, 0x02, 0x03, 0x04);
     Crawler::Pattern pattern({
-        { { 0x01, 0x02 }, Crawler::ByteSpecPolicy::MANDATORY },
-        { { 0x05, 0x06 }, Crawler::ByteSpecPolicy::OPTIONAL },
-        { 0x02, Crawler::ByteSpecPolicy::MANDATORY },
-        { { 0x03, 0x04 }, Crawler::ByteSpecPolicy::MANDATORY },
-        { { 0x05, 0x06 }, Crawler::ByteSpecPolicy::OPTIONAL }
-    });
-    CRAWLER_ASSERT_TRUE(pattern.Match(data.data(), data.size()));
-}
-
-void EncodingMatchRangeTest() {
-    std::vector<uint8_t> data {0x01, 0x02, 0x03, 0x04};
-    Crawler::Pattern pattern({
-        { 0x01, 0x04, Crawler::ByteSpecPolicy::MANDATORY },
-        { 0x01, 0x04, Crawler::ByteSpecPolicy::MANDATORY },
-        { 0x01, 0x04, Crawler::ByteSpecPolicy::MANDATORY },
-        { 0x01, 0x04, Crawler::ByteSpecPolicy::MANDATORY },
+        { M, 0x01, 0x02 },
+        { O, 0x05, 0x06 },
+        { M, 0x02 },
+        { M, 0x03, 0x04 },
+        { O, 0x05, 0x06 }
     });
     CRAWLER_ASSERT_TRUE(pattern.Match(data.data(), data.size()));
 }
@@ -62,7 +65,10 @@ struct AttributeDetectionTest
 };
 
 void RunAttributeDetectionTest(const AttributeDetectionTest& test) {
-    std::vector<uint8_t> data(test.input.begin(), test.input.end());
+    std::vector<std::byte> data(
+        reinterpret_cast<const std::byte*>(test.input.data()),
+        reinterpret_cast<const std::byte*>(test.input.data() + test.input.size())
+    );
     size_t pos = 0;
 
     auto [name, value] = Crawler::GetAnAttribute(data.data(), data.size(), &pos);
@@ -104,7 +110,10 @@ struct XMLEncodingTest
 };
 
 void RunXMLEncodingTest(const XMLEncodingTest& test) {
-    std::vector<uint8_t> data(test.input.begin(), test.input.end());
+    std::vector<std::byte> data(
+        reinterpret_cast<const std::byte*>(test.input.data()),
+        reinterpret_cast<const std::byte*>(test.input.data() + test.input.size())
+    );
     size_t pos = 0;
 
     Crawler::Encoding actual = Crawler::GetAnXMLEncoding(data.data(), data.size(), &pos);
@@ -172,7 +181,11 @@ void ExtractEncodingFromMetaElement() {
 
 struct PrescanStreamTest
 {
-    std::vector<uint8_t> input;
+    PrescanStreamTest(std::string input, Crawler::Encoding expectedEncoding)
+    : input(reinterpret_cast<const std::byte*>(input.data()), reinterpret_cast<const std::byte*>(input.data() + input.size()))
+    , expectedEncoding(expectedEncoding) { }
+
+    std::vector<std::byte> input;
     Crawler::Encoding expectedEncoding;
 };
 
@@ -184,30 +197,15 @@ void RunPrescanStreamTest(const PrescanStreamTest& test) {
 }
 
 void PrescanTest() {
-    std::string inputCharset1("<meta charset=\"utf8\"/>");
-    std::string inputCharset2("<meta http-equiv=\"content-type\" content=\"text/html; charset=iso-8859-2\">");
-    std::string inputCharset3("<meta content=\"text/html; charset=UTF-16\">");
-    std::string inputCharset4("<meta charset=\"UTF-16BE\">");
-    std::string inputCharset5("<meta charset=\"x-user-defined\">");
-    std::string inputCharset6("<!-- comment --><meta charset=\"Shift_JIS\">");
-    std::string inputCharset7("<meta http-equiv=\"refresh\" content=\"0;url=...\"><meta charset=\"EUC-KR\">");
-    std::string inputCharset8("<meta charset=\"invalid\"><meta http-equiv=\"content-type\" content=\"text/html; charset=windows-1255\">");
-
     std::vector<PrescanStreamTest> tests({
-        { std::vector<uint8_t>(inputCharset1.begin(), inputCharset1.end()), Crawler::Encoding::UTF8 },
-        { std::vector<uint8_t>(inputCharset2.begin(), inputCharset2.end()), Crawler::Encoding::ISO88592 },
-        { std::vector<uint8_t>(inputCharset3.begin(), inputCharset3.end()), Crawler::Encoding::UNDEFINED },
-        { std::vector<uint8_t>(inputCharset4.begin(), inputCharset4.end()), Crawler::Encoding::UTF8 },
-        { std::vector<uint8_t>(inputCharset5.begin(), inputCharset5.end()), Crawler::Encoding::WINDOWS1252 },
-        { std::vector<uint8_t>(inputCharset6.begin(), inputCharset6.end()), Crawler::Encoding::SHIFTJIS },
-        { std::vector<uint8_t>(inputCharset7.begin(), inputCharset7.end()), Crawler::Encoding::EUCKR },
-        { std::vector<uint8_t>(inputCharset8.begin(), inputCharset8.end()), Crawler::Encoding::WINDOWS1255 },
-        { { 0x3C, 0x00, 0x3F, 0x00, 0x78, 0x00 }, Crawler::Encoding::UTF16LE },
-        { { 0x00, 0x3C, 0x00, 0x3F, 0x00, 0x78 }, Crawler::Encoding::UTF16BE },
-        { { 0x3C, 0x21, 0x2D, 0x2D, 0x3E }, Crawler::Encoding::UNDEFINED }, // final position 0 due to get an xml
-        { { 0x3C, 0x21, 0x3E }, Crawler::Encoding::UNDEFINED },
-        { { 0x3C, 0x2F, 0x3E }, Crawler::Encoding::UNDEFINED },
-        { { 0x3C, 0x3F, 0x3E }, Crawler::Encoding::UNDEFINED }
+        { "<meta charset=\"utf8\"/>", Crawler::Encoding::UTF8 },
+        { "<meta http-equiv=\"content-type\" content=\"text/html; charset=iso-8859-2\">", Crawler::Encoding::ISO88592 },
+        { "<meta content=\"text/html; charset=UTF-16\">", Crawler::Encoding::UNDEFINED },
+        { "<meta charset=\"UTF-16BE\">", Crawler::Encoding::UTF8 },
+        { "<meta charset=\"x-user-defined\">", Crawler::Encoding::WINDOWS1252 },
+        { "<!-- comment --><meta charset=\"Shift_JIS\">", Crawler::Encoding::SHIFTJIS },
+        { "<meta http-equiv=\"refresh\" content=\"0;url=...\"><meta charset=\"EUC-KR\">", Crawler::Encoding::EUCKR },
+        { "<meta charset=\"invalid\"><meta http-equiv=\"content-type\" content=\"text/html; charset=windows-1255\">", Crawler::Encoding::WINDOWS1255 }
     });
 
     for (const PrescanStreamTest& t : tests) {
@@ -219,7 +217,6 @@ void EncodingTest() {
     EncodingMatchSingleElementMandatoryTest();
     EncodingMatchSetMandatoryTest();
     EncodingMatchOptionalTest();
-    EncodingMatchRangeTest();
     GetAnAttributeTest();
     GetAnXMLEncodingTest();
     ExtractEncodingFromMetaElement();

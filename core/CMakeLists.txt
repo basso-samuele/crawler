@@ -15,11 +15,6 @@ target_link_libraries(core
         spdlog
 )
 
-target_compile_features(core
-    PUBLIC
-        cxx_std_20
-)
-
 target_compile_definitions(core
     PUBLIC
         -DCRAWLERLOGDIR="${CMAKE_CURRENT_BINARY_DIR}/log/"
