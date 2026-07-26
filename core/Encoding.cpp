@@ -157,6 +157,18 @@ std::pair<std::string, std::string> GetAnAttribute(const std::byte* const data, 
     return { attributeName, attributeValue };
 }
 
+void SkipUntil(const std::byte* const data, size_t count, size_t* const pos, const Pattern& pattern) {
+    while (((*pos) < count) && !pattern.Match(data + *pos, count - *pos)) {
+        (*pos)++;
+    }
+}
+
+void SkipWhile(const std::byte* const data, size_t count, size_t* const pos, const Pattern& pattern) {
+    while (((*pos) < count) && pattern.Match(data + *pos, count - *pos)) {
+        (*pos)++;
+    }
+}
+
 Encoding GetAnXMLEncoding(const std::byte* const data, size_t count, size_t* const pos) {
     size_t encodingPosition = *pos;
     size_t xmlDeclarationEnd = *pos;
@@ -170,30 +182,22 @@ Encoding GetAnXMLEncoding(const std::byte* const data, size_t count, size_t* con
     }
 
     /* Look for the first 0x3E '>' in the stream. If there is no such byte, return failure. */
-    while ((xmlDeclarationEnd < count) && !Patterns::CLOSETAG.Match(data + xmlDeclarationEnd, count - xmlDeclarationEnd)) {
-        xmlDeclarationEnd++;
-    }
+    SkipUntil(data, count, &xmlDeclarationEnd, Patterns::CLOSETAG);
     if (!Patterns::CLOSETAG.Match(data + xmlDeclarationEnd, count - xmlDeclarationEnd)) {
         return Encoding::UNDEFINED;
     }
 
     /* Look for the 'encoding' subsequence in the declaration. */
-    while ((encodingPosition < xmlDeclarationEnd) && !Patterns::XMLENCODING.Match(data + encodingPosition, count - encodingPosition)) {
-        encodingPosition++;
-    }
+    SkipUntil(data, xmlDeclarationEnd, &encodingPosition, Patterns::XMLENCODING);
     if (!Patterns::XMLENCODING.Match(data + encodingPosition, count - encodingPosition)) {
         return Encoding::UNDEFINED;
     }
 
-    do {
-        encodingPosition++;
-    } while (!Patterns::XMLG.Match(data + encodingPosition, count - encodingPosition));
+    SkipUntil(data, xmlDeclarationEnd, &encodingPosition, Patterns::XMLG);
     encodingPosition++;
     assert(encodingPosition < xmlDeclarationEnd);
 
-    while (Patterns::XMLSPACEORCONTROL.Match(data + encodingPosition, count - encodingPosition)) {
-        encodingPosition++;
-    }
+    SkipWhile(data, count, &encodingPosition, Patterns::XMLSPACEORCONTROL);
 
     if (!Patterns::GETATTREQ.Match(data + encodingPosition, count - encodingPosition)) {
         return Encoding::UNDEFINED;
@@ -201,15 +205,12 @@ Encoding GetAnXMLEncoding(const std::byte* const data, size_t count, size_t* con
     encodingPosition++;
     /* Here the encodingPosition is just after '='. */
 
-    while (Patterns::XMLSPACEORCONTROL.Match(data + encodingPosition, count - encodingPosition)) {
-        encodingPosition++;
-    }
+    SkipWhile(data, count, &encodingPosition, Patterns::XMLSPACEORCONTROL);
 
-    quoteMark = data[encodingPosition];
-    /* If I cannot find a quote, then failure. */
-    if (!Patterns::GETATTRQUOTE.Match(&quoteMark, 1)) {
+    if (!Patterns::GETATTRQUOTE.Match(data + encodingPosition, 1)) {
         return Encoding::UNDEFINED;
     }
+    quoteMark = data[encodingPosition];
     encodingPosition++;
 
     const Pattern quote({
@@ -217,9 +218,7 @@ Encoding GetAnXMLEncoding(const std::byte* const data, size_t count, size_t* con
     });
 
     encodingEndPosition = encodingPosition;
-    while ((encodingEndPosition < xmlDeclarationEnd) && !quote.Match(data + encodingEndPosition, count - encodingEndPosition)) {
-        encodingEndPosition++;
-    }
+    SkipUntil(data, xmlDeclarationEnd, &encodingEndPosition, quote);
     if (!quote.Match(data + encodingEndPosition, count - encodingEndPosition)) {
         return Encoding::UNDEFINED;
     }
@@ -260,10 +259,7 @@ Encoding ExtractEncodingFromMetaElement(const std::string& value) {
         // move past "charset"
         pos = charsetPos + cset.length();
 
-        while (pos < value.length() && (value[pos] == ' ' || value[pos] == '\t' || 
-            value[pos] == '\n' || value[pos] == '\r' || value[pos] == '\f')) {
-            pos++;
-        }
+        SkipWhile(reinterpret_cast<const std::byte*>(value.data()), value.length(), &pos, Patterns::GETATTRIFSPACES);
 
         if ((pos < value.length()) && value[pos] != '=') {
             continue;
@@ -271,10 +267,7 @@ Encoding ExtractEncodingFromMetaElement(const std::string& value) {
 
         pos++;
 
-        while (pos < value.length() && (value[pos] == ' ' || value[pos] == '\t' || 
-               value[pos] == '\n' || value[pos] == '\r' || value[pos] == '\f')) {
-            pos++;
-        }
+        SkipWhile(reinterpret_cast<const std::byte*>(value.data()), value.length(), &pos, Patterns::GETATTRIFSPACES);
         
         if (pos >= value.length()) {
             return Encoding::UNDEFINED;
@@ -298,17 +291,76 @@ Encoding ExtractEncodingFromMetaElement(const std::string& value) {
             }
         } else {
             size_t endPos = pos;
-            while (endPos < value.length() && value[endPos] != ' ' && value[endPos] != '\t' && 
-                   value[endPos] != '\n' && value[endPos] != '\r' && value[endPos] != '\f' && 
-                   value[endPos] != ';') {
-                endPos++;
-            }
-            
+            SkipUntil(reinterpret_cast<const std::byte*>(value.data()), value.length(), &endPos, Patterns::SPACESANDSEMICOLON);
             std::string encodingString = value.substr(pos, endPos - pos);
             return EncodingLabelLookup(encodingString);
         }
     }
 }
+
+#define CRAWLER_HTTPEQUIV "http-equiv"
+#define CRAWLER_CONTENTTYPE "content-type"
+#define CRAWLER_CONTENT "content"
+#define CRAWLER_CHARSET "charset"
+
+Encoding ParseAttributesAndValues(const std::byte* const data, size_t count, size_t* const pos) {
+    std::set<std::string> attributes;
+    bool gotPragma = false;
+
+    bool needPragmaValue = false;
+    bool* needPragma = nullptr;
+
+    Encoding charsetValue = Encoding::UNDEFINED;
+    Encoding* charset = nullptr;
+
+    if (!((*pos) < count)) {
+        return Encoding::UNDEFINED;
+    }
+    std::pair<std::string, std::string> attVal = GetAnAttribute(data, count, pos);
+    while (!attVal.first.empty()) {
+        if (attributes.find(attVal.first) == attributes.end()) {
+            attributes.insert(attVal.first);
+            if (!attVal.first.compare(CRAWLER_HTTPEQUIV)) {
+                gotPragma = !attVal.second.compare(CRAWLER_CONTENTTYPE);
+            } else if (!attVal.first.compare(CRAWLER_CONTENT)) {
+                if (charset == nullptr) {
+                    Encoding enc = ExtractEncodingFromMetaElement(attVal.second);
+                    if (enc != Encoding::UNDEFINED) {
+                        charsetValue = enc;
+                        charset = &charsetValue;
+
+                        needPragmaValue = true;
+                        needPragma = &needPragmaValue;
+                    }
+                }
+            } else if (!attVal.first.compare(CRAWLER_CHARSET)) {
+                charsetValue = EncodingLabelLookup(attVal.second);
+                charset = &charsetValue;
+                needPragmaValue = false;
+                needPragma = &needPragmaValue;
+            }
+        }
+        attVal = GetAnAttribute(data, count, pos);
+    }
+
+    if (needPragma != nullptr) {
+        if (!(*needPragma && !gotPragma)) {
+            assert(charset != nullptr);
+            if (*charset != Encoding::UNDEFINED) {
+                if (*charset == Encoding::UTF16BE || *charset == Encoding::UTF16LE) {
+                    charsetValue = Encoding::UTF8;
+                } else if (*charset == Encoding::XUSERDEFINED) {
+                    charsetValue = Encoding::WINDOWS1252;
+                }
+
+                return charsetValue;
+            }
+        }
+    }
+
+    return Encoding::UNDEFINED;
+}
+
 
 Encoding Prescan(const std::byte* const data, size_t count, size_t* const pos) {
     size_t originalPos = *pos;
@@ -322,79 +374,21 @@ Encoding Prescan(const std::byte* const data, size_t count, size_t* const pos) {
 
     while ((*pos) < count) {
         if (Patterns::OPENCOMMENT.Match(data + *pos, count - *pos)) {
-            while (((*pos) < count) && !Patterns::CLOSECOMMENT.Match(data + *pos, count - *pos)) {
-                (*pos)++;
-            }
+            SkipUntil(data, count, pos, Patterns::CLOSECOMMENT);
         } else if (Patterns::OPENMETA.Match(data + *pos, count - *pos)) {
-            while (((*pos) < count) && !Patterns::GETATTRSKIP.Match(data + *pos, count - *pos)) {
-                (*pos)++;
-            }
-
-            // Steps 2 to 5
-            std::unordered_map<std::string, std::string> attributes;
-            bool gotPragma = false;
-
-            bool needPragmaValue = false;
-            bool* needPragma = nullptr;
-
-            Encoding charsetValue = Encoding::UNDEFINED;
-            Encoding* charset = nullptr;
-
-            if (!((*pos) < count)) continue;
-            std::pair<std::string, std::string> attVal = GetAnAttribute(data, count, pos);
-            while (!attVal.first.empty()) {
-                if (attributes.find(attVal.first) == attributes.end()) {
-                    attributes.insert({ attVal.first, attVal.second });
-
-                    if (!attVal.first.compare("http-equiv")) {
-                        gotPragma = !attVal.second.compare("content-type");
-                    } else if (!attVal.first.compare("content")) {
-                        if (charset == nullptr) {
-                            Encoding enc = ExtractEncodingFromMetaElement(attVal.second);
-                            if (enc != Encoding::UNDEFINED) {
-                                charsetValue = enc;
-                                charset = &charsetValue;
-
-                                needPragmaValue = true;
-                                needPragma = &needPragmaValue;
-                            }
-                        }
-                    } else if (!attVal.first.compare("charset")) {
-                        charsetValue = EncodingLabelLookup(attVal.second);
-                        charset = &charsetValue;
-                        needPragmaValue = false;
-                        needPragma = &needPragmaValue;
-                    }
-                }
-                attVal = GetAnAttribute(data, count, pos);
-            }
-
-            if (needPragma != nullptr) {
-                if (!(*needPragma && !gotPragma)) {
-                    assert(charset != nullptr);
-                    if (*charset != Encoding::UNDEFINED) {
-                        if (*charset == Encoding::UTF16BE || *charset == Encoding::UTF16LE) {
-                            charsetValue = Encoding::UTF8;
-                        } else if (*charset == Encoding::XUSERDEFINED) {
-                            charsetValue = Encoding::WINDOWS1252;
-                        }
-
-                        return charsetValue;
-                    }
-                }
+            SkipUntil(data, count, pos, Patterns::GETATTRSKIP);
+            Encoding enc = ParseAttributesAndValues(data, count, pos);
+            if (enc != Encoding::UNDEFINED) {
+                return enc;
             }
         } else if (Patterns::THREEC.Match(data + *pos, count - *pos)) {
-            while (((*pos) < count) && !Patterns::SKIPSEQUENCE.Match(data + *pos, count - *pos)) {
-                (*pos)++;
-            }
+            SkipUntil(data, count, pos, Patterns::SKIPSEQUENCE);
             while ((*pos) < count) {
                 std::string first = GetAnAttribute(data, count, pos).first;
                 if (first.empty()) break;
             }
         } else if (Patterns::ESQ.Match(data + *pos, count - *pos)) {
-            while (((*pos) < count) && !Patterns::CLOSETAG.Match(data + *pos, count - *pos)) {
-                (*pos)++;
-            }
+            SkipUntil(data, count, pos, Patterns::CLOSETAG);
         }
 
         (*pos)++;

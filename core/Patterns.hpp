@@ -152,6 +152,10 @@ inline const Pattern XMLSPACEORCONTROL({
     { M, CRAWLER_SPACE_CONTROL }
 });
 
+inline const Pattern SPACESANDSEMICOLON({
+    { M, 0x09, 0x0A, 0x0C, 0x0D, 0x20, 0x3B }
+});
+
 }
 
 }
