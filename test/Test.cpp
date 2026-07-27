@@ -1,6 +1,5 @@
 #include "Test.hpp"
-
-#include "Encoding.hpp"
+#include "Utils.hpp"
 
 #include <cstddef>
 #include <concepts>
@@ -9,69 +8,49 @@
 #include <vector>
 #include <cstdint>
 
-namespace Test
-{
+#include "Encoding.hpp"
 
 inline constexpr Crawler::ByteSpecPolicy M = Crawler::ByteSpecPolicy::MANDATORY;
 inline constexpr Crawler::ByteSpecPolicy O = Crawler::ByteSpecPolicy::OPTIONAL;
 
-template <std::integral... Ts>
-constexpr auto bytes(Ts... values) {
-    return std::vector<std::byte>{
-        static_cast<std::byte>(values)...
-    };
-}
+namespace Test
+{
 
-void EncodingMatchSingleElementMandatoryTest() {
-    std::vector<std::byte> data = bytes(0x01, 0x02, 0x03, 0x04);
-    Crawler::Pattern pattern({
-        { M, 0x01 },
-        { M, 0x02 },
-        { M, 0x03 },
-        { M, 0x04 }
-    });
+namespace Encoding
+{
+
+void MatchSingleMandatory() {
+    std::vector<std::byte> data = BS(0x01, 0x02);
+    Crawler::Pattern pattern({ { M, 0x01 }, { M, 0x02 } });
     CRAWLER_ASSERT_TRUE(pattern.Match(data.data(), data.size()));
 }
 
-void EncodingMatchSetMandatoryTest() {
-    std::vector<std::byte> data = bytes(0x01, 0x02, 0x03, 0x04);
-    Crawler::Pattern pattern({
-        { M, 0x01, 0x02 },
-        { M, 0x01, 0x02 },
-        { M, 0x03, 0x04 },
-        { M, 0x03, 0x04 }
-    });
+void MatchSetMandatory() {
+    std::vector<std::byte> data = BS(0x01, 0x02);
+    Crawler::Pattern pattern({ { M, 0x01, 0x03 }, { M, 0x02, 0x03 } });
     CRAWLER_ASSERT_TRUE(pattern.Match(data.data(), data.size()));
 }
 
-void EncodingMatchOptionalTest() {
-    std::vector<std::byte> data = bytes(0x01, 0x02, 0x03, 0x04);
-    Crawler::Pattern pattern({
-        { M, 0x01, 0x02 },
-        { O, 0x05, 0x06 },
-        { M, 0x02 },
-        { M, 0x03, 0x04 },
-        { O, 0x05, 0x06 }
-    });
+void MatchOptional() {
+    std::vector<std::byte> data = BS(0x01, 0x02);
+    Crawler::Pattern pattern({ { M, 0x01, 0x02 }, { O, 0x05, 0x06 }, { M, 0x02 } });
     CRAWLER_ASSERT_TRUE(pattern.Match(data.data(), data.size()));
 }
 
 struct AttributeDetectionTest
 {
-    std::string input;
+    AttributeDetectionTest(std::string input, std::string expectedName, std::string expectedValue, size_t expectedPos)
+    : input(StringToBS(input)), expectedName(expectedName), expectedValue(expectedValue), expectedPos(expectedPos) { }
+
+    std::vector<std::byte> input;
     std::string expectedName;
     std::string expectedValue;
     size_t expectedPos;
 };
 
 void RunAttributeDetectionTest(const AttributeDetectionTest& test) {
-    std::vector<std::byte> data(
-        reinterpret_cast<const std::byte*>(test.input.data()),
-        reinterpret_cast<const std::byte*>(test.input.data() + test.input.size())
-    );
     size_t pos = 0;
-
-    auto [name, value] = Crawler::GetAnAttribute(data.data(), data.size(), &pos);
+    auto [name, value] = Crawler::GetAnAttribute(test.input.data(), test.input.size(), &pos);
 
     CRAWLER_ASSERT_EQ(test.expectedName, name);
     CRAWLER_ASSERT_EQ(test.expectedValue, value);
@@ -105,18 +84,16 @@ void GetAnAttributeTest() {
 
 struct XMLEncodingTest
 {
-    std::string input;
+    XMLEncodingTest(std::string input, Crawler::Encoding expectedEncoding)
+    : input(StringToBS(input)), expectedEncoding(expectedEncoding) { }
+
+    std::vector<std::byte> input;
     Crawler::Encoding expectedEncoding;
 };
 
 void RunXMLEncodingTest(const XMLEncodingTest& test) {
-    std::vector<std::byte> data(
-        reinterpret_cast<const std::byte*>(test.input.data()),
-        reinterpret_cast<const std::byte*>(test.input.data() + test.input.size())
-    );
     size_t pos = 0;
-
-    Crawler::Encoding actual = Crawler::GetAnXMLEncoding(data.data(), data.size(), &pos);
+    Crawler::Encoding actual = Crawler::GetAnXMLEncoding(test.input.data(), test.input.size(), &pos);
 
     CRAWLER_ASSERT_TRUE((test.expectedEncoding == actual));
 }
@@ -182,8 +159,7 @@ void ExtractEncodingFromMetaElement() {
 struct PrescanStreamTest
 {
     PrescanStreamTest(std::string input, Crawler::Encoding expectedEncoding)
-    : input(reinterpret_cast<const std::byte*>(input.data()), reinterpret_cast<const std::byte*>(input.data() + input.size()))
-    , expectedEncoding(expectedEncoding) { }
+    : input(StringToBS(input)), expectedEncoding(expectedEncoding) { }
 
     std::vector<std::byte> input;
     Crawler::Encoding expectedEncoding;
@@ -213,10 +189,10 @@ void PrescanTest() {
     }
 }
 
-void EncodingTest() {
-    EncodingMatchSingleElementMandatoryTest();
-    EncodingMatchSetMandatoryTest();
-    EncodingMatchOptionalTest();
+void Test() {
+    MatchSingleMandatory();
+    MatchSetMandatory();
+    MatchOptional();
     GetAnAttributeTest();
     GetAnXMLEncodingTest();
     ExtractEncodingFromMetaElement();
@@ -225,8 +201,10 @@ void EncodingTest() {
 
 }
 
+}
+
 int main(int argc, char** argv) {
-    Test::EncodingTest();
+    Test::Encoding::Test();
     CRAWLER_PRINT_TEST_SUMMARY;
     return CRAWLER_TEST_RESULT;
 }
