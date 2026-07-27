@@ -5,6 +5,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 project(crawler)
 
+add_compile_options(
+    $<$<CXX_COMPILER_ID:MSVC>:/Zc:preprocessor>
+)
+
 add_subdirectory(core)
 
 include(CTest)
