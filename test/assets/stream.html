@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sample UTF-8 HTML Document</title>
+</head>
+<body>
+    <div>
+        <p>This is a simple HTML document intended for testing an HTML parser that builds a DOM tree.</p>
+        <p>The document is encoded in UTF-8 and contains a variety of nested elements with plain text.</p>
+        <p>It intentionally avoids advanced HTML features and uses only basic structural tags.</p>
+    </div>
+
+    <div>
+        <p>Section 1</p>
+        <div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vitae ligula at risus volutpat volutpat. Nulla facilisi.</p>
+            <p>Curabitur tincidunt, magna sed viverra fermentum, neque nisl faucibus nisi, sed faucibus lectus magna vel erat.</p>
+        </div>
+    </div>
+
+    <div>
+        <p>Section 2</p>
+        <div>
+            <p>The quick brown fox jumps over the lazy dog.</p>
+            <p>Pack my box with five dozen liquor jugs.</p>
+            <p>Sphinx of black quartz, judge my vow.</p>
+        </div>
+    </div>
+
+    <div>
+        <p>UTF-8 Characters</p>
+        <p>
+            Café, naïve, résumé, jalapeño, piñata, crème brûlée,
+            Ελληνικά, Русский, العربية, עברית,
+            हिन्दी, বাংলা, தமிழ், తెలుగు,
+            日本語, 中文, 한국어,
+            😀 😃 😄 😁 😆 😅 😂 🤖 🌍
+        </p>
+    </div>
+
+    <div>
+        <p>Nested Structure</p>
+        <div>
+            <div>
+                <p>Level 1</p>
+                <div>
+                    <p>Level 2</p>
+                    <div>
+                        <p>Level 3</p>
+                        <div>
+                            <p>Level 4</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <p>Repeated Content</p>
+        <p>
+            This paragraph is repeated several times to increase the size of the
+            document while maintaining a valid and straightforward HTML
+            structure suitable for parser testing. The parser should correctly
+            recognize text nodes, element nodes, parent-child relationships,
+            sibling ordering, and document hierarchy.
+        </p>
+        <p>
+            This paragraph is repeated several times to increase the size of the
+            document while maintaining a valid and straightforward HTML
+            structure suitable for parser testing. The parser should correctly
+            recognize text nodes, element nodes, parent-child relationships,
+            sibling ordering, and document hierarchy.
+        </p>
+        <p>
+            This paragraph is repeated several times to increase the size of the
+            document while maintaining a valid and straightforward HTML
+            structure suitable for parser testing. The parser should correctly
+            recognize text nodes, element nodes, parent-child relationships,
+            sibling ordering, and document hierarchy.
+        </p>
+        <p>
+            This paragraph is repeated several times to increase the size of the
+            document while maintaining a valid and straightforward HTML
+            structure suitable for parser testing. The parser should correctly
+            recognize text nodes, element nodes, parent-child relationships,
+            sibling ordering, and document hierarchy.
+        </p>
+        <p>
+            This paragraph is repeated several times to increase the size of the
+            document while maintaining a valid and straightforward HTML
+            structure suitable for parser testing. The parser should correctly
+            recognize text nodes, element nodes, parent-child relationships,
+            sibling ordering, and document hierarchy.
+        </p>
+        <p>
+            This paragraph is repeated several times to increase the size of the
+            document while maintaining a valid and straightforward HTML
+            structure suitable for parser testing. The parser should correctly
+            recognize text nodes, element nodes, parent-child relationships,
+            sibling ordering, and document hierarchy.
+        </p>
+    </div>
+
+    <div>
+        <p>Final Notes</p>
+        <p>
+            End of the sample document. It contains sufficient textual content
+            and nested elements to exceed 2048 bytes in UTF-8 encoding while
+            remaining simple and valid HTML. A DOM parser should be able to
+            construct the document tree without difficulty and preserve all text
+            nodes exactly as they appear in the source.
+        </p>
+    </div>
+</body>
+</html>

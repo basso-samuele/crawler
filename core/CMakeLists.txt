@@ -27,6 +27,7 @@ target_sources(core
         ${CMAKE_CURRENT_SOURCE_DIR}/InputStream.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/vendor/spdlog/SPDLog.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Decoder.cpp
     PUBLIC
     FILE_SET HEADERS
     FILES
@@ -40,4 +41,5 @@ target_sources(core
         ${CMAKE_CURRENT_SOURCE_DIR}/ServiceLocator.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Queue.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Decoder.hpp
 )

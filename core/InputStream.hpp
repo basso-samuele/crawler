@@ -5,12 +5,13 @@
 #include <mutex>
 #include <condition_variable>
 #include <cstddef>
+#include <cmath>
 
 namespace Crawler
 {
 
 constexpr size_t _MaskBitOffset = 10;
-constexpr size_t _Size = 2^_MaskBitOffset;
+constexpr size_t _Size = 1<<_MaskBitOffset;
 constexpr size_t _Mask = _Size-1;
 
 /**
@@ -48,6 +49,8 @@ public:
 
     virtual bool End() const = 0;
     virtual bool Bad() const = 0;
+
+    virtual bool Empty() const;
 };
 
 }

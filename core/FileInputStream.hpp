@@ -28,7 +28,7 @@ public:
     FileInputStream(FileInputStream&&) = delete;
     FileInputStream& operator=(FileInputStream&&) = delete;
 
-    void ReadFromDisk();
+    bool ReadFromDisk();
 
     bool End() const override;
     bool Bad() const override;

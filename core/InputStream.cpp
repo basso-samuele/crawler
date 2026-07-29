@@ -10,9 +10,19 @@ InputStream::InputStream()
 
 int InputStream::Peek(std::byte* const destination) {
     std::unique_lock<std::mutex> lock(this->p_Mutex);
+
+    /* Suspends execution if all bytes have been picked and the input stream may still produce new ones. */
     this->p_Readable.wait(lock, [this] {
-        return this->p_PeekOffset != this->p_TailOffset;
+        bool isInputStreamAvailable = !this->Bad() && !this->End();
+        bool allBytesPeeked = this->p_PeekOffset == this->p_TailOffset;
+
+        return !(allBytesPeeked && isInputStreamAvailable);
     });
+
+    bool allBytesPeeked = this->p_PeekOffset == this->p_TailOffset;
+    if (allBytesPeeked) {
+        return -1;
+    }
 
     (*destination) = this->p_Base[this->p_PeekOffset];
     this->p_PeekOffset = (this->p_PeekOffset + 1) & _Mask;
@@ -34,10 +44,14 @@ int InputStream::Seek(size_t offset) {
 void InputStream::Drop() {
     std::unique_lock<std::mutex> lock(this->p_Mutex);
 
-    this->p_HeadOffset = this->p_PeekOffset;
-    this->p_PeekOffset = 0;
+    if (this->p_HeadOffset != this->p_PeekOffset) {
+        this->p_HeadOffset = this->p_PeekOffset;
+        this->p_Writable.notify_one();
+    }
+}
 
-    this->p_Writable.notify_one();
+bool InputStream::Empty() const {
+    return this->p_HeadOffset == this->p_TailOffset;
 }
 
 }
