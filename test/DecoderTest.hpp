@@ -8,7 +8,6 @@
 #include "Utils.hpp"
 
 #include "Decoder.hpp"
-#include "Queue.hpp"
 
 namespace Decoder
 {
@@ -60,7 +59,7 @@ void UTF8DecoderTest() {
     Crawler::UTF8Decoder decoder;
 
     for (const DecoderTest& t : uft8DecoderTests) {
-        Crawler::Queue<char32_t> queue;
+        Crawler::TransactionalStream<char32_t> out(10);
         size_t detectionByte = 0;
 
         for (
@@ -68,12 +67,12 @@ void UTF8DecoderTest() {
             i < t.input.size() && correct;
             i++
         ) {
-            correct = decoder.Decode(t.input.at(i), queue);
+            correct = decoder.Decode(t.input.at(i), out);
             if (!correct) detectionByte = i + 1;
         }
 
         char32_t codepoint;
-        bool correctness = queue.Pop(codepoint);
+        bool correctness = out.Peek(&codepoint);
         CRAWLER_ASSERT_EQ(t.expectedCorrectness, correctness);
         CRAWLER_ASSERT_EQ(t.expectedDetectionByte, detectionByte);
         if (correctness) {

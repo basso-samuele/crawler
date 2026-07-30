@@ -1,8 +1,12 @@
 #include "Pipeline.hpp"
 
-#include "Queue.hpp"
+#include "Definitions.hpp"
 
 namespace Crawler
 {
+
+void Preprocessor::Process() {
+    
+}
 
 }

@@ -1,14 +1,84 @@
 #pragma once
+
 #include "Encoding.hpp"
+#include "../test/Utils.hpp"
+#include "Stream.hpp"
 
 namespace Crawler
 {
+
+enum class MatcherPolicy
+{
+    MANDATORY,
+    OPTIONAL
+};
+
+template <typename T>
+struct Matcher
+{
+    const MatcherPolicy policy;
+    const std::vector<T> set;
+
+    Matcher(MatcherPolicy policy, std::vector<T>&& set)
+    : policy(policy), set(std::move(set)) { }
+
+    Matcher(MatcherPolicy policy, std::initializer_list<T> set)
+    : policy(policy), set(set) { }
+};
+
+enum class MatchResult
+{
+    PENDING, TRUE, FALSE
+};
+
+template <typename T>
+class MatcherSequence
+{
+private:
+    std::vector<Matcher<T>> p_Elements;
+    size_t p_Current;
+
+public:
+    MatcherSequence(std::initializer_list<Matcher<T>> elements)
+    : p_Elements(elements), p_Current(0) { }
+
+    MatchResult Match(const Stream<T>& in) {
+        const T& value;
+        if (!in.Peek(value)) {
+            return MatchResult::PENDING;
+        }
+        Matcher<T>& el = this->p_Elements.at(this->p_Current);
+        auto it = std::find(el.set.begin(), el.set.end(), value);
+        if (it == el.set.end() && el.policy == MatcherPolicy::MANDATORY) {
+            this->p_Current = 0;
+            return MatchResult::FALSE;
+        }
+
+        this->p_Current++;
+        if (this->p_Current == this->p_Elements.size()) {
+            this->p_Current = 0;
+            return MatchResult::TRUE;
+        }
+
+        return MatchResult::PENDING;
+    }
+};
+
 
 namespace Patterns
 {
 
 inline constexpr ByteSpecPolicy M = ByteSpecPolicy::MANDATORY;
 inline constexpr ByteSpecPolicy O = ByteSpecPolicy::OPTIONAL;
+
+inline const MatcherSequence<uint8_t> UTF({
+    { MatcherPolicy::MANDATORY, { 0x00, 0x01, 0x02, 0x03 } }
+});
+
+inline const MatcherSequence<std::byte> UFT({
+    { MatcherPolicy::OPTIONAL, Test::BS(0x00, 0x01, 0x02, 0x03) },
+    { MatcherPolicy::MANDATORY, Test::BS(0x00, 0x01, 0x02, 0x03) }
+});
 
 inline const Pattern UTF16BEBOM({
     { M, 0xFE },

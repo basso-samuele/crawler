@@ -25,8 +25,8 @@ static int testResult = 0;
         std::cout <<                                              \
             std::format(                                          \
                 "Assertion {}:{}:{} failed" __VA_OPT__("\n\t{}"), \
-                __FILE__, __func__, __LINE__,                     \
-                __VA_OPT__(std::format(__VA_ARGS__))              \
+                __FILE__, __func__, __LINE__                      \
+                __VA_OPT__(,std::format(__VA_ARGS__))             \
             )                                                     \
         << std::endl;                                             \
         testResult = 1;                                           \

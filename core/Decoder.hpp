@@ -2,20 +2,12 @@
 
 #include <cstddef>
 
-#include "Queue.hpp"
+#include "TransactionalStream.hpp"
 
 namespace Crawler
 {
 
-class Decoder
-{
-public:
-    virtual ~Decoder() = default;
-
-    virtual bool Decode(std::byte value, Sink<char32_t>& sink) = 0;
-};
-
-class UTF8Decoder : public Decoder
+class UTF8Decoder
 {
 private:
     bool p_Sequence;
@@ -28,7 +20,7 @@ private:
 public:
     UTF8Decoder();
 
-    bool Decode(std::byte value, Sink<char32_t>& sink) override;
+    bool Decode(std::byte value, TransactionalStream<char32_t>& out);
     void ResetDecoderState();
 };
 
