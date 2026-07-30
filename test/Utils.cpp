@@ -54,4 +54,8 @@ std::vector<std::byte> StringToBS(std::string s) {
     );
 }
 
+std::string BSToString(std::vector<std::byte> bs) {
+    return std::string(reinterpret_cast<char*>(bs.data()), bs.size());
+}
+
 }

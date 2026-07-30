@@ -41,5 +41,6 @@ constexpr std::byte B(T value) {
 }
 
 std::vector<std::byte> StringToBS(std::string s);
+std::string BSToString(std::vector<std::byte> bs);
 
 }
