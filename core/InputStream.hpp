@@ -10,10 +10,6 @@
 namespace Crawler
 {
 
-constexpr size_t _MaskBitOffset = 10;
-constexpr size_t _Size = 1<<_MaskBitOffset;
-constexpr size_t _Mask = _Size-1;
-
 /**
  * The size is fixed and non-configurable. At this stage the implementation works only if the internal buffer size
  * is a power of 2.
@@ -33,8 +29,11 @@ protected:
     size_t p_PeekOffset;
     size_t p_Size;
 
+    size_t p_MaskBitOffset;
+    size_t p_Mask;
+
 public:
-    InputStream();
+    InputStream(const size_t maskBitOffset);
     virtual ~InputStream() = default;
 
     InputStream(const InputStream&) = delete;
@@ -43,8 +42,7 @@ public:
     InputStream(InputStream&&) = delete;
     InputStream& operator=(InputStream&&) = delete;
 
-    int Peek(std::byte* const destination);
-    int Seek(size_t offset);
+    bool Peek(std::byte* const destination);
     void Drop();
 
     virtual bool End() const = 0;

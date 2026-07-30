@@ -11,7 +11,7 @@ template <typename T>
 class Sink
 {
 public:
-    virtual ~Sink() = 0;
+    virtual ~Sink() = default;
     virtual void Push(T&& source) = 0;
 };
 
@@ -19,7 +19,7 @@ template <typename T>
 class Source
 {
 public:
-    virtual ~Source() = 0;
+    virtual ~Source() = default;
     virtual bool Pop(T& destination) = 0;
 };
 

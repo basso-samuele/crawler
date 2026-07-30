@@ -19,7 +19,7 @@ private:
     void p_ReadChunkFromDisk(size_t count);
 
 public:
-    FileInputStream(const std::filesystem::path& filename);
+    FileInputStream(const std::filesystem::path& filename, const size_t maskBitOffset);
     ~FileInputStream() = default;
 
     FileInputStream(const FileInputStream&) = delete;

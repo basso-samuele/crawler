@@ -5,10 +5,11 @@
 namespace Crawler
 {
 
-InputStream::InputStream()
-: p_Size(_Size), p_HeadOffset(0), p_TailOffset(0), p_PeekOffset(0), p_Base(std::make_unique<std::byte[]>(_Size)) { }
+InputStream::InputStream(const size_t maskBitOffset)
+: p_MaskBitOffset(maskBitOffset), p_Size(1<<maskBitOffset), p_Mask((1<<maskBitOffset)-1),
+  p_HeadOffset(0), p_TailOffset(0), p_PeekOffset(0), p_Base(std::make_unique<std::byte[]>(1<<maskBitOffset)) { }
 
-int InputStream::Peek(std::byte* const destination) {
+bool InputStream::Peek(std::byte* const destination) {
     std::unique_lock<std::mutex> lock(this->p_Mutex);
 
     /* Suspends execution if all bytes have been picked and the input stream may still produce new ones. */
@@ -21,24 +22,13 @@ int InputStream::Peek(std::byte* const destination) {
 
     bool allBytesPeeked = this->p_PeekOffset == this->p_TailOffset;
     if (allBytesPeeked) {
-        return -1;
+        return false;
     }
 
     (*destination) = this->p_Base[this->p_PeekOffset];
-    this->p_PeekOffset = (this->p_PeekOffset + 1) & _Mask;
+    this->p_PeekOffset = (this->p_PeekOffset + 1) & this->p_Mask;
 
-    return 0;
-}
-
-int InputStream::Seek(size_t offset) {
-    std::unique_lock<std::mutex> lock(this->p_Mutex);
-
-    if (offset > this->p_PeekOffset) {
-        return -1;
-    }
-
-    this->p_PeekOffset = offset;
-    return 0;
+    return true;
 }
 
 void InputStream::Drop() {

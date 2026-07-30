@@ -11,16 +11,18 @@
 namespace IO
 {
 
+constexpr size_t _MaskBitOffset = 2;
+
 void WriteAndReadOneByte() {
     std::byte _content{ 0x15 };
     std::string content(reinterpret_cast<char*>(&_content), sizeof(_content));
     Test::File f(content);
 
-    Crawler::FileInputStream is(f.GetPath());
+    Crawler::FileInputStream is(f.GetPath(), _MaskBitOffset);
     is.ReadFromDisk();
 
     std::byte byteFromDisk;
-    CRAWLER_ASSERT_EQ(0, is.Peek(&byteFromDisk));
+    CRAWLER_ASSERT_TRUE(is.Peek(&byteFromDisk));
     CRAWLER_ASSERT_TRUE((_content == byteFromDisk));
 }
 

@@ -12,7 +12,7 @@ class Decoder
 public:
     virtual ~Decoder() = default;
 
-    virtual bool Decode(std::byte value, Sink<char32_t> sink) = 0;
+    virtual bool Decode(std::byte value, Sink<char32_t>& sink) = 0;
 };
 
 class UTF8Decoder : public Decoder
@@ -28,7 +28,8 @@ private:
 public:
     UTF8Decoder();
 
-    bool Decode(std::byte value, Sink<char32_t>& sink);
+    bool Decode(std::byte value, Sink<char32_t>& sink) override;
+    void ResetDecoderState();
 };
 
 }

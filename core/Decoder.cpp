@@ -35,6 +35,13 @@ bool UTF8Decoder::p_IsValidCodepoint() {
     return true;
 }
 
+void UTF8Decoder::ResetDecoderState() {
+    this->p_Sequence = false;
+    this->p_SequenceLength = 0;
+    this->p_SequenceLengthValidity = 0;
+    this->p_Codepoint = 0;
+}
+
 UTF8Decoder::UTF8Decoder()
 : p_Sequence(false), p_SequenceLength(0), p_SequenceLengthValidity(0), p_Codepoint(0) { }
 
@@ -43,23 +50,22 @@ bool UTF8Decoder::Decode(std::byte value, Sink<char32_t>& sink) {
 
     if (this->p_SequenceLength > 0) {
         if ((intValue & 0xC0) != 0x80) {
+            this->ResetDecoderState();
             return false;
         }
         this->p_Codepoint = (this->p_Codepoint << 6) | (intValue & 0x3F);
         this->p_SequenceLength--;
-    } else {
-        if (this->p_Sequence) {
+
+        if (!this->p_SequenceLength) {
             if (!this->p_IsValidCodepoint()) {
+                this->ResetDecoderState();
                 return false;
             }
             sink.Push(static_cast<char32_t>(this->p_Codepoint));
-            this->p_Sequence = false;
-            this->p_SequenceLength = 0;
-            this->p_SequenceLengthValidity = 0;
-            this->p_Codepoint = 0;
+            this->ResetDecoderState();
             return true;
         }
-
+    } else {
         if (intValue < 0x80) {
             sink.Push(static_cast<char32_t>(intValue));
             return true;
@@ -78,9 +84,12 @@ bool UTF8Decoder::Decode(std::byte value, Sink<char32_t>& sink) {
             this->p_SequenceLengthValidity = 4;
             this->p_Codepoint = intValue & 0x07;
         } else {
+            this->ResetDecoderState();
             return false;
         }
 
+        /* The byte that opens the sequence has been processed. */
+        this->p_SequenceLength--;
         this->p_Sequence = true;
     }
 
