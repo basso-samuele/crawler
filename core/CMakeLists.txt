@@ -29,7 +29,6 @@ target_sources(core
     PUBLIC
     FILE_SET HEADERS
     FILES
-        ${CMAKE_CURRENT_SOURCE_DIR}/EncodingLabels.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/FileStream.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Stream.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Log.hpp
