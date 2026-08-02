@@ -1,4 +1,5 @@
 #include "Decoder.hpp"
+#include "Definitions.hpp"
 
 namespace Crawler
 {
@@ -45,7 +46,7 @@ void UTF8Decoder::ResetDecoderState() {
 UTF8Decoder::UTF8Decoder()
 : p_Sequence(false), p_SequenceLength(0), p_SequenceLengthValidity(0), p_Codepoint(0) { }
 
-bool UTF8Decoder::Decode(std::byte value, Sink<char32_t>& sink) {
+bool UTF8Decoder::Decode(std::byte value, TransactionalStream<char32_t>& out) {
     uint8_t intValue = static_cast<uint8_t>(value);
 
     if (this->p_SequenceLength > 0) {
@@ -61,13 +62,13 @@ bool UTF8Decoder::Decode(std::byte value, Sink<char32_t>& sink) {
                 this->ResetDecoderState();
                 return false;
             }
-            sink.Push(static_cast<char32_t>(this->p_Codepoint));
+            out.Put(static_cast<char32_t>(this->p_Codepoint));
             this->ResetDecoderState();
             return true;
         }
     } else {
         if (intValue < 0x80) {
-            sink.Push(static_cast<char32_t>(intValue));
+            out.Put(static_cast<char32_t>(intValue));
             return true;
         }
 

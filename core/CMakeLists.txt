@@ -22,24 +22,22 @@ target_compile_definitions(core
 
 target_sources(core
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/Encoding.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/FileInputStream.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/InputStream.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/FileStream.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/vendor/spdlog/SPDLog.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Decoder.cpp
     PUBLIC
     FILE_SET HEADERS
     FILES
-        ${CMAKE_CURRENT_SOURCE_DIR}/Encoding.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/EncodingLabels.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/FileInputStream.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/InputStream.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/FileStream.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Stream.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Log.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Patterns.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Singleton.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ServiceLocator.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Queue.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Decoder.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/TransactionalStream.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Definitions.hpp
 )

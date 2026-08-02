@@ -1,32 +1,110 @@
 #pragma once
-#include "Encoding.hpp"
+
+#include "Stream.hpp"
+
+#include "Definitions.hpp"
+
+#include <array>
+#include <vector>
+#include <span>
 
 namespace Crawler
 {
 
+enum class MatcherPolicy
+{
+    MANDATORY,
+    OPTIONAL
+};
+
+template <typename T>
+class Matcher
+{
+private:
+    const MatcherPolicy p_Policy;
+
+    const T p_Value;
+    const T* p_Set;
+    const size_t p_Size;
+
+public:
+    template<size_t N>
+    Matcher(MatcherPolicy policy, const std::array<T, N>& set)
+    : p_Policy(policy), p_Value(T{ }), p_Set(set.data()), p_Size(set.size()) {}
+
+    template<typename Y> requires requires(Y y) { static_cast<T>(y); }
+    Matcher(MatcherPolicy policy, Y value)
+    : p_Policy(policy), p_Value(static_cast<T>(value)), p_Set(&this->p_Value), p_Size(1) { }
+
+    std::tuple<MatcherPolicy, bool> Match(const T& value) {
+        auto it = std::find(this->p_Set, this->p_Set + this->p_Size, value);
+        bool match = it != this->p_Set + this->p_Size;
+        return { this->p_Policy, match };
+    }
+};
+
+enum class MatchResult
+{
+    PENDING, TRUE, FALSE
+};
+
+template <typename T>
+class MatcherSequence
+{
+private:
+    std::vector<Matcher<T>> p_Elements;
+    size_t p_Current;
+
+public:
+    MatcherSequence(std::initializer_list<Matcher<T>> elements)
+    : p_Elements(elements), p_Current(0) { }
+
+    MatchResult Match(const Stream<T>& in) {
+        const T value;
+        if (!in.Peek(&value)) {
+            return MatchResult::PENDING;
+        }
+        Matcher<T>& el = this->p_Elements.at(this->p_Current);
+        auto [policy, match] = el.Match(value);
+
+        if (!match && policy == MatcherPolicy::MANDATORY) {
+            this->p_Current = 0;
+            return MatchResult::FALSE;
+        }
+
+        this->p_Current++;
+        if (this->p_Current == this->p_Elements.size()) {
+            this->p_Current = 0;
+            return MatchResult::TRUE;
+        }
+
+        return MatchResult::PENDING;
+    }
+};
+
 namespace Patterns
 {
 
-inline constexpr ByteSpecPolicy M = ByteSpecPolicy::MANDATORY;
-inline constexpr ByteSpecPolicy O = ByteSpecPolicy::OPTIONAL;
+inline constexpr MatcherPolicy M = MatcherPolicy::MANDATORY;
+inline constexpr MatcherPolicy O = MatcherPolicy::OPTIONAL;
 
-inline const Pattern UTF16BEBOM({
+inline const MatcherSequence<std::byte> UTF16BEBOM({
     { M, 0xFE },
     { M, 0xFF }
 });
 
-inline const Pattern UTF16LEBOM({
+inline const MatcherSequence<std::byte> UTF16LEBOM({
     { M, 0xFF },
     { M, 0xFE }
 });
 
-inline const Pattern UTF8BOM({
+inline const MatcherSequence<std::byte> UTF8BOM({
     { M, 0xEF },
     { M, 0xBB },
     { M, 0xBF }
 });
 
-inline const Pattern UTF16BEXML({
+inline const MatcherSequence<std::byte> UTF16BEXML({
     { M, 0x00 },
     { M, 0x3C },
     { M, 0x00 },
@@ -35,7 +113,7 @@ inline const Pattern UTF16BEXML({
     { M, 0x78 }
 });
 
-inline const Pattern UTF16LEXML({
+inline const MatcherSequence<std::byte> UTF16LEXML({
     { M, 0x3C },
     { M, 0x00 },
     { M, 0x3F },
@@ -44,83 +122,72 @@ inline const Pattern UTF16LEXML({
     { M, 0x00 }
 });
 
-inline const Pattern OPENCOMMENT({
+inline const MatcherSequence<std::byte> OPENCOMMENT({
     { M, 0x3C },
     { M, 0x21 },
     { M, 0x2D },
     { M, 0x2D }
 });
 
-inline const Pattern CLOSECOMMENT({
+inline const MatcherSequence<std::byte> CLOSECOMMENT({
     { M, 0x2D },
     { M, 0x2D },
     { M, 0x3E }
 });
 
-inline const Pattern OPENMETA({
+inline const MatcherSequence<std::byte> OPENMETA({
     { M, 0x3C },
-    { M, 0x4D, 0x6D },
-    { M, 0x45, 0x65 },
-    { M, 0x54, 0x74 },
-    { M, 0x41, 0x61 },
-    { M, 0x09, 0x0A, 0x0C, 0x0D, 0x20, 0x2F }
+    { M, CRAWLER_M },
+    { M, CRAWLER_E },
+    { M, CRAWLER_T },
+    { M, CRAWLER_A },
+    { M, CRAWLER_S }
 });
 
-#define CRAWLER_UPPER_CASE_LETTERS                                                \
-    0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A, 0x4B, 0x4C, 0x4D, \
-    0x4E, 0x4F, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5A  \
-
-#define CRAWLER_LOWER_CASE_LETTERS                                                \
-    0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69, 0x6A, 0x6B, 0x6C, 0x6D, \
-    0x6E, 0x6F, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7A
-
-#define CRAWLER_LETTERS \
-    CRAWLER_UPPER_CASE_LETTERS, CRAWLER_LOWER_CASE_LETTERS
-
-inline const Pattern THREEC({
+inline const MatcherSequence<std::byte> THREEC({
     { M, 0x3C }, 
     { O, 0x2F },
     { M, CRAWLER_LETTERS }
 });
 
-inline const Pattern ESQ({
+inline const MatcherSequence<std::byte> ESQ({
     { M, 0x3C },
-    { M, 0x21, 0x2F, 0x3F }
+    { M, CRAWLER_ESQ }
 });
 
-inline const Pattern CLOSETAG({
+inline const MatcherSequence<std::byte> CLOSETAG({
     { M, 0x3E }
 });
 
-inline const Pattern SKIPSEQUENCE({
-    { M, 0x09, 0x0A, 0x0C, 0x0D, 0x20, 0x3E }
+inline const MatcherSequence<std::byte> SKIPSEQUENCE({
+    { M, SKIP_SEQUENCE }
 });
 
-inline const Pattern GETATTRSKIP({
-    { M, 0x09, 0x0A, 0x0C, 0x0D, 0x20, 0x2F }
+inline const MatcherSequence<std::byte> GETATTRSKIP({
+    { M, CRAWLER_S }
 });
 
-inline const Pattern GETATTREQ({
+inline const MatcherSequence<std::byte> GETATTREQ({
     { M, 0x3D }
 });
 
-inline const Pattern GETATTRIFSPACES({
-    { M, 0x09, 0x0A, 0x0C, 0x0D, 0x20 }
+inline const MatcherSequence<std::byte> GETATTRIFSPACES({
+    { M, CRAWLER_ONE_BYTE_SPACE }
 });
 
-inline const Pattern GETATTRBYTEABORT({
-    { M, 0x2F, 0x3E }
+inline const MatcherSequence<std::byte> GETATTRBYTEABORT({
+    { M, ABORT_BYTES }
 });
 
-inline const Pattern GETATTRMAIUSCLETTERS({
-    { M, CRAWLER_UPPER_CASE_LETTERS }
+inline const MatcherSequence<std::byte> GETATTRMAIUSCLETTERS({
+    { M, CRAWLER_UPPERCASE_LETTERS }
 });
 
-inline const Pattern GETATTRQUOTE({
-    { M, 0x22, 0x27 }
+inline const MatcherSequence<std::byte> GETATTRQUOTE({
+    { M, QUOTES }
 });
 
-inline const Pattern XMLOPENTAG({
+inline const MatcherSequence<std::byte> XMLOPENTAG({
     { M, 0x3C },
     { M, 0x3F },
     { M, 0x78 },
@@ -128,7 +195,7 @@ inline const Pattern XMLOPENTAG({
     { M, 0x6C }
 });
 
-inline const Pattern XMLENCODING({
+inline const MatcherSequence<std::byte> XMLENCODING({
     { M, 0x65 },
     { M, 0x6E },
     { M, 0x63 },
@@ -139,21 +206,16 @@ inline const Pattern XMLENCODING({
     { M, 0x67 }
 });
 
-inline const Pattern XMLG({
+inline const MatcherSequence<std::byte> XMLG({
     { M, 0x67 }
 });
 
-#define CRAWLER_SPACE_CONTROL                                                                       \
-    0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F, \
-    0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F, \
-    0x20
-
-inline const Pattern XMLSPACEORCONTROL({
+inline const MatcherSequence<std::byte> XMLSPACEORCONTROL({
     { M, CRAWLER_SPACE_CONTROL }
 });
 
-inline const Pattern SPACESANDSEMICOLON({
-    { M, 0x09, 0x0A, 0x0C, 0x0D, 0x20, 0x3B }
+inline const MatcherSequence<std::byte> SPACESANDSEMICOLON({
+    { M, SPACE_AND_SEMICOLON }
 });
 
 }

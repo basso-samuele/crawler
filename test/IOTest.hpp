@@ -7,7 +7,7 @@
 #include "Test.hpp"
 #include "Utils.hpp"
 
-#include "FileInputStream.hpp"
+#include "FileStream.hpp"
 
 namespace IO
 {
@@ -21,7 +21,7 @@ struct IOTest {
 void RunIOTest(const IOTest& test) {
     std::string content = Test::BSToString(test.input);
     Test::File f(content);
-    Crawler::FileInputStream is(f.GetPath(), _MaskBitOffset);
+    Crawler::FileStream is(f.GetPath(), _MaskBitOffset);
     is.ReadFromDisk();
 
     std::vector<std::byte> actual;

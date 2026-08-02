@@ -1,21 +1,23 @@
 #include <thread>
+#include <stdio.h>
 
-#include <InputStream.hpp>
-#include <FileInputStream.hpp>
+#include <Stream.hpp>
+#include <FileStream.hpp>
+
+#include "Decoder.hpp"
 
 namespace Stream
 {
 
-void Producer(Crawler::FileInputStream& inputStream) {
+void Producer(Crawler::FileStream& inputStream) {
     while (inputStream.ReadFromDisk());
 }
 
-void Consumer(Crawler::InputStream& inputStream) {
-    std::byte b;
-    while (inputStream.Peek(&b)) {
-        printf("%c", static_cast<char>(static_cast<uint8_t>(b)));
-        inputStream.Drop();
-    }
+void Consumer(Crawler::Stream<std::byte>& inputStream) {
+    Crawler::TransactionalStream<char32_t> decoded(16);
+    Crawler::UTF8Decoder decoder;
+    for (std::byte b; inputStream.Peek(&b); inputStream.Drop()) decoder.Decode(b, decoded);
+    for (char32_t c; decoded.Peek(&c); decoded.Drop()) printf("%c", c);
 }
 
 }
@@ -23,7 +25,7 @@ void Consumer(Crawler::InputStream& inputStream) {
 constexpr size_t _MaskBitOffset = 10;
 
 int main(int argc, char** argv) {
-    Crawler::FileInputStream fileInputStream(CRAWLER_STREAM_ASSET_PATH, _MaskBitOffset);
+    Crawler::FileStream fileInputStream(CRAWLER_STREAM_ASSET_PATH, _MaskBitOffset);
     std::thread prod(Stream::Producer, std::ref(fileInputStream));
     std::thread cons(Stream::Consumer, std::ref(fileInputStream));
     prod.join();
