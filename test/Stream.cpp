@@ -14,7 +14,7 @@ void Producer(Crawler::FileStream& inputStream) {
 }
 
 void Consumer(Crawler::Stream<std::byte>& inputStream) {
-    Crawler::TransactionalStream<char32_t> decoded(10);
+    Crawler::TransactionalStream<char32_t> decoded(16);
     Crawler::UTF8Decoder decoder;
     for (std::byte b; inputStream.Peek(&b); inputStream.Drop()) decoder.Decode(b, decoded);
     for (char32_t c; decoded.Peek(&c); decoded.Drop()) printf("%c", c);

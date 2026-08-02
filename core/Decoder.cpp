@@ -1,4 +1,5 @@
 #include "Decoder.hpp"
+#include "Definitions.hpp"
 
 namespace Crawler
 {
