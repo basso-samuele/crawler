@@ -11,7 +11,10 @@
 namespace Crawler
 {
 
-enum class MatcherPolicy
+namespace Sequence
+{
+
+enum class Policy
 {
     MANDATORY,
     OPTIONAL
@@ -21,7 +24,7 @@ template <typename T>
 class Matcher
 {
 private:
-    const MatcherPolicy p_Policy;
+    const Policy p_Policy;
 
     const T p_Value;
     const T* p_Set;
@@ -29,82 +32,88 @@ private:
 
 public:
     template<size_t N>
-    Matcher(MatcherPolicy policy, const std::array<T, N>& set)
+    constexpr Matcher(Policy policy, const std::array<T, N>& set)
     : p_Policy(policy), p_Value(T{ }), p_Set(set.data()), p_Size(set.size()) {}
 
     template<typename Y> requires requires(Y y) { static_cast<T>(y); }
-    Matcher(MatcherPolicy policy, Y value)
+    constexpr Matcher(Policy policy, Y value)
     : p_Policy(policy), p_Value(static_cast<T>(value)), p_Set(&this->p_Value), p_Size(1) { }
 
-    std::tuple<MatcherPolicy, bool> Match(const T& value) {
+    std::tuple<Policy, bool> Match(const T& value) const {
         auto it = std::find(this->p_Set, this->p_Set + this->p_Size, value);
         bool match = it != this->p_Set + this->p_Size;
         return { this->p_Policy, match };
     }
 };
 
-enum class MatchResult
+enum class Result
 {
-    PENDING, TRUE, FALSE
+    PENDING,
+    TRUE,
+    FALSE
 };
 
 template <typename T>
-class MatcherSequence
+class Sequence
 {
 private:
-    std::vector<Matcher<T>> p_Elements;
+    const Matcher<T>* p_Elements;
+    const size_t p_Size;
+
     size_t p_Current;
 
 public:
-    MatcherSequence(std::initializer_list<Matcher<T>> elements)
-    : p_Elements(elements), p_Current(0) { }
+    template<size_t N>
+    constexpr Sequence(const std::array<Matcher<T>, N>& elements)
+    : p_Elements(elements.data()), p_Size(elements.size()), p_Current(0) { }
 
-    MatchResult Match(const Stream<T>& in) {
-        const T value;
+    Result Match(Stream<T>& in) {
+        T value;
         if (!in.Peek(&value)) {
-            return MatchResult::PENDING;
+            return Result::PENDING;
         }
-        Matcher<T>& el = this->p_Elements.at(this->p_Current);
+        const Matcher<T>& el = this->p_Elements[this->p_Current];
         auto [policy, match] = el.Match(value);
 
-        if (!match && policy == MatcherPolicy::MANDATORY) {
+        if (!match && policy == Policy::MANDATORY) {
             this->p_Current = 0;
-            return MatchResult::FALSE;
+            return Result::FALSE;
         }
 
         this->p_Current++;
-        if (this->p_Current == this->p_Elements.size()) {
+        if (this->p_Current == this->p_Size) {
             this->p_Current = 0;
-            return MatchResult::TRUE;
+            return Result::TRUE;
         }
 
-        return MatchResult::PENDING;
+        return Result::PENDING;
+    }
+
+    void Reset() {
+        this->p_Current = 0;
     }
 };
 
-namespace Patterns
-{
+inline constexpr Policy M = Policy::MANDATORY;
+inline constexpr Policy O = Policy::OPTIONAL;
 
-inline constexpr MatcherPolicy M = MatcherPolicy::MANDATORY;
-inline constexpr MatcherPolicy O = MatcherPolicy::OPTIONAL;
-
-inline const MatcherSequence<std::byte> UTF16BEBOM({
+inline constexpr std::array<Matcher<std::byte>, 2> UTF16BEBOM({
     { M, 0xFE },
     { M, 0xFF }
 });
 
-inline const MatcherSequence<std::byte> UTF16LEBOM({
+inline constexpr std::array<Matcher<std::byte>, 2> UTF16LEBOM({
     { M, 0xFF },
     { M, 0xFE }
 });
 
-inline const MatcherSequence<std::byte> UTF8BOM({
+inline constexpr std::array<Matcher<std::byte>, 3> UTF8BOM({
     { M, 0xEF },
     { M, 0xBB },
     { M, 0xBF }
 });
 
-inline const MatcherSequence<std::byte> UTF16BEXML({
+inline constexpr std::array<Matcher<std::byte>, 6> UTF16BEXML({
     { M, 0x00 },
     { M, 0x3C },
     { M, 0x00 },
@@ -113,7 +122,7 @@ inline const MatcherSequence<std::byte> UTF16BEXML({
     { M, 0x78 }
 });
 
-inline const MatcherSequence<std::byte> UTF16LEXML({
+inline constexpr std::array<Matcher<std::byte>, 6> UTF16LEXML({
     { M, 0x3C },
     { M, 0x00 },
     { M, 0x3F },
@@ -122,20 +131,20 @@ inline const MatcherSequence<std::byte> UTF16LEXML({
     { M, 0x00 }
 });
 
-inline const MatcherSequence<std::byte> OPENCOMMENT({
+inline constexpr std::array<Matcher<std::byte>, 4> OPENCOMMENT({
     { M, 0x3C },
     { M, 0x21 },
     { M, 0x2D },
     { M, 0x2D }
 });
 
-inline const MatcherSequence<std::byte> CLOSECOMMENT({
+inline constexpr std::array<Matcher<std::byte>, 3> CLOSECOMMENT({
     { M, 0x2D },
     { M, 0x2D },
     { M, 0x3E }
 });
 
-inline const MatcherSequence<std::byte> OPENMETA({
+inline constexpr std::array<Matcher<std::byte>, 6> OPENMETA({
     { M, 0x3C },
     { M, CRAWLER_M },
     { M, CRAWLER_E },
@@ -144,50 +153,50 @@ inline const MatcherSequence<std::byte> OPENMETA({
     { M, CRAWLER_S }
 });
 
-inline const MatcherSequence<std::byte> THREEC({
+inline constexpr std::array<Matcher<std::byte>, 3> THREEC({
     { M, 0x3C }, 
     { O, 0x2F },
     { M, CRAWLER_LETTERS }
 });
 
-inline const MatcherSequence<std::byte> ESQ({
+inline constexpr std::array<Matcher<std::byte>, 2> ESQ({
     { M, 0x3C },
     { M, CRAWLER_ESQ }
 });
 
-inline const MatcherSequence<std::byte> CLOSETAG({
+inline constexpr std::array<Matcher<std::byte>, 1> CLOSETAG({
     { M, 0x3E }
 });
 
-inline const MatcherSequence<std::byte> SKIPSEQUENCE({
+inline constexpr std::array<Matcher<std::byte>, 1> SKIPSEQUENCE({
     { M, SKIP_SEQUENCE }
 });
 
-inline const MatcherSequence<std::byte> GETATTRSKIP({
+inline constexpr std::array<Matcher<std::byte>, 1> GETATTRSKIP({
     { M, CRAWLER_S }
 });
 
-inline const MatcherSequence<std::byte> GETATTREQ({
+inline constexpr std::array<Matcher<std::byte>, 1> GETATTREQ({
     { M, 0x3D }
 });
 
-inline const MatcherSequence<std::byte> GETATTRIFSPACES({
+inline constexpr std::array<Matcher<std::byte>, 1> GETATTRIFSPACES({
     { M, CRAWLER_ONE_BYTE_SPACE }
 });
 
-inline const MatcherSequence<std::byte> GETATTRBYTEABORT({
+inline constexpr std::array<Matcher<std::byte>, 1> GETATTRBYTEABORT({
     { M, ABORT_BYTES }
 });
 
-inline const MatcherSequence<std::byte> GETATTRMAIUSCLETTERS({
+inline constexpr std::array<Matcher<std::byte>, 1> GETATTRMAIUSCLETTERS({
     { M, CRAWLER_UPPERCASE_LETTERS }
 });
 
-inline const MatcherSequence<std::byte> GETATTRQUOTE({
+inline constexpr std::array<Matcher<std::byte>, 1> GETATTRQUOTE({
     { M, QUOTES }
 });
 
-inline const MatcherSequence<std::byte> XMLOPENTAG({
+inline constexpr std::array<Matcher<std::byte>, 5> XMLOPENTAG({
     { M, 0x3C },
     { M, 0x3F },
     { M, 0x78 },
@@ -195,7 +204,7 @@ inline const MatcherSequence<std::byte> XMLOPENTAG({
     { M, 0x6C }
 });
 
-inline const MatcherSequence<std::byte> XMLENCODING({
+inline constexpr std::array<Matcher<std::byte>, 8> XMLENCODING({
     { M, 0x65 },
     { M, 0x6E },
     { M, 0x63 },
@@ -206,15 +215,15 @@ inline const MatcherSequence<std::byte> XMLENCODING({
     { M, 0x67 }
 });
 
-inline const MatcherSequence<std::byte> XMLG({
+inline constexpr std::array<Matcher<std::byte>, 1> XMLG({
     { M, 0x67 }
 });
 
-inline const MatcherSequence<std::byte> XMLSPACEORCONTROL({
+inline constexpr std::array<Matcher<std::byte>, 1> XMLSPACEORCONTROL({
     { M, CRAWLER_SPACE_CONTROL }
 });
 
-inline const MatcherSequence<std::byte> SPACESANDSEMICOLON({
+inline constexpr std::array<Matcher<std::byte>, 1> SPACESANDSEMICOLON({
     { M, SPACE_AND_SEMICOLON }
 });
 

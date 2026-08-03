@@ -4,6 +4,9 @@
 #include <concepts>
 #include <vector>
 #include <cstddef>
+#include <algorithm>
+
+#include <Stream.hpp>
 
 namespace Test
 {
@@ -26,6 +29,35 @@ public:
     ~File();
 
     const std::filesystem::path GetPath() const;
+};
+
+template <typename T>
+class InitializedStream : public Crawler::Stream<T>
+{
+public:
+    template <size_t N>
+    InitializedStream(const size_t maskBitOffset, std::array<T, N> data)
+    : Crawler::Stream<T>(maskBitOffset) {
+        size_t count = std::min(size_t((1 << maskBitOffset)-1), data.size());
+        size_t size = count * sizeof(T);
+        memcpy(this->p_Base.get(), data.data(), size);
+        this->p_TailOffset = count;
+    }
+    virtual ~InitializedStream() = default;
+
+    InitializedStream(const InitializedStream&) = delete;
+    InitializedStream& operator=(const InitializedStream&) = delete;
+
+    InitializedStream(InitializedStream&&) = delete;
+    InitializedStream& operator=(InitializedStream&&) = delete;
+
+    virtual bool End() const {
+        return true;
+    }
+
+    virtual bool Bad() const {
+        return true;
+    }
 };
 
 template <std::integral... Ts>
