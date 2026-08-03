@@ -3,11 +3,12 @@
 #include <cstddef>
 
 #include "TransactionalStream.hpp"
+#include "Pipeline.hpp"
 
 namespace Crawler
 {
 
-class UTF8Decoder
+class UTF8Decoder : public Stage<std::byte, char32_t>
 {
 private:
     bool p_Sequence;
@@ -18,8 +19,9 @@ private:
     bool p_IsValidCodepoint();
 
 public:
-    UTF8Decoder();
+    UTF8Decoder(Stream<std::byte>& in, TransactionalStream<char32_t>& out);
 
+    void Process();
     bool Decode(std::byte value, TransactionalStream<char32_t>& out);
     void ResetDecoderState();
 };

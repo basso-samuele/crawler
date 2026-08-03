@@ -7,6 +7,7 @@
 #include <array>
 #include <vector>
 #include <span>
+#include <algorithm>
 
 namespace Crawler
 {
@@ -67,11 +68,7 @@ public:
     constexpr Sequence(const std::array<Matcher<T>, N>& elements)
     : p_Elements(elements.data()), p_Size(elements.size()), p_Current(0) { }
 
-    Result Match(Stream<T>& in) {
-        T value;
-        if (!in.Peek(&value)) {
-            return Result::PENDING;
-        }
+    Result Match(T& value) {
         const Matcher<T>& el = this->p_Elements[this->p_Current];
         auto [policy, match] = el.Match(value);
 
@@ -225,6 +222,31 @@ inline constexpr std::array<Matcher<std::byte>, 1> XMLSPACEORCONTROL({
 
 inline constexpr std::array<Matcher<std::byte>, 1> SPACESANDSEMICOLON({
     { M, SPACE_AND_SEMICOLON }
+});
+
+inline constexpr std::array<Matcher<char32_t>, 1> SURROGATES({
+    { M, CRAWLER_SURROGATES }
+});
+
+inline constexpr std::array<Matcher<char32_t>, 1> NON_CHARACTER({
+    { M, CRAWLER_NON_CHARACTER }
+});
+
+inline constexpr std::array<Matcher<char32_t>, 1> CONTROL({
+    { M, CRAWLER_CONTROL }
+});
+
+inline constexpr std::array<Matcher<char32_t>, 2> CRLF({
+    { M, CRAWLER_CR },
+    { M, CRAWLER_LF }
+});
+
+inline constexpr std::array<Matcher<char32_t>, 1> CR({
+    { M, CRAWLER_CR }
+});
+
+inline constexpr std::array<Matcher<char32_t>, 1> WHITESPACES({
+    { M, CRAWLER_WHITESPACES }
 });
 
 }
