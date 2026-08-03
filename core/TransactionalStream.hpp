@@ -8,9 +8,13 @@ namespace Crawler
 template <typename T>
 class TransactionalStream : public Stream<T>
 {
+private:
+    bool p_End;
+    bool p_Bad;
+
 public:
     TransactionalStream(const size_t maskBitOffset)
-    : Stream<T>(maskBitOffset) { }
+    : Stream<T>(maskBitOffset), p_End(false), p_Bad(false) { }
     virtual ~TransactionalStream() = default;
 
     TransactionalStream(const TransactionalStream&) = delete;
@@ -32,12 +36,16 @@ public:
         return true;
     }
 
+    void SetEndFlag() {
+        this->p_End = true;
+    }
+
     virtual bool End() const {
-        return false;
+        return this->p_End;
     }
 
     virtual bool Bad() const {
-        return false;
+        return this->p_Bad;
     }
 };
 

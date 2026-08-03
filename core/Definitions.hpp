@@ -113,6 +113,7 @@ inline constexpr auto CRAWLER_SURROGATES = BuildArrayFromIntegerSequence<char32_
 inline constexpr auto CRAWLER_NON_CHARACTER = BuildArrayFromIntegerSequence<char32_t, uint16_t>(Concat<CRAWLER_NON_CHARACTER_RANGE_TYPE, CRAWLER_NON_CHARACTER_TYPE>::type{});
 inline constexpr auto CRAWLER_CONTROL = BuildArrayFromIntegerSequence<char32_t, uint16_t>(CRAWLER_CONTROL_TYPE{});
 inline constexpr auto CRAWLER_CRLF = BuildArrayFromIntegerSequence<char32_t, uint16_t>(Concat<CRAWLER_CR_TYPE, CRAWLER_LF_TYPE>::type{});
+inline constexpr auto CRAWLER_LF = BuildArrayFromIntegerSequence<char32_t, uint16_t>(CRAWLER_LF_TYPE{});
 inline constexpr auto CRAWLER_CR = BuildArrayFromIntegerSequence<char32_t, uint16_t>(CRAWLER_CR_TYPE{});
 inline constexpr auto CRAWLER_UPPERCASE_LETTERS = BuildArrayFromIntegerSequence<std::byte, uint8_t>(CRAWLER_UPPER_CASE_LETTERS_TYPE{});
 inline constexpr auto CRAWLER_LETTERS = BuildArrayFromIntegerSequence<std::byte, uint8_t>(CRAWLER_LETTERS_TYPE{});

@@ -5,6 +5,7 @@
 #include <FileStream.hpp>
 
 #include "Decoder.hpp"
+#include <Pipeline.hpp>
 
 namespace Stream
 {
@@ -15,9 +16,16 @@ void Producer(Crawler::FileStream& inputStream) {
 
 void Consumer(Crawler::Stream<std::byte>& inputStream) {
     Crawler::TransactionalStream<char32_t> decoded(16);
-    Crawler::UTF8Decoder decoder;
-    for (std::byte b; inputStream.Peek(&b); inputStream.Drop()) decoder.Decode(b, decoded);
-    for (char32_t c; decoded.Peek(&c); decoded.Drop()) printf("%c", c);
+    Crawler::UTF8Decoder decoder(inputStream, decoded);
+
+    Crawler::TransactionalStream<char32_t> normalized(16);
+    Crawler::Preprocessor preprocessor(decoded, normalized);
+
+    while (!normalized.End()) {
+        decoder.Process();
+        preprocessor.Process();
+        for (char32_t c; normalized.Peek(&c);) printf("%c", c);
+    }
 }
 
 }

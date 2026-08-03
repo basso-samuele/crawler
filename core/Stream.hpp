@@ -55,6 +55,10 @@ public:
         return false;
     }
 
+    virtual void Reset() {
+        this->p_PeekOffset = this->p_HeadOffset;
+    }
+
     virtual bool End() const = 0;
     virtual bool Bad() const = 0;
 
