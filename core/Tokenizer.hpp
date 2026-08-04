@@ -83,6 +83,10 @@ struct EndOrNewAttributeState
 {
 };
 
+struct SwitchTagTypeState
+{
+};
+
 using TokenizerState = std::variant<
     WhitespaceSkipState<InitState>,
     WhitespaceSkipState<TagNameState>,
@@ -91,13 +95,15 @@ using TokenizerState = std::variant<
     WhitespaceSkipState<SelfCloseTagState>,
     WhitespaceSkipState<ExpectEqualSignState>,
     WhitespaceSkipState<EndOrNewAttributeState>,
+    WhitespaceSkipState<SwitchTagTypeState>,
     InitState,
     TagNameState,
     AttributeNameState,
     AttributeValueState,
     SelfCloseTagState,
     ExpectEqualSignState,
-    EndOrNewAttributeState
+    EndOrNewAttributeState,
+    SwitchTagTypeState
 >;
 
 bool IsWhitespace(char32_t c) {
@@ -124,12 +130,12 @@ template <typename T>
 TokenizerState Transition(WhitespaceSkipState<T>& state, Stream<char32_t>& in, TransactionalStream<Token>& out) {
     char32_t c;
     if (!in.Peek(&c)) return WhitespaceSkipState<T>{};
-    
+
     if (!IsWhitespace(c)) {
         in.Reset();
         return state.parent;
     }
-    
+
     in.Drop();
     return WhitespaceSkipState<T>{};
 }
@@ -144,6 +150,7 @@ TokenizerState Transition(InitState& state, Stream<char32_t>& in, TransactionalS
             out.Put(Token(TokenType::TEXTCONTENT, state.text));
             state.text = std::u32string();
         }
+        return WhitespaceSkipState<SwitchTagTypeState>{};
     } else {
         in.Drop();
         state.text.push_back(c);
@@ -151,15 +158,20 @@ TokenizerState Transition(InitState& state, Stream<char32_t>& in, TransactionalS
     }
 }
 
-TokenizerState Transition(IfOpenTag& state, Stream<char32_t>& in, TransactionalStream<Token>& out) {
+TokenizerState Transition(SwitchTagTypeState& state, Stream<char32_t>& in, TransactionalStream<Token>& out) {
     char32_t c;
     if (!in.Peek(&c)) return InitState{};
 
     if (IsForwardSlash(c)) {
+        in.Drop();
         out.Put(Token(TokenType::CLOSETAG));
         return WhitespaceSkipState<TagNameState>{};
+    } else if (IsAlphanumericOrExclamationMark(c)) {
+        in.Reset();
+        out.Put(Token(TokenType::OPENTAG));
+        return TagNameState{};
     } else {
-
+        throw "Error Switch";
     }
 }
 
@@ -194,7 +206,6 @@ TokenizerState Transition(AttributeNameState& state, Stream<char32_t>& in, Trans
         return WhitespaceSkipState<AttributeValueState>{};
     } else if (IsCloseBracket(c)) {
         if (!state.name.empty()) out.Put(Token(TokenType::ATTRNAME, state.name));
-        out.Put(Token(TokenType::CLOSETAG));
         return WhitespaceSkipState<InitState>{};
     } else if (IsForwardSlash(c)) {
         return SelfCloseTagState{};
@@ -253,7 +264,6 @@ TokenizerState Transition(EndOrNewAttributeState& state, Stream<char32_t>& in, T
         in.Reset();
         return WhitespaceSkipState<AttributeNameState>{};
     } else if (IsCloseBracket(c)) {
-        out.Put(Token(TokenType::CLOSETAG));
         in.Drop();
         return WhitespaceSkipState<InitState>{};
     } else if (IsForwardSlash(c)) {
@@ -280,6 +290,10 @@ public:
                 [&](auto& current) {
                     return Transition(current, this->p_In, this->p_Out);
                 }, this->p_State);
+        }
+
+        if (this->p_In.End()) {
+            this->p_Out.SetEndFlag();
         }
     }
 };

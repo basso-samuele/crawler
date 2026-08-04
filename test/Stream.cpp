@@ -20,22 +20,16 @@ void Consumer(Crawler::Stream<std::byte>& inputStream) {
     Crawler::TransactionalStream<char32_t> decoded(16);
     Crawler::UTF8Decoder decoder(inputStream, decoded);
 
-    Crawler::TransactionalStream<char32_t> normalized(16);
+    Crawler::TransactionalStream<char32_t> normalized(12);
     Crawler::Preprocessor preprocessor(decoded, normalized);
 
-    Crawler::TransactionalStream<Crawler::Token> tokens(16);
+    Crawler::TransactionalStream<Crawler::Token> tokens(8);
     Crawler::Tokenizer tokenizer(normalized, tokens);
 
     while (!normalized.End()) {
         decoder.Process();
         preprocessor.Process();
-        try {
-            tokenizer.Process();
-        } catch (char const* text) {
-            std::cout << text << std::endl;
-        }
-
-        int a = 5;
+        tokenizer.Process();
     }
 }
 
