@@ -7,6 +7,7 @@
 #include <array>
 #include <vector>
 #include <span>
+#include <algorithm>
 
 namespace Crawler
 {
@@ -242,6 +243,10 @@ inline constexpr std::array<Matcher<char32_t>, 2> CRLF({
 
 inline constexpr std::array<Matcher<char32_t>, 1> CR({
     { M, CRAWLER_CR }
+});
+
+inline constexpr std::array<Matcher<char32_t>, 1> WHITESPACES({
+    { M, CRAWLER_WHITESPACES }
 });
 
 }

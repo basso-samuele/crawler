@@ -1,11 +1,13 @@
 #include <thread>
 #include <stdio.h>
+#include <iostream>
 
 #include <Stream.hpp>
 #include <FileStream.hpp>
 
-#include "Decoder.hpp"
+#include <Decoder.hpp>
 #include <Pipeline.hpp>
+#include <Tokenizer.hpp>
 
 namespace Stream
 {
@@ -18,13 +20,16 @@ void Consumer(Crawler::Stream<std::byte>& inputStream) {
     Crawler::TransactionalStream<char32_t> decoded(16);
     Crawler::UTF8Decoder decoder(inputStream, decoded);
 
-    Crawler::TransactionalStream<char32_t> normalized(16);
+    Crawler::TransactionalStream<char32_t> normalized(12);
     Crawler::Preprocessor preprocessor(decoded, normalized);
+
+    Crawler::TransactionalStream<Crawler::Token> tokens(8);
+    Crawler::Tokenizer tokenizer(normalized, tokens);
 
     while (!normalized.End()) {
         decoder.Process();
         preprocessor.Process();
-        for (char32_t c; normalized.Peek(&c);) printf("%c", c);
+        tokenizer.Process();
     }
 }
 

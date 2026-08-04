@@ -26,6 +26,7 @@ target_sources(core
         ${CMAKE_CURRENT_SOURCE_DIR}/vendor/spdlog/SPDLog.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Decoder.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Tokenizer.cpp
     PUBLIC
     FILE_SET HEADERS
     FILES
@@ -39,4 +40,5 @@ target_sources(core
         ${CMAKE_CURRENT_SOURCE_DIR}/Decoder.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/TransactionalStream.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Definitions.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Tokenizer.hpp
 )

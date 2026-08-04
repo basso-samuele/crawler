@@ -64,24 +64,28 @@ public:
     using type = typename Filter<std::integer_sequence<T, Tail...>, NextAccumulator, Predicate>::type;
 };
 
-using CRAWLER_LEADING_SURROGATES_RANGE_TYPE = InRange<uint16_t, 0xD800, 0xDBFF>::type;
-using CRAWLER_TRAILING_SURROGATES_RANGE_TYPE = InRange<uint16_t, 0xDC00, 0xDFFF>::type;
-using CRAWLER_NON_CHARACTER_RANGE_TYPE = InRange<uint16_t, 0xFDD0, 0xFDEF>::type;
-using CRAWLER_NON_CHARACTER_TYPE = std::integer_sequence<uint16_t,
+using CRAWLER_LEADING_SURROGATES_RANGE_TYPE = InRange<uint32_t, 0xD800, 0xDBFF>::type;
+using CRAWLER_TRAILING_SURROGATES_RANGE_TYPE = InRange<uint32_t, 0xDC00, 0xDFFF>::type;
+using CRAWLER_NON_CHARACTER_RANGE_TYPE = InRange<uint32_t, 0xFDD0, 0xFDEF>::type;
+using CRAWLER_NON_CHARACTER_TYPE = std::integer_sequence<uint32_t,
     0xFFFE, 0xFFFF, 0x1FFFE, 0x1FFFF, 0x2FFFE, 0x2FFFF, 0x3FFFE, 0x3FFFF, 0x4FFFE, 0x4FFFF, 0x5FFFE,
     0x5FFFF, 0x6FFFE, 0x6FFFF, 0x7FFFE, 0x7FFFF, 0x8FFFE, 0x8FFFF, 0x9FFFE, 0x9FFFF, 0xAFFFE, 0xAFFFF,
     0xBFFFE, 0xBFFFF, 0xCFFFE, 0xCFFFF, 0xDFFFE, 0xDFFFF, 0xEFFFE, 0xEFFFF, 0xFFFFE, 0xFFFFF, 0x10FFFE, 0x10FFFF>;
-using CRAWLER_CONTROL_RANGE_TYPE = InRange<uint16_t, 0x007F, 0x009F>::type;
-using CRAWLER_NULL_BYTE = std::integer_sequence<uint16_t, 0x0000>;
-using CRAWLER_WHITESPACES_TYPE = std::integer_sequence<uint16_t, 0x0009, 0x000A, 0x000C, 0x000D, 0x0020>;
+using CRAWLER_CONTROL_RANGE_TYPE = InRange<uint32_t, 0x007F, 0x009F>::type;
+using CRAWLER_NULL_BYTE = std::integer_sequence<uint32_t, 0x0000>;
+using CRAWLER_WHITESPACES_TYPE = std::integer_sequence<uint32_t, 0x0009, 0x000A, 0x000C, 0x000D, 0x0020>;
 using CRAWLER_WHITESPACES_AND_NULL_TYPE = Concat<CRAWLER_NULL_BYTE, CRAWLER_WHITESPACES_TYPE>::type;
-using CRAWLER_CR_TYPE = std::integer_sequence<uint16_t, 0x000D>;
-using CRAWLER_LF_TYPE = std::integer_sequence<uint16_t, 0x000A>;
+using CRAWLER_CR_TYPE = std::integer_sequence<uint32_t, 0x000D>;
+using CRAWLER_LF_TYPE = std::integer_sequence<uint32_t, 0x000A>;
 using CRAWLER_UPPER_CASE_LETTERS_TYPE = InRange<uint8_t, 0x41, 0x5A>::type;
 using CRAWLER_LOWER_CASE_LETTERS_TYPE = InRange<uint8_t, 0x61, 0x7A>::type;
 using CRAWLER_LETTERS_TYPE = Concat<CRAWLER_UPPER_CASE_LETTERS_TYPE, CRAWLER_LOWER_CASE_LETTERS_TYPE>::type;
 using CRAWLER_SPACE_CONTROL_TYPE = InRange<uint8_t, 0x00, 0x20>::type;
-using CRAWLER_CONTROL_TYPE = Filter<CRAWLER_CONTROL_RANGE_TYPE, std::integer_sequence<uint16_t>, Contains<CRAWLER_WHITESPACES_AND_NULL_TYPE>>::type;
+using CRAWLER_CONTROL_TYPE = Filter<CRAWLER_CONTROL_RANGE_TYPE, std::integer_sequence<uint32_t>, Contains<CRAWLER_WHITESPACES_AND_NULL_TYPE>>::type;
+
+using CRAWLER_UNICODE_LATIN_TYPE = Concat<InRange<uint32_t, 0x0041, 0x005A>::type, InRange<uint32_t, 0x0061, 0x007A>::type>::type;
+using CRAWLER_UNICODE_ALPHANUMERICAL_TYPE = Concat<CRAWLER_UNICODE_LATIN_TYPE, InRange<uint32_t, 0x0030, 0x0039>::type>::type;
+using CRAWLER_UNICODE_ALPHANUMERICAL_EM_TYPE = Concat<CRAWLER_UNICODE_ALPHANUMERICAL_TYPE, std::integer_sequence<uint32_t, 0x0021>>::type;
 
 /* Spaces single byte. */
 using CRAWLER_ONE_BYTE_SPACE_TYPE = std::integer_sequence<uint8_t, 0x09, 0x0A, 0x0C, 0x0D, 0x20>;
@@ -109,12 +113,17 @@ using QUOTES_TYPE = std::integer_sequence<uint8_t, 0x22, 0x27>;
 using SPACE_AND_SEMICOLON_TYPE = Concat<CRAWLER_ONE_BYTE_SPACE_TYPE, std::integer_sequence<uint8_t, 0x3B>>::type;
 
 /* Materialization. */
-inline constexpr auto CRAWLER_SURROGATES = BuildArrayFromIntegerSequence<char32_t, uint16_t>(Concat<CRAWLER_LEADING_SURROGATES_RANGE_TYPE, CRAWLER_TRAILING_SURROGATES_RANGE_TYPE>::type{});
-inline constexpr auto CRAWLER_NON_CHARACTER = BuildArrayFromIntegerSequence<char32_t, uint16_t>(Concat<CRAWLER_NON_CHARACTER_RANGE_TYPE, CRAWLER_NON_CHARACTER_TYPE>::type{});
-inline constexpr auto CRAWLER_CONTROL = BuildArrayFromIntegerSequence<char32_t, uint16_t>(CRAWLER_CONTROL_TYPE{});
-inline constexpr auto CRAWLER_CRLF = BuildArrayFromIntegerSequence<char32_t, uint16_t>(Concat<CRAWLER_CR_TYPE, CRAWLER_LF_TYPE>::type{});
-inline constexpr auto CRAWLER_LF = BuildArrayFromIntegerSequence<char32_t, uint16_t>(CRAWLER_LF_TYPE{});
-inline constexpr auto CRAWLER_CR = BuildArrayFromIntegerSequence<char32_t, uint16_t>(CRAWLER_CR_TYPE{});
+inline constexpr auto CRAWLER_SURROGATES = BuildArrayFromIntegerSequence<char32_t, uint32_t>(Concat<CRAWLER_LEADING_SURROGATES_RANGE_TYPE, CRAWLER_TRAILING_SURROGATES_RANGE_TYPE>::type{});
+inline constexpr auto CRAWLER_NON_CHARACTER = BuildArrayFromIntegerSequence<char32_t, uint32_t>(Concat<CRAWLER_NON_CHARACTER_RANGE_TYPE, CRAWLER_NON_CHARACTER_TYPE>::type{});
+inline constexpr auto CRAWLER_CONTROL = BuildArrayFromIntegerSequence<char32_t, uint32_t>(CRAWLER_CONTROL_TYPE{});
+inline constexpr auto CRAWLER_CRLF = BuildArrayFromIntegerSequence<char32_t, uint32_t>(Concat<CRAWLER_CR_TYPE, CRAWLER_LF_TYPE>::type{});
+inline constexpr auto CRAWLER_LF = BuildArrayFromIntegerSequence<char32_t, uint32_t>(CRAWLER_LF_TYPE{});
+inline constexpr auto CRAWLER_CR = BuildArrayFromIntegerSequence<char32_t, uint32_t>(CRAWLER_CR_TYPE{});
+inline constexpr auto CRAWLER_WHITESPACES = BuildArrayFromIntegerSequence<char32_t, uint32_t>(CRAWLER_WHITESPACES_TYPE{});
+inline constexpr auto CRAWLER_UNICODE_LATIN = BuildArrayFromIntegerSequence<char32_t, uint32_t>(CRAWLER_UNICODE_LATIN_TYPE{});
+inline constexpr auto CRAWLER_UNICODE_ALPHANUMERICAL = BuildArrayFromIntegerSequence<char32_t, uint32_t>(CRAWLER_UNICODE_ALPHANUMERICAL_TYPE{});
+inline constexpr auto CRAWLER_UNICODE_ALPHANUMERICAL_EM = BuildArrayFromIntegerSequence<char32_t, uint32_t>(CRAWLER_UNICODE_ALPHANUMERICAL_EM_TYPE{});
+
 inline constexpr auto CRAWLER_UPPERCASE_LETTERS = BuildArrayFromIntegerSequence<std::byte, uint8_t>(CRAWLER_UPPER_CASE_LETTERS_TYPE{});
 inline constexpr auto CRAWLER_LETTERS = BuildArrayFromIntegerSequence<std::byte, uint8_t>(CRAWLER_LETTERS_TYPE{});
 inline constexpr auto CRAWLER_SPACE_CONTROL = BuildArrayFromIntegerSequence<std::byte, uint8_t>(CRAWLER_SPACE_CONTROL_TYPE{});
