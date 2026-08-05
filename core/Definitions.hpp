@@ -153,4 +153,12 @@ inline constexpr auto QUOTES = BuildArrayFromIntegerSequence<std::byte, uint8_t>
 /* Spaces and semicolon. */
 inline constexpr auto SPACE_AND_SEMICOLON = BuildArrayFromIntegerSequence<std::byte, uint8_t>(SPACE_AND_SEMICOLON_TYPE{});
 
+bool IsWhitespace(char32_t c);
+bool IsAlphanumeric(char32_t c);
+bool IsAlphanumericOrExclamationMark(char32_t c);
+bool IsOpenTag(char32_t c);
+bool IsEqualSign(char32_t c);
+bool IsCloseBracket(char32_t c);
+bool IsForwardSlash(char32_t c);
+
 }
