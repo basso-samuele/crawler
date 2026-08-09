@@ -13,8 +13,8 @@ private:
     bool p_Bad;
 
 public:
-    TransactionalStream(const size_t maskBitOffset)
-    : Stream<T>(maskBitOffset), p_End(false), p_Bad(false) { }
+    TransactionalStream()
+    : p_End(false), p_Bad(false) { }
     virtual ~TransactionalStream() = default;
 
     TransactionalStream(const TransactionalStream&) = delete;
@@ -24,15 +24,7 @@ public:
     TransactionalStream& operator=(TransactionalStream&&) = delete;
 
     bool Put(T&& value) {
-        size_t fullBufferTailOffset = (this->p_HeadOffset - 1) & this->p_Mask;
-        bool isBufferFull = (this->p_TailOffset == fullBufferTailOffset);
-        if (isBufferFull) {
-            return false;
-        }
-
-        this->p_Base[this->p_TailOffset] = value;
-        this->p_TailOffset = (this->p_TailOffset + 1) & this->p_Mask;
-
+        this->p_Base.push_back(std::move(value));
         return true;
     }
 

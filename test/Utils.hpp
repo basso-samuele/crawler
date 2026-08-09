@@ -36,12 +36,10 @@ class InitializedStream : public Crawler::Stream<T>
 {
 public:
     template <size_t N>
-    InitializedStream(const size_t maskBitOffset, std::array<T, N> data)
-    : Crawler::Stream<T>(maskBitOffset) {
-        size_t count = std::min(size_t((1 << maskBitOffset)-1), data.size());
+    InitializedStream(std::array<T, N> data) {
+        size_t count = data.size();
         size_t size = count * sizeof(T);
-        memcpy(this->p_Base.get(), data.data(), size);
-        this->p_TailOffset = count;
+        // copy data into vector
     }
     virtual ~InitializedStream() = default;
 

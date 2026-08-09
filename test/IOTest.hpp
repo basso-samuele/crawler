@@ -21,11 +21,10 @@ struct IOTest {
 void RunIOTest(const IOTest& test) {
     std::string content = Test::BSToString(test.input);
     Test::File f(content);
-    Crawler::FileStream is(f.GetPath(), _MaskBitOffset);
-    is.ReadFromDisk();
+    Crawler::FileStream is(f.GetPath());
 
     std::vector<std::byte> actual;
-    for (std::byte b; is.Peek(&b); is.Drop(), is.ReadFromDisk()) actual.push_back(b);
+    for (std::byte b; is.Peek(&b); is.Drop()) actual.push_back(b);
     CRAWLER_ASSERT_EQ(test.input.size(), actual.size());
     CRAWLER_ASSERT_MEMEQ(test.input.data(), actual.data(), test.input.size());
 }

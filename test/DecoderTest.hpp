@@ -56,12 +56,12 @@ const std::vector<DecoderTest> uft8DecoderTests({
 });
 
 void UTF8DecoderTest() {
-    Crawler::TransactionalStream<std::byte> in(0);
-    Crawler::TransactionalStream<char32_t> out(0);
+    Crawler::TransactionalStream<std::byte> in;
+    Crawler::TransactionalStream<char32_t> out;
     Crawler::UTF8Decoder decoder(in, out);
 
     for (const DecoderTest& t : uft8DecoderTests) {
-        Crawler::TransactionalStream<char32_t> out(10);
+        Crawler::TransactionalStream<char32_t> out;
         size_t detectionByte = 0;
 
         for (

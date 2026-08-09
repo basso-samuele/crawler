@@ -1,0 +1,30 @@
+# void elements
+area
+base
+br
+col
+embed
+hr
+img
+input
+link
+meta
+source
+track
+wbr
+# the template element
+template
+# raw text elements
+script
+style
+# escapable raw text elements
+textarea
+title
+# foreign elements
+#   MathML
+
+# foreign elements
+#   SVG
+
+# normal elements
+#   HTML

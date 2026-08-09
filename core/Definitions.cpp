@@ -1,4 +1,5 @@
 #include "Definitions.hpp"
+#include <algorithm>
 
 namespace Crawler
 {
