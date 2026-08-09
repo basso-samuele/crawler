@@ -24,7 +24,7 @@ target_link_libraries(stream
 )
 target_compile_definitions(stream
     PRIVATE
-        -DCRAWLER_STREAM_ASSET_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets/stream.html"
+        -DCRAWLER_STREAM_ASSET_PATH="${CMAKE_CURRENT_SOURCE_DIR}/assets/simple.html"
 )
 add_test(
     NAME stream

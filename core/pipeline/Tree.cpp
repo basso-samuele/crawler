@@ -6,7 +6,7 @@ namespace Crawler
 Node::Node(std::shared_ptr<Node> father, std::u32string type)
 : p_NextChildPosition(0), p_Father(father), p_Type(type) { }
 
-Node::Node(std::shared_ptr<Node> father, std::u32string type, std::u32string&& value)
+Node::Node(std::shared_ptr<Node> father, std::u32string&& type, std::u32string&& value)
 : p_NextChildPosition(0), p_Father(father), p_Type(type), p_Value(std::move(value)) { }
 
 void Node::AddAttribute(std::u32string&& name, std::u32string&& value) {
