@@ -44,4 +44,5 @@ target_sources(core
         ${CMAKE_CURRENT_SOURCE_DIR}/Definitions.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Tokenizer.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Tree.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Timing.hpp
 )

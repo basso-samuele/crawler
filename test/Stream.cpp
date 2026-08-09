@@ -9,6 +9,7 @@
 #include <pipeline/Preprocessor.hpp>
 #include <pipeline/Tokenizer.hpp>
 #include <pipeline/Tree.hpp>
+#include <Timing.hpp>
 
 namespace Stream
 {
@@ -30,12 +31,15 @@ void Consumer(Crawler::Stream<std::byte>& inputStream) {
     Crawler::TransactionalStream<std::shared_ptr<Crawler::Node>> nodes(2);
     Crawler::TreeBuilder treeBuilder(tokens, nodes);
 
-    while (!normalized.End()) {
-        decoder.Process();
-        preprocessor.Process();
-        tokenizer.Process();
-        treeBuilder.Process();
-        treeBuilder.Finalize();
+    {
+        Crawler::ScopedTimer t;
+        while (!normalized.End()) {
+            decoder.Process();
+            preprocessor.Process();
+            tokenizer.Process();
+            treeBuilder.Process();
+            treeBuilder.Finalize();
+        }
     }
 
     std::shared_ptr<Crawler::Node> root;

@@ -3,6 +3,7 @@
 #include <concepts>
 #include <utility>
 #include <cstddef>
+#include <cstdint>
 
 namespace Crawler
 {

@@ -27,7 +27,7 @@ private:
 
 public:
     Node(std::shared_ptr<Node> father, std::u32string type);
-    Node(std::shared_ptr<Node> father, std::u32string type, std::u32string&& value);
+    Node(std::shared_ptr<Node> father, std::u32string&& type, std::u32string&& value);
     void AddAttribute(std::u32string&& name, std::u32string&& value);
     void AddChild(std::shared_ptr<Node> child);
     std::u32string GetType();
