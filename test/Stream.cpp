@@ -5,10 +5,10 @@
 #include <Stream.hpp>
 #include <FileStream.hpp>
 
-#include <Decoder.hpp>
-#include <Pipeline.hpp>
-#include <Tokenizer.hpp>
-#include <Tree.hpp>
+#include <pipeline/Decoder.hpp>
+#include <pipeline/Preprocessor.hpp>
+#include <pipeline/Tokenizer.hpp>
+#include <pipeline/Tree.hpp>
 
 namespace Stream
 {

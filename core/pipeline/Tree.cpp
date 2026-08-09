@@ -6,11 +6,11 @@ namespace Crawler
 Node::Node(std::shared_ptr<Node> father, std::u32string type)
 : p_NextChildPosition(0), p_Father(father), p_Type(type) { }
 
-Node::Node(std::shared_ptr<Node> father, std::u32string type, std::u32string value)
-: p_NextChildPosition(0), p_Father(father), p_Type(type), p_Value(value) { }
+Node::Node(std::shared_ptr<Node> father, std::u32string type, std::u32string&& value)
+: p_NextChildPosition(0), p_Father(father), p_Type(type), p_Value(std::move(value)) { }
 
-void Node::AddAttribute(std::u32string name, std::u32string value) {
-    this->p_Attributes.emplace(name, value);
+void Node::AddAttribute(std::u32string&& name, std::u32string&& value) {
+    this->p_Attributes.emplace(std::move(name), std::move(value));
 }
 
 void Node::AddChild(std::shared_ptr<Node> child) {
@@ -45,8 +45,7 @@ TreeBuilderState Transition(TreeInitState& state, TreeBuilderContext& context, T
         return OpenTagState{};
     case TokenType::TEXTCONTENT: {
         std::shared_ptr<Node> father = context.elementStack.top();
-        const std::u32string& tokenValue = t.GetValue();
-        std::shared_ptr<Node> node = std::make_shared<Node>(father, U"text", tokenValue);
+        std::shared_ptr<Node> node = std::make_shared<Node>(father, U"text", std::move(t.GetValue()));
         father->AddChild(node);
         return TreeInitState{};
     }
@@ -97,8 +96,8 @@ TreeBuilderState Transition(GetTagAttributeState& state, TreeBuilderContext& con
         return OpenTagState{};
     case TokenType::TEXTCONTENT: {
         std::shared_ptr<Node> father = context.elementStack.top();
-        const std::u32string& tokenValue = t.GetValue();
-        std::shared_ptr<Node> node = std::make_shared<Node>(father, U"text", tokenValue);
+        const char32_t* before = t.GetValue().data();
+        std::shared_ptr<Node> node = std::make_shared<Node>(father, U"text", std::move(t.GetValue()));
         father->AddChild(node);
         return TreeInitState{};
     }
@@ -113,7 +112,7 @@ TreeBuilderState Transition(GetTagAttributeState& state, TreeBuilderContext& con
 TreeBuilderState Transition(GetTagAttributeValueState& state, TreeBuilderContext& context, Token& t) {
     switch (t.GetType()) {
     case TokenType::ATTRVALUE:
-        context.elementStack.top()->AddAttribute(context.currentAttrName, t.GetValue());
+        context.elementStack.top()->AddAttribute(std::move(context.currentAttrName), std::move(t.GetValue()));
         return GetTagAttributeState{};
     case TokenType::OPENTAG:
         return OpenTagState{};

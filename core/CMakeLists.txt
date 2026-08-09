@@ -24,11 +24,11 @@ target_sources(core
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/FileStream.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/vendor/spdlog/SPDLog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Decoder.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Tokenizer.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Preprocessor.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Decoder.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Tokenizer.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Definitions.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Tree.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Tree.cpp
     PUBLIC
     FILE_SET HEADERS
     FILES
@@ -38,10 +38,10 @@ target_sources(core
         ${CMAKE_CURRENT_SOURCE_DIR}/Patterns.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Singleton.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/ServiceLocator.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Decoder.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Preprocessor.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Decoder.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/TransactionalStream.hpp
         ${CMAKE_CURRENT_SOURCE_DIR}/Definitions.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Tokenizer.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Tree.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Tokenizer.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Tree.hpp
 )

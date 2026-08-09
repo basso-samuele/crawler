@@ -3,7 +3,7 @@
 #include <variant>
 #include <algorithm>
 
-#include "Pipeline.hpp"
+#include "Stage.hpp"
 #include "Definitions.hpp"
 
 namespace Crawler

@@ -7,7 +7,7 @@
 #include "Test.hpp"
 #include "Utils.hpp"
 
-#include "Decoder.hpp"
+#include <pipeline/Decoder.hpp>
 
 namespace Decoder
 {

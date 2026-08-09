@@ -3,7 +3,8 @@
 #include <cstddef>
 
 #include "TransactionalStream.hpp"
-#include "Pipeline.hpp"
+#include "Stream.hpp"
+#include "Stage.hpp"
 
 namespace Crawler
 {
