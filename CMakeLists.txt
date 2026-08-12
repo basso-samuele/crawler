@@ -1,14 +1,10 @@
 cmake_minimum_required(VERSION 4.3.0)
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CXX_EXTENSIONS OFF)
+project(crawler C CXX)
 
-project(crawler)
-
-add_compile_options(
-    $<$<CXX_COMPILER_ID:MSVC>:/Zc:preprocessor>
-)
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
 
 add_subdirectory(core)
 
