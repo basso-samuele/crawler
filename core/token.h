@@ -3,6 +3,7 @@
 
 #include "tags.h"
 #include "string_buffer.h"
+#include "vector.h"
 
 #include <stdbool.h>
 
@@ -17,7 +18,6 @@ typedef enum {
     CRAWLER_TOKEN_COMMENT,
     CRAWLER_TOKEN_CHARACTER,
     CRAWLER_TOKEN_EOF,
-    CRAWLER_TOKEN_TAG,
     CRAWLER_TOKEN_PROCESSING_INSTRUCTION,
     CRAWLER_TOKEN_TYPE_UNKNOWN
 } CrawlerTokenType;
@@ -34,7 +34,7 @@ typedef struct {
 typedef struct {
     CrawlerString name;
     bool is_self_closing;
-    // attributes
+    CrawlerVector attributes;
 } CrawlerStartTag;
 
 typedef struct CrawlerInternalToken {
@@ -46,6 +46,12 @@ typedef struct CrawlerInternalToken {
         CrawlerString str;
     } data;
 } CrawlerToken;
+
+// Initializes token to CRAWLER_TOKEN_TYPE_UNKNOWN. This state
+// represents the fact that no resources are being held by the structure
+void crawler_token_init(CrawlerToken* token);
+void crawler_token_destroy(CrawlerToken* token);
+void crawler_token_clone(CrawlerToken* destination, CrawlerToken* source);
 
 #ifdef __cplusplus
 }

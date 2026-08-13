@@ -1,14 +1,13 @@
 #include "Test.hpp"
 
-#include <parser.h>
-#include <buffer.h>
+#include <crawler.h>
 
 int main(int argc, char** argv) {
-    unsigned char data[] = "<div><p>This is an ASCII string!</div></p>";
+    std::string input("<div><p>This is an ASCII string!</div></p>");
     CrawlerBuffer buffer;
-    buffer.base = data;
-    buffer.size = sizeof(data);
+    buffer.base = (unsigned char*)input.data();
+    buffer.size = input.length();
 
-    crawler_parse(&buffer);
+    crawler_parse_buffer(&buffer);
     return 0;
 }

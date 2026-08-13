@@ -12,11 +12,6 @@
 extern "C" {
 #endif
 
-typedef enum {
-    CRAWLER_PARSER_MISSING_DATA,
-    CRAWLER_PARSER_SUCCESS
-} CrawlerParserResult;
-
 // Represents the complete state, every function takes a pointer to this structure and
 // modifies the necessary fields.
 typedef struct CrawlerInternalParserContext {
@@ -28,8 +23,6 @@ typedef struct CrawlerInternalParserContext {
 void crawler_parser_init(CrawlerParserContext* parser);
 void crawler_parser_bind_buffer(CrawlerParserContext* parser, CrawlerBuffer* buffer);
 void crawler_parser_register_error(CrawlerParserContext* parser, CrawlerParseErrorType error_code, int code_point, size_t offset);
-
-CrawlerParserResult crawler_parse(CrawlerBuffer* buffer);
 
 #ifdef __cplusplus
 }

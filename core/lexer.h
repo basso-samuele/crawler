@@ -138,6 +138,11 @@ typedef struct CrawlerInternalLexerContext {
     CrawlerLexerState return_state;
 
     CrawlerString temporary_buffer;
+
+    // An appropriate end tag token is an end tag token whose tag name matches the tag
+    // name of the last start tag to have been emitted from this tokenizer, if any.
+    // If no start tag has been emitted from this tokenizer, then no end tag token is appropriate.
+    CrawlerToken last_emitted_start_tag;
 } CrawlerLexerContext;
 
 struct CrawlerInternalParserContext;

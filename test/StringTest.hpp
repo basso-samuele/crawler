@@ -27,8 +27,25 @@ void StringBufferRelocate() {
     crawler_string_destroy(&str);
 }
 
+void StringBufferClone() {
+    CrawlerString str;
+    crawler_string_init(&str);
+    crawler_string_create(&str, 2);
+    crawler_string_append(&str, 'a');
+    crawler_string_append(&str, 'b');
+    CrawlerString clone;
+    crawler_string_clone(&clone, &str);
+    CRAWLER_ASSERT_TRUE(crawler_string_compare(&str, &clone));
+    const char* reference = "ab";
+    CRAWLER_ASSERT_TRUE(crawler_string_compare_with_literal(&str, const_cast<char*>(reference)));
+    CRAWLER_ASSERT_MEMEQ(str.data, clone.data, str.length*sizeof(int));
+    crawler_string_destroy(&str);
+    crawler_string_destroy(&clone);
+}
+
 void Test() {
     StringBufferRelocate();
+    StringBufferClone();
 }
 
 }

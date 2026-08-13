@@ -1,19 +1,20 @@
 #ifndef CRAWLER_ATTRIBUTES_H_
 #define CRAWLER_ATTRIBUTES_H_
 
+#include "string_buffer.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/**
- * Representing a single attribute with name and value.
- * 
- * Since heap allocation can be expensive, I would like to substitute name and value with structures supporting SSO.
- */
 typedef struct {
-    const int* name;
-    const int* value;
+    CrawlerString name;
+    CrawlerString value;
 } CrawlerAttribute;
+
+void crawler_attribute_init(CrawlerAttribute* attribute);
+void crawler_attribute_create(CrawlerAttribute* attribute);
+void crawler_attribute_destroy(CrawlerAttribute* attribute);
 
 #ifdef __cplusplus
 }
