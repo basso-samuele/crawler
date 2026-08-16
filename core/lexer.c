@@ -1,7 +1,6 @@
 #include "lexer.h"
 #include "parser.h"
 #include "stream.h"
-#include "vector.h"
 #include "attributes.h"
 #include "memory.h"
 #include "utils.h"
@@ -9,96 +8,155 @@
 #include <stdbool.h>
 #include <assert.h>
 
-static void crawler_lexer_create_character_token(struct CrawlerInternalParserContext* parser) {
-    crawler_string_create(&parser->current_token.data.str, 1);
+static bool crawler_lexer_is_ascii_upper_alpha(int cp) {
+    return ((cp >= 0x0041) && (cp <= 0x005A));
+}
+
+static bool crawler_lexer_is_ascii_lower_alpha(int cp) {
+    return ((cp >= 0x0061) && (cp <= 0x007A));
+}
+
+static bool crawler_lexer_is_ascii_alpha(int cp) {
+    return ((cp >= 0x0041) && (cp <= 0x005A)) ||
+           ((cp >= 0x0061) && (cp <= 0x007A));
+}
+
+static void create_doctype_token(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    crawler_string_create(&parser->current_token.data.doc_type.name, 8);
+    crawler_string_create(&parser->current_token.data.doc_type.public_identifier, 8);
+    crawler_string_create(&parser->current_token.data.doc_type.system_identifier, 8);
+    parser->current_token.data.doc_type.has_public_identifier = false;
+    parser->current_token.data.doc_type.has_system_identifier = false;
+    parser->current_token.data.doc_type.force_quirks = false;
+    parser->current_token.type = CRAWLER_TOKEN_DOCTYPE;
+}
+
+static void create_start_tag_token(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    crawler_string_create(&parser->current_token.data.start_tag.name, 8);
+    parser->current_token.data.start_tag.is_self_closing = false;
+    parser->current_token.data.start_tag.attributes = NULL;
+    parser->current_token.type = CRAWLER_TOKEN_START_TAG;
+}
+
+static void create_end_tag_token(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    crawler_string_create(&parser->current_token.data.end_tag, 8);
+    parser->current_token.type = CRAWLER_TOKEN_END_TAG;
+}
+
+static void create_comment_token(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    crawler_string_create(&parser->current_token.data.str, 16);
+    parser->current_token.type = CRAWLER_TOKEN_COMMENT;
+}
+
+static void create_character_token(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    crawler_string_create(&parser->current_token.data.start_tag.name, 1);
     parser->current_token.type = CRAWLER_TOKEN_CHARACTER;
 }
 
-static void crawler_lexer_emit_character(struct CrawlerInternalParserContext* parser, int cp) {
+static void create_eof_token(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    parser->current_token.type = CRAWLER_TOKEN_EOF;
+}
+
+static void create_processing_instruction_token(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    assert(false);
+}
+
+static void emit_character(CrawlerParserContext* parser, int cp) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_CHARACTER);
     crawler_string_append(&parser->current_token.data.str, cp);
 }
 
-static void crawler_lexer_emit_current_character(struct CrawlerInternalParserContext* parser) {
+static void emit_current_character(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_CHARACTER);
     crawler_string_append(&parser->current_token.data.str, parser->is.current_code_point);
 }
 
-static void crawler_lexer_emit_temporary_buffer_as_character(struct CrawlerInternalParserContext* parser) {
-    crawler_string_append_string_buffer(&parser->current_token.data.str, &parser->lexer.temporary_buffer);
-}
-
-static void crawler_lexer_create_start_tag_token(struct CrawlerInternalParserContext* parser) {
-    parser->current_token.type = CRAWLER_TOKEN_START_TAG;
-    crawler_string_create(&parser->current_token.data.start_tag.name, 8);
-    crawler_vector_init(&parser->current_token.data.start_tag.attributes);
-}
-
-static void crawler_lexer_create_end_tag_token(struct CrawlerInternalParserContext* parser) {
-    parser->current_token.type = CRAWLER_TOKEN_END_TAG;
-    crawler_string_create(&parser->current_token.data.end_tag, 8);
-}
-
-static void crawler_lexer_create_comment_token(struct CrawlerInternalParserContext* parser) {
-    parser->current_token.type = CRAWLER_TOKEN_COMMENT;
-    crawler_string_create(&parser->current_token.data.str, 16);
-}
-
-static void crawler_lexer_temporary_to_empty_string(struct CrawlerInternalParserContext* parser) {
-    // Resets the content of temporary buffer withour memory management concerns.
+static void temporary_to_empty_string(CrawlerParserContext* parser) {
     parser->lexer.temporary_buffer.length = 0;
 }
 
-static void crawler_lexer_start_new_attribute(struct CrawlerInternalParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
-    CrawlerAttribute* attribute = (CrawlerAttribute*)_crawler_alloc(sizeof(CrawlerAttribute));
-    crawler_attribute_init(attribute);
-    crawler_attribute_create(attribute);
-    crawler_vector_append(&parser->current_token.data.start_tag.attributes, (void*)attribute);
+static void emit_temporary_buffer_character(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_CHARACTER);
+    crawler_string_append_string_buffer(&parser->current_token.data.str, &parser->lexer.temporary_buffer);
+    crawler_debug("Emitted temporary buffer as characters, deleting the buffer.");
+    temporary_to_empty_string(parser);
 }
 
-static void crawler_lexer_append_to_current_attr_name(struct CrawlerInternalParserContext* parser, int cp) {
+static void start_new_attribute(CrawlerParserContext* parser) {
     assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
-    size_t current_attribute_pos = parser->current_token.data.start_tag.attributes.size-1;
-    assert(current_attribute_pos >= 1);
-    CrawlerAttribute* current_attribute = parser->current_token.data.start_tag.attributes.data[current_attribute_pos];
-    crawler_string_append(&current_attribute->name, cp);
+    assert(!parser->lexer.current_attribute_node);
+    parser->lexer.current_attribute_node = _crawler_alloc(sizeof *parser->lexer.current_attribute_node);
+    crawler_attribute_node_init(parser->lexer.current_attribute_node);
+    crawler_attribute_node_create(parser->lexer.current_attribute_node);
 }
 
-static void crawler_lexer_append_to_current_attr_value(struct CrawlerInternalParserContext* parser, int cp) {
+static void append_to_current_attribute_name(CrawlerParserContext* parser, int cp) {
     assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
-    size_t current_attribute_pos = parser->current_token.data.start_tag.attributes.size-1;
-    assert(current_attribute_pos >= 1);
-    CrawlerAttribute* current_attribute = parser->current_token.data.start_tag.attributes.data[current_attribute_pos];
-    crawler_string_append(&current_attribute->value, cp);
+    assert(parser->lexer.current_attribute_node);
+    crawler_string_append(&parser->lexer.current_attribute_node->attribute.name, cp);
 }
 
-static bool crawler_lexer_is_appropriate_end_tag_token(struct CrawlerInternalParserContext* parser) {
-    // An appropriate end tag token is an end tag token whose tag name matches
-    // the tag name of the last start tag to have been emitted from this tokenizer,
-    // if any. If no start tag has been emitted from this tokenizer, then no end tag token is appropriate.
+static void append_to_current_attribute_value(CrawlerParserContext* parser, int cp) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
+    assert(parser->lexer.current_attribute_node);
+    crawler_string_append(&parser->lexer.current_attribute_node->attribute.value, cp);
+}
+
+static void finalize_current_attribute(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
+    assert(parser->lexer.current_attribute_node);
+    crawler_attribute_list_insert(&parser->current_token.data.start_tag.attributes, parser->lexer.current_attribute_node);
+    parser->lexer.current_attribute_node = NULL;
+}
+
+static void discard_current_attribute(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
+    assert(parser->lexer.current_attribute_node);
+    crawler_attribute_node_destroy(parser->lexer.current_attribute_node);
+    _crawler_free(parser->lexer.current_attribute_node);
+    parser->lexer.current_attribute_node = NULL;
+}
+
+static bool is_appropriate_end_tag_token(CrawlerParserContext* parser) {
     assert(parser->current_token.type == CRAWLER_TOKEN_END_TAG);
-    return crawler_string_compare(&parser->current_token.data.end_tag, &parser->lexer.last_emitted_start_tag.data.start_tag.name);
+    return
+        parser->lexer.start_tag_emitted &&
+        crawler_string_compare(&parser->current_token.data.end_tag, &parser->lexer.last_emitted_start_tag_name);
 }
 
-static void crawler_lexer_check_current_attribute_unique(struct CrawlerInternalParserContext* parser) {
-    crawler_debug("Missing duplicate attribute check.");
+static bool check_current_attribute_unique(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
+    assert(parser->lexer.current_attribute_node);
+    CrawlerAttributeNode* it = parser->current_token.data.start_tag.attributes;
+    while (it) {
+        bool match =
+            crawler_string_compare(&it->attribute.name, &parser->lexer.current_attribute_node->attribute.name);
+        if (match) return false;
+        it = it->next;
+    }
+    return true;
 }
 
-static void crawler_lexer_emit_current_tag_token(struct CrawlerInternalParserContext* parser) {
+static void emit_current_tag_token(CrawlerParserContext* parser) {
     switch(parser->current_token.type) {
         case CRAWLER_TOKEN_START_TAG:
-            crawler_token_clone(&parser->lexer.last_emitted_start_tag, &parser->current_token);
+            crawler_string_clone(&parser->lexer.last_emitted_start_tag_name, &parser->current_token.data.start_tag.name);
             break;
         case CRAWLER_TOKEN_END_TAG:
-        case CRAWLER_TOKEN_TAG:
-            // No need for extra steps.
             break;
         default:
-            // Should never happen.
             assert(false);
     }
 }
 
-static void crawler_lexer_append_tag_name(struct CrawlerInternalParserContext* parser, int cp) {
+static void append_tag_name(CrawlerParserContext* parser, int cp) {
     switch (parser->current_token.type) {
     case CRAWLER_TOKEN_DOCTYPE:
         crawler_string_append(&parser->current_token.data.doc_type.name, cp);
@@ -115,18 +173,48 @@ static void crawler_lexer_append_tag_name(struct CrawlerInternalParserContext* p
     }
 }
 
-static bool crawler_lexer_is_ascii_upper_alpha(int cp) {
-    return ((cp >= 0x0041) && (cp <= 0x005A));
+static void convert_temporary_to_comment(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_COMMENT);
+    // 0x003F (?)
+    crawler_string_append(&parser->current_token.data.str, 0x003F);
+    crawler_string_append_string_buffer(&parser->current_token.data.str, &parser->lexer.temporary_buffer);
+    crawler_debug("Converted temporary buffer to comment, deleting the buffer.");
+    temporary_to_empty_string(parser);
 }
 
-static bool crawler_lexer_is_ascii_lower_alpha(int cp) {
-    return ((cp >= 0x0061) && (cp <= 0x007A));
+static bool consumed_as_part_of_an_attribute(CrawlerParserContext* parser) {
+    return
+        (parser->lexer.return_state == CRAWLER_LEXER_STATE_ATTRIBUTE_VALUE_DOUBLE_QUOTED) ||
+        (parser->lexer.return_state == CRAWLER_LEXER_STATE_ATTRIBUTE_VALUE_SINGLE_QUOTED) ||
+        (parser->lexer.return_state == CRAWLER_LEXER_STATE_ATTRIBUTE_VALUE_UNQUOTED);
 }
 
-static bool crawler_lexer_is_ascii_alpha(int cp) {
-    return ((cp >= 0x0041) && (cp <= 0x005A)) ||
-           ((cp >= 0x0061) && (cp <= 0x007A));
+static void flush_code_points_consumed_as_a_character_reference(CrawlerParserContext* parser) {
+    if (consumed_as_part_of_an_attribute(parser)) {
+        crawler_string_append_string_buffer(
+            &parser->lexer.current_attribute_node->attribute.value,
+            &parser->lexer.temporary_buffer
+        );
+        crawler_debug("Appended temporary buffer to attribute value, deleting the buffer.");
+        temporary_to_empty_string(parser);
+    } else {
+        create_character_token(parser);
+        emit_temporary_buffer_character(parser);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+#if 0
 
 static CrawlerLexerResult handle_data_state(struct CrawlerInternalParserContext* parser, int cp) {
     crawler_stream_commit(parser);
@@ -1308,10 +1396,11 @@ static CrawlerLexerResult handle_self_closing_start_tag_state(struct CrawlerInte
     }
 }
 
-
+#endif
 
 typedef CrawlerLexerResult(*CrawlerLexerHandler)(struct CrawlerInternalParserContext*, int);
 static CrawlerLexerHandler kCrawlerHandlerDispatchTable[] = {
+#if 0
     handle_data_state,
     handle_rcdata_state,
     handle_rawtext_state,
@@ -1355,14 +1444,15 @@ static CrawlerLexerHandler kCrawlerHandlerDispatchTable[] = {
     handle_attribute_value_unquoted_state,
     handle_after_attribute_value_quoted_state,
     handle_self_closing_start_tag_state
+#endif
 };
 
-void crawler_lexer_init(struct CrawlerInternalParserContext* parser) {
-    CrawlerLexerContext* lexer = &parser->lexer;
-    // The state machine must start in the data state.
+void crawler_lexer_init(struct CrawlerInternalLexerContext* lexer) {
     lexer->current_state = CRAWLER_LEXER_STATE_DATA;
     crawler_string_init(&lexer->temporary_buffer);
-    crawler_token_init(&lexer->last_emitted_start_tag);
+    lexer->start_tag_emitted = false;
+    crawler_string_init(&lexer->last_emitted_start_tag_name);
+    lexer->current_attribute_node = NULL;
 }
 
 CrawlerLexerResult crawler_lexer_gen_token(struct CrawlerInternalParserContext* parser) {

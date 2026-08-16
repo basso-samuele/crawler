@@ -1,9 +1,8 @@
 #ifndef CRAWLER_TOKEN_H_
 #define CRAWLER_TOKEN_H_
 
-#include "tags.h"
+#include "attributes.h"
 #include "string_buffer.h"
-#include "vector.h"
 
 #include <stdbool.h>
 
@@ -24,17 +23,17 @@ typedef enum {
 
 typedef struct {
     CrawlerString name;
-    bool has_public_identifier;
     CrawlerString public_identifier;
-    bool has_system_identifier;
     CrawlerString system_identifier;
+    bool has_public_identifier;
+    bool has_system_identifier;
     bool force_quirks;
 } CrawlerTokenDocType;
 
 typedef struct {
     CrawlerString name;
     bool is_self_closing;
-    CrawlerVector attributes;
+    CrawlerAttributeNode* attributes;
 } CrawlerStartTag;
 
 typedef struct CrawlerInternalToken {

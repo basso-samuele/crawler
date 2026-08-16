@@ -5,7 +5,6 @@
 extern "C" {
 #endif
 
-#include "token.h"
 #include "string_buffer.h"
 
 typedef enum {
@@ -139,15 +138,18 @@ typedef struct CrawlerInternalLexerContext {
 
     CrawlerString temporary_buffer;
 
-    // An appropriate end tag token is an end tag token whose tag name matches the tag
-    // name of the last start tag to have been emitted from this tokenizer, if any.
-    // If no start tag has been emitted from this tokenizer, then no end tag token is appropriate.
-    CrawlerToken last_emitted_start_tag;
+    bool start_tag_emitted;
+    CrawlerString last_emitted_start_tag_name;
+
+    struct CrawlerInternalAttributeNode* current_attribute_node;
+
+    /* The type is unclear. */
+    // int character_reference_code;
 } CrawlerLexerContext;
 
-struct CrawlerInternalParserContext;
+void crawler_lexer_init(CrawlerLexerContext* lexer);
 
-void crawler_lexer_init(struct CrawlerInternalParserContext* parser);
+struct CrawlerInternalParserContext;
 CrawlerLexerResult crawler_lexer_gen_token(struct CrawlerInternalParserContext* parser);
 
 #ifdef __cplusplus

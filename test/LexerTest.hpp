@@ -54,11 +54,10 @@ void SingleOpenTag() {
     CRAWLER_LEXER_SETUP("<div>");
     CRAWLER_ASSERT_EQ((int)CRAWLER_LEXER_SUCCESS, (int)crawler_lexer_gen_token(&_parser));
     CRAWLER_ASSERT_EQ((int)CRAWLER_TOKEN_START_TAG, (int)_parser.current_token.type);
-    CRAWLER_ASSERT_EQ((int)CRAWLER_TOKEN_START_TAG, (int)_parser.lexer.last_emitted_start_tag.type);
     CRAWLER_ASSERT_TRUE(!memcmp(
         _parser.current_token.data.start_tag.name.data,
-        _parser.lexer.last_emitted_start_tag.data.start_tag.name.data,
-        _parser.lexer.last_emitted_start_tag.data.start_tag.name.length
+        _parser.lexer.last_emitted_start_tag_name.data,
+        _parser.lexer.last_emitted_start_tag_name.length
     ));
     CRAWLER_ASSERT_EQ((int)CRAWLER_LEXER_SUCCESS, (int)crawler_lexer_gen_token(&_parser));
     CRAWLER_ASSERT_EQ((int)CRAWLER_TOKEN_EOF, (int)_parser.current_token.type);

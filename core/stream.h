@@ -25,12 +25,13 @@ typedef struct CrawlerInternalUTF8Stream {
 } CrawlerUTF8Stream;
 
 struct CrawlerInternalParserContext;
-
-void crawler_stream_init(struct CrawlerInternalParserContext* parser);
 CrawlerStreamResult crawler_stream_peek(struct CrawlerInternalParserContext* parser);
-void crawler_stream_commit(struct CrawlerInternalParserContext* parser);
-void crawler_stream_reset(struct CrawlerInternalParserContext* parser);
-int crawler_stream_current(struct CrawlerInternalParserContext* parser);
+
+void crawler_stream_init(CrawlerUTF8Stream* stream);
+void crawler_stream_commit(CrawlerUTF8Stream* stream);
+void crawler_stream_reset(CrawlerUTF8Stream* stream);
+
+bool crawler_stream_consume_match(CrawlerUTF8Stream* stream, const char* prefix, size_t length, bool case_sensitive);
 
 #ifdef __cplusplus
 }

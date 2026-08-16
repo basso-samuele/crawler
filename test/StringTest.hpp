@@ -20,7 +20,7 @@ void StringBufferRelocate() {
     CRAWLER_ASSERT_EQ(str.data[1], 2);
     crawler_string_append(&str, 3);
     CRAWLER_ASSERT_EQ(3, str.length);
-    CRAWLER_ASSERT_EQ(4, str.capacity);
+    CRAWLER_ASSERT_EQ(3, str.capacity);
     CRAWLER_ASSERT_EQ(str.data[0], 1);
     CRAWLER_ASSERT_EQ(str.data[1], 2);
     CRAWLER_ASSERT_EQ(str.data[2], 3);
@@ -37,7 +37,7 @@ void StringBufferClone() {
     crawler_string_clone(&clone, &str);
     CRAWLER_ASSERT_TRUE(crawler_string_compare(&str, &clone));
     const char* reference = "ab";
-    CRAWLER_ASSERT_TRUE(crawler_string_compare_with_literal(&str, const_cast<char*>(reference)));
+    CRAWLER_ASSERT_TRUE(crawler_string_compare_with_literal(&str, const_cast<char*>(reference), 2));
     CRAWLER_ASSERT_MEMEQ(str.data, clone.data, str.length*sizeof(int));
     crawler_string_destroy(&str);
     crawler_string_destroy(&clone);

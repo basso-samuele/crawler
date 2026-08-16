@@ -15,14 +15,14 @@ extern "C" {
 // Represents the complete state, every function takes a pointer to this structure and
 // modifies the necessary fields.
 typedef struct CrawlerInternalParserContext {
-    struct CrawlerInternalUTF8Stream is;
-    struct CrawlerInternalLexerContext lexer;
-    struct CrawlerInternalToken current_token;
+    CrawlerUTF8Stream is;
+    CrawlerLexerContext lexer;
+    CrawlerToken current_token;
 } CrawlerParserContext;
 
 void crawler_parser_init(CrawlerParserContext* parser);
 void crawler_parser_bind_buffer(CrawlerParserContext* parser, CrawlerBuffer* buffer);
-void crawler_parser_register_error(CrawlerParserContext* parser, CrawlerParseErrorType error_code, int code_point, size_t offset);
+void crawler_parser_register_error(CrawlerParserContext* parser, CrawlerParseErrorType error_code);
 
 #ifdef __cplusplus
 }

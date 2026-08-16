@@ -8,7 +8,6 @@ target_compile_definitions(core
 target_sources(core
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/attributes.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/crawler.c
         ${CMAKE_CURRENT_SOURCE_DIR}/lexer.c
         ${CMAKE_CURRENT_SOURCE_DIR}/memory.c
         ${CMAKE_CURRENT_SOURCE_DIR}/parser.c
@@ -16,12 +15,10 @@ target_sources(core
         ${CMAKE_CURRENT_SOURCE_DIR}/string_buffer.c
         ${CMAKE_CURRENT_SOURCE_DIR}/token.c
         ${CMAKE_CURRENT_SOURCE_DIR}/utils.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/vector.c
     PUBLIC
     FILE_SET HEADERS
     FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/attributes.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/crawler.h
         ${CMAKE_CURRENT_SOURCE_DIR}/buffer.h
         ${CMAKE_CURRENT_SOURCE_DIR}/error.h
         ${CMAKE_CURRENT_SOURCE_DIR}/lexer.h
@@ -32,5 +29,4 @@ target_sources(core
         ${CMAKE_CURRENT_SOURCE_DIR}/tags.h
         ${CMAKE_CURRENT_SOURCE_DIR}/token.h
         ${CMAKE_CURRENT_SOURCE_DIR}/utils.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/vector.h
 )

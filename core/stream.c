@@ -4,11 +4,7 @@
 
 #include <stdbool.h>
 #include <assert.h>
-
-void crawler_stream_init(struct CrawlerInternalParserContext* parser) {
-    parser->is.offset = 0;
-    parser->is.head = 0;
-}
+#include <string.h>
 
 static bool crawler_verify_codepoint_validity(size_t length, int cp) {
     // TODO: switch to a single return statement and inline to see if it changes execution time.
@@ -44,17 +40,17 @@ static void crawler_iterator_sanitize(struct CrawlerInternalParserContext* parse
 
     // Any occurrences of surrogates are surrogate-in-input-stream parse errors.
     if (crawler_is_surrogate(parser->is.current_code_point)) {
-        crawler_parser_register_error(parser, CRAWLER_ERROR_SURROGATE_IN_INPUT_STREAM, parser->is.current_code_point, parser->is.current_total_offset);
+        crawler_parser_register_error(parser, CRAWLER_ERROR_SURROGATE_IN_INPUT_STREAM);
     }
 
     // Any occurrences of noncharacters are noncharacter-in-input-stream parse.
     if (crawler_is_noncharacter(parser->is.current_code_point)) {
-        crawler_parser_register_error(parser, CRAWLER_ERROR_NONCHARACTER_IN_INPUT_STREAM, parser->is.current_code_point, parser->is.current_total_offset);
+        crawler_parser_register_error(parser, CRAWLER_ERROR_NONCHARACTER_IN_INPUT_STREAM);
     }
 
     // Any occurrences of controls other than ASCII whitespace and U+0000 NULL characters are control-character-in-input-stream parse errors.
     if (crawler_is_control_other_than_ascii_and_null(parser->is.current_code_point)) {
-        crawler_parser_register_error(parser, CRAWLER_ERROR_CONTROL_CHARACTER_IN_INPUT_STREAM, parser->is.current_code_point, parser->is.current_total_offset);
+        crawler_parser_register_error(parser, CRAWLER_ERROR_CONTROL_CHARACTER_IN_INPUT_STREAM);
     }
 }
 
@@ -155,15 +151,34 @@ CrawlerStreamResult crawler_stream_peek(struct CrawlerInternalParserContext* par
     return CRAWLER_STREAM_MISSING_ELEMENT;
 }
 
-void crawler_stream_commit(struct CrawlerInternalParserContext* parser) {
-    parser->is.head = parser->is.head + parser->is.offset;
-    parser->is.offset = 0;
+void crawler_stream_init(CrawlerUTF8Stream* stream) {
+    stream->buffer = NULL;
+    stream->current_code_point = 0;
+    stream->current_total_offset = 0;
+    stream->offset = 0;
+    stream->head = 0;
 }
 
-void crawler_stream_reset(struct CrawlerInternalParserContext* parser) {
-    parser->is.offset = 0;
+void crawler_stream_commit(CrawlerUTF8Stream* stream) {
+    stream->head = stream->head + stream->offset;
+    stream->offset = 0;
 }
 
-int crawler_stream_current(struct CrawlerInternalParserContext* parser) {
-    return parser->is.current_code_point;
+void crawler_stream_reset(CrawlerUTF8Stream* stream) {
+    stream->offset = 0;
+}
+
+bool crawler_stream_consume_match(CrawlerUTF8Stream* stream, const char* prefix, size_t length, bool case_sensitive) {
+    bool matched =
+        (stream->current_total_offset + length < stream->buffer->size) &&
+        (case_sensitive ? !strncmp(stream->buffer->base + stream->current_total_offset, prefix, length)
+                        : !strncasecmp(stream->buffer->base + stream->current_total_offset, prefix, length));
+    if (matched) {
+        stream->current_total_offset += length;
+        stream->head = stream->current_total_offset;
+        stream->offset = 0;
+        return true;
+    } else {
+        return false;
+    }
 }

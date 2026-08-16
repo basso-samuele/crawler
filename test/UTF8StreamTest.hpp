@@ -66,11 +66,12 @@ void UTF8StreamTest() {
         buffer.size = t.input.size();
         buffer.eof = true;
         CrawlerParserContext parser;
+        crawler_parser_init(&parser);
         crawler_parser_bind_buffer(&parser, &buffer);
         auto result = crawler_stream_peek(&parser);
         CRAWLER_ASSERT_EQ(static_cast<int>(t.result), static_cast<int>(result));
         if (result == CRAWLER_STREAM_SUCCESS) {
-            auto codepoint = crawler_stream_current(&parser);
+            auto codepoint = parser.is.current_code_point;
             CRAWLER_ASSERT_EQ(static_cast<int>(t.expectedCodePoint), static_cast<int>(codepoint));
         }
     }
