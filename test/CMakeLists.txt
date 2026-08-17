@@ -35,3 +35,7 @@ add_test(
     NAME stream
     COMMAND $<TARGET_FILE:stream>
 )
+target_compile_definitions(stream
+    PRIVATE
+        CRAWLER_FILE_ENTITIES="${CMAKE_CURRENT_SOURCE_DIR}/entities.json"
+)

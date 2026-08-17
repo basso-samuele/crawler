@@ -2,7 +2,6 @@
 #include "parser.h"
 #include "stream.h"
 #include "attributes.h"
-#include "memory.h"
 #include "utils.h"
 
 #include <stdbool.h>

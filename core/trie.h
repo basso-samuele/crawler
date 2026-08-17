@@ -15,8 +15,7 @@ typedef struct {
     int second;
 } CrawlerCharacterReference;
 
-// Lowercase letters.
-#define CRAWLER_KEY_SPACE_SIZE 36
+#define CRAWLER_KEY_SPACE_SIZE 60
 
 typedef struct CrawlerInternalTrieNode {
     CrawlerCharacterReference char_ref;
@@ -32,13 +31,26 @@ void crawler_trie_node_init(CrawlerTrieNode* node);
 bool crawler_trie_insert(CrawlerTrieNode** root, const char* literal, size_t length, int first, int second);
 bool crawler_trie_query(const CrawlerTrieNode* root, const char* literal, size_t length, CrawlerCharacterReference* output);
 
-typedef struct CrawlerInternalStaticTrieNode {
+void crawler_trie_destroy(CrawlerTrieNode** root);
+
+bool crawler_trie_bft_offset(CrawlerTrieNode* root, uint16_t* count);
+bool crawler_trie_bft_serialize(const char* path, CrawlerTrieNode* root);
+
+typedef struct {
     CrawlerCharacterReference char_ref;
     uint16_t children_offsets[CRAWLER_KEY_SPACE_SIZE];
     bool is_terminal;
 } CrawlerStaticTrieNode;
 
-#ifdef __cpluplus
+typedef struct {
+    CrawlerStaticTrieNode* data;
+    uint16_t node_count;
+} CrawlerStaticTrie;
+
+bool crawler_static_trie_deserialize(const char* path, CrawlerStaticTrie* t);
+bool crawler_static_trie_query(const CrawlerStaticTrie* t, const char* literal, size_t length, CrawlerCharacterReference* output);
+
+#ifdef __cplusplus
 }
 #endif
 #endif

@@ -1,5 +1,5 @@
 #include "attributes.h"
-#include "memory.h"
+#include "utils.h"
 
 void crawler_attribute_init(CrawlerAttribute* attribute) {
     crawler_string_init(&attribute->name);

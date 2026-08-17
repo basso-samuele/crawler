@@ -1,5 +1,5 @@
 #include "string_buffer.h"
-#include "memory.h"
+#include "utils.h"
 
 #include <assert.h>
 #include <string.h>
