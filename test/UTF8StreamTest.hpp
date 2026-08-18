@@ -54,7 +54,7 @@ const std::vector<DecodeTest> uft8DecoderTests({
     { { 0xFE }, CRAWLER_STREAM_ERROR, 0x0 },
     { { 0xFF }, CRAWLER_STREAM_ERROR, 0x0 },
     /* Normalizing new lines. */
-    { { 0x0D }, CRAWLER_STREAM_SUCCESS, 0x000A },
+    { { 0x0D }, CRAWLER_STREAM_MISSING_ELEMENT, 0x000A },
     { { 0x0D, 0x0A }, CRAWLER_STREAM_SUCCESS, 0x000A },
     { { 0x0D, 0x00 }, CRAWLER_STREAM_SUCCESS, 0x000A }
 });
@@ -68,7 +68,7 @@ void UTF8StreamTest() {
         CrawlerParserContext parser;
         crawler_parser_init(&parser);
         crawler_parser_bind_buffer(&parser, &buffer);
-        auto result = crawler_stream_peek(&parser);
+        auto result = crawler_stream_get(&parser);
         CRAWLER_ASSERT_EQ(static_cast<int>(t.result), static_cast<int>(result));
         if (result == CRAWLER_STREAM_SUCCESS) {
             auto codepoint = parser.is.current_code_point;

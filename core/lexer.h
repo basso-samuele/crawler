@@ -6,9 +6,10 @@ extern "C" {
 #endif
 
 #include "string_buffer.h"
+#include <stdbool.h>
 
 typedef enum {
-    CRAWLER_LEXER_ERROR,
+    CRAWLER_LEXER_FAILURE,
     CRAWLER_LEXER_SUCCESS,
     CRAWLER_LEXER_NEXT_CP,
     CRAWLER_LEXER_MISSING_CP
@@ -143,11 +144,14 @@ typedef struct CrawlerInternalLexerContext {
 
     struct CrawlerInternalAttributeNode* current_attribute_node;
 
-    /* The type is unclear. */
-    // int character_reference_code;
+    void* named_ref;
+
+    int character_reference_code;
 } CrawlerLexerContext;
 
 void crawler_lexer_init(CrawlerLexerContext* lexer);
+bool crawler_lexer_create(CrawlerLexerContext* lexer);
+void crawler_lexer_destroy(CrawlerLexerContext* lexer);
 
 struct CrawlerInternalParserContext;
 CrawlerLexerResult crawler_lexer_gen_token(struct CrawlerInternalParserContext* parser);

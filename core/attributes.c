@@ -1,14 +1,18 @@
 #include "attributes.h"
 #include "utils.h"
 
+#include <stdbool.h>
+
 void crawler_attribute_init(CrawlerAttribute* attribute) {
     crawler_string_init(&attribute->name);
     crawler_string_init(&attribute->value);
 }
 
-void crawler_attribute_create(CrawlerAttribute* attribute) {
-    crawler_string_create(&attribute->name, 8);
-    crawler_string_create(&attribute->value, 8);
+bool crawler_attribute_create(CrawlerAttribute* attribute) {
+    if (!crawler_string_create(&attribute->name, 8))
+        return false;
+    if (!crawler_string_create(&attribute->value, 8))
+        return false;
 }
 
 void crawler_attribute_destroy(CrawlerAttribute* attribute) {
@@ -21,8 +25,8 @@ void crawler_attribute_node_init(CrawlerAttributeNode* node) {
     node->next = NULL;
 }
 
-void crawler_attribute_node_create(CrawlerAttributeNode* node) {
-    crawler_attribute_create(&node->attribute);
+bool crawler_attribute_node_create(CrawlerAttributeNode* node) {
+    return crawler_attribute_create(&node->attribute);
 }
 
 void crawler_attribute_node_destroy(CrawlerAttributeNode* node) {

@@ -2,6 +2,7 @@
 #define CRAWLER_ATTRIBUTES_H_
 
 #include "string_buffer.h"
+#include <stdbool.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -13,7 +14,7 @@ typedef struct CrawlerInternalAttribute {
 } CrawlerAttribute;
 
 void crawler_attribute_init(CrawlerAttribute* attribute);
-void crawler_attribute_create(CrawlerAttribute* attribute);
+bool crawler_attribute_create(CrawlerAttribute* attribute);
 void crawler_attribute_destroy(CrawlerAttribute* attribute);
 
 typedef struct CrawlerInternalAttributeNode {
@@ -22,7 +23,7 @@ typedef struct CrawlerInternalAttributeNode {
 } CrawlerAttributeNode;
 
 void crawler_attribute_node_init(CrawlerAttributeNode* node);
-void crawler_attribute_node_create(CrawlerAttributeNode* node);
+bool crawler_attribute_node_create(CrawlerAttributeNode* node);
 void crawler_attribute_node_destroy(CrawlerAttributeNode* node);
 
 void crawler_attribute_list_insert(CrawlerAttributeNode** root, CrawlerAttributeNode* node);

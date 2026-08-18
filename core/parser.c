@@ -19,6 +19,6 @@ void crawler_parser_register_error(CrawlerParserContext* parser, CrawlerParseErr
     crawler_debug(
         "Error raised. Code: %d. Caused by code point: %d. Found at offset: %d.\n",
         error_code, parser->is.current_code_point,
-        parser->is.current_total_offset
+        parser->is.current_code_point_offset
     );
 }

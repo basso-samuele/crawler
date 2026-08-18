@@ -22,7 +22,7 @@ static const size_t kAsciiToTrieIndex[128] = {
     49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, -1, -1, -1, -1, -1   // 112–127
 };
 
-static size_t char_index(unsigned char c) {
+size_t crawler_char_index(unsigned char c) {
     if (c > 127)
         return -1;
     return kAsciiToTrieIndex[c];
@@ -39,7 +39,7 @@ bool crawler_trie_insert(CrawlerTrieNode** root, const char* literal, size_t len
 
     CrawlerTrieNode* curr = *root;
     for (size_t depth = 0; depth < length; depth++) {
-        size_t index = char_index(literal[depth]);
+        size_t index = crawler_char_index(literal[depth]);
         if (index == -1) return false;
         CrawlerTrieNode** child = &curr->children[index];
         if (*child == NULL) {
@@ -65,7 +65,7 @@ bool crawler_trie_query(const CrawlerTrieNode* root, const char* literal, size_t
 
     const CrawlerTrieNode* curr = root;
     for (size_t depth = 0; depth < length; depth++) {
-        size_t index = char_index(literal[depth]);
+        size_t index = crawler_char_index(literal[depth]);
         if (index == -1) return false;
         const CrawlerTrieNode* child = curr->children[index];
         if (child == NULL) return false;
@@ -288,7 +288,7 @@ bool crawler_static_trie_query(const CrawlerStaticTrie* t, const char* literal, 
 
     const CrawlerStaticTrieNode* curr = t->data;
     for (size_t depth = 0; depth < length; depth++) {
-        size_t index = char_index(literal[depth]);
+        size_t index = crawler_char_index(literal[depth]);
         if (index == -1) return false;
         size_t child_offset = curr->children_offsets[index];
         if (child_offset == 0) return false;

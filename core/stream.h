@@ -2,6 +2,8 @@
 #define CRAWLER_ITERATOR_H_
 
 #include <stddef.h>
+#include <stdbool.h>
+
 #include "buffer.h"
 
 #ifdef __cplusplus
@@ -17,15 +19,18 @@ typedef enum {
 typedef struct CrawlerInternalUTF8Stream {
     CrawlerBuffer* buffer;
 
-    int current_code_point;
-    size_t current_total_offset;
-
+    size_t current_code_point_offset;
     size_t offset;
     size_t head;
+
+    int current_code_point;
+    bool reconsume;
 } CrawlerUTF8Stream;
 
 struct CrawlerInternalParserContext;
-CrawlerStreamResult crawler_stream_peek(struct CrawlerInternalParserContext* parser);
+CrawlerStreamResult crawler_stream_peek(struct CrawlerInternalParserContext* parser, int* cp);
+CrawlerStreamResult crawler_stream_get(struct CrawlerInternalParserContext* parser);
+void crawler_stream_reconsume(struct CrawlerInternalParserContext* parser);
 
 void crawler_stream_init(CrawlerUTF8Stream* stream);
 void crawler_stream_commit(CrawlerUTF8Stream* stream);

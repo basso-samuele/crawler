@@ -47,6 +47,8 @@ typedef struct {
     uint16_t node_count;
 } CrawlerStaticTrie;
 
+size_t crawler_char_index(unsigned char c);
+
 bool crawler_static_trie_deserialize(const char* path, CrawlerStaticTrie* t);
 bool crawler_static_trie_query(const CrawlerStaticTrie* t, const char* literal, size_t length, CrawlerCharacterReference* output);
 

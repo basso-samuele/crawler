@@ -11,6 +11,7 @@ target_compile_definitions(core
 target_sources(core
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/attributes.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/named_ref.c
         ${CMAKE_CURRENT_SOURCE_DIR}/lexer.c
         ${CMAKE_CURRENT_SOURCE_DIR}/parser.c
         ${CMAKE_CURRENT_SOURCE_DIR}/queue.c
@@ -24,6 +25,7 @@ target_sources(core
     FILES
         ${CMAKE_CURRENT_SOURCE_DIR}/attributes.h
         ${CMAKE_CURRENT_SOURCE_DIR}/buffer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/named_ref.h
         ${CMAKE_CURRENT_SOURCE_DIR}/error.h
         ${CMAKE_CURRENT_SOURCE_DIR}/lexer.h
         ${CMAKE_CURRENT_SOURCE_DIR}/parser.h
