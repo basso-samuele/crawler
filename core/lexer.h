@@ -83,7 +83,7 @@ typedef enum {
     CRAWLER_LEXER_STATE_DOCTYPE_SYSTEM_IDENTIFIER_DOUBLE_QUOTED,
     CRAWLER_LEXER_STATE_DOCTYPE_SYSTEM_IDENTIFIER_SINGLE_QUOTED,
     CRAWLER_LEXER_STATE_AFTER_DOCTYPE_SYSTEM_IDENTIFIER,
-    CRAWLER_LEXER_STATE_BOGUS_DOCTYPE_STATE,
+    CRAWLER_LEXER_STATE_BOGUS_DOCTYPE,
     CRAWLER_LEXER_STATE_CDATA_SECTION,
     CRAWLER_LEXER_STATE_CDATA_SECTION_BRACKET,
     CRAWLER_LEXER_STATE_CDATA_SECTION_END,
@@ -144,9 +144,9 @@ typedef struct CrawlerInternalLexerContext {
 
     struct CrawlerInternalAttributeNode* current_attribute_node;
 
-    void* named_ref;
-
     int character_reference_code;
+
+    void* named_ref;
 } CrawlerLexerContext;
 
 void crawler_lexer_init(CrawlerLexerContext* lexer);

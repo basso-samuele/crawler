@@ -132,6 +132,24 @@ bool crawler_string_compare(const CrawlerString* lhs, const CrawlerString* rhs) 
     return !memcmp(lhs->data, rhs->data, lhs->length*sizeof *lhs->data);
 }
 
+static int lc(int cp) {
+    if ((cp >= 0x0041) && (cp <= 0x005A))
+        return cp + 0x0020;
+    return cp;
+}
+
+bool crawler_string_compare_with_literal_ins(const CrawlerString* string, const char* literal, size_t length) {
+    if (string == NULL || literal == NULL)
+        return false;
+    if (string->data == NULL || !(string->length > 0))
+        return false;
+    for (size_t i = 0; i < length && i < string->length; i++) {
+        if (lc((int)literal[i]) != lc(string->data[i]))
+            return false;
+    }
+    return true;
+}
+
 bool crawler_string_compare_with_literal(const CrawlerString* string, const char* literal, size_t length) {
     if (string == NULL || literal == NULL)
         return false;

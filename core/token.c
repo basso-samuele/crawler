@@ -1,8 +1,11 @@
 #include "token.h"
 #include "utils.h"
 
+#include <string.h>
+
 void crawler_token_init(CrawlerToken* token) {
     token->type = CRAWLER_TOKEN_TYPE_UNKNOWN;
+    memset(&token->data, 0, sizeof token->data);
 }
 
 void crawler_token_destroy(CrawlerToken* token) {
@@ -25,7 +28,9 @@ void crawler_token_destroy(CrawlerToken* token) {
         break;
     case CRAWLER_TOKEN_EOF:
     case CRAWLER_TOKEN_PROCESSING_INSTRUCTION:
+        crawler_string_destroy(&token->data.str);
+        break;
     default:
     }
-    token->type = CRAWLER_TOKEN_TYPE_UNKNOWN;
+    crawler_token_init(token);
 }

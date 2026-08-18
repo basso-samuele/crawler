@@ -31,10 +31,8 @@ static CrawlerTrieNode* generate_trie(cJSON* root) {
         if (cJSON_IsNumber(cp))
             cp2 = cp->valueint;
 
-        size_t namelen = strlen(name);
-        size_t len = name[namelen-1] == ';' ?
-                     namelen-2 : namelen-1;
-        crawler_trie_insert(&t, name+1, len, cp1, cp2);
+        size_t namelen = strlen(name)-1;
+        crawler_trie_insert(&t, name+1, namelen, cp1, cp2);
     }
 
     return t;

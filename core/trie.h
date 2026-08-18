@@ -15,7 +15,7 @@ typedef struct {
     int second;
 } CrawlerCharacterReference;
 
-#define CRAWLER_KEY_SPACE_SIZE 60
+#define CRAWLER_KEY_SPACE_SIZE 61
 
 typedef struct CrawlerInternalTrieNode {
     CrawlerCharacterReference char_ref;

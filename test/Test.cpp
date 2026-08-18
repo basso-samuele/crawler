@@ -1,17 +1,59 @@
 #include "Test.hpp"
 
-#include "UTF8StreamTest.hpp"
-#include "StringTest.hpp"
-#include "LexerTest.hpp"
 #include "QueueTest.hpp"
+#include "StringTest.hpp"
+#include "UTF8StreamTest.hpp"
 #include "TrieTest.hpp"
+#include "lexer/LexerTest.hpp"
 
-int main(int argc, char** argv) {
-    Stream::Test();
-    String::Test();
-    // Lexer::Test();
-    Queue::Test();
-    Trie::Test();
-    CRAWLER_PRINT_TEST_SUMMARY;
-    return CRAWLER_TEST_RESULT;
+#include <filesystem>
+#include <random>
+#include <fstream>
+#include <cstddef>
+
+namespace Crawler
+{
+
+namespace Test
+{
+
+std::filesystem::path GenerateUniquePath() {
+    std::random_device rd;
+    std::mt19937_64 gen(rd());
+    std::uniform_int_distribution<uint64_t> dist;
+
+    std::filesystem::path dir = std::filesystem::temp_directory_path();
+    std::filesystem::path fullPath;
+    uint64_t name;
+
+    do {
+        name = dist(gen);
+        fullPath = dir / std::to_string(name);
+    } while(std::filesystem::exists(fullPath));
+
+    return fullPath;
+}
+
+File::File(const std::string& content)
+: p_Path(GenerateUniquePath()) {
+    std::ofstream ofs(this->p_Path, std::ios::binary);
+    if (ofs) {
+        ofs.write(content.data(), content.size());
+        ofs.flush();
+    }
+}
+
+File::~File() {
+    if (!this->p_Path.empty()) {
+        std::error_code ec;
+        std::filesystem::remove(this->p_Path, ec);
+    }
+}
+
+const std::filesystem::path File::GetPath() const {
+    return this->p_Path;
+}
+
+}
+
 }

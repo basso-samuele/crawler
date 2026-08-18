@@ -1,16 +1,16 @@
 #pragma once
 
+#include "gtest/gtest.h"
+
 #include <vector>
 #include <cstddef>
 #include <cstdint>
-
-#include "Test.hpp"
 
 #include <stream.h>
 #include <buffer.h>
 #include <parser.h>
 
-namespace Stream
+namespace
 {
 
 struct DecodeTest {
@@ -19,66 +19,69 @@ struct DecodeTest {
     int expectedCodePoint;
 };
 
-const std::vector<DecodeTest> uft8DecoderTests({
-    { { 0x00 }, CRAWLER_STREAM_SUCCESS, 0x0000 },
-    { { 0x7F }, CRAWLER_STREAM_SUCCESS, 0x007F },
-    { { 0xC2, 0x80 }, CRAWLER_STREAM_SUCCESS, 0x0080 },
-    { { 0xDF, 0xBF }, CRAWLER_STREAM_SUCCESS, 0x07FF },
-    { { 0xE0, 0xA0, 0x80 }, CRAWLER_STREAM_SUCCESS, 0x0800 },
-    { { 0xEF, 0xBF, 0xBF }, CRAWLER_STREAM_SUCCESS, 0xFFFF },
-    { { 0xF0, 0x90, 0x80, 0x80 }, CRAWLER_STREAM_SUCCESS, 0x10000 },
-    { { 0xF4, 0x8F, 0xBF, 0xBF }, CRAWLER_STREAM_SUCCESS, 0x10FFFF },
-    { { 0xC0, 0x80 }, CRAWLER_STREAM_ERROR, 0x0 },
-    { { 0xC1, 0xBF }, CRAWLER_STREAM_ERROR, 0x0 },
-    { { 0xE0, 0x80, 0x80 }, CRAWLER_STREAM_ERROR, 0x0 },
-    { { 0xF0, 0x80, 0x80, 0x80 }, CRAWLER_STREAM_ERROR, 0x0 },
-    /* Invalid continuation bytes. */
-    { { 0xC2, 0x20 }, CRAWLER_STREAM_ERROR, 0x0 },
-    { { 0xE2, 0x28, 0xA1 }, CRAWLER_STREAM_ERROR, 0x0 },
-    { { 0xF0, 0x28, 0x8C, 0xBC }, CRAWLER_STREAM_ERROR, 0x0 },
-    /* Missing continuation bytes. */
-    { { 0xC2 }, CRAWLER_STREAM_MISSING_ELEMENT, 0x0 },
-    { { 0xE2, 0x82 }, CRAWLER_STREAM_MISSING_ELEMENT, 0x0 },
-    { { 0xF0, 0x90, 0x80 }, CRAWLER_STREAM_MISSING_ELEMENT, 0x0 },
-    /* Refused when the code point is deemed invalid. */
-    { { 0xF5 }, CRAWLER_STREAM_MISSING_ELEMENT, 0x0 },
-    { { 0xF6 }, CRAWLER_STREAM_MISSING_ELEMENT, 0x0 },
-    { { 0xF7 }, CRAWLER_STREAM_MISSING_ELEMENT, 0x0 },
-    /* Invalid leading bytes. */
-    { { 0xF8 }, CRAWLER_STREAM_ERROR, 0x0 },
-    { { 0xF9 }, CRAWLER_STREAM_ERROR, 0x0 },
-    { { 0xFA }, CRAWLER_STREAM_ERROR, 0x0 },
-    { { 0xFB }, CRAWLER_STREAM_ERROR, 0x0 },
-    { { 0xFC }, CRAWLER_STREAM_ERROR, 0x0 },
-    { { 0xFD }, CRAWLER_STREAM_ERROR, 0x0 },
-    { { 0xFE }, CRAWLER_STREAM_ERROR, 0x0 },
-    { { 0xFF }, CRAWLER_STREAM_ERROR, 0x0 },
-    /* Normalizing new lines. */
-    { { 0x0D }, CRAWLER_STREAM_MISSING_ELEMENT, 0x000A },
-    { { 0x0D, 0x0A }, CRAWLER_STREAM_SUCCESS, 0x000A },
-    { { 0x0D, 0x00 }, CRAWLER_STREAM_SUCCESS, 0x000A }
-});
+class UTF8Stream : public testing::TestWithParam<DecodeTest> {};
 
-void UTF8StreamTest() {
-    for (const DecodeTest& t : uft8DecoderTests) {
-        CrawlerBuffer buffer;
-        buffer.base = (unsigned char*)t.input.data();
-        buffer.size = t.input.size();
-        buffer.eof = true;
-        CrawlerParserContext parser;
-        crawler_parser_init(&parser);
-        crawler_parser_bind_buffer(&parser, &buffer);
-        auto result = crawler_stream_get(&parser);
-        CRAWLER_ASSERT_EQ(static_cast<int>(t.result), static_cast<int>(result));
-        if (result == CRAWLER_STREAM_SUCCESS) {
-            auto codepoint = parser.is.current_code_point;
-            CRAWLER_ASSERT_EQ(static_cast<int>(t.expectedCodePoint), static_cast<int>(codepoint));
-        }
-    }
+CrawlerBuffer CreateBuffer(const std::vector<unsigned char>& input) {
+    return { (unsigned char*)input.data(), input.size(), true };
 }
 
-void Test() {
-    UTF8StreamTest();
+TEST_P(UTF8Stream, Decoding) {
+    const auto& tc = GetParam();
+
+    CrawlerBuffer buffer = CreateBuffer(tc.input);
+
+    CrawlerParserContext parser;
+    crawler_parser_init(&parser);
+    crawler_parser_bind_buffer(&parser, &buffer);
+
+    auto result = crawler_stream_get(&parser);
+    ASSERT_EQ(tc.result, result);
+    if (result == CRAWLER_STREAM_SUCCESS)
+        ASSERT_EQ(tc.expectedCodePoint, parser.is.current_code_point);
 }
+
+INSTANTIATE_TEST_SUITE_P(
+    UTF8Iterator,
+    UTF8Stream,
+    ::testing::Values(
+        DecodeTest{ { 0x00 }, CRAWLER_STREAM_SUCCESS, 0x0000 },
+        DecodeTest{ { 0x7F }, CRAWLER_STREAM_SUCCESS, 0x007F },
+        DecodeTest{ { 0xC2, 0x80 }, CRAWLER_STREAM_SUCCESS, 0x0080 },
+        DecodeTest{ { 0xDF, 0xBF }, CRAWLER_STREAM_SUCCESS, 0x07FF },
+        DecodeTest{ { 0xE0, 0xA0, 0x80 }, CRAWLER_STREAM_SUCCESS, 0x0800 },
+        DecodeTest{ { 0xEF, 0xBF, 0xBF }, CRAWLER_STREAM_SUCCESS, 0xFFFF },
+        DecodeTest{ { 0xF0, 0x90, 0x80, 0x80 }, CRAWLER_STREAM_SUCCESS, 0x10000 },
+        DecodeTest{ { 0xF4, 0x8F, 0xBF, 0xBF }, CRAWLER_STREAM_SUCCESS, 0x10FFFF },
+        DecodeTest{ { 0xC0, 0x80 }, CRAWLER_STREAM_ERROR, 0x0 },
+        DecodeTest{ { 0xC1, 0xBF }, CRAWLER_STREAM_ERROR, 0x0 },
+        DecodeTest{ { 0xE0, 0x80, 0x80 }, CRAWLER_STREAM_ERROR, 0x0 },
+        DecodeTest{ { 0xF0, 0x80, 0x80, 0x80 }, CRAWLER_STREAM_ERROR, 0x0 },
+                /* Invalid continuation bytes. */
+        DecodeTest{ { 0xC2, 0x20 }, CRAWLER_STREAM_ERROR, 0x0 },
+        DecodeTest{ { 0xE2, 0x28, 0xA1 }, CRAWLER_STREAM_ERROR, 0x0 },
+        DecodeTest{ { 0xF0, 0x28, 0x8C, 0xBC }, CRAWLER_STREAM_ERROR, 0x0 },
+                /* Missing continuation bytes. */
+        DecodeTest{ { 0xC2 }, CRAWLER_STREAM_MISSING_ELEMENT, 0x0 },
+        DecodeTest{ { 0xE2, 0x82 }, CRAWLER_STREAM_MISSING_ELEMENT, 0x0 },
+        DecodeTest{ { 0xF0, 0x90, 0x80 }, CRAWLER_STREAM_MISSING_ELEMENT, 0x0 },
+                /* Refused when the code point is deemed invalid. */
+        DecodeTest{ { 0xF5 }, CRAWLER_STREAM_MISSING_ELEMENT, 0x0 },
+        DecodeTest{ { 0xF6 }, CRAWLER_STREAM_MISSING_ELEMENT, 0x0 },
+        DecodeTest{ { 0xF7 }, CRAWLER_STREAM_MISSING_ELEMENT, 0x0 },
+                /* Invalid leading bytes. */
+        DecodeTest{ { 0xF8 }, CRAWLER_STREAM_ERROR, 0x0 },
+        DecodeTest{ { 0xF9 }, CRAWLER_STREAM_ERROR, 0x0 },
+        DecodeTest{ { 0xFA }, CRAWLER_STREAM_ERROR, 0x0 },
+        DecodeTest{ { 0xFB }, CRAWLER_STREAM_ERROR, 0x0 },
+        DecodeTest{ { 0xFC }, CRAWLER_STREAM_ERROR, 0x0 },
+        DecodeTest{ { 0xFD }, CRAWLER_STREAM_ERROR, 0x0 },
+        DecodeTest{ { 0xFE }, CRAWLER_STREAM_ERROR, 0x0 },
+        DecodeTest{ { 0xFF }, CRAWLER_STREAM_ERROR, 0x0 },
+                /* Normalizing new lines. */
+        DecodeTest{ { 0x0D }, CRAWLER_STREAM_MISSING_ELEMENT, 0x000A },
+        DecodeTest{ { 0x0D, 0x0A }, CRAWLER_STREAM_SUCCESS, 0x000A },
+        DecodeTest{ { 0x0D, 0x00 }, CRAWLER_STREAM_SUCCESS, 0x000A }
+    )
+);
 
 }

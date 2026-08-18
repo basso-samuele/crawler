@@ -48,6 +48,7 @@ bool crawler_string_append(CrawlerString* string, int cp);
 
 bool crawler_string_compare(const CrawlerString* lhs, const CrawlerString* rhs);
 bool crawler_string_compare_with_literal(const CrawlerString* string, const char* literal, size_t length);
+bool crawler_string_compare_with_literal_ins(const CrawlerString* string, const char* literal, size_t length);
 
 // Necessary to emit the temporary buffer as a series of character tokens.
 bool crawler_string_append_string_buffer(CrawlerString* destination, const CrawlerString* source);

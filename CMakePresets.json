@@ -51,7 +51,7 @@
             "configurePreset": "base",
             "cleanFirst": false,
             "verbose": false,
-            "jobs": 0
+            "jobs": 12
         },
         {
             "name": "debug",

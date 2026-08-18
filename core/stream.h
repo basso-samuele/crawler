@@ -30,7 +30,7 @@ typedef struct CrawlerInternalUTF8Stream {
 struct CrawlerInternalParserContext;
 CrawlerStreamResult crawler_stream_peek(struct CrawlerInternalParserContext* parser, int* cp);
 CrawlerStreamResult crawler_stream_get(struct CrawlerInternalParserContext* parser);
-void crawler_stream_reconsume(struct CrawlerInternalParserContext* parser);
+void crawler_stream_reconsume(CrawlerUTF8Stream* stream);
 
 void crawler_stream_init(CrawlerUTF8Stream* stream);
 void crawler_stream_commit(CrawlerUTF8Stream* stream);
