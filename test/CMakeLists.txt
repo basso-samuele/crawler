@@ -17,7 +17,11 @@ set_target_properties(_test PROPERTIES
 target_sources(_test
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/Test.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/LexerData.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/namedEntities.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/numericEntities.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/unicodeChars.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/test1.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/test2.cpp
     PUBLIC
     FILE_SET HEADERS
     FILES

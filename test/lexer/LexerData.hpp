@@ -184,10 +184,11 @@ struct CommentToken
 
 struct DoctypeToken
 {
-    std::u32string name;
+    std::optional<std::u32string> name;
     std::optional<std::u32string> publicIdentifier;
     std::optional<std::u32string> systemIdentifier;
-    bool forceQuirks;
+    // true corresponds to the force-quirks flag being false, and vice-versa.
+    bool correctness;
 };
 
 struct ProcessingInstructionToken
@@ -229,6 +230,10 @@ struct TokenizerTest
     std::vector<Error> expectedErrors;
 };
 
-extern const std::vector<TokenizerTest> kNamedEntityTests;
+extern const std::vector<TokenizerTest> kNamedEntitiesTests;
+extern const std::vector<TokenizerTest> kNumericEntitiesTests;
+extern const std::vector<TokenizerTest> kUnicodeCharTests;
+extern const std::vector<TokenizerTest> kTest1Tests;
+extern const std::vector<TokenizerTest> kTest2Tests;
 
 }

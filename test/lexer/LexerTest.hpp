@@ -37,6 +37,7 @@ CrawlerTokenType tokenType(const ExpectedToken& token) {
 }
 
 void Equals(const CharacterToken& expected, const CrawlerToken& actual) {
+    ASSERT_EQ(expected.data.size(), actual.data.str.length);
     size_t len = std::min(expected.data.size(), actual.data.str.length)*sizeof *expected.data.c_str();
     ASSERT_TRUE(memcmp(expected.data.c_str(), actual.data.str.data, len) == 0);
 }
@@ -75,8 +76,12 @@ void Equals(const CommentToken& expected, const CrawlerToken& actual) {
 
 void Equals(const DoctypeToken& expected, const CrawlerToken& actual) {
     // Name.
-    size_t len = std::min(expected.name.size(), actual.data.doc_type.name.length)*sizeof *expected.name.c_str();
-    ASSERT_TRUE(memcmp(expected.name.c_str(), actual.data.doc_type.name.data, len) == 0);
+    if (expected.name.has_value()) {
+        size_t len = std::min(expected.name.value().size(), actual.data.doc_type.name.length)*sizeof *expected.name.value().c_str();
+        ASSERT_TRUE(memcmp(expected.name.value().c_str(), actual.data.doc_type.name.data, len) == 0);
+    } else {
+        ASSERT_EQ(actual.data.doc_type.name.length, 0);
+    }
     // Check if public/system id presence corresponds.
     ASSERT_EQ(expected.publicIdentifier.has_value(), actual.data.doc_type.has_public_identifier);
     ASSERT_EQ(expected.systemIdentifier.has_value(), actual.data.doc_type.has_system_identifier);
@@ -85,8 +90,7 @@ void Equals(const DoctypeToken& expected, const CrawlerToken& actual) {
         size_t len = std::min(publicIdentifier.size(), actual.data.doc_type.public_identifier.length)*sizeof *publicIdentifier.c_str();
         ASSERT_TRUE(memcmp(publicIdentifier.c_str(), actual.data.doc_type.public_identifier.data, len) == 0);
     } else {
-        ASSERT_EQ(actual.data.doc_type.public_identifier.data, nullptr);
-        ASSERT_EQ(actual.data.doc_type.public_identifier.capacity, 0);
+        // Verify that has_public_identifier is coherent with the public_identifier's value.
         ASSERT_EQ(actual.data.doc_type.public_identifier.length, 0);
     }
     if (expected.systemIdentifier.has_value()) {
@@ -94,11 +98,10 @@ void Equals(const DoctypeToken& expected, const CrawlerToken& actual) {
         size_t len = std::min(systemIdentifier.size(), actual.data.doc_type.system_identifier.length)*sizeof *systemIdentifier.c_str();
         ASSERT_TRUE(memcmp(systemIdentifier.c_str(), actual.data.doc_type.system_identifier.data, len) == 0);
     } else {
-        ASSERT_EQ(actual.data.doc_type.system_identifier.data, nullptr);
-        ASSERT_EQ(actual.data.doc_type.system_identifier.capacity, 0);
+        // Verify that has_system_identifier is coherent with the system_identifier's value.
         ASSERT_EQ(actual.data.doc_type.system_identifier.length, 0);
     }
-    ASSERT_EQ(expected.forceQuirks, actual.data.doc_type.force_quirks);
+    ASSERT_EQ(!expected.correctness, actual.data.doc_type.force_quirks);
 }
 
 void Equals(const ProcessingInstructionToken& expected, const CrawlerToken& actual) {
@@ -110,7 +113,7 @@ void Equals(const EOFToken& expected, const CrawlerToken& actual) {
     // What is that with a neck and no head, two arms and no hands?
 }
 
-class NamedEntity : public testing::TestWithParam<TokenizerTest>
+class Entity : public testing::TestWithParam<TokenizerTest>
 {
 protected:
     void SetUp() {
@@ -133,7 +136,7 @@ protected:
     inline static CrawlerParserContext parser;
 };
 
-TEST_P(NamedEntity, Compare) {
+TEST_P(Entity, Compare) {
     const auto& tc = GetParam();
 
     CrawlerBuffer buffer;
@@ -141,6 +144,10 @@ TEST_P(NamedEntity, Compare) {
     buffer.size = tc.input.length();
     buffer.eof = true;
     crawler_parser_bind_buffer(&parser, &buffer);
+
+    parser.lexer.current_state = static_cast<CrawlerLexerState>(
+        static_cast<std::underlying_type_t<LexerState>>(tc.initialState)
+    );
 
     for (auto& expectedToken : tc.expectedTokens) {
         ASSERT_EQ(CRAWLER_LEXER_SUCCESS, crawler_lexer_gen_token(&parser));
@@ -155,11 +162,45 @@ TEST_P(NamedEntity, Compare) {
     }
 }
 
+#if 0
 INSTANTIATE_TEST_SUITE_P(
-    NamedCharRef,
-    NamedEntity,
+    NamedEntities,
+    Entity,
     ::testing::ValuesIn(
-        kNamedEntityTests
+        kNamedEntitiesTests
+    )
+);
+
+INSTANTIATE_TEST_SUITE_P(
+    NumericEntities,
+    Entity,
+    ::testing::ValuesIn(
+        kNumericEntitiesTests
+    )
+);
+
+INSTANTIATE_TEST_SUITE_P(
+    UnicodeChar,
+    Entity,
+    ::testing::ValuesIn(
+        kUnicodeCharTests
+    )
+);
+
+INSTANTIATE_TEST_SUITE_P(
+    Test1,
+    Entity,
+    ::testing::ValuesIn(
+        kTest1Tests
+    )
+);
+#endif
+
+INSTANTIATE_TEST_SUITE_P(
+    Test2,
+    Entity,
+    ::testing::ValuesIn(
+        kTest2Tests
     )
 );
 

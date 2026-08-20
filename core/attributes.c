@@ -2,6 +2,7 @@
 #include "utils.h"
 
 #include <stdbool.h>
+#include <assert.h>
 
 void crawler_attribute_init(CrawlerAttribute* attribute) {
     crawler_string_init(&attribute->name);
@@ -13,6 +14,7 @@ bool crawler_attribute_create(CrawlerAttribute* attribute) {
         return false;
     if (!crawler_string_create(&attribute->value, 8))
         return false;
+    return true;
 }
 
 void crawler_attribute_destroy(CrawlerAttribute* attribute) {
@@ -34,6 +36,7 @@ void crawler_attribute_node_destroy(CrawlerAttributeNode* node) {
 }
 
 void crawler_attribute_list_insert(CrawlerAttributeNode** root, CrawlerAttributeNode* node) {
+    assert(root != NULL);
     node->next = *root;
     *root = node;
 }
@@ -47,4 +50,5 @@ void crawler_attribute_list_destroy(CrawlerAttributeNode** root) {
         _crawler_free(curr);
         curr = it;
     }
+    *root = NULL;
 }

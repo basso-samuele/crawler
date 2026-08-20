@@ -139,7 +139,7 @@ static bool create_comment_token(CrawlerParserContext* parser) {
 }
 
 static bool create_character_token(CrawlerParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    crawler_token_destroy(&parser->current_token);
     if (!crawler_string_create(&parser->current_token.data.start_tag.name, 1))
         return false;
     parser->current_token.type = CRAWLER_TOKEN_CHARACTER;
@@ -208,22 +208,25 @@ static void set_self_closing(CrawlerParserContext* parser) {
 }
 
 static bool start_new_attribute(CrawlerParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
-    assert(!parser->lexer.current_attribute_node);
+    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG || parser->current_token.type == CRAWLER_TOKEN_END_TAG);
+    assert(parser->lexer.current_attribute_node == NULL);
     parser->lexer.current_attribute_node = _crawler_alloc(sizeof *parser->lexer.current_attribute_node);
     crawler_attribute_node_init(parser->lexer.current_attribute_node);
     return crawler_attribute_node_create(parser->lexer.current_attribute_node);
 }
 
 static bool append_to_current_attribute_name(CrawlerParserContext* parser, int cp) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
-    assert(parser->lexer.current_attribute_node);
+    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG || parser->current_token.type == CRAWLER_TOKEN_END_TAG);
+    assert(parser->lexer.current_attribute_node != NULL);
     return crawler_string_append(&parser->lexer.current_attribute_node->attribute.name, cp);
 }
 
 static bool append_to_current_attribute_value(CrawlerParserContext* parser, int cp) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
-    assert(parser->lexer.current_attribute_node);
+    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG || parser->current_token.type == CRAWLER_TOKEN_END_TAG);
+    if (parser->lexer.current_attribute_node == NULL) {
+        crawler_debug("Possibly discarded attribute.\n");
+        return true;
+    }
     return crawler_string_append(&parser->lexer.current_attribute_node->attribute.value, cp);
 }
 
@@ -233,10 +236,17 @@ static bool append_to_comment(CrawlerParserContext* parser, int cp) {
 }
 
 static void finalize_current_attribute(CrawlerParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
-    assert(parser->lexer.current_attribute_node);
-    crawler_attribute_list_insert(&parser->current_token.data.start_tag.attributes, parser->lexer.current_attribute_node);
-    parser->lexer.current_attribute_node = NULL;
+    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG || parser->current_token.type == CRAWLER_TOKEN_END_TAG);
+    if (parser->lexer.current_attribute_node == NULL) {
+        crawler_debug("Possibly discarded attribute, not finalizing.\n");
+        return;
+    }
+    if (parser->current_token.type == CRAWLER_TOKEN_START_TAG) {
+        crawler_attribute_list_insert(&parser->current_token.data.start_tag.attributes, parser->lexer.current_attribute_node);
+        parser->lexer.current_attribute_node = NULL;
+    } else {
+        crawler_attribute_list_destroy(&parser->lexer.current_attribute_node);
+    }
 }
 
 static void discard_current_attribute(CrawlerParserContext* parser) {
@@ -255,13 +265,16 @@ static bool is_appropriate_end_tag_token(CrawlerParserContext* parser) {
 }
 
 static bool check_current_attribute_unique(CrawlerParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
+    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG || parser->current_token.type == CRAWLER_TOKEN_END_TAG);
     assert(parser->lexer.current_attribute_node);
     CrawlerAttributeNode* it = parser->current_token.data.start_tag.attributes;
     while (it) {
         bool match =
             crawler_string_compare(&it->attribute.name, &parser->lexer.current_attribute_node->attribute.name);
-        if (match) return false;
+        if (match) {
+            discard_current_attribute(parser);
+            return false;
+        }
         it = it->next;
     }
     return true;
@@ -270,6 +283,7 @@ static bool check_current_attribute_unique(CrawlerParserContext* parser) {
 static bool emit_current_tag_token(CrawlerParserContext* parser) {
     switch(parser->current_token.type) {
         case CRAWLER_TOKEN_START_TAG:
+            crawler_string_destroy(&parser->lexer.last_emitted_start_tag_name);
             return crawler_string_clone(&parser->lexer.last_emitted_start_tag_name, &parser->current_token.data.start_tag.name);
         case CRAWLER_TOKEN_END_TAG:
             return true;
@@ -356,7 +370,6 @@ static bool append_to_processing_instr_data(CrawlerParserContext* parser, int cp
 
 // https://html.spec.whatwg.org/#data-state
 static CrawlerLexerResult handle_data_state(struct CrawlerInternalParserContext* parser, int cp) {
-    
     switch(cp) {
     case 0x0026: // AMPERSAND
         set_return_state(parser, CRAWLER_LEXER_STATE_DATA);
@@ -419,7 +432,6 @@ static CrawlerLexerResult handle_rawtext_state(struct CrawlerInternalParserConte
 
 // https://html.spec.whatwg.org/#script-data-state
 static CrawlerLexerResult handle_script_data_state(struct CrawlerInternalParserContext* parser, int cp) {
-    
     switch(cp) {
     case 0x003C: // LESS-THAN-SIGN
         switch_state(parser, CRAWLER_LEXER_STATE_SCRIPT_DATA_LESS_THAN_SIGN);
@@ -455,16 +467,13 @@ static CrawlerLexerResult handle_tag_open_state(struct CrawlerInternalParserCont
     switch(cp) {
     case 0x0021: // EXCLAMATION MARK (!)
         switch_state(parser, CRAWLER_LEXER_STATE_MARKUP_DECLARATION_OPEN);
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x002F: // SOLIDUS (/)
         switch_state(parser, CRAWLER_LEXER_STATE_END_TAG_OPEN);
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x003F: // QUESTION MARK (?)
         temporary_to_empty_string(parser);
         switch_state(parser, CRAWLER_LEXER_STATE_PROCESSING_INSTRUCTION_OPEN);
-        
         return CRAWLER_LEXER_NEXT_CP;
     case -1: // EOF
         crawler_parser_register_error(parser, CRAWLER_ERROR_EOF_BEFORE_TAG_NAME);
@@ -493,7 +502,6 @@ static CrawlerLexerResult handle_end_tag_open_state(struct CrawlerInternalParser
     case 0x003E: // GREATER-THAN SIGN (>)
         crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_END_TAG_NAME);
         switch_state(parser, CRAWLER_LEXER_STATE_DATA);
-        
         return CRAWLER_LEXER_NEXT_CP;
     case -1: // EOF
         crawler_parser_register_error(parser, CRAWLER_ERROR_EOF_BEFORE_TAG_NAME);
@@ -526,7 +534,6 @@ static CrawlerLexerResult handle_end_tag_open_state(struct CrawlerInternalParser
 
 // https://html.spec.whatwg.org/#tag-name-state
 static CrawlerLexerResult handle_tag_name_state(struct CrawlerInternalParserContext* parser, int cp) {
-    
     switch(cp) {
     case 0x0009: // CHARACTER TABULATION (tab)
     case 0x000A: // LINE FEED (LF)
@@ -742,7 +749,6 @@ static CrawlerLexerResult handle_script_data_less_than_sign_state(struct Crawler
     case 0x002F: // SOLIDUS (/)
         temporary_to_empty_string(parser);
         switch_state(parser, CRAWLER_LEXER_STATE_SCRIPT_DATA_END_TAG_OPEN);
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0021: // EXCLAMATION MARK (!)
         if (!create_character_token(parser))
@@ -752,7 +758,6 @@ static CrawlerLexerResult handle_script_data_less_than_sign_state(struct Crawler
         if (!manual_emit_character(parser, 0x0021)) // EXCLAMATION MARK
             return CRAWLER_LEXER_FAILURE;
         switch_state(parser, CRAWLER_LEXER_STATE_SCRIPT_DATA_ESCAPE_START);
-        
         return CRAWLER_LEXER_SUCCESS;
     default:
         switch_state(parser, CRAWLER_LEXER_STATE_SCRIPT_DATA);
@@ -855,7 +860,6 @@ static CrawlerLexerResult handle_script_data_escape_start_dash_state(struct Craw
     switch(cp) {
     case 0x002D: // HYPHEN-MINUS (-)
         switch_state(parser, CRAWLER_LEXER_STATE_SCRIPT_DATA_ESCAPED_DASH_DASH);
-        
         return emit_character(parser, 0x002D); // HYPHEN-MINUS (-)
     default:
         switch_state(parser, CRAWLER_LEXER_STATE_SCRIPT_DATA);
@@ -984,21 +988,18 @@ static CrawlerLexerResult handle_script_data_escaped_end_tag_name_state(struct C
     case 0x0020: // SPACE
         if (is_appropriate_end_tag_token(parser)) {
             switch_state(parser, CRAWLER_LEXER_STATE_BEFORE_ATTRIBUTE_NAME);
-            
             return CRAWLER_LEXER_NEXT_CP;
         }
         break;
     case 0x002F: // SOLIDUS (/)
         if (is_appropriate_end_tag_token(parser)) {
             switch_state(parser, CRAWLER_LEXER_STATE_SELF_CLOSING_START_TAG);
-            
             return CRAWLER_LEXER_NEXT_CP;
         }
         break;
     case 0x003E: // GREATER-THAN SIGN (>)
         if (is_appropriate_end_tag_token(parser)) {
             switch_state(parser, CRAWLER_LEXER_STATE_DATA);
-            
             return emit_current_tag_token(parser);
         }
         break;
@@ -1188,7 +1189,6 @@ static CrawlerLexerResult handle_before_attribute_name_state(struct CrawlerInter
     case 0x000A: // LINE FEED (LF)
     case 0x000C: // FORM FEED (FF)
     case 0x0020: // SPACE
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x002F: // SOLIDUS (/)
     case 0x003E: // GREATER-THAN SIGN (>)
@@ -1224,20 +1224,15 @@ static CrawlerLexerResult handle_attribute_name_state(struct CrawlerInternalPars
     case 0x002F: // SOLIDUS (/)
     case 0x003E: // GREATER-THAN SIGN (>)
     case -1: // EOF
-        if (!check_current_attribute_unique(parser)) {
-            crawler_debug("Missing implementation.\n");
-            return CRAWLER_LEXER_FAILURE;
-        }
+        if (!check_current_attribute_unique(parser))
+            crawler_debug("Discarded duplicated attribute.\n");
         switch_state(parser, CRAWLER_LEXER_STATE_AFTER_ATTRIBUTE_NAME);
         stream_reconsume(parser);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x003D: // EQUALS SIGN (=)
-        if (!check_current_attribute_unique(parser)) {
-            crawler_debug("Missing implementation.\n");
-            return CRAWLER_LEXER_FAILURE;
-        }
+        if (!check_current_attribute_unique(parser))
+            crawler_debug("Discarded duplicated attribute.\n");
         switch_state(parser, CRAWLER_LEXER_STATE_BEFORE_ATTRIBUTE_VALUE);
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0000: // NULL
         crawler_parser_register_error(parser, CRAWLER_ERROR_UNEXPECTED_NULL_CHARACTER);
@@ -1258,7 +1253,6 @@ static CrawlerLexerResult handle_attribute_name_state(struct CrawlerInternalPars
             cp += 0x0020;
         if (!append_to_current_attribute_name(parser, cp))
             return CRAWLER_LEXER_FAILURE;
-        
         return CRAWLER_LEXER_NEXT_CP;
     }
 }
@@ -1270,24 +1264,20 @@ static CrawlerLexerResult handle_after_attribute_name_state(struct CrawlerIntern
     case 0x000A:
     case 0x000C:
     case 0x0020:
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x002F:
         switch_state(parser, CRAWLER_LEXER_STATE_SELF_CLOSING_START_TAG);
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x003D:
         switch_state(parser, CRAWLER_LEXER_STATE_BEFORE_ATTRIBUTE_VALUE);
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x003E:
         switch_state(parser, CRAWLER_LEXER_STATE_DATA);
-        
+        finalize_current_attribute(parser);
         return emit_current_tag_token(parser);
     case -1:
         crawler_parser_register_error(parser, CRAWLER_ERROR_EOF_IN_TAG);
         create_eof_token(parser);
-        
         return CRAWLER_LEXER_SUCCESS;
     default:
         if (!start_new_attribute(parser))
@@ -1309,11 +1299,9 @@ static CrawlerLexerResult handle_before_attribute_value_state(struct CrawlerInte
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0022: // QUOTATION MARK (")
         switch_state(parser, CRAWLER_LEXER_STATE_ATTRIBUTE_VALUE_DOUBLE_QUOTED);
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0027: // APOSTROPHE (')
         switch_state(parser, CRAWLER_LEXER_STATE_ATTRIBUTE_VALUE_SINGLE_QUOTED);
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x003E: // GREATER-THAN SIGN (>)
         crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_ATTRIBUTE_VALUE);
@@ -1356,9 +1344,8 @@ static CrawlerLexerResult handle_attribute_value_double_quoted_state(struct Craw
 
 // https://html.spec.whatwg.org/#attribute-value-(single-quoted)-state
 static CrawlerLexerResult handle_attribute_value_single_quoted_state(struct CrawlerInternalParserContext* parser, int cp) {
-    
     switch(cp) {
-    case 0x0022: // QUOTATION MARK (")
+    case 0x0027: // APOSTROPHE (')
         switch_state(parser, CRAWLER_LEXER_STATE_AFTER_ATTRIBUTE_VALUE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0026: // AMPERSAND (&)
@@ -1389,6 +1376,7 @@ static CrawlerLexerResult handle_attribute_value_unquoted_state(struct CrawlerIn
     case 0x000A: // LINE FEED (LF)
     case 0x000C: // FORM FEED (FF)
     case 0x0020: // SPACE
+        finalize_current_attribute(parser);
         switch_state(parser, CRAWLER_LEXER_STATE_BEFORE_ATTRIBUTE_NAME);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0026: // AMPERSAND (&)
@@ -1396,6 +1384,7 @@ static CrawlerLexerResult handle_attribute_value_unquoted_state(struct CrawlerIn
         switch_state(parser, CRAWLER_LEXER_STATE_CHARACTER_REFERENCE);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x003E: // GREATER-THAN SIGN (>)
+        finalize_current_attribute(parser);
         switch_state(parser, CRAWLER_LEXER_STATE_DATA);
         return emit_current_tag_token(parser);
     case 0x0000: // NULL
@@ -1411,10 +1400,13 @@ static CrawlerLexerResult handle_attribute_value_unquoted_state(struct CrawlerIn
         crawler_parser_register_error(parser, CRAWLER_ERROR_UNEXPECTED_CHARACTER_IN_UNQUOTED_ATTRIBUTE_VALUE);
         if (!append_to_current_attribute_value(parser, cp))
             return CRAWLER_LEXER_FAILURE;
-
         return CRAWLER_LEXER_NEXT_CP;
     case -1: // EOF
         crawler_parser_register_error(parser, CRAWLER_ERROR_EOF_IN_TAG);
+        // I expect to have a tag token here and possibly a current_attribute_node.
+        finalize_current_attribute(parser);
+        crawler_token_destroy(&parser->current_token);
+
         create_eof_token(parser);
         return CRAWLER_LEXER_SUCCESS;
     default:
@@ -1426,24 +1418,27 @@ static CrawlerLexerResult handle_attribute_value_unquoted_state(struct CrawlerIn
 
 // https://html.spec.whatwg.org/#after-attribute-value-(quoted)-state
 static CrawlerLexerResult handle_after_attribute_value_quoted_state(struct CrawlerInternalParserContext* parser, int cp) {
+    finalize_current_attribute(parser);
     switch(cp) {
     case 0x0009: // CHARACTER TABULATION (tab)
     case 0x000A: // LINE FEED (LF)
     case 0x000C: // FORM FEED (FF)
     case 0x0020: // SPACE
         switch_state(parser, CRAWLER_LEXER_STATE_BEFORE_ATTRIBUTE_NAME);
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x002F: // SOLIDUS (/)
         switch_state(parser, CRAWLER_LEXER_STATE_SELF_CLOSING_START_TAG);
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x003E: // GREATER-THAN SIGN (>)
         switch_state(parser, CRAWLER_LEXER_STATE_DATA);
-        
         return emit_current_tag_token(parser);
     case -1: // EOF
         crawler_parser_register_error(parser, CRAWLER_ERROR_EOF_IN_TAG);
+        // If this line is reached then a start_tag token should exist.
+        assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
+        // Destroy it before creating an eof token.
+        crawler_token_destroy(&parser->current_token);
+
         create_eof_token(parser);
         return CRAWLER_LEXER_SUCCESS;
     default:
@@ -1480,24 +1475,24 @@ static CrawlerLexerResult handle_bogus_comment_state(struct CrawlerInternalParse
     switch(cp) {
     case 0x003E: // GREATER-THAN SIGN (>)
         switch_state(parser, CRAWLER_LEXER_STATE_DATA);
-        
         // If current token is comment returning CRAWLER_LEXER_SUCCESS will emit.
+        assert(parser->current_token.type == CRAWLER_TOKEN_COMMENT);
         return CRAWLER_LEXER_SUCCESS;
     case -1: // EOF
         switch_state(parser, CRAWLER_LEXER_STATE_DATA);
         stream_reconsume(parser);
+        // If current token is comment returning CRAWLER_LEXER_SUCCESS will emit.
+        assert(parser->current_token.type == CRAWLER_TOKEN_COMMENT);
         return CRAWLER_LEXER_SUCCESS;
     case 0x0000: // NULL
         crawler_parser_register_error(parser, CRAWLER_ERROR_UNEXPECTED_NULL_CHARACTER);
         if (!append_to_comment(parser, 0xFFFD))
             return CRAWLER_LEXER_FAILURE;
-        
-        return CRAWLER_LEXER_SUCCESS;
+        return CRAWLER_LEXER_NEXT_CP;
     default:
         if (!append_to_comment(parser, cp))
             return CRAWLER_LEXER_FAILURE;
-        
-        return CRAWLER_LEXER_SUCCESS;
+        return CRAWLER_LEXER_NEXT_CP;
     }
 }
 
@@ -1509,10 +1504,10 @@ static CrawlerLexerResult handle_markup_declaration_open_state(struct CrawlerInt
         if (!create_comment_token(parser))
             return CRAWLER_LEXER_FAILURE;
         switch_state(parser, CRAWLER_LEXER_STATE_COMMENT_START);
-        return CRAWLER_LEXER_SUCCESS;
+        return CRAWLER_LEXER_NEXT_CP;
     } else if (crawler_stream_consume_match(stream, "DOCTYPE", 7, false)) {
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE);
-        return CRAWLER_LEXER_SUCCESS;
+        return CRAWLER_LEXER_NEXT_CP;
     } else if (crawler_stream_consume_match(stream, "[CDATA[", 7, false)) {
         // Missing stack of open elements implementation.
         assert(false);
@@ -1521,7 +1516,8 @@ static CrawlerLexerResult handle_markup_declaration_open_state(struct CrawlerInt
         if (!create_comment_token(parser))
             return CRAWLER_LEXER_FAILURE;
         switch_state(parser, CRAWLER_LEXER_STATE_BOGUS_COMMENT);
-        return CRAWLER_LEXER_SUCCESS;
+        stream_reconsume(parser);
+        return CRAWLER_LEXER_NEXT_CP;
     }
 }
 
@@ -1587,11 +1583,13 @@ static CrawlerLexerResult handle_comment_state(struct CrawlerInternalParserConte
         crawler_parser_register_error(parser, CRAWLER_ERROR_UNEXPECTED_NULL_CHARACTER);
         if (!append_to_comment(parser, 0xFFFD))
             return CRAWLER_LEXER_FAILURE;
+        return CRAWLER_LEXER_NEXT_CP;
     case -1: // EOF
         crawler_parser_register_error(parser, CRAWLER_ERROR_EOF_IN_COMMENT);
         switch_state(parser, CRAWLER_LEXER_STATE_DATA);
         stream_reconsume(parser);
-        return emit_current_character(parser);
+        assert(parser->current_token.type == CRAWLER_TOKEN_COMMENT);
+        return CRAWLER_LEXER_SUCCESS;
     default:
         if (!append_to_comment(parser, cp))
             return CRAWLER_LEXER_FAILURE;
@@ -1944,9 +1942,11 @@ static CrawlerLexerResult handle_before_doctype_public_identifier_state(struct C
     case 0x0020: // SPACE
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0022: // QUOTATION MARK (")
+        parser->current_token.data.doc_type.has_public_identifier = true;
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE_PUBLIC_IDENTIFIER_DOUBLE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0027: // APOSTROPHE (')
+        parser->current_token.data.doc_type.has_public_identifier = true;
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE_PUBLIC_IDENTIFIER_SINGLE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x003E: // GREATER-THAN SIGN (>)
@@ -2083,9 +2083,11 @@ static CrawlerLexerResult handle_between_doctype_public_and_system_identifiers_s
         assert(parser->current_token.type == CRAWLER_TOKEN_DOCTYPE);
         return CRAWLER_LEXER_SUCCESS;
     case 0x0022: // QUOTATION MARK (")
+        parser->current_token.data.doc_type.has_system_identifier = true;
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE_SYSTEM_IDENTIFIER_DOUBLE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0027: // APOSTROPHE (')
+        parser->current_token.data.doc_type.has_system_identifier = true;
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE_SYSTEM_IDENTIFIER_SINGLE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
     case -1: // EOF
@@ -2152,9 +2154,11 @@ static CrawlerLexerResult handle_before_doctype_system_identifier_state(struct C
     case 0x0020: // SPACE
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0022: // QUOTATION MARK (")
+        parser->current_token.data.doc_type.has_system_identifier = true;
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE_SYSTEM_IDENTIFIER_DOUBLE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0027: // APOSTROPHE (')
+        parser->current_token.data.doc_type.has_system_identifier = true;
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE_SYSTEM_IDENTIFIER_SINGLE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x003E: // GREATER-THAN SIGN (>)
@@ -2473,18 +2477,17 @@ static CrawlerLexerResult handle_character_reference_state(struct CrawlerInterna
         if (!temporary_append(parser, cp))
             return CRAWLER_LEXER_FAILURE;
         switch_state(parser, CRAWLER_LEXER_STATE_NUMERIC_CHARACTER_REFERENCE);
-        
         return CRAWLER_LEXER_NEXT_CP;
     default:
         if (is_ascii_alphanumeric(cp)) {
             switch_state(parser, CRAWLER_LEXER_STATE_NAMED_CHARACTER_REFERENCE);
+            stream_reconsume(parser);
+            return CRAWLER_LEXER_NEXT_CP;
         } else {
-            if (!flush_code_points_consumed_as_a_character_reference(parser))
-                return CRAWLER_LEXER_FAILURE;
             switch_to_return_state(parser);
+            stream_reconsume(parser);
+            return flush_code_points_consumed_as_a_character_reference(parser);
         }
-        stream_reconsume(parser);
-        return CRAWLER_LEXER_NEXT_CP;
     }
 }
 
@@ -2505,11 +2508,23 @@ static CrawlerLexerResult handle_named_character_reference_state(struct CrawlerI
 
     switch(cr_result) {
     case CRAWLER_CR_SUCCESS:
+        stream_reset(parser);
+        // Recalculating next_input_character
+        CrawlerStreamResult next_input_character_result =
+            crawler_stream_peek(parser, &next_input_character);
+        if (next_input_character_result == CRAWLER_STREAM_ERROR)
+            return CRAWLER_LEXER_FAILURE;
+        if (next_input_character_result == CRAWLER_STREAM_MISSING_ELEMENT) {
+            stream_reconsume(parser);
+            return CRAWLER_LEXER_MISSING_CP;
+        }
+
         int last_character_matched = parser->lexer.temporary_buffer.data[parser->lexer.temporary_buffer.length-1];
         bool historical =
             consumed_as_part_of_an_attribute(parser) &&
             last_character_matched != 0x003B && // SEMICOLON (;)
             (next_input_character == 0x003D || is_ascii_alphanumeric(next_input_character)); // EQUALS SIGN (=)
+        switch_to_return_state(parser);
         if (historical) {
             return flush_code_points_consumed_as_a_character_reference(parser);
         } else {
@@ -2525,9 +2540,8 @@ static CrawlerLexerResult handle_named_character_reference_state(struct CrawlerI
                     return CRAWLER_LEXER_FAILURE;
             return flush_code_points_consumed_as_a_character_reference(parser);
         }
-        switch_to_return_state(parser);
-        return CRAWLER_LEXER_NEXT_CP;
     case CRAWLER_CR_FAILURE:
+        stream_reconsume(parser);
         switch_state(parser, CRAWLER_LEXER_STATE_AMBIGUOUS_AMPERSAND);
         return flush_code_points_consumed_as_a_character_reference(parser);
     case CRAWLER_CR_NEXT_CP:
@@ -2544,20 +2558,20 @@ static CrawlerLexerResult handle_ambiguous_ampersand_state(struct CrawlerInterna
         crawler_parser_register_error(parser, CRAWLER_ERROR_UNKNOWN_NAMED_CHARACTER_REFERENCE);
         stream_reconsume(parser);
         switch_to_return_state(parser);
-        return CRAWLER_CR_SUCCESS;
+        return CRAWLER_LEXER_NEXT_CP;
     default:
         if (is_ascii_alphanumeric(cp)) {
             if (consumed_as_part_of_an_attribute(parser)) {
                 if (!append_to_current_attribute_value(parser, cp))
                     return CRAWLER_LEXER_FAILURE;
+                return CRAWLER_LEXER_NEXT_CP;
             } else {
-                
                 return emit_current_character(parser);
             }
         } else {
             stream_reconsume(parser);
             switch_to_return_state(parser);
-            return CRAWLER_CR_SUCCESS;
+            return CRAWLER_LEXER_NEXT_CP;
         }
     }
 }
@@ -2572,17 +2586,17 @@ static CrawlerLexerResult handle_numeric_character_reference_state(struct Crawle
             return CRAWLER_LEXER_FAILURE;
         switch_state(parser, CRAWLER_LEXER_STATE_HEXADECIMAL_CHARACTER_REFERENCE_START);
         
-        return CRAWLER_LEXER_SUCCESS;
+        return CRAWLER_LEXER_NEXT_CP;
     default:
         if (is_ascii_digit(cp)) {
             switch_state(parser, CRAWLER_LEXER_STATE_DECIMAL_CHARACTER_REFERENCE);
+            stream_reconsume(parser);
+            return CRAWLER_LEXER_NEXT_CP;
         } else {
             crawler_parser_register_error(parser, CRAWLER_ERROR_ABSENCE_OF_DIGITS_IN_NUMERIC_CHARACTER_REFERENCE);
             switch_to_return_state(parser);
             return flush_code_points_consumed_as_a_character_reference(parser);
         }
-        stream_reconsume(parser);
-        return CRAWLER_LEXER_SUCCESS;
     }
 }
 
@@ -2590,13 +2604,13 @@ static CrawlerLexerResult handle_numeric_character_reference_state(struct Crawle
 static CrawlerLexerResult handle_hexadecimal_character_reference_start_state(struct CrawlerInternalParserContext* parser, int cp) {
     if (is_ascii_hex_digit(cp)) {
         switch_state(parser, CRAWLER_LEXER_STATE_HEXADECIMAL_CHARACTER_REFERENCE);
+        stream_reconsume(parser);
+        return CRAWLER_LEXER_NEXT_CP;
     } else {
         crawler_parser_register_error(parser, CRAWLER_ERROR_ABSENCE_OF_DIGITS_IN_NUMERIC_CHARACTER_REFERENCE);
         switch_to_return_state(parser);
         return flush_code_points_consumed_as_a_character_reference(parser);
     }
-    stream_reconsume(parser);
-    return CRAWLER_LEXER_SUCCESS;
 }
 
 // https://html.spec.whatwg.org/#hexadecimal-character-reference-state
@@ -2605,28 +2619,28 @@ static CrawlerLexerResult handle_hexadecimal_character_reference_state(struct Cr
     case 0x003B: // SEMICOLON (;)
         switch_state(parser, CRAWLER_LEXER_STATE_NUMERIC_CHARACTER_REFERENCE_END);
         
-        return CRAWLER_LEXER_SUCCESS;
+        return CRAWLER_LEXER_NEXT_CP;
     default:
         if (is_ascii_digit(cp)) {
             parser->lexer.character_reference_code *= 16;
             parser->lexer.character_reference_code += cp - 0x0030;
             
-            return CRAWLER_LEXER_SUCCESS;
+            return CRAWLER_LEXER_NEXT_CP;
         } else if (is_ascii_upper_hex_digit(cp)) {
             parser->lexer.character_reference_code *= 16;
             parser->lexer.character_reference_code += cp - 0x0037;
             
-            return CRAWLER_LEXER_SUCCESS;
+            return CRAWLER_LEXER_NEXT_CP;
         } else if (is_ascii_lower_hex_digit(cp)) {
             parser->lexer.character_reference_code *= 16;
             parser->lexer.character_reference_code += cp - 0x0057;
             
-            return CRAWLER_LEXER_SUCCESS;
+            return CRAWLER_LEXER_NEXT_CP;
         } else {
             crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_SEMICOLON_AFTER_CHARACTER_REFERENCE);
             switch_state(parser, CRAWLER_LEXER_STATE_NUMERIC_CHARACTER_REFERENCE_END);
             stream_reconsume(parser);
-            return CRAWLER_LEXER_SUCCESS;
+            return CRAWLER_LEXER_NEXT_CP;
         }
     }
 }
@@ -2637,18 +2651,18 @@ static CrawlerLexerResult handle_decimal_character_reference_state(struct Crawle
     case 0x003B: // SEMICOLON (;)
         switch_state(parser, CRAWLER_LEXER_STATE_NUMERIC_CHARACTER_REFERENCE_END);
         
-        return CRAWLER_LEXER_SUCCESS;
+        return CRAWLER_LEXER_NEXT_CP;
     default:
         if (is_ascii_digit(cp)) {
             parser->lexer.character_reference_code *= 10;
             parser->lexer.character_reference_code += cp - 0x0030;
             
-            return CRAWLER_LEXER_SUCCESS;
+            return CRAWLER_LEXER_NEXT_CP;
         } else {
             crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_SEMICOLON_AFTER_CHARACTER_REFERENCE);
             switch_state(parser, CRAWLER_LEXER_STATE_NUMERIC_CHARACTER_REFERENCE_END);
             stream_reconsume(parser);
-            return CRAWLER_LEXER_SUCCESS;
+            return CRAWLER_LEXER_NEXT_CP;
         }
     }
 }
@@ -2693,7 +2707,7 @@ static CrawlerLexerResult handle_numeric_character_reference_end_state(struct Cr
     // The state does not require character consumption.
     stream_reconsume(parser);
 
-    int crc = parser->lexer.character_reference_code;
+    unsigned int crc = parser->lexer.character_reference_code;
     if (crc == 0x00) {
         crawler_parser_register_error(parser, CRAWLER_ERROR_NULL_CHARACTER_REFERENCE);
         crc = 0xFFFD;

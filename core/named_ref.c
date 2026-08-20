@@ -70,8 +70,10 @@ CrawlerNamedReferenceResult crawler_named_reference_step(CrawlerParserContext* p
     named_ref->curr = &named_ref->entities_trie.data[child_offset];
     named_ref->last_character_matched = cp;
 
-    if (named_ref->curr->is_terminal)
+    if (named_ref->curr->is_terminal) {
         named_ref->last_match = named_ref->curr;
+        crawler_stream_commit(&parser->is);
+    }
     return CRAWLER_CR_NEXT_CP;
 }
 

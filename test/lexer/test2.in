@@ -1,0 +1,170 @@
+TokenizerTest{
+    "Simili processing instruction", // description
+    "<?namespace>", // input
+    { // expectedTokens
+        CommentToken{U"?namespace"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "A bogus comment stops at >, even if preceded by two dashes", // description
+    "<?foo-->", // input
+    { // expectedTokens
+        CommentToken{U"?foo--"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Unescaped <", // description
+    "foo < bar", // input
+    { // expectedTokens
+        CharacterToken{U"foo < bar"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::InvalidFirstCharacterOfTagName, 6 }
+    }
+},TokenizerTest{
+    "Null Byte Replacement", // description
+    "\u0000", // input
+    { // expectedTokens
+        CharacterToken{U"\u0000"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedNullCharacter, 1 }
+    }
+},TokenizerTest{
+    "Comment with dash", // description
+    "<!---x", // input
+    { // expectedTokens
+        CommentToken{U"-x"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInComment, 7 }
+    }
+},TokenizerTest{
+    "Entity + newline", // description
+    "\nx\n&gt;\n", // input
+    { // expectedTokens
+        CharacterToken{U"\nx\n>\n"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Start tag with no attributes but space before the greater-than sign", // description
+    "<h >", // input
+    { // expectedTokens
+        StartTagToken{U"h", {  }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Empty attribute followed by uppercase attribute", // description
+    "<h a B=''>", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"b", U""}, Attribute{U"a", U""} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Double-quote after attribute name", // description
+    "<h a \">", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"\"", U""}, Attribute{U"a", U""} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedCharacterInAttributeName, 6 }
+    }
+},TokenizerTest{
+    "Single-quote after attribute name", // description
+    "<h a '>", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"'", U""}, Attribute{U"a", U""} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedCharacterInAttributeName, 6 }
+    }
+},TokenizerTest{
+    "Empty end tag with following characters", // description
+    "a</>bc", // input
+    { // expectedTokens
+        CharacterToken{U"abc"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingEndTagName, 4 }
+    }
+},TokenizerTest{
+    "Empty end tag with following tag", // description
+    "a</><b>c", // input
+    { // expectedTokens
+        CharacterToken{U"a"},
+        StartTagToken{U"b", {  }, false},
+        CharacterToken{U"c"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingEndTagName, 4 }
+    }
+},TokenizerTest{
+    "Empty end tag with following comment", // description
+    "a</><!--b-->c", // input
+    { // expectedTokens
+        CharacterToken{U"a"},
+        CommentToken{U"b"},
+        CharacterToken{U"c"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingEndTagName, 4 }
+    }
+},TokenizerTest{
+    "Empty end tag with following end tag", // description
+    "a</></b>c", // input
+    { // expectedTokens
+        CharacterToken{U"a"},
+        EndTagToken{U"b"},
+        CharacterToken{U"c"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingEndTagName, 4 }
+    }
+},

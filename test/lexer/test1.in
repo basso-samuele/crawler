@@ -1,0 +1,1031 @@
+TokenizerTest{
+    "Correct Doctype lowercase", // description
+    "<!DOCTYPE html>", // input
+    { // expectedTokens
+        DoctypeToken{U"html", std::nullopt, std::nullopt, true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Correct Doctype uppercase", // description
+    "<!DOCTYPE HTML>", // input
+    { // expectedTokens
+        DoctypeToken{U"html", std::nullopt, std::nullopt, true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Correct Doctype mixed case", // description
+    "<!DOCTYPE HtMl>", // input
+    { // expectedTokens
+        DoctypeToken{U"html", std::nullopt, std::nullopt, true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Correct Doctype case with EOF", // description
+    "<!DOCTYPE HtMl", // input
+    { // expectedTokens
+        DoctypeToken{U"html", std::nullopt, std::nullopt, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInDoctype, 15 }
+    }
+},TokenizerTest{
+    "Truncated doctype start", // description
+    "<!DOC>", // input
+    { // expectedTokens
+        CommentToken{U"DOC"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::IncorrectlyOpenedComment, 3 }
+    }
+},TokenizerTest{
+    "Doctype in error", // description
+    "<!DOCTYPE foo>", // input
+    { // expectedTokens
+        DoctypeToken{U"foo", std::nullopt, std::nullopt, true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Single Start Tag", // description
+    "<h>", // input
+    { // expectedTokens
+        StartTagToken{U"h", {  }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Empty end tag", // description
+    "</>", // input
+    { // expectedTokens
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingEndTagName, 3 }
+    }
+},TokenizerTest{
+    "Empty start tag", // description
+    "<>", // input
+    { // expectedTokens
+        CharacterToken{U"<"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::InvalidFirstCharacterOfTagName, 2 }
+    }
+},TokenizerTest{
+    "Start Tag w/attribute", // description
+    "<h a='b'>", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"b"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Start Tag w/attribute no quotes", // description
+    "<h a=b>", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"b"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Start/End Tag", // description
+    "<h></h>", // input
+    { // expectedTokens
+        StartTagToken{U"h", {  }, false},
+        EndTagToken{U"h"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Two unclosed start tags", // description
+    "<p>One<p>Two", // input
+    { // expectedTokens
+        StartTagToken{U"p", {  }, false},
+        CharacterToken{U"O"},
+        CharacterToken{U"n"},
+        CharacterToken{U"e"},
+        StartTagToken{U"p", {  }, false},
+        CharacterToken{U"T"},
+        CharacterToken{U"w"},
+        CharacterToken{U"o"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End Tag w/attribute", // description
+    "<h></h a='b'>", // input
+    { // expectedTokens
+        StartTagToken{U"h", {  }, false},
+        EndTagToken{U"h"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EndTagWithAttributes, 13 }
+    }
+},TokenizerTest{
+    "Multiple atts", // description
+    "<h a='b' c='d'>", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"c", U"d"}, Attribute{U"a", U"b"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Multiple atts no space", // description
+    "<h a='b'c='d'>", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"c", U"d"}, Attribute{U"a", U"b"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingWhitespaceBetweenAttributes, 9 }
+    }
+},TokenizerTest{
+    "Repeated attr", // description
+    "<h a='b' a='d'>", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"b"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::DuplicateAttribute, 11 }
+    }
+},TokenizerTest{
+    "Simple comment", // description
+    "<!--comment-->", // input
+    { // expectedTokens
+        CommentToken{U"comment"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Comment, Central dash no space", // description
+    "<!----->", // input
+    { // expectedTokens
+        CommentToken{U"-"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Comment, two central dashes", // description
+    "<!-- --comment -->", // input
+    { // expectedTokens
+        CommentToken{U" --comment "},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Comment, central less-than bang", // description
+    "<!--<!-->", // input
+    { // expectedTokens
+        CommentToken{U"<!"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Unfinished comment", // description
+    "<!--comment", // input
+    { // expectedTokens
+        CommentToken{U"comment"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInComment, 12 }
+    }
+},TokenizerTest{
+    "Unfinished comment after start of nested comment", // description
+    "<!-- <!--", // input
+    { // expectedTokens
+        CommentToken{U" <!"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInComment, 10 }
+    }
+},TokenizerTest{
+    "Start of a comment", // description
+    "<!-", // input
+    { // expectedTokens
+        CommentToken{U"-"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::IncorrectlyOpenedComment, 3 }
+    }
+},TokenizerTest{
+    "Short comment", // description
+    "<!-->", // input
+    { // expectedTokens
+        CommentToken{U""},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::AbruptClosingOfEmptyComment, 5 }
+    }
+},TokenizerTest{
+    "Short comment two", // description
+    "<!--->", // input
+    { // expectedTokens
+        CommentToken{U""},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::AbruptClosingOfEmptyComment, 6 }
+    }
+},TokenizerTest{
+    "Short comment three", // description
+    "<!---->", // input
+    { // expectedTokens
+        CommentToken{U""},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "< in comment", // description
+    "<!-- <test-->", // input
+    { // expectedTokens
+        CommentToken{U" <test"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "<< in comment", // description
+    "<!--<<-->", // input
+    { // expectedTokens
+        CommentToken{U"<<"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "<! in comment", // description
+    "<!-- <!test-->", // input
+    { // expectedTokens
+        CommentToken{U" <!test"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "<!- in comment", // description
+    "<!-- <!-test-->", // input
+    { // expectedTokens
+        CommentToken{U" <!-test"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Nested comment", // description
+    "<!-- <!--test-->", // input
+    { // expectedTokens
+        CommentToken{U" <!--test"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NestedComment, 10 }
+    }
+},TokenizerTest{
+    "Nested comment with extra <", // description
+    "<!-- <<!--test-->", // input
+    { // expectedTokens
+        CommentToken{U" <<!--test"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NestedComment, 11 }
+    }
+},TokenizerTest{
+    "< in script data", // description
+    "<test-->", // input
+    { // expectedTokens
+        CharacterToken{U"<"},
+        CharacterToken{U"t"},
+        CharacterToken{U"e"},
+        CharacterToken{U"s"},
+        CharacterToken{U"t"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "<! in script data", // description
+    "<!test-->", // input
+    { // expectedTokens
+        CharacterToken{U"<!"},
+        CharacterToken{U"t"},
+        CharacterToken{U"e"},
+        CharacterToken{U"s"},
+        CharacterToken{U"t"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "<!- in script data", // description
+    "<!-test-->", // input
+    { // expectedTokens
+        CharacterToken{U"<!"},
+        CharacterToken{U"-"},
+        CharacterToken{U"t"},
+        CharacterToken{U"e"},
+        CharacterToken{U"s"},
+        CharacterToken{U"t"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Escaped script data", // description
+    "<!--test-->", // input
+    { // expectedTokens
+        CharacterToken{U"<!"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U"t"},
+        CharacterToken{U"e"},
+        CharacterToken{U"s"},
+        CharacterToken{U"t"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "< in script HTML comment", // description
+    "<!-- < test -->", // input
+    { // expectedTokens
+        CharacterToken{U"<!"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U" "},
+        CharacterToken{U"<"},
+        CharacterToken{U" "},
+        CharacterToken{U"t"},
+        CharacterToken{U"e"},
+        CharacterToken{U"s"},
+        CharacterToken{U"t"},
+        CharacterToken{U" "},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "</ in script HTML comment", // description
+    "<!-- </ test -->", // input
+    { // expectedTokens
+        CharacterToken{U"<!"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U" "},
+        CharacterToken{U"</"},
+        CharacterToken{U" "},
+        CharacterToken{U"t"},
+        CharacterToken{U"e"},
+        CharacterToken{U"s"},
+        CharacterToken{U"t"},
+        CharacterToken{U" "},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Start tag in script HTML comment", // description
+    "<!-- <test> -->", // input
+    { // expectedTokens
+        CharacterToken{U"<!"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U" "},
+        CharacterToken{U"<"},
+        CharacterToken{U"t"},
+        CharacterToken{U"e"},
+        CharacterToken{U"s"},
+        CharacterToken{U"t"},
+        CharacterToken{U">"},
+        CharacterToken{U" "},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag in script HTML comment", // description
+    "<!-- </test> -->", // input
+    { // expectedTokens
+        CharacterToken{U"<!"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U" "},
+        CharacterToken{U"</test"},
+        CharacterToken{U">"},
+        CharacterToken{U" "},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "- in script HTML comment double escaped", // description
+    "<!--<script>-</script>-->", // input
+    { // expectedTokens
+        CharacterToken{U"<!"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U"<"},
+        CharacterToken{U"s"},
+        CharacterToken{U"c"},
+        CharacterToken{U"r"},
+        CharacterToken{U"i"},
+        CharacterToken{U"p"},
+        CharacterToken{U"t"},
+        CharacterToken{U">"},
+        CharacterToken{U"-"},
+        CharacterToken{U"<"},
+        CharacterToken{U"/"},
+        CharacterToken{U"s"},
+        CharacterToken{U"c"},
+        CharacterToken{U"r"},
+        CharacterToken{U"i"},
+        CharacterToken{U"p"},
+        CharacterToken{U"t"},
+        CharacterToken{U">"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "-- in script HTML comment double escaped", // description
+    "<!--<script>--</script>-->", // input
+    { // expectedTokens
+        CharacterToken{U"<!"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U"<"},
+        CharacterToken{U"s"},
+        CharacterToken{U"c"},
+        CharacterToken{U"r"},
+        CharacterToken{U"i"},
+        CharacterToken{U"p"},
+        CharacterToken{U"t"},
+        CharacterToken{U">"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U"<"},
+        CharacterToken{U"/"},
+        CharacterToken{U"s"},
+        CharacterToken{U"c"},
+        CharacterToken{U"r"},
+        CharacterToken{U"i"},
+        CharacterToken{U"p"},
+        CharacterToken{U"t"},
+        CharacterToken{U">"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "--- in script HTML comment double escaped", // description
+    "<!--<script>---</script>-->", // input
+    { // expectedTokens
+        CharacterToken{U"<!"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U"<"},
+        CharacterToken{U"s"},
+        CharacterToken{U"c"},
+        CharacterToken{U"r"},
+        CharacterToken{U"i"},
+        CharacterToken{U"p"},
+        CharacterToken{U"t"},
+        CharacterToken{U">"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U"<"},
+        CharacterToken{U"/"},
+        CharacterToken{U"s"},
+        CharacterToken{U"c"},
+        CharacterToken{U"r"},
+        CharacterToken{U"i"},
+        CharacterToken{U"p"},
+        CharacterToken{U"t"},
+        CharacterToken{U">"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "- spaced in script HTML comment double escaped", // description
+    "<!--<script> - </script>-->", // input
+    { // expectedTokens
+        CharacterToken{U"<!"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U"<"},
+        CharacterToken{U"s"},
+        CharacterToken{U"c"},
+        CharacterToken{U"r"},
+        CharacterToken{U"i"},
+        CharacterToken{U"p"},
+        CharacterToken{U"t"},
+        CharacterToken{U">"},
+        CharacterToken{U" "},
+        CharacterToken{U"-"},
+        CharacterToken{U" "},
+        CharacterToken{U"<"},
+        CharacterToken{U"/"},
+        CharacterToken{U"s"},
+        CharacterToken{U"c"},
+        CharacterToken{U"r"},
+        CharacterToken{U"i"},
+        CharacterToken{U"p"},
+        CharacterToken{U"t"},
+        CharacterToken{U">"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "-- spaced in script HTML comment double escaped", // description
+    "<!--<script> -- </script>-->", // input
+    { // expectedTokens
+        CharacterToken{U"<!"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U"<"},
+        CharacterToken{U"s"},
+        CharacterToken{U"c"},
+        CharacterToken{U"r"},
+        CharacterToken{U"i"},
+        CharacterToken{U"p"},
+        CharacterToken{U"t"},
+        CharacterToken{U">"},
+        CharacterToken{U" "},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U" "},
+        CharacterToken{U"<"},
+        CharacterToken{U"/"},
+        CharacterToken{U"s"},
+        CharacterToken{U"c"},
+        CharacterToken{U"r"},
+        CharacterToken{U"i"},
+        CharacterToken{U"p"},
+        CharacterToken{U"t"},
+        CharacterToken{U">"},
+        CharacterToken{U"-"},
+        CharacterToken{U"-"},
+        CharacterToken{U">"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Ampersand EOF", // description
+    "&", // input
+    { // expectedTokens
+        CharacterToken{U"&"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Ampersand ampersand EOF", // description
+    "&&", // input
+    { // expectedTokens
+        CharacterToken{U"&"},
+        CharacterToken{U"&"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Ampersand space EOF", // description
+    "& ", // input
+    { // expectedTokens
+        CharacterToken{U"&"},
+        CharacterToken{U" "},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Unfinished entity", // description
+    "&f", // input
+    { // expectedTokens
+        CharacterToken{U"&f"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Ampersand, number sign", // description
+    "&#", // input
+    { // expectedTokens
+        CharacterToken{U"&#"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::AbsenceOfDigitsInNumericCharacterReference, 3 }
+    }
+},TokenizerTest{
+    "Unfinished numeric entity", // description
+    "&#x", // input
+    { // expectedTokens
+        CharacterToken{U"&#x"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::AbsenceOfDigitsInNumericCharacterReference, 4 }
+    }
+},TokenizerTest{
+    "Entity with trailing semicolon (1)", // description
+    "I'm &not;it", // input
+    { // expectedTokens
+        CharacterToken{U"I"},
+        CharacterToken{U"'"},
+        CharacterToken{U"m"},
+        CharacterToken{U" "},
+        CharacterToken{U"\u00AC"},
+        CharacterToken{U"i"},
+        CharacterToken{U"t"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Entity with trailing semicolon (2)", // description
+    "I'm &notin;", // input
+    { // expectedTokens
+        CharacterToken{U"I"},
+        CharacterToken{U"'"},
+        CharacterToken{U"m"},
+        CharacterToken{U" "},
+        CharacterToken{U"\u2209"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Entity without trailing semicolon (1)", // description
+    "I'm &notit", // input
+    { // expectedTokens
+        CharacterToken{U"I"},
+        CharacterToken{U"'"},
+        CharacterToken{U"m"},
+        CharacterToken{U" "},
+        CharacterToken{U"\u00AC"},
+        CharacterToken{U"i"},
+        CharacterToken{U"t"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Entity without trailing semicolon (2)", // description
+    "I'm &notin", // input
+    { // expectedTokens
+        CharacterToken{U"I"},
+        CharacterToken{U"'"},
+        CharacterToken{U"m"},
+        CharacterToken{U" "},
+        CharacterToken{U"\u00AC"},
+        CharacterToken{U"i"},
+        CharacterToken{U"n"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Partial entity match at end of file", // description
+    "I'm &no", // input
+    { // expectedTokens
+        CharacterToken{U"I"},
+        CharacterToken{U"'"},
+        CharacterToken{U"m"},
+        CharacterToken{U" "},
+        CharacterToken{U"&no"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Non-ASCII character reference name", // description
+    "&\u00AC;", // input
+    { // expectedTokens
+        CharacterToken{U"&"},
+        CharacterToken{U"\u00AC"},
+        CharacterToken{U";"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "ASCII decimal entity", // description
+    "&#0036;", // input
+    { // expectedTokens
+        CharacterToken{U"$"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "ASCII hexadecimal entity", // description
+    "&#x3f;", // input
+    { // expectedTokens
+        CharacterToken{U"?"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Hexadecimal entity in attribute", // description
+    "<h a='&#x3f;'></h>", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"?"} }, false},
+        EndTagToken{U"h"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Entity in attribute without semicolon ending in x", // description
+    "<h a='&notx'>", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&notx"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Entity in attribute without semicolon ending in 1", // description
+    "<h a='&not1'>", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&not1"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Entity in attribute without semicolon ending in i", // description
+    "<h a='&noti'>", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&noti"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Entity in attribute without semicolon", // description
+    "<h a='&COPY'>", // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"\u00A9"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 12 }
+    }
+},TokenizerTest{
+    "Unquoted attribute ending in ampersand", // description
+    "<s o=& t>", // input
+    { // expectedTokens
+        StartTagToken{U"s", { Attribute{U"t", U""}, Attribute{U"o", U"&"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Unquoted attribute at end of tag with final character of &, with tag followed by characters", // description
+    "<a a=a&>foo", // input
+    { // expectedTokens
+        StartTagToken{U"a", { Attribute{U"a", U"a&"} }, false},
+        CharacterToken{U"f"},
+        CharacterToken{U"o"},
+        CharacterToken{U"o"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "plaintext element", // description
+    "<plaintext>foobar", // input
+    { // expectedTokens
+        StartTagToken{U"plaintext", {  }, false},
+        CharacterToken{U"f"},
+        CharacterToken{U"o"},
+        CharacterToken{U"o"},
+        CharacterToken{U"b"},
+        CharacterToken{U"a"},
+        CharacterToken{U"r"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Open angled bracket in unquoted attribute value state", // description
+    "<a a=f<>", // input
+    { // expectedTokens
+        StartTagToken{U"a", { Attribute{U"a", U"f<"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedCharacterInUnquotedAttributeValue, 7 }
+    }
+},

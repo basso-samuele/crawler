@@ -1,135 +1,6 @@
 TokenizerTest{
-    "Invalid unterminated numeric entity character overflow before EOF", // description
-    "&#11111111111", // input
-    { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-        { ErrorType::MissingSemicolonAfterCharacterReference, 14 },
-        { ErrorType::CharacterReferenceOutsideUnicodeRange, 14 }
-    }
-},TokenizerTest{
-    "Invalid unterminated numeric entity character overflow before EOF", // description
-    "&#1111111111", // input
-    { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-        { ErrorType::MissingSemicolonAfterCharacterReference, 13 },
-        { ErrorType::CharacterReferenceOutsideUnicodeRange, 13 }
-    }
-},TokenizerTest{
-    "Invalid unterminated numeric entity character overflow before EOF", // description
-    "&#111111111111", // input
-    { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-        { ErrorType::MissingSemicolonAfterCharacterReference, 15 },
-        { ErrorType::CharacterReferenceOutsideUnicodeRange, 15 }
-    }
-},TokenizerTest{
-    "Invalid unterminated numeric entity character overflow", // description
-    "&#11111111111x", // input
-    { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        CharacterToken{U"x"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-        { ErrorType::MissingSemicolonAfterCharacterReference, 14 },
-        { ErrorType::CharacterReferenceOutsideUnicodeRange, 14 }
-    }
-},TokenizerTest{
-    "Invalid unterminated numeric entity character overflow", // description
-    "&#1111111111x", // input
-    { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        CharacterToken{U"x"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-        { ErrorType::MissingSemicolonAfterCharacterReference, 13 },
-        { ErrorType::CharacterReferenceOutsideUnicodeRange, 13 }
-    }
-},TokenizerTest{
-    "Invalid unterminated numeric entity character overflow", // description
-    "&#111111111111x", // input
-    { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        CharacterToken{U"x"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-        { ErrorType::MissingSemicolonAfterCharacterReference, 15 },
-        { ErrorType::CharacterReferenceOutsideUnicodeRange, 15 }
-    }
-},TokenizerTest{
-    "Invalid numeric entity character overflow", // description
-    "&#11111111111;", // input
-    { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-        { ErrorType::CharacterReferenceOutsideUnicodeRange, 15 }
-    }
-},TokenizerTest{
-    "Invalid numeric entity character overflow", // description
-    "&#1111111111;", // input
-    { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-        { ErrorType::CharacterReferenceOutsideUnicodeRange, 14 }
-    }
-},TokenizerTest{
-    "Invalid numeric entity character overflow", // description
-    "&#111111111111;", // input
-    { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-        { ErrorType::CharacterReferenceOutsideUnicodeRange, 16 }
-    }
-},TokenizerTest{
-    "Invalid numeric entity character U+0000", // description
-    "&#x0000;", // input
-    { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-        { ErrorType::NullCharacterReference, 9 }
-    }
-},TokenizerTest{
-    "Invalid numeric entity character U+0001", // description
-    "&#x0001;", // input
+    "Invalid Unicode character U+0001", // description
+    "\u0001", // input
     { // expectedTokens
         CharacterToken{U"\u0001"},
         EOFToken{}
@@ -137,11 +8,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0002", // description
-    "&#x0002;", // input
+    "Invalid Unicode character U+0002", // description
+    "\u0002", // input
     { // expectedTokens
         CharacterToken{U"\u0002"},
         EOFToken{}
@@ -149,11 +20,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0003", // description
-    "&#x0003;", // input
+    "Invalid Unicode character U+0003", // description
+    "\u0003", // input
     { // expectedTokens
         CharacterToken{U"\u0003"},
         EOFToken{}
@@ -161,11 +32,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0004", // description
-    "&#x0004;", // input
+    "Invalid Unicode character U+0004", // description
+    "\u0004", // input
     { // expectedTokens
         CharacterToken{U"\u0004"},
         EOFToken{}
@@ -173,11 +44,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0005", // description
-    "&#x0005;", // input
+    "Invalid Unicode character U+0005", // description
+    "\u0005", // input
     { // expectedTokens
         CharacterToken{U"\u0005"},
         EOFToken{}
@@ -185,11 +56,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0006", // description
-    "&#x0006;", // input
+    "Invalid Unicode character U+0006", // description
+    "\u0006", // input
     { // expectedTokens
         CharacterToken{U"\u0006"},
         EOFToken{}
@@ -197,11 +68,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0007", // description
-    "&#x0007;", // input
+    "Invalid Unicode character U+0007", // description
+    "\u0007", // input
     { // expectedTokens
         CharacterToken{U"\u0007"},
         EOFToken{}
@@ -209,11 +80,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0008", // description
-    "&#x0008;", // input
+    "Invalid Unicode character U+0008", // description
+    "\u0008", // input
     { // expectedTokens
         CharacterToken{U"\u0008"},
         EOFToken{}
@@ -221,11 +92,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+000B", // description
-    "&#x000b;", // input
+    "Invalid Unicode character U+000B", // description
+    "\u000B", // input
     { // expectedTokens
         CharacterToken{U"\u000B"},
         EOFToken{}
@@ -233,11 +104,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+000E", // description
-    "&#x000e;", // input
+    "Invalid Unicode character U+000E", // description
+    "\u000E", // input
     { // expectedTokens
         CharacterToken{U"\u000E"},
         EOFToken{}
@@ -245,11 +116,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+000F", // description
-    "&#x000f;", // input
+    "Invalid Unicode character U+000F", // description
+    "\u000F", // input
     { // expectedTokens
         CharacterToken{U"\u000F"},
         EOFToken{}
@@ -257,11 +128,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0010", // description
-    "&#x0010;", // input
+    "Invalid Unicode character U+0010", // description
+    "\u0010", // input
     { // expectedTokens
         CharacterToken{U"\u0010"},
         EOFToken{}
@@ -269,11 +140,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0011", // description
-    "&#x0011;", // input
+    "Invalid Unicode character U+0011", // description
+    "\u0011", // input
     { // expectedTokens
         CharacterToken{U"\u0011"},
         EOFToken{}
@@ -281,11 +152,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0012", // description
-    "&#x0012;", // input
+    "Invalid Unicode character U+0012", // description
+    "\u0012", // input
     { // expectedTokens
         CharacterToken{U"\u0012"},
         EOFToken{}
@@ -293,11 +164,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0013", // description
-    "&#x0013;", // input
+    "Invalid Unicode character U+0013", // description
+    "\u0013", // input
     { // expectedTokens
         CharacterToken{U"\u0013"},
         EOFToken{}
@@ -305,11 +176,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0014", // description
-    "&#x0014;", // input
+    "Invalid Unicode character U+0014", // description
+    "\u0014", // input
     { // expectedTokens
         CharacterToken{U"\u0014"},
         EOFToken{}
@@ -317,11 +188,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0015", // description
-    "&#x0015;", // input
+    "Invalid Unicode character U+0015", // description
+    "\u0015", // input
     { // expectedTokens
         CharacterToken{U"\u0015"},
         EOFToken{}
@@ -329,11 +200,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0016", // description
-    "&#x0016;", // input
+    "Invalid Unicode character U+0016", // description
+    "\u0016", // input
     { // expectedTokens
         CharacterToken{U"\u0016"},
         EOFToken{}
@@ -341,11 +212,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0017", // description
-    "&#x0017;", // input
+    "Invalid Unicode character U+0017", // description
+    "\u0017", // input
     { // expectedTokens
         CharacterToken{U"\u0017"},
         EOFToken{}
@@ -353,11 +224,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0018", // description
-    "&#x0018;", // input
+    "Invalid Unicode character U+0018", // description
+    "\u0018", // input
     { // expectedTokens
         CharacterToken{U"\u0018"},
         EOFToken{}
@@ -365,11 +236,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+0019", // description
-    "&#x0019;", // input
+    "Invalid Unicode character U+0019", // description
+    "\u0019", // input
     { // expectedTokens
         CharacterToken{U"\u0019"},
         EOFToken{}
@@ -377,11 +248,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+001A", // description
-    "&#x001a;", // input
+    "Invalid Unicode character U+001A", // description
+    "\u001A", // input
     { // expectedTokens
         CharacterToken{U"\u001A"},
         EOFToken{}
@@ -389,11 +260,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+001B", // description
-    "&#x001b;", // input
+    "Invalid Unicode character U+001B", // description
+    "\u001B", // input
     { // expectedTokens
         CharacterToken{U"\u001B"},
         EOFToken{}
@@ -401,11 +272,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+001C", // description
-    "&#x001c;", // input
+    "Invalid Unicode character U+001C", // description
+    "\u001C", // input
     { // expectedTokens
         CharacterToken{U"\u001C"},
         EOFToken{}
@@ -413,11 +284,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+001D", // description
-    "&#x001d;", // input
+    "Invalid Unicode character U+001D", // description
+    "\u001D", // input
     { // expectedTokens
         CharacterToken{U"\u001D"},
         EOFToken{}
@@ -425,11 +296,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+001E", // description
-    "&#x001e;", // input
+    "Invalid Unicode character U+001E", // description
+    "\u001E", // input
     { // expectedTokens
         CharacterToken{U"\u001E"},
         EOFToken{}
@@ -437,11 +308,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+001F", // description
-    "&#x001f;", // input
+    "Invalid Unicode character U+001F", // description
+    "\u001F", // input
     { // expectedTokens
         CharacterToken{U"\u001F"},
         EOFToken{}
@@ -449,11 +320,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+007F", // description
-    "&#x007f;", // input
+    "Invalid Unicode character U+007F", // description
+    "\u007F", // input
     { // expectedTokens
         CharacterToken{U"\u007F"},
         EOFToken{}
@@ -461,35 +332,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::ControlCharacterReference, 9 }
+        { ErrorType::ControlCharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+D800", // description
-    "&#xd800;", // input
-    { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-        { ErrorType::SurrogateCharacterReference, 9 }
-    }
-},TokenizerTest{
-    "Invalid numeric entity character U+DFFF", // description
-    "&#xdfff;", // input
-    { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-        { ErrorType::SurrogateCharacterReference, 9 }
-    }
-},TokenizerTest{
-    "Invalid numeric entity character U+FDD0", // description
-    "&#xfdd0;", // input
+    "Invalid Unicode character U+FDD0", // description
+    "\uFDD0", // input
     { // expectedTokens
         CharacterToken{U"\uFDD0"},
         EOFToken{}
@@ -497,11 +344,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDD1", // description
-    "&#xfdd1;", // input
+    "Invalid Unicode character U+FDD1", // description
+    "\uFDD1", // input
     { // expectedTokens
         CharacterToken{U"\uFDD1"},
         EOFToken{}
@@ -509,11 +356,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDD2", // description
-    "&#xfdd2;", // input
+    "Invalid Unicode character U+FDD2", // description
+    "\uFDD2", // input
     { // expectedTokens
         CharacterToken{U"\uFDD2"},
         EOFToken{}
@@ -521,11 +368,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDD3", // description
-    "&#xfdd3;", // input
+    "Invalid Unicode character U+FDD3", // description
+    "\uFDD3", // input
     { // expectedTokens
         CharacterToken{U"\uFDD3"},
         EOFToken{}
@@ -533,11 +380,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDD4", // description
-    "&#xfdd4;", // input
+    "Invalid Unicode character U+FDD4", // description
+    "\uFDD4", // input
     { // expectedTokens
         CharacterToken{U"\uFDD4"},
         EOFToken{}
@@ -545,11 +392,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDD5", // description
-    "&#xfdd5;", // input
+    "Invalid Unicode character U+FDD5", // description
+    "\uFDD5", // input
     { // expectedTokens
         CharacterToken{U"\uFDD5"},
         EOFToken{}
@@ -557,11 +404,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDD6", // description
-    "&#xfdd6;", // input
+    "Invalid Unicode character U+FDD6", // description
+    "\uFDD6", // input
     { // expectedTokens
         CharacterToken{U"\uFDD6"},
         EOFToken{}
@@ -569,11 +416,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDD7", // description
-    "&#xfdd7;", // input
+    "Invalid Unicode character U+FDD7", // description
+    "\uFDD7", // input
     { // expectedTokens
         CharacterToken{U"\uFDD7"},
         EOFToken{}
@@ -581,11 +428,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDD8", // description
-    "&#xfdd8;", // input
+    "Invalid Unicode character U+FDD8", // description
+    "\uFDD8", // input
     { // expectedTokens
         CharacterToken{U"\uFDD8"},
         EOFToken{}
@@ -593,11 +440,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDD9", // description
-    "&#xfdd9;", // input
+    "Invalid Unicode character U+FDD9", // description
+    "\uFDD9", // input
     { // expectedTokens
         CharacterToken{U"\uFDD9"},
         EOFToken{}
@@ -605,11 +452,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDDA", // description
-    "&#xfdda;", // input
+    "Invalid Unicode character U+FDDA", // description
+    "\uFDDA", // input
     { // expectedTokens
         CharacterToken{U"\uFDDA"},
         EOFToken{}
@@ -617,11 +464,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDDB", // description
-    "&#xfddb;", // input
+    "Invalid Unicode character U+FDDB", // description
+    "\uFDDB", // input
     { // expectedTokens
         CharacterToken{U"\uFDDB"},
         EOFToken{}
@@ -629,11 +476,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDDC", // description
-    "&#xfddc;", // input
+    "Invalid Unicode character U+FDDC", // description
+    "\uFDDC", // input
     { // expectedTokens
         CharacterToken{U"\uFDDC"},
         EOFToken{}
@@ -641,11 +488,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDDD", // description
-    "&#xfddd;", // input
+    "Invalid Unicode character U+FDDD", // description
+    "\uFDDD", // input
     { // expectedTokens
         CharacterToken{U"\uFDDD"},
         EOFToken{}
@@ -653,11 +500,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDDE", // description
-    "&#xfdde;", // input
+    "Invalid Unicode character U+FDDE", // description
+    "\uFDDE", // input
     { // expectedTokens
         CharacterToken{U"\uFDDE"},
         EOFToken{}
@@ -665,11 +512,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDDF", // description
-    "&#xfddf;", // input
+    "Invalid Unicode character U+FDDF", // description
+    "\uFDDF", // input
     { // expectedTokens
         CharacterToken{U"\uFDDF"},
         EOFToken{}
@@ -677,11 +524,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDE0", // description
-    "&#xfde0;", // input
+    "Invalid Unicode character U+FDE0", // description
+    "\uFDE0", // input
     { // expectedTokens
         CharacterToken{U"\uFDE0"},
         EOFToken{}
@@ -689,11 +536,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDE1", // description
-    "&#xfde1;", // input
+    "Invalid Unicode character U+FDE1", // description
+    "\uFDE1", // input
     { // expectedTokens
         CharacterToken{U"\uFDE1"},
         EOFToken{}
@@ -701,11 +548,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDE2", // description
-    "&#xfde2;", // input
+    "Invalid Unicode character U+FDE2", // description
+    "\uFDE2", // input
     { // expectedTokens
         CharacterToken{U"\uFDE2"},
         EOFToken{}
@@ -713,11 +560,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDE3", // description
-    "&#xfde3;", // input
+    "Invalid Unicode character U+FDE3", // description
+    "\uFDE3", // input
     { // expectedTokens
         CharacterToken{U"\uFDE3"},
         EOFToken{}
@@ -725,11 +572,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDE4", // description
-    "&#xfde4;", // input
+    "Invalid Unicode character U+FDE4", // description
+    "\uFDE4", // input
     { // expectedTokens
         CharacterToken{U"\uFDE4"},
         EOFToken{}
@@ -737,11 +584,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDE5", // description
-    "&#xfde5;", // input
+    "Invalid Unicode character U+FDE5", // description
+    "\uFDE5", // input
     { // expectedTokens
         CharacterToken{U"\uFDE5"},
         EOFToken{}
@@ -749,11 +596,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDE6", // description
-    "&#xfde6;", // input
+    "Invalid Unicode character U+FDE6", // description
+    "\uFDE6", // input
     { // expectedTokens
         CharacterToken{U"\uFDE6"},
         EOFToken{}
@@ -761,11 +608,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDE7", // description
-    "&#xfde7;", // input
+    "Invalid Unicode character U+FDE7", // description
+    "\uFDE7", // input
     { // expectedTokens
         CharacterToken{U"\uFDE7"},
         EOFToken{}
@@ -773,11 +620,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDE8", // description
-    "&#xfde8;", // input
+    "Invalid Unicode character U+FDE8", // description
+    "\uFDE8", // input
     { // expectedTokens
         CharacterToken{U"\uFDE8"},
         EOFToken{}
@@ -785,11 +632,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDE9", // description
-    "&#xfde9;", // input
+    "Invalid Unicode character U+FDE9", // description
+    "\uFDE9", // input
     { // expectedTokens
         CharacterToken{U"\uFDE9"},
         EOFToken{}
@@ -797,11 +644,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDEA", // description
-    "&#xfdea;", // input
+    "Invalid Unicode character U+FDEA", // description
+    "\uFDEA", // input
     { // expectedTokens
         CharacterToken{U"\uFDEA"},
         EOFToken{}
@@ -809,11 +656,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDEB", // description
-    "&#xfdeb;", // input
+    "Invalid Unicode character U+FDEB", // description
+    "\uFDEB", // input
     { // expectedTokens
         CharacterToken{U"\uFDEB"},
         EOFToken{}
@@ -821,11 +668,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDEC", // description
-    "&#xfdec;", // input
+    "Invalid Unicode character U+FDEC", // description
+    "\uFDEC", // input
     { // expectedTokens
         CharacterToken{U"\uFDEC"},
         EOFToken{}
@@ -833,11 +680,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDED", // description
-    "&#xfded;", // input
+    "Invalid Unicode character U+FDED", // description
+    "\uFDED", // input
     { // expectedTokens
         CharacterToken{U"\uFDED"},
         EOFToken{}
@@ -845,11 +692,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDEE", // description
-    "&#xfdee;", // input
+    "Invalid Unicode character U+FDEE", // description
+    "\uFDEE", // input
     { // expectedTokens
         CharacterToken{U"\uFDEE"},
         EOFToken{}
@@ -857,11 +704,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FDEF", // description
-    "&#xfdef;", // input
+    "Invalid Unicode character U+FDEF", // description
+    "\uFDEF", // input
     { // expectedTokens
         CharacterToken{U"\uFDEF"},
         EOFToken{}
@@ -869,11 +716,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FFFE", // description
-    "&#xfffe;", // input
+    "Invalid Unicode character U+FFFE", // description
+    "\uFFFE", // input
     { // expectedTokens
         CharacterToken{U"\uFFFE"},
         EOFToken{}
@@ -881,11 +728,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FFFF", // description
-    "&#xffff;", // input
+    "Invalid Unicode character U+FFFF", // description
+    "\uFFFF", // input
     { // expectedTokens
         CharacterToken{U"\uFFFF"},
         EOFToken{}
@@ -893,11 +740,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 9 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+1FFFE", // description
-    "&#x1fffe;", // input
+    "Invalid Unicode character U+1FFFE", // description
+    "\U0001FFFE", // input
     { // expectedTokens
         CharacterToken{U"\U0001FFFE"},
         EOFToken{}
@@ -905,11 +752,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+1FFFF", // description
-    "&#x1ffff;", // input
+    "Invalid Unicode character U+1FFFF", // description
+    "\U0001FFFF", // input
     { // expectedTokens
         CharacterToken{U"\U0001FFFF"},
         EOFToken{}
@@ -917,11 +764,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+2FFFE", // description
-    "&#x2fffe;", // input
+    "Invalid Unicode character U+2FFFE", // description
+    "\U0002FFFE", // input
     { // expectedTokens
         CharacterToken{U"\U0002FFFE"},
         EOFToken{}
@@ -929,11 +776,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+2FFFF", // description
-    "&#x2ffff;", // input
+    "Invalid Unicode character U+2FFFF", // description
+    "\U0002FFFF", // input
     { // expectedTokens
         CharacterToken{U"\U0002FFFF"},
         EOFToken{}
@@ -941,11 +788,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+3FFFE", // description
-    "&#x3fffe;", // input
+    "Invalid Unicode character U+3FFFE", // description
+    "\U0003FFFE", // input
     { // expectedTokens
         CharacterToken{U"\U0003FFFE"},
         EOFToken{}
@@ -953,11 +800,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+3FFFF", // description
-    "&#x3ffff;", // input
+    "Invalid Unicode character U+3FFFF", // description
+    "\U0003FFFF", // input
     { // expectedTokens
         CharacterToken{U"\U0003FFFF"},
         EOFToken{}
@@ -965,11 +812,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+4FFFE", // description
-    "&#x4fffe;", // input
+    "Invalid Unicode character U+4FFFE", // description
+    "\U0004FFFE", // input
     { // expectedTokens
         CharacterToken{U"\U0004FFFE"},
         EOFToken{}
@@ -977,11 +824,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+4FFFF", // description
-    "&#x4ffff;", // input
+    "Invalid Unicode character U+4FFFF", // description
+    "\U0004FFFF", // input
     { // expectedTokens
         CharacterToken{U"\U0004FFFF"},
         EOFToken{}
@@ -989,11 +836,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+5FFFE", // description
-    "&#x5fffe;", // input
+    "Invalid Unicode character U+5FFFE", // description
+    "\U0005FFFE", // input
     { // expectedTokens
         CharacterToken{U"\U0005FFFE"},
         EOFToken{}
@@ -1001,11 +848,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+5FFFF", // description
-    "&#x5ffff;", // input
+    "Invalid Unicode character U+5FFFF", // description
+    "\U0005FFFF", // input
     { // expectedTokens
         CharacterToken{U"\U0005FFFF"},
         EOFToken{}
@@ -1013,11 +860,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+6FFFE", // description
-    "&#x6fffe;", // input
+    "Invalid Unicode character U+6FFFE", // description
+    "\U0006FFFE", // input
     { // expectedTokens
         CharacterToken{U"\U0006FFFE"},
         EOFToken{}
@@ -1025,11 +872,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+6FFFF", // description
-    "&#x6ffff;", // input
+    "Invalid Unicode character U+6FFFF", // description
+    "\U0006FFFF", // input
     { // expectedTokens
         CharacterToken{U"\U0006FFFF"},
         EOFToken{}
@@ -1037,11 +884,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+7FFFE", // description
-    "&#x7fffe;", // input
+    "Invalid Unicode character U+7FFFE", // description
+    "\U0007FFFE", // input
     { // expectedTokens
         CharacterToken{U"\U0007FFFE"},
         EOFToken{}
@@ -1049,11 +896,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+7FFFF", // description
-    "&#x7ffff;", // input
+    "Invalid Unicode character U+7FFFF", // description
+    "\U0007FFFF", // input
     { // expectedTokens
         CharacterToken{U"\U0007FFFF"},
         EOFToken{}
@@ -1061,11 +908,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+8FFFE", // description
-    "&#x8fffe;", // input
+    "Invalid Unicode character U+8FFFE", // description
+    "\U0008FFFE", // input
     { // expectedTokens
         CharacterToken{U"\U0008FFFE"},
         EOFToken{}
@@ -1073,11 +920,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+8FFFF", // description
-    "&#x8ffff;", // input
+    "Invalid Unicode character U+8FFFF", // description
+    "\U0008FFFF", // input
     { // expectedTokens
         CharacterToken{U"\U0008FFFF"},
         EOFToken{}
@@ -1085,11 +932,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+9FFFE", // description
-    "&#x9fffe;", // input
+    "Invalid Unicode character U+9FFFE", // description
+    "\U0009FFFE", // input
     { // expectedTokens
         CharacterToken{U"\U0009FFFE"},
         EOFToken{}
@@ -1097,11 +944,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+9FFFF", // description
-    "&#x9ffff;", // input
+    "Invalid Unicode character U+9FFFF", // description
+    "\U0009FFFF", // input
     { // expectedTokens
         CharacterToken{U"\U0009FFFF"},
         EOFToken{}
@@ -1109,11 +956,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+AFFFE", // description
-    "&#xafffe;", // input
+    "Invalid Unicode character U+AFFFE", // description
+    "\U000AFFFE", // input
     { // expectedTokens
         CharacterToken{U"\U000AFFFE"},
         EOFToken{}
@@ -1121,11 +968,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+AFFFF", // description
-    "&#xaffff;", // input
+    "Invalid Unicode character U+AFFFF", // description
+    "\U000AFFFF", // input
     { // expectedTokens
         CharacterToken{U"\U000AFFFF"},
         EOFToken{}
@@ -1133,11 +980,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+BFFFE", // description
-    "&#xbfffe;", // input
+    "Invalid Unicode character U+BFFFE", // description
+    "\U000BFFFE", // input
     { // expectedTokens
         CharacterToken{U"\U000BFFFE"},
         EOFToken{}
@@ -1145,11 +992,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+BFFFF", // description
-    "&#xbffff;", // input
+    "Invalid Unicode character U+BFFFF", // description
+    "\U000BFFFF", // input
     { // expectedTokens
         CharacterToken{U"\U000BFFFF"},
         EOFToken{}
@@ -1157,11 +1004,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+CFFFE", // description
-    "&#xcfffe;", // input
+    "Invalid Unicode character U+CFFFE", // description
+    "\U000CFFFE", // input
     { // expectedTokens
         CharacterToken{U"\U000CFFFE"},
         EOFToken{}
@@ -1169,11 +1016,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+CFFFF", // description
-    "&#xcffff;", // input
+    "Invalid Unicode character U+CFFFF", // description
+    "\U000CFFFF", // input
     { // expectedTokens
         CharacterToken{U"\U000CFFFF"},
         EOFToken{}
@@ -1181,11 +1028,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+DFFFE", // description
-    "&#xdfffe;", // input
+    "Invalid Unicode character U+DFFFE", // description
+    "\U000DFFFE", // input
     { // expectedTokens
         CharacterToken{U"\U000DFFFE"},
         EOFToken{}
@@ -1193,11 +1040,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+DFFFF", // description
-    "&#xdffff;", // input
+    "Invalid Unicode character U+DFFFF", // description
+    "\U000DFFFF", // input
     { // expectedTokens
         CharacterToken{U"\U000DFFFF"},
         EOFToken{}
@@ -1205,11 +1052,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+EFFFE", // description
-    "&#xefffe;", // input
+    "Invalid Unicode character U+EFFFE", // description
+    "\U000EFFFE", // input
     { // expectedTokens
         CharacterToken{U"\U000EFFFE"},
         EOFToken{}
@@ -1217,11 +1064,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+EFFFF", // description
-    "&#xeffff;", // input
+    "Invalid Unicode character U+EFFFF", // description
+    "\U000EFFFF", // input
     { // expectedTokens
         CharacterToken{U"\U000EFFFF"},
         EOFToken{}
@@ -1229,11 +1076,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FFFFE", // description
-    "&#xffffe;", // input
+    "Invalid Unicode character U+FFFFE", // description
+    "\U000FFFFE", // input
     { // expectedTokens
         CharacterToken{U"\U000FFFFE"},
         EOFToken{}
@@ -1241,11 +1088,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+FFFFF", // description
-    "&#xfffff;", // input
+    "Invalid Unicode character U+FFFFF", // description
+    "\U000FFFFF", // input
     { // expectedTokens
         CharacterToken{U"\U000FFFFF"},
         EOFToken{}
@@ -1253,11 +1100,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 10 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+10FFFE", // description
-    "&#x10fffe;", // input
+    "Invalid Unicode character U+10FFFE", // description
+    "\U0010FFFE", // input
     { // expectedTokens
         CharacterToken{U"\U0010FFFE"},
         EOFToken{}
@@ -1265,11 +1112,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 11 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Invalid numeric entity character U+10FFFF", // description
-    "&#x10ffff;", // input
+    "Invalid Unicode character U+10FFFF", // description
+    "\U0010FFFF", // input
     { // expectedTokens
         CharacterToken{U"\U0010FFFF"},
         EOFToken{}
@@ -1277,11 +1124,11 @@ TokenizerTest{
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
-        { ErrorType::NoncharacterCharacterReference, 11 }
+        { ErrorType::NoncharacterInInputStream, 1 }
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0009", // description
-    "&#x0009;", // input
+    "Valid Unicode character U+0009", // description
+    "\t", // input
     { // expectedTokens
         CharacterToken{U"\t"},
         EOFToken{}
@@ -1291,8 +1138,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+000A", // description
-    "&#x000a;", // input
+    "Valid Unicode character U+000A", // description
+    "\n", // input
     { // expectedTokens
         CharacterToken{U"\n"},
         EOFToken{}
@@ -1302,8 +1149,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0020", // description
-    "&#x0020;", // input
+    "Valid Unicode character U+0020", // description
+    " ", // input
     { // expectedTokens
         CharacterToken{U" "},
         EOFToken{}
@@ -1313,8 +1160,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0021", // description
-    "&#x0021;", // input
+    "Valid Unicode character U+0021", // description
+    "!", // input
     { // expectedTokens
         CharacterToken{U"!"},
         EOFToken{}
@@ -1324,8 +1171,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0022", // description
-    "&#x0022;", // input
+    "Valid Unicode character U+0022", // description
+    "\"", // input
     { // expectedTokens
         CharacterToken{U"\""},
         EOFToken{}
@@ -1335,8 +1182,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0023", // description
-    "&#x0023;", // input
+    "Valid Unicode character U+0023", // description
+    "#", // input
     { // expectedTokens
         CharacterToken{U"#"},
         EOFToken{}
@@ -1346,8 +1193,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0024", // description
-    "&#x0024;", // input
+    "Valid Unicode character U+0024", // description
+    "$", // input
     { // expectedTokens
         CharacterToken{U"$"},
         EOFToken{}
@@ -1357,8 +1204,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0025", // description
-    "&#x0025;", // input
+    "Valid Unicode character U+0025", // description
+    "%", // input
     { // expectedTokens
         CharacterToken{U"%"},
         EOFToken{}
@@ -1368,8 +1215,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0026", // description
-    "&#x0026;", // input
+    "Valid Unicode character U+0026", // description
+    "&", // input
     { // expectedTokens
         CharacterToken{U"&"},
         EOFToken{}
@@ -1379,8 +1226,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0027", // description
-    "&#x0027;", // input
+    "Valid Unicode character U+0027", // description
+    "'", // input
     { // expectedTokens
         CharacterToken{U"'"},
         EOFToken{}
@@ -1390,8 +1237,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0028", // description
-    "&#x0028;", // input
+    "Valid Unicode character U+0028", // description
+    "(", // input
     { // expectedTokens
         CharacterToken{U"("},
         EOFToken{}
@@ -1401,8 +1248,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0029", // description
-    "&#x0029;", // input
+    "Valid Unicode character U+0029", // description
+    ")", // input
     { // expectedTokens
         CharacterToken{U")"},
         EOFToken{}
@@ -1412,8 +1259,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+002A", // description
-    "&#x002a;", // input
+    "Valid Unicode character U+002A", // description
+    "*", // input
     { // expectedTokens
         CharacterToken{U"*"},
         EOFToken{}
@@ -1423,8 +1270,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+002B", // description
-    "&#x002b;", // input
+    "Valid Unicode character U+002B", // description
+    "+", // input
     { // expectedTokens
         CharacterToken{U"+"},
         EOFToken{}
@@ -1434,8 +1281,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+002C", // description
-    "&#x002c;", // input
+    "Valid Unicode character U+002C", // description
+    ",", // input
     { // expectedTokens
         CharacterToken{U","},
         EOFToken{}
@@ -1445,8 +1292,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+002D", // description
-    "&#x002d;", // input
+    "Valid Unicode character U+002D", // description
+    "-", // input
     { // expectedTokens
         CharacterToken{U"-"},
         EOFToken{}
@@ -1456,8 +1303,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+002E", // description
-    "&#x002e;", // input
+    "Valid Unicode character U+002E", // description
+    ".", // input
     { // expectedTokens
         CharacterToken{U"."},
         EOFToken{}
@@ -1467,8 +1314,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+002F", // description
-    "&#x002f;", // input
+    "Valid Unicode character U+002F", // description
+    "/", // input
     { // expectedTokens
         CharacterToken{U"/"},
         EOFToken{}
@@ -1478,8 +1325,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0030", // description
-    "&#x0030;", // input
+    "Valid Unicode character U+0030", // description
+    "0", // input
     { // expectedTokens
         CharacterToken{U"0"},
         EOFToken{}
@@ -1489,8 +1336,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0031", // description
-    "&#x0031;", // input
+    "Valid Unicode character U+0031", // description
+    "1", // input
     { // expectedTokens
         CharacterToken{U"1"},
         EOFToken{}
@@ -1500,8 +1347,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0032", // description
-    "&#x0032;", // input
+    "Valid Unicode character U+0032", // description
+    "2", // input
     { // expectedTokens
         CharacterToken{U"2"},
         EOFToken{}
@@ -1511,8 +1358,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0033", // description
-    "&#x0033;", // input
+    "Valid Unicode character U+0033", // description
+    "3", // input
     { // expectedTokens
         CharacterToken{U"3"},
         EOFToken{}
@@ -1522,8 +1369,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0034", // description
-    "&#x0034;", // input
+    "Valid Unicode character U+0034", // description
+    "4", // input
     { // expectedTokens
         CharacterToken{U"4"},
         EOFToken{}
@@ -1533,8 +1380,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0035", // description
-    "&#x0035;", // input
+    "Valid Unicode character U+0035", // description
+    "5", // input
     { // expectedTokens
         CharacterToken{U"5"},
         EOFToken{}
@@ -1544,8 +1391,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0036", // description
-    "&#x0036;", // input
+    "Valid Unicode character U+0036", // description
+    "6", // input
     { // expectedTokens
         CharacterToken{U"6"},
         EOFToken{}
@@ -1555,8 +1402,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0037", // description
-    "&#x0037;", // input
+    "Valid Unicode character U+0037", // description
+    "7", // input
     { // expectedTokens
         CharacterToken{U"7"},
         EOFToken{}
@@ -1566,8 +1413,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0038", // description
-    "&#x0038;", // input
+    "Valid Unicode character U+0038", // description
+    "8", // input
     { // expectedTokens
         CharacterToken{U"8"},
         EOFToken{}
@@ -1577,8 +1424,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0039", // description
-    "&#x0039;", // input
+    "Valid Unicode character U+0039", // description
+    "9", // input
     { // expectedTokens
         CharacterToken{U"9"},
         EOFToken{}
@@ -1588,8 +1435,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+003A", // description
-    "&#x003a;", // input
+    "Valid Unicode character U+003A", // description
+    ":", // input
     { // expectedTokens
         CharacterToken{U":"},
         EOFToken{}
@@ -1599,8 +1446,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+003B", // description
-    "&#x003b;", // input
+    "Valid Unicode character U+003B", // description
+    ";", // input
     { // expectedTokens
         CharacterToken{U";"},
         EOFToken{}
@@ -1610,19 +1457,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+003C", // description
-    "&#x003c;", // input
-    { // expectedTokens
-        CharacterToken{U"<"},
-        EOFToken{}
-    },
-    LexerState::Data, // initialState
-    std::nullopt, // lastStartTag
-    { // expectedErrors
-    }
-},TokenizerTest{
-    "Valid numeric entity character U+003D", // description
-    "&#x003d;", // input
+    "Valid Unicode character U+003D", // description
+    "=", // input
     { // expectedTokens
         CharacterToken{U"="},
         EOFToken{}
@@ -1632,8 +1468,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+003E", // description
-    "&#x003e;", // input
+    "Valid Unicode character U+003E", // description
+    ">", // input
     { // expectedTokens
         CharacterToken{U">"},
         EOFToken{}
@@ -1643,8 +1479,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+003F", // description
-    "&#x003f;", // input
+    "Valid Unicode character U+003F", // description
+    "?", // input
     { // expectedTokens
         CharacterToken{U"?"},
         EOFToken{}
@@ -1654,8 +1490,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0040", // description
-    "&#x0040;", // input
+    "Valid Unicode character U+0040", // description
+    "@", // input
     { // expectedTokens
         CharacterToken{U"@"},
         EOFToken{}
@@ -1665,8 +1501,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0041", // description
-    "&#x0041;", // input
+    "Valid Unicode character U+0041", // description
+    "A", // input
     { // expectedTokens
         CharacterToken{U"A"},
         EOFToken{}
@@ -1676,8 +1512,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0042", // description
-    "&#x0042;", // input
+    "Valid Unicode character U+0042", // description
+    "B", // input
     { // expectedTokens
         CharacterToken{U"B"},
         EOFToken{}
@@ -1687,8 +1523,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0043", // description
-    "&#x0043;", // input
+    "Valid Unicode character U+0043", // description
+    "C", // input
     { // expectedTokens
         CharacterToken{U"C"},
         EOFToken{}
@@ -1698,8 +1534,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0044", // description
-    "&#x0044;", // input
+    "Valid Unicode character U+0044", // description
+    "D", // input
     { // expectedTokens
         CharacterToken{U"D"},
         EOFToken{}
@@ -1709,8 +1545,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0045", // description
-    "&#x0045;", // input
+    "Valid Unicode character U+0045", // description
+    "E", // input
     { // expectedTokens
         CharacterToken{U"E"},
         EOFToken{}
@@ -1720,8 +1556,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0046", // description
-    "&#x0046;", // input
+    "Valid Unicode character U+0046", // description
+    "F", // input
     { // expectedTokens
         CharacterToken{U"F"},
         EOFToken{}
@@ -1731,8 +1567,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0047", // description
-    "&#x0047;", // input
+    "Valid Unicode character U+0047", // description
+    "G", // input
     { // expectedTokens
         CharacterToken{U"G"},
         EOFToken{}
@@ -1742,8 +1578,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0048", // description
-    "&#x0048;", // input
+    "Valid Unicode character U+0048", // description
+    "H", // input
     { // expectedTokens
         CharacterToken{U"H"},
         EOFToken{}
@@ -1753,8 +1589,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0049", // description
-    "&#x0049;", // input
+    "Valid Unicode character U+0049", // description
+    "I", // input
     { // expectedTokens
         CharacterToken{U"I"},
         EOFToken{}
@@ -1764,8 +1600,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+004A", // description
-    "&#x004a;", // input
+    "Valid Unicode character U+004A", // description
+    "J", // input
     { // expectedTokens
         CharacterToken{U"J"},
         EOFToken{}
@@ -1775,8 +1611,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+004B", // description
-    "&#x004b;", // input
+    "Valid Unicode character U+004B", // description
+    "K", // input
     { // expectedTokens
         CharacterToken{U"K"},
         EOFToken{}
@@ -1786,8 +1622,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+004C", // description
-    "&#x004c;", // input
+    "Valid Unicode character U+004C", // description
+    "L", // input
     { // expectedTokens
         CharacterToken{U"L"},
         EOFToken{}
@@ -1797,8 +1633,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+004D", // description
-    "&#x004d;", // input
+    "Valid Unicode character U+004D", // description
+    "M", // input
     { // expectedTokens
         CharacterToken{U"M"},
         EOFToken{}
@@ -1808,8 +1644,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+004E", // description
-    "&#x004e;", // input
+    "Valid Unicode character U+004E", // description
+    "N", // input
     { // expectedTokens
         CharacterToken{U"N"},
         EOFToken{}
@@ -1819,8 +1655,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+004F", // description
-    "&#x004f;", // input
+    "Valid Unicode character U+004F", // description
+    "O", // input
     { // expectedTokens
         CharacterToken{U"O"},
         EOFToken{}
@@ -1830,8 +1666,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0050", // description
-    "&#x0050;", // input
+    "Valid Unicode character U+0050", // description
+    "P", // input
     { // expectedTokens
         CharacterToken{U"P"},
         EOFToken{}
@@ -1841,8 +1677,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0051", // description
-    "&#x0051;", // input
+    "Valid Unicode character U+0051", // description
+    "Q", // input
     { // expectedTokens
         CharacterToken{U"Q"},
         EOFToken{}
@@ -1852,8 +1688,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0052", // description
-    "&#x0052;", // input
+    "Valid Unicode character U+0052", // description
+    "R", // input
     { // expectedTokens
         CharacterToken{U"R"},
         EOFToken{}
@@ -1863,8 +1699,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0053", // description
-    "&#x0053;", // input
+    "Valid Unicode character U+0053", // description
+    "S", // input
     { // expectedTokens
         CharacterToken{U"S"},
         EOFToken{}
@@ -1874,8 +1710,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0054", // description
-    "&#x0054;", // input
+    "Valid Unicode character U+0054", // description
+    "T", // input
     { // expectedTokens
         CharacterToken{U"T"},
         EOFToken{}
@@ -1885,8 +1721,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0055", // description
-    "&#x0055;", // input
+    "Valid Unicode character U+0055", // description
+    "U", // input
     { // expectedTokens
         CharacterToken{U"U"},
         EOFToken{}
@@ -1896,8 +1732,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0056", // description
-    "&#x0056;", // input
+    "Valid Unicode character U+0056", // description
+    "V", // input
     { // expectedTokens
         CharacterToken{U"V"},
         EOFToken{}
@@ -1907,8 +1743,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0057", // description
-    "&#x0057;", // input
+    "Valid Unicode character U+0057", // description
+    "W", // input
     { // expectedTokens
         CharacterToken{U"W"},
         EOFToken{}
@@ -1918,8 +1754,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0058", // description
-    "&#x0058;", // input
+    "Valid Unicode character U+0058", // description
+    "X", // input
     { // expectedTokens
         CharacterToken{U"X"},
         EOFToken{}
@@ -1929,8 +1765,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0059", // description
-    "&#x0059;", // input
+    "Valid Unicode character U+0059", // description
+    "Y", // input
     { // expectedTokens
         CharacterToken{U"Y"},
         EOFToken{}
@@ -1940,8 +1776,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+005A", // description
-    "&#x005a;", // input
+    "Valid Unicode character U+005A", // description
+    "Z", // input
     { // expectedTokens
         CharacterToken{U"Z"},
         EOFToken{}
@@ -1951,8 +1787,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+005B", // description
-    "&#x005b;", // input
+    "Valid Unicode character U+005B", // description
+    "[", // input
     { // expectedTokens
         CharacterToken{U"["},
         EOFToken{}
@@ -1962,8 +1798,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+005C", // description
-    "&#x005c;", // input
+    "Valid Unicode character U+005C", // description
+    "\\", // input
     { // expectedTokens
         CharacterToken{U"\\"},
         EOFToken{}
@@ -1973,8 +1809,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+005D", // description
-    "&#x005d;", // input
+    "Valid Unicode character U+005D", // description
+    "]", // input
     { // expectedTokens
         CharacterToken{U"]"},
         EOFToken{}
@@ -1984,8 +1820,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+005E", // description
-    "&#x005e;", // input
+    "Valid Unicode character U+005E", // description
+    "^", // input
     { // expectedTokens
         CharacterToken{U"^"},
         EOFToken{}
@@ -1995,8 +1831,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+005F", // description
-    "&#x005f;", // input
+    "Valid Unicode character U+005F", // description
+    "_", // input
     { // expectedTokens
         CharacterToken{U"_"},
         EOFToken{}
@@ -2006,8 +1842,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0060", // description
-    "&#x0060;", // input
+    "Valid Unicode character U+0060", // description
+    "`", // input
     { // expectedTokens
         CharacterToken{U"`"},
         EOFToken{}
@@ -2017,8 +1853,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0061", // description
-    "&#x0061;", // input
+    "Valid Unicode character U+0061", // description
+    "a", // input
     { // expectedTokens
         CharacterToken{U"a"},
         EOFToken{}
@@ -2028,8 +1864,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0062", // description
-    "&#x0062;", // input
+    "Valid Unicode character U+0062", // description
+    "b", // input
     { // expectedTokens
         CharacterToken{U"b"},
         EOFToken{}
@@ -2039,8 +1875,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0063", // description
-    "&#x0063;", // input
+    "Valid Unicode character U+0063", // description
+    "c", // input
     { // expectedTokens
         CharacterToken{U"c"},
         EOFToken{}
@@ -2050,8 +1886,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0064", // description
-    "&#x0064;", // input
+    "Valid Unicode character U+0064", // description
+    "d", // input
     { // expectedTokens
         CharacterToken{U"d"},
         EOFToken{}
@@ -2061,8 +1897,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0065", // description
-    "&#x0065;", // input
+    "Valid Unicode character U+0065", // description
+    "e", // input
     { // expectedTokens
         CharacterToken{U"e"},
         EOFToken{}
@@ -2072,8 +1908,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0066", // description
-    "&#x0066;", // input
+    "Valid Unicode character U+0066", // description
+    "f", // input
     { // expectedTokens
         CharacterToken{U"f"},
         EOFToken{}
@@ -2083,8 +1919,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0067", // description
-    "&#x0067;", // input
+    "Valid Unicode character U+0067", // description
+    "g", // input
     { // expectedTokens
         CharacterToken{U"g"},
         EOFToken{}
@@ -2094,8 +1930,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0068", // description
-    "&#x0068;", // input
+    "Valid Unicode character U+0068", // description
+    "h", // input
     { // expectedTokens
         CharacterToken{U"h"},
         EOFToken{}
@@ -2105,8 +1941,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0069", // description
-    "&#x0069;", // input
+    "Valid Unicode character U+0069", // description
+    "i", // input
     { // expectedTokens
         CharacterToken{U"i"},
         EOFToken{}
@@ -2116,8 +1952,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+006A", // description
-    "&#x006a;", // input
+    "Valid Unicode character U+006A", // description
+    "j", // input
     { // expectedTokens
         CharacterToken{U"j"},
         EOFToken{}
@@ -2127,8 +1963,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+006B", // description
-    "&#x006b;", // input
+    "Valid Unicode character U+006B", // description
+    "k", // input
     { // expectedTokens
         CharacterToken{U"k"},
         EOFToken{}
@@ -2138,8 +1974,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+006C", // description
-    "&#x006c;", // input
+    "Valid Unicode character U+006C", // description
+    "l", // input
     { // expectedTokens
         CharacterToken{U"l"},
         EOFToken{}
@@ -2149,8 +1985,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+006D", // description
-    "&#x006d;", // input
+    "Valid Unicode character U+006D", // description
+    "m", // input
     { // expectedTokens
         CharacterToken{U"m"},
         EOFToken{}
@@ -2160,8 +1996,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+006E", // description
-    "&#x006e;", // input
+    "Valid Unicode character U+006E", // description
+    "n", // input
     { // expectedTokens
         CharacterToken{U"n"},
         EOFToken{}
@@ -2171,8 +2007,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+006F", // description
-    "&#x006f;", // input
+    "Valid Unicode character U+006F", // description
+    "o", // input
     { // expectedTokens
         CharacterToken{U"o"},
         EOFToken{}
@@ -2182,8 +2018,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0070", // description
-    "&#x0070;", // input
+    "Valid Unicode character U+0070", // description
+    "p", // input
     { // expectedTokens
         CharacterToken{U"p"},
         EOFToken{}
@@ -2193,8 +2029,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0071", // description
-    "&#x0071;", // input
+    "Valid Unicode character U+0071", // description
+    "q", // input
     { // expectedTokens
         CharacterToken{U"q"},
         EOFToken{}
@@ -2204,8 +2040,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0072", // description
-    "&#x0072;", // input
+    "Valid Unicode character U+0072", // description
+    "r", // input
     { // expectedTokens
         CharacterToken{U"r"},
         EOFToken{}
@@ -2215,8 +2051,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0073", // description
-    "&#x0073;", // input
+    "Valid Unicode character U+0073", // description
+    "s", // input
     { // expectedTokens
         CharacterToken{U"s"},
         EOFToken{}
@@ -2226,8 +2062,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0074", // description
-    "&#x0074;", // input
+    "Valid Unicode character U+0074", // description
+    "t", // input
     { // expectedTokens
         CharacterToken{U"t"},
         EOFToken{}
@@ -2237,8 +2073,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0075", // description
-    "&#x0075;", // input
+    "Valid Unicode character U+0075", // description
+    "u", // input
     { // expectedTokens
         CharacterToken{U"u"},
         EOFToken{}
@@ -2248,8 +2084,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0076", // description
-    "&#x0076;", // input
+    "Valid Unicode character U+0076", // description
+    "v", // input
     { // expectedTokens
         CharacterToken{U"v"},
         EOFToken{}
@@ -2259,8 +2095,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0077", // description
-    "&#x0077;", // input
+    "Valid Unicode character U+0077", // description
+    "w", // input
     { // expectedTokens
         CharacterToken{U"w"},
         EOFToken{}
@@ -2270,8 +2106,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0078", // description
-    "&#x0078;", // input
+    "Valid Unicode character U+0078", // description
+    "x", // input
     { // expectedTokens
         CharacterToken{U"x"},
         EOFToken{}
@@ -2281,8 +2117,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+0079", // description
-    "&#x0079;", // input
+    "Valid Unicode character U+0079", // description
+    "y", // input
     { // expectedTokens
         CharacterToken{U"y"},
         EOFToken{}
@@ -2292,8 +2128,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+007A", // description
-    "&#x007a;", // input
+    "Valid Unicode character U+007A", // description
+    "z", // input
     { // expectedTokens
         CharacterToken{U"z"},
         EOFToken{}
@@ -2303,8 +2139,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+007B", // description
-    "&#x007b;", // input
+    "Valid Unicode character U+007B", // description
+    "{", // input
     { // expectedTokens
         CharacterToken{U"{"},
         EOFToken{}
@@ -2314,8 +2150,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+007C", // description
-    "&#x007c;", // input
+    "Valid Unicode character U+007C", // description
+    "|", // input
     { // expectedTokens
         CharacterToken{U"|"},
         EOFToken{}
@@ -2325,8 +2161,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+007D", // description
-    "&#x007d;", // input
+    "Valid Unicode character U+007D", // description
+    "}", // input
     { // expectedTokens
         CharacterToken{U"}"},
         EOFToken{}
@@ -2336,8 +2172,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+007E", // description
-    "&#x007e;", // input
+    "Valid Unicode character U+007E", // description
+    "~", // input
     { // expectedTokens
         CharacterToken{U"~"},
         EOFToken{}
@@ -2347,8 +2183,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00A0", // description
-    "&#x00a0;", // input
+    "Valid Unicode character U+00A0", // description
+    "\u00A0", // input
     { // expectedTokens
         CharacterToken{U"\u00A0"},
         EOFToken{}
@@ -2358,8 +2194,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00A1", // description
-    "&#x00a1;", // input
+    "Valid Unicode character U+00A1", // description
+    "\u00A1", // input
     { // expectedTokens
         CharacterToken{U"\u00A1"},
         EOFToken{}
@@ -2369,8 +2205,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00A2", // description
-    "&#x00a2;", // input
+    "Valid Unicode character U+00A2", // description
+    "\u00A2", // input
     { // expectedTokens
         CharacterToken{U"\u00A2"},
         EOFToken{}
@@ -2380,8 +2216,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00A3", // description
-    "&#x00a3;", // input
+    "Valid Unicode character U+00A3", // description
+    "\u00A3", // input
     { // expectedTokens
         CharacterToken{U"\u00A3"},
         EOFToken{}
@@ -2391,8 +2227,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00A4", // description
-    "&#x00a4;", // input
+    "Valid Unicode character U+00A4", // description
+    "\u00A4", // input
     { // expectedTokens
         CharacterToken{U"\u00A4"},
         EOFToken{}
@@ -2402,8 +2238,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00A5", // description
-    "&#x00a5;", // input
+    "Valid Unicode character U+00A5", // description
+    "\u00A5", // input
     { // expectedTokens
         CharacterToken{U"\u00A5"},
         EOFToken{}
@@ -2413,8 +2249,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00A6", // description
-    "&#x00a6;", // input
+    "Valid Unicode character U+00A6", // description
+    "\u00A6", // input
     { // expectedTokens
         CharacterToken{U"\u00A6"},
         EOFToken{}
@@ -2424,8 +2260,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00A7", // description
-    "&#x00a7;", // input
+    "Valid Unicode character U+00A7", // description
+    "\u00A7", // input
     { // expectedTokens
         CharacterToken{U"\u00A7"},
         EOFToken{}
@@ -2435,8 +2271,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00A8", // description
-    "&#x00a8;", // input
+    "Valid Unicode character U+00A8", // description
+    "\u00A8", // input
     { // expectedTokens
         CharacterToken{U"\u00A8"},
         EOFToken{}
@@ -2446,8 +2282,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00A9", // description
-    "&#x00a9;", // input
+    "Valid Unicode character U+00A9", // description
+    "\u00A9", // input
     { // expectedTokens
         CharacterToken{U"\u00A9"},
         EOFToken{}
@@ -2457,8 +2293,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00AA", // description
-    "&#x00aa;", // input
+    "Valid Unicode character U+00AA", // description
+    "\u00AA", // input
     { // expectedTokens
         CharacterToken{U"\u00AA"},
         EOFToken{}
@@ -2468,8 +2304,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00AB", // description
-    "&#x00ab;", // input
+    "Valid Unicode character U+00AB", // description
+    "\u00AB", // input
     { // expectedTokens
         CharacterToken{U"\u00AB"},
         EOFToken{}
@@ -2479,8 +2315,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00AC", // description
-    "&#x00ac;", // input
+    "Valid Unicode character U+00AC", // description
+    "\u00AC", // input
     { // expectedTokens
         CharacterToken{U"\u00AC"},
         EOFToken{}
@@ -2490,8 +2326,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00AD", // description
-    "&#x00ad;", // input
+    "Valid Unicode character U+00AD", // description
+    "\u00AD", // input
     { // expectedTokens
         CharacterToken{U"\u00AD"},
         EOFToken{}
@@ -2501,8 +2337,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00AE", // description
-    "&#x00ae;", // input
+    "Valid Unicode character U+00AE", // description
+    "\u00AE", // input
     { // expectedTokens
         CharacterToken{U"\u00AE"},
         EOFToken{}
@@ -2512,8 +2348,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00AF", // description
-    "&#x00af;", // input
+    "Valid Unicode character U+00AF", // description
+    "\u00AF", // input
     { // expectedTokens
         CharacterToken{U"\u00AF"},
         EOFToken{}
@@ -2523,8 +2359,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00B0", // description
-    "&#x00b0;", // input
+    "Valid Unicode character U+00B0", // description
+    "\u00B0", // input
     { // expectedTokens
         CharacterToken{U"\u00B0"},
         EOFToken{}
@@ -2534,8 +2370,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00B1", // description
-    "&#x00b1;", // input
+    "Valid Unicode character U+00B1", // description
+    "\u00B1", // input
     { // expectedTokens
         CharacterToken{U"\u00B1"},
         EOFToken{}
@@ -2545,8 +2381,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00B2", // description
-    "&#x00b2;", // input
+    "Valid Unicode character U+00B2", // description
+    "\u00B2", // input
     { // expectedTokens
         CharacterToken{U"\u00B2"},
         EOFToken{}
@@ -2556,8 +2392,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00B3", // description
-    "&#x00b3;", // input
+    "Valid Unicode character U+00B3", // description
+    "\u00B3", // input
     { // expectedTokens
         CharacterToken{U"\u00B3"},
         EOFToken{}
@@ -2567,8 +2403,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00B4", // description
-    "&#x00b4;", // input
+    "Valid Unicode character U+00B4", // description
+    "\u00B4", // input
     { // expectedTokens
         CharacterToken{U"\u00B4"},
         EOFToken{}
@@ -2578,8 +2414,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00B5", // description
-    "&#x00b5;", // input
+    "Valid Unicode character U+00B5", // description
+    "\u00B5", // input
     { // expectedTokens
         CharacterToken{U"\u00B5"},
         EOFToken{}
@@ -2589,8 +2425,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00B6", // description
-    "&#x00b6;", // input
+    "Valid Unicode character U+00B6", // description
+    "\u00B6", // input
     { // expectedTokens
         CharacterToken{U"\u00B6"},
         EOFToken{}
@@ -2600,8 +2436,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00B7", // description
-    "&#x00b7;", // input
+    "Valid Unicode character U+00B7", // description
+    "\u00B7", // input
     { // expectedTokens
         CharacterToken{U"\u00B7"},
         EOFToken{}
@@ -2611,8 +2447,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00B8", // description
-    "&#x00b8;", // input
+    "Valid Unicode character U+00B8", // description
+    "\u00B8", // input
     { // expectedTokens
         CharacterToken{U"\u00B8"},
         EOFToken{}
@@ -2622,8 +2458,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00B9", // description
-    "&#x00b9;", // input
+    "Valid Unicode character U+00B9", // description
+    "\u00B9", // input
     { // expectedTokens
         CharacterToken{U"\u00B9"},
         EOFToken{}
@@ -2633,8 +2469,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00BA", // description
-    "&#x00ba;", // input
+    "Valid Unicode character U+00BA", // description
+    "\u00BA", // input
     { // expectedTokens
         CharacterToken{U"\u00BA"},
         EOFToken{}
@@ -2644,8 +2480,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00BB", // description
-    "&#x00bb;", // input
+    "Valid Unicode character U+00BB", // description
+    "\u00BB", // input
     { // expectedTokens
         CharacterToken{U"\u00BB"},
         EOFToken{}
@@ -2655,8 +2491,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00BC", // description
-    "&#x00bc;", // input
+    "Valid Unicode character U+00BC", // description
+    "\u00BC", // input
     { // expectedTokens
         CharacterToken{U"\u00BC"},
         EOFToken{}
@@ -2666,8 +2502,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00BD", // description
-    "&#x00bd;", // input
+    "Valid Unicode character U+00BD", // description
+    "\u00BD", // input
     { // expectedTokens
         CharacterToken{U"\u00BD"},
         EOFToken{}
@@ -2677,8 +2513,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00BE", // description
-    "&#x00be;", // input
+    "Valid Unicode character U+00BE", // description
+    "\u00BE", // input
     { // expectedTokens
         CharacterToken{U"\u00BE"},
         EOFToken{}
@@ -2688,8 +2524,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00BF", // description
-    "&#x00bf;", // input
+    "Valid Unicode character U+00BF", // description
+    "\u00BF", // input
     { // expectedTokens
         CharacterToken{U"\u00BF"},
         EOFToken{}
@@ -2699,8 +2535,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00C0", // description
-    "&#x00c0;", // input
+    "Valid Unicode character U+00C0", // description
+    "\u00C0", // input
     { // expectedTokens
         CharacterToken{U"\u00C0"},
         EOFToken{}
@@ -2710,8 +2546,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00C1", // description
-    "&#x00c1;", // input
+    "Valid Unicode character U+00C1", // description
+    "\u00C1", // input
     { // expectedTokens
         CharacterToken{U"\u00C1"},
         EOFToken{}
@@ -2721,8 +2557,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00C2", // description
-    "&#x00c2;", // input
+    "Valid Unicode character U+00C2", // description
+    "\u00C2", // input
     { // expectedTokens
         CharacterToken{U"\u00C2"},
         EOFToken{}
@@ -2732,8 +2568,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00C3", // description
-    "&#x00c3;", // input
+    "Valid Unicode character U+00C3", // description
+    "\u00C3", // input
     { // expectedTokens
         CharacterToken{U"\u00C3"},
         EOFToken{}
@@ -2743,8 +2579,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00C4", // description
-    "&#x00c4;", // input
+    "Valid Unicode character U+00C4", // description
+    "\u00C4", // input
     { // expectedTokens
         CharacterToken{U"\u00C4"},
         EOFToken{}
@@ -2754,8 +2590,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00C5", // description
-    "&#x00c5;", // input
+    "Valid Unicode character U+00C5", // description
+    "\u00C5", // input
     { // expectedTokens
         CharacterToken{U"\u00C5"},
         EOFToken{}
@@ -2765,8 +2601,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00C6", // description
-    "&#x00c6;", // input
+    "Valid Unicode character U+00C6", // description
+    "\u00C6", // input
     { // expectedTokens
         CharacterToken{U"\u00C6"},
         EOFToken{}
@@ -2776,8 +2612,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00C7", // description
-    "&#x00c7;", // input
+    "Valid Unicode character U+00C7", // description
+    "\u00C7", // input
     { // expectedTokens
         CharacterToken{U"\u00C7"},
         EOFToken{}
@@ -2787,8 +2623,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00C8", // description
-    "&#x00c8;", // input
+    "Valid Unicode character U+00C8", // description
+    "\u00C8", // input
     { // expectedTokens
         CharacterToken{U"\u00C8"},
         EOFToken{}
@@ -2798,8 +2634,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00C9", // description
-    "&#x00c9;", // input
+    "Valid Unicode character U+00C9", // description
+    "\u00C9", // input
     { // expectedTokens
         CharacterToken{U"\u00C9"},
         EOFToken{}
@@ -2809,8 +2645,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00CA", // description
-    "&#x00ca;", // input
+    "Valid Unicode character U+00CA", // description
+    "\u00CA", // input
     { // expectedTokens
         CharacterToken{U"\u00CA"},
         EOFToken{}
@@ -2820,8 +2656,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00CB", // description
-    "&#x00cb;", // input
+    "Valid Unicode character U+00CB", // description
+    "\u00CB", // input
     { // expectedTokens
         CharacterToken{U"\u00CB"},
         EOFToken{}
@@ -2831,8 +2667,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00CC", // description
-    "&#x00cc;", // input
+    "Valid Unicode character U+00CC", // description
+    "\u00CC", // input
     { // expectedTokens
         CharacterToken{U"\u00CC"},
         EOFToken{}
@@ -2842,8 +2678,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00CD", // description
-    "&#x00cd;", // input
+    "Valid Unicode character U+00CD", // description
+    "\u00CD", // input
     { // expectedTokens
         CharacterToken{U"\u00CD"},
         EOFToken{}
@@ -2853,8 +2689,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00CE", // description
-    "&#x00ce;", // input
+    "Valid Unicode character U+00CE", // description
+    "\u00CE", // input
     { // expectedTokens
         CharacterToken{U"\u00CE"},
         EOFToken{}
@@ -2864,8 +2700,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00CF", // description
-    "&#x00cf;", // input
+    "Valid Unicode character U+00CF", // description
+    "\u00CF", // input
     { // expectedTokens
         CharacterToken{U"\u00CF"},
         EOFToken{}
@@ -2875,8 +2711,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00D0", // description
-    "&#x00d0;", // input
+    "Valid Unicode character U+00D0", // description
+    "\u00D0", // input
     { // expectedTokens
         CharacterToken{U"\u00D0"},
         EOFToken{}
@@ -2886,8 +2722,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00D1", // description
-    "&#x00d1;", // input
+    "Valid Unicode character U+00D1", // description
+    "\u00D1", // input
     { // expectedTokens
         CharacterToken{U"\u00D1"},
         EOFToken{}
@@ -2897,8 +2733,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00D2", // description
-    "&#x00d2;", // input
+    "Valid Unicode character U+00D2", // description
+    "\u00D2", // input
     { // expectedTokens
         CharacterToken{U"\u00D2"},
         EOFToken{}
@@ -2908,8 +2744,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00D3", // description
-    "&#x00d3;", // input
+    "Valid Unicode character U+00D3", // description
+    "\u00D3", // input
     { // expectedTokens
         CharacterToken{U"\u00D3"},
         EOFToken{}
@@ -2919,8 +2755,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00D4", // description
-    "&#x00d4;", // input
+    "Valid Unicode character U+00D4", // description
+    "\u00D4", // input
     { // expectedTokens
         CharacterToken{U"\u00D4"},
         EOFToken{}
@@ -2930,8 +2766,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00D5", // description
-    "&#x00d5;", // input
+    "Valid Unicode character U+00D5", // description
+    "\u00D5", // input
     { // expectedTokens
         CharacterToken{U"\u00D5"},
         EOFToken{}
@@ -2941,8 +2777,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00D6", // description
-    "&#x00d6;", // input
+    "Valid Unicode character U+00D6", // description
+    "\u00D6", // input
     { // expectedTokens
         CharacterToken{U"\u00D6"},
         EOFToken{}
@@ -2952,8 +2788,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00D7", // description
-    "&#x00d7;", // input
+    "Valid Unicode character U+00D7", // description
+    "\u00D7", // input
     { // expectedTokens
         CharacterToken{U"\u00D7"},
         EOFToken{}
@@ -2963,8 +2799,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00D8", // description
-    "&#x00d8;", // input
+    "Valid Unicode character U+00D8", // description
+    "\u00D8", // input
     { // expectedTokens
         CharacterToken{U"\u00D8"},
         EOFToken{}
@@ -2974,8 +2810,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00D9", // description
-    "&#x00d9;", // input
+    "Valid Unicode character U+00D9", // description
+    "\u00D9", // input
     { // expectedTokens
         CharacterToken{U"\u00D9"},
         EOFToken{}
@@ -2985,8 +2821,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00DA", // description
-    "&#x00da;", // input
+    "Valid Unicode character U+00DA", // description
+    "\u00DA", // input
     { // expectedTokens
         CharacterToken{U"\u00DA"},
         EOFToken{}
@@ -2996,8 +2832,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00DB", // description
-    "&#x00db;", // input
+    "Valid Unicode character U+00DB", // description
+    "\u00DB", // input
     { // expectedTokens
         CharacterToken{U"\u00DB"},
         EOFToken{}
@@ -3007,8 +2843,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00DC", // description
-    "&#x00dc;", // input
+    "Valid Unicode character U+00DC", // description
+    "\u00DC", // input
     { // expectedTokens
         CharacterToken{U"\u00DC"},
         EOFToken{}
@@ -3018,8 +2854,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00DD", // description
-    "&#x00dd;", // input
+    "Valid Unicode character U+00DD", // description
+    "\u00DD", // input
     { // expectedTokens
         CharacterToken{U"\u00DD"},
         EOFToken{}
@@ -3029,8 +2865,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00DE", // description
-    "&#x00de;", // input
+    "Valid Unicode character U+00DE", // description
+    "\u00DE", // input
     { // expectedTokens
         CharacterToken{U"\u00DE"},
         EOFToken{}
@@ -3040,8 +2876,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00DF", // description
-    "&#x00df;", // input
+    "Valid Unicode character U+00DF", // description
+    "\u00DF", // input
     { // expectedTokens
         CharacterToken{U"\u00DF"},
         EOFToken{}
@@ -3051,8 +2887,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00E0", // description
-    "&#x00e0;", // input
+    "Valid Unicode character U+00E0", // description
+    "\u00E0", // input
     { // expectedTokens
         CharacterToken{U"\u00E0"},
         EOFToken{}
@@ -3062,8 +2898,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00E1", // description
-    "&#x00e1;", // input
+    "Valid Unicode character U+00E1", // description
+    "\u00E1", // input
     { // expectedTokens
         CharacterToken{U"\u00E1"},
         EOFToken{}
@@ -3073,8 +2909,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00E2", // description
-    "&#x00e2;", // input
+    "Valid Unicode character U+00E2", // description
+    "\u00E2", // input
     { // expectedTokens
         CharacterToken{U"\u00E2"},
         EOFToken{}
@@ -3084,8 +2920,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00E3", // description
-    "&#x00e3;", // input
+    "Valid Unicode character U+00E3", // description
+    "\u00E3", // input
     { // expectedTokens
         CharacterToken{U"\u00E3"},
         EOFToken{}
@@ -3095,8 +2931,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00E4", // description
-    "&#x00e4;", // input
+    "Valid Unicode character U+00E4", // description
+    "\u00E4", // input
     { // expectedTokens
         CharacterToken{U"\u00E4"},
         EOFToken{}
@@ -3106,8 +2942,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00E5", // description
-    "&#x00e5;", // input
+    "Valid Unicode character U+00E5", // description
+    "\u00E5", // input
     { // expectedTokens
         CharacterToken{U"\u00E5"},
         EOFToken{}
@@ -3117,8 +2953,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00E6", // description
-    "&#x00e6;", // input
+    "Valid Unicode character U+00E6", // description
+    "\u00E6", // input
     { // expectedTokens
         CharacterToken{U"\u00E6"},
         EOFToken{}
@@ -3128,8 +2964,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00E7", // description
-    "&#x00e7;", // input
+    "Valid Unicode character U+00E7", // description
+    "\u00E7", // input
     { // expectedTokens
         CharacterToken{U"\u00E7"},
         EOFToken{}
@@ -3139,8 +2975,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00E8", // description
-    "&#x00e8;", // input
+    "Valid Unicode character U+00E8", // description
+    "\u00E8", // input
     { // expectedTokens
         CharacterToken{U"\u00E8"},
         EOFToken{}
@@ -3150,8 +2986,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00E9", // description
-    "&#x00e9;", // input
+    "Valid Unicode character U+00E9", // description
+    "\u00E9", // input
     { // expectedTokens
         CharacterToken{U"\u00E9"},
         EOFToken{}
@@ -3161,8 +2997,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00EA", // description
-    "&#x00ea;", // input
+    "Valid Unicode character U+00EA", // description
+    "\u00EA", // input
     { // expectedTokens
         CharacterToken{U"\u00EA"},
         EOFToken{}
@@ -3172,8 +3008,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00EB", // description
-    "&#x00eb;", // input
+    "Valid Unicode character U+00EB", // description
+    "\u00EB", // input
     { // expectedTokens
         CharacterToken{U"\u00EB"},
         EOFToken{}
@@ -3183,8 +3019,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00EC", // description
-    "&#x00ec;", // input
+    "Valid Unicode character U+00EC", // description
+    "\u00EC", // input
     { // expectedTokens
         CharacterToken{U"\u00EC"},
         EOFToken{}
@@ -3194,8 +3030,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00ED", // description
-    "&#x00ed;", // input
+    "Valid Unicode character U+00ED", // description
+    "\u00ED", // input
     { // expectedTokens
         CharacterToken{U"\u00ED"},
         EOFToken{}
@@ -3205,8 +3041,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00EE", // description
-    "&#x00ee;", // input
+    "Valid Unicode character U+00EE", // description
+    "\u00EE", // input
     { // expectedTokens
         CharacterToken{U"\u00EE"},
         EOFToken{}
@@ -3216,8 +3052,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00EF", // description
-    "&#x00ef;", // input
+    "Valid Unicode character U+00EF", // description
+    "\u00EF", // input
     { // expectedTokens
         CharacterToken{U"\u00EF"},
         EOFToken{}
@@ -3227,8 +3063,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00F0", // description
-    "&#x00f0;", // input
+    "Valid Unicode character U+00F0", // description
+    "\u00F0", // input
     { // expectedTokens
         CharacterToken{U"\u00F0"},
         EOFToken{}
@@ -3238,8 +3074,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00F1", // description
-    "&#x00f1;", // input
+    "Valid Unicode character U+00F1", // description
+    "\u00F1", // input
     { // expectedTokens
         CharacterToken{U"\u00F1"},
         EOFToken{}
@@ -3249,8 +3085,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00F2", // description
-    "&#x00f2;", // input
+    "Valid Unicode character U+00F2", // description
+    "\u00F2", // input
     { // expectedTokens
         CharacterToken{U"\u00F2"},
         EOFToken{}
@@ -3260,8 +3096,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00F3", // description
-    "&#x00f3;", // input
+    "Valid Unicode character U+00F3", // description
+    "\u00F3", // input
     { // expectedTokens
         CharacterToken{U"\u00F3"},
         EOFToken{}
@@ -3271,8 +3107,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00F4", // description
-    "&#x00f4;", // input
+    "Valid Unicode character U+00F4", // description
+    "\u00F4", // input
     { // expectedTokens
         CharacterToken{U"\u00F4"},
         EOFToken{}
@@ -3282,8 +3118,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00F5", // description
-    "&#x00f5;", // input
+    "Valid Unicode character U+00F5", // description
+    "\u00F5", // input
     { // expectedTokens
         CharacterToken{U"\u00F5"},
         EOFToken{}
@@ -3293,8 +3129,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00F6", // description
-    "&#x00f6;", // input
+    "Valid Unicode character U+00F6", // description
+    "\u00F6", // input
     { // expectedTokens
         CharacterToken{U"\u00F6"},
         EOFToken{}
@@ -3304,8 +3140,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00F7", // description
-    "&#x00f7;", // input
+    "Valid Unicode character U+00F7", // description
+    "\u00F7", // input
     { // expectedTokens
         CharacterToken{U"\u00F7"},
         EOFToken{}
@@ -3315,8 +3151,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00F8", // description
-    "&#x00f8;", // input
+    "Valid Unicode character U+00F8", // description
+    "\u00F8", // input
     { // expectedTokens
         CharacterToken{U"\u00F8"},
         EOFToken{}
@@ -3326,8 +3162,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00F9", // description
-    "&#x00f9;", // input
+    "Valid Unicode character U+00F9", // description
+    "\u00F9", // input
     { // expectedTokens
         CharacterToken{U"\u00F9"},
         EOFToken{}
@@ -3337,8 +3173,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00FA", // description
-    "&#x00fa;", // input
+    "Valid Unicode character U+00FA", // description
+    "\u00FA", // input
     { // expectedTokens
         CharacterToken{U"\u00FA"},
         EOFToken{}
@@ -3348,8 +3184,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00FB", // description
-    "&#x00fb;", // input
+    "Valid Unicode character U+00FB", // description
+    "\u00FB", // input
     { // expectedTokens
         CharacterToken{U"\u00FB"},
         EOFToken{}
@@ -3359,8 +3195,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00FC", // description
-    "&#x00fc;", // input
+    "Valid Unicode character U+00FC", // description
+    "\u00FC", // input
     { // expectedTokens
         CharacterToken{U"\u00FC"},
         EOFToken{}
@@ -3370,8 +3206,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00FD", // description
-    "&#x00fd;", // input
+    "Valid Unicode character U+00FD", // description
+    "\u00FD", // input
     { // expectedTokens
         CharacterToken{U"\u00FD"},
         EOFToken{}
@@ -3381,8 +3217,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00FE", // description
-    "&#x00fe;", // input
+    "Valid Unicode character U+00FE", // description
+    "\u00FE", // input
     { // expectedTokens
         CharacterToken{U"\u00FE"},
         EOFToken{}
@@ -3392,8 +3228,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+00FF", // description
-    "&#x00ff;", // input
+    "Valid Unicode character U+00FF", // description
+    "\u00FF", // input
     { // expectedTokens
         CharacterToken{U"\u00FF"},
         EOFToken{}
@@ -3403,8 +3239,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+D7FF", // description
-    "&#xd7ff;", // input
+    "Valid Unicode character U+D7FF", // description
+    "\uD7FF", // input
     { // expectedTokens
         CharacterToken{U"\uD7FF"},
         EOFToken{}
@@ -3414,8 +3250,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+E000", // description
-    "&#xe000;", // input
+    "Valid Unicode character U+E000", // description
+    "\uE000", // input
     { // expectedTokens
         CharacterToken{U"\uE000"},
         EOFToken{}
@@ -3425,8 +3261,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+FDCF", // description
-    "&#xfdcf;", // input
+    "Valid Unicode character U+FDCF", // description
+    "\uFDCF", // input
     { // expectedTokens
         CharacterToken{U"\uFDCF"},
         EOFToken{}
@@ -3436,8 +3272,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+FDF0", // description
-    "&#xfdf0;", // input
+    "Valid Unicode character U+FDF0", // description
+    "\uFDF0", // input
     { // expectedTokens
         CharacterToken{U"\uFDF0"},
         EOFToken{}
@@ -3447,8 +3283,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+FFFD", // description
-    "&#xfffd;", // input
+    "Valid Unicode character U+FFFD", // description
+    "\uFFFD", // input
     { // expectedTokens
         CharacterToken{U"\uFFFD"},
         EOFToken{}
@@ -3458,8 +3294,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+10000", // description
-    "&#x10000;", // input
+    "Valid Unicode character U+10000", // description
+    "\U00010000", // input
     { // expectedTokens
         CharacterToken{U"\U00010000"},
         EOFToken{}
@@ -3469,8 +3305,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+1FFFD", // description
-    "&#x1fffd;", // input
+    "Valid Unicode character U+1FFFD", // description
+    "\U0001FFFD", // input
     { // expectedTokens
         CharacterToken{U"\U0001FFFD"},
         EOFToken{}
@@ -3480,8 +3316,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+20000", // description
-    "&#x20000;", // input
+    "Valid Unicode character U+20000", // description
+    "\U00020000", // input
     { // expectedTokens
         CharacterToken{U"\U00020000"},
         EOFToken{}
@@ -3491,8 +3327,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+2FFFD", // description
-    "&#x2fffd;", // input
+    "Valid Unicode character U+2FFFD", // description
+    "\U0002FFFD", // input
     { // expectedTokens
         CharacterToken{U"\U0002FFFD"},
         EOFToken{}
@@ -3502,8 +3338,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+30000", // description
-    "&#x30000;", // input
+    "Valid Unicode character U+30000", // description
+    "\U00030000", // input
     { // expectedTokens
         CharacterToken{U"\U00030000"},
         EOFToken{}
@@ -3513,8 +3349,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+3FFFD", // description
-    "&#x3fffd;", // input
+    "Valid Unicode character U+3FFFD", // description
+    "\U0003FFFD", // input
     { // expectedTokens
         CharacterToken{U"\U0003FFFD"},
         EOFToken{}
@@ -3524,8 +3360,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+40000", // description
-    "&#x40000;", // input
+    "Valid Unicode character U+40000", // description
+    "\U00040000", // input
     { // expectedTokens
         CharacterToken{U"\U00040000"},
         EOFToken{}
@@ -3535,8 +3371,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+4FFFD", // description
-    "&#x4fffd;", // input
+    "Valid Unicode character U+4FFFD", // description
+    "\U0004FFFD", // input
     { // expectedTokens
         CharacterToken{U"\U0004FFFD"},
         EOFToken{}
@@ -3546,8 +3382,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+50000", // description
-    "&#x50000;", // input
+    "Valid Unicode character U+50000", // description
+    "\U00050000", // input
     { // expectedTokens
         CharacterToken{U"\U00050000"},
         EOFToken{}
@@ -3557,8 +3393,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+5FFFD", // description
-    "&#x5fffd;", // input
+    "Valid Unicode character U+5FFFD", // description
+    "\U0005FFFD", // input
     { // expectedTokens
         CharacterToken{U"\U0005FFFD"},
         EOFToken{}
@@ -3568,8 +3404,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+60000", // description
-    "&#x60000;", // input
+    "Valid Unicode character U+60000", // description
+    "\U00060000", // input
     { // expectedTokens
         CharacterToken{U"\U00060000"},
         EOFToken{}
@@ -3579,8 +3415,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+6FFFD", // description
-    "&#x6fffd;", // input
+    "Valid Unicode character U+6FFFD", // description
+    "\U0006FFFD", // input
     { // expectedTokens
         CharacterToken{U"\U0006FFFD"},
         EOFToken{}
@@ -3590,8 +3426,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+70000", // description
-    "&#x70000;", // input
+    "Valid Unicode character U+70000", // description
+    "\U00070000", // input
     { // expectedTokens
         CharacterToken{U"\U00070000"},
         EOFToken{}
@@ -3601,8 +3437,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+7FFFD", // description
-    "&#x7fffd;", // input
+    "Valid Unicode character U+7FFFD", // description
+    "\U0007FFFD", // input
     { // expectedTokens
         CharacterToken{U"\U0007FFFD"},
         EOFToken{}
@@ -3612,8 +3448,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+80000", // description
-    "&#x80000;", // input
+    "Valid Unicode character U+80000", // description
+    "\U00080000", // input
     { // expectedTokens
         CharacterToken{U"\U00080000"},
         EOFToken{}
@@ -3623,8 +3459,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+8FFFD", // description
-    "&#x8fffd;", // input
+    "Valid Unicode character U+8FFFD", // description
+    "\U0008FFFD", // input
     { // expectedTokens
         CharacterToken{U"\U0008FFFD"},
         EOFToken{}
@@ -3634,8 +3470,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+90000", // description
-    "&#x90000;", // input
+    "Valid Unicode character U+90000", // description
+    "\U00090000", // input
     { // expectedTokens
         CharacterToken{U"\U00090000"},
         EOFToken{}
@@ -3645,8 +3481,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+9FFFD", // description
-    "&#x9fffd;", // input
+    "Valid Unicode character U+9FFFD", // description
+    "\U0009FFFD", // input
     { // expectedTokens
         CharacterToken{U"\U0009FFFD"},
         EOFToken{}
@@ -3656,8 +3492,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+A0000", // description
-    "&#xa0000;", // input
+    "Valid Unicode character U+A0000", // description
+    "\U000A0000", // input
     { // expectedTokens
         CharacterToken{U"\U000A0000"},
         EOFToken{}
@@ -3667,8 +3503,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+AFFFD", // description
-    "&#xafffd;", // input
+    "Valid Unicode character U+AFFFD", // description
+    "\U000AFFFD", // input
     { // expectedTokens
         CharacterToken{U"\U000AFFFD"},
         EOFToken{}
@@ -3678,8 +3514,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+B0000", // description
-    "&#xb0000;", // input
+    "Valid Unicode character U+B0000", // description
+    "\U000B0000", // input
     { // expectedTokens
         CharacterToken{U"\U000B0000"},
         EOFToken{}
@@ -3689,8 +3525,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+BFFFD", // description
-    "&#xbfffd;", // input
+    "Valid Unicode character U+BFFFD", // description
+    "\U000BFFFD", // input
     { // expectedTokens
         CharacterToken{U"\U000BFFFD"},
         EOFToken{}
@@ -3700,8 +3536,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+C0000", // description
-    "&#xc0000;", // input
+    "Valid Unicode character U+C0000", // description
+    "\U000C0000", // input
     { // expectedTokens
         CharacterToken{U"\U000C0000"},
         EOFToken{}
@@ -3711,8 +3547,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+CFFFD", // description
-    "&#xcfffd;", // input
+    "Valid Unicode character U+CFFFD", // description
+    "\U000CFFFD", // input
     { // expectedTokens
         CharacterToken{U"\U000CFFFD"},
         EOFToken{}
@@ -3722,8 +3558,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+D0000", // description
-    "&#xd0000;", // input
+    "Valid Unicode character U+D0000", // description
+    "\U000D0000", // input
     { // expectedTokens
         CharacterToken{U"\U000D0000"},
         EOFToken{}
@@ -3733,8 +3569,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+DFFFD", // description
-    "&#xdfffd;", // input
+    "Valid Unicode character U+DFFFD", // description
+    "\U000DFFFD", // input
     { // expectedTokens
         CharacterToken{U"\U000DFFFD"},
         EOFToken{}
@@ -3744,8 +3580,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+E0000", // description
-    "&#xe0000;", // input
+    "Valid Unicode character U+E0000", // description
+    "\U000E0000", // input
     { // expectedTokens
         CharacterToken{U"\U000E0000"},
         EOFToken{}
@@ -3755,8 +3591,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+EFFFD", // description
-    "&#xefffd;", // input
+    "Valid Unicode character U+EFFFD", // description
+    "\U000EFFFD", // input
     { // expectedTokens
         CharacterToken{U"\U000EFFFD"},
         EOFToken{}
@@ -3766,8 +3602,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+F0000", // description
-    "&#xf0000;", // input
+    "Valid Unicode character U+F0000", // description
+    "\U000F0000", // input
     { // expectedTokens
         CharacterToken{U"\U000F0000"},
         EOFToken{}
@@ -3777,8 +3613,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+FFFFD", // description
-    "&#xffffd;", // input
+    "Valid Unicode character U+FFFFD", // description
+    "\U000FFFFD", // input
     { // expectedTokens
         CharacterToken{U"\U000FFFFD"},
         EOFToken{}
@@ -3788,8 +3624,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+100000", // description
-    "&#x100000;", // input
+    "Valid Unicode character U+100000", // description
+    "\U00100000", // input
     { // expectedTokens
         CharacterToken{U"\U00100000"},
         EOFToken{}
@@ -3799,8 +3635,8 @@ TokenizerTest{
     { // expectedErrors
     }
 },TokenizerTest{
-    "Valid numeric entity character U+10FFFD", // description
-    "&#x10fffd;", // input
+    "Valid Unicode character U+10FFFD", // description
+    "\U0010FFFD", // input
     { // expectedTokens
         CharacterToken{U"\U0010FFFD"},
         EOFToken{}

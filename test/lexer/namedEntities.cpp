@@ -3,7 +3,7 @@
 namespace Lexer
 {
 
-const std::vector<TokenizerTest> kNamedEntityTests = {
+const std::vector<TokenizerTest> kNamedEntitiesTests = {
     #include "namedEntities.in"
 };
 

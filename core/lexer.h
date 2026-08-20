@@ -144,7 +144,7 @@ typedef struct CrawlerInternalLexerContext {
 
     struct CrawlerInternalAttributeNode* current_attribute_node;
 
-    int character_reference_code;
+    unsigned int character_reference_code;
 
     void* named_ref;
 } CrawlerLexerContext;

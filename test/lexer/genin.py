@@ -8,7 +8,7 @@ STATE_NAMES = {
     "Data state": "Data",
     "RCDATA state": "Rcdata",
     "RAWTEXT state": "Rawtext",
-    "script data state": "ScriptData",
+    "Script data state": "ScriptData",
     "PLAINTEXT state": "Plaintext",
     "tag open state": "TagOpen",
     "end tag open state": "EndTagOpen",
@@ -203,12 +203,13 @@ def cpp_doctype(token):
     system_identifier = token[3]
     force_quirks = token[4]
 
+    cpp_name = cpp_u32string(name) if name is not None else "std::nullopt"
     cpp_public_identifier = cpp_u32string(public_identifier) if public_identifier is not None else "std::nullopt"
     cpp_system_identifier = cpp_u32string(system_identifier) if system_identifier is not None else "std::nullopt"
 
     return (
         "DoctypeToken{"
-        f"{cpp_u32string(name)}, "
+        f"{cpp_name}, "
         f"{cpp_public_identifier}, "
         f"{cpp_system_identifier}, "
         f"{str(force_quirks).lower()}"
@@ -228,11 +229,11 @@ def cpp_attribute(attribute):
 def cpp_start_tag(token):
     name = token[1]
     attributes = token[2]
-    self_closing = token[3]
+    self_closing = token[3] if len(token) > 3 else False
 
     attribute_initializers = ", ".join(
         cpp_attribute(attribute)
-        for attribute in attributes
+        for attribute in reversed(attributes.items())
     )
 
     return (
@@ -281,6 +282,8 @@ def test_case(test, initial_state):
     # expected tokens
     lines.append("    { // expectedTokens")
     output = test["output"]
+    # the current tokenizer implementation may not emit any token otherwise and some tests may not run correctly
+    output.append(["EOF"])
     for i, token in enumerate(output):
         comma = "," if i+1 < len(output) else ""
         lines.append(f"        {cpp_token(token)}{comma}")
