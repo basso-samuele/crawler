@@ -244,11 +244,22 @@ def cpp_start_tag(token):
         "}"
     )
 
+def cpp_proc_in(token):
+    data = token[1]
+    target = token[2]
+
+    return (
+        "ProcessingInstructionToken{"
+        f"{cpp_u32string(data)}, "
+        f"{cpp_u32string(target)}"
+        "}"
+    )
+
 def cpp_token(token):
     kind = token[0]
 
     if kind == "Character":
-        return f"CharacterToken{{{cpp_u32string(token[1])}}}"
+        return f"CharacterToken{{{cpp_u32string(token[1])}s}}"
 
     if kind == "StartTag":
         return cpp_start_tag(token)
@@ -261,6 +272,9 @@ def cpp_token(token):
 
     if kind == "DOCTYPE":
         return cpp_doctype(token)
+
+    if kind == "ProcessingInstruction":
+        return cpp_proc_in(token)
 
     if kind == "EOF":
         return "EOFToken{}"
@@ -277,7 +291,7 @@ def test_case(test, initial_state):
     lines.append(f'    {cpp_string(test["description"])}, // description')
 
     # input
-    lines.append(f'    {cpp_string(test["input"])}, // input')
+    lines.append(f'    {cpp_string(test["input"])}s, // input')
 
     # expected tokens
     lines.append("    { // expectedTokens")

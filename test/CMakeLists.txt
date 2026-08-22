@@ -22,6 +22,8 @@ target_sources(_test
         ${CMAKE_CURRENT_SOURCE_DIR}/lexer/unicodeChars.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/lexer/test1.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/lexer/test2.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/test3.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/test4.cpp
     PUBLIC
     FILE_SET HEADERS
     FILES

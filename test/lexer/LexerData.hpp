@@ -194,6 +194,7 @@ struct DoctypeToken
 struct ProcessingInstructionToken
 {
     std::u32string data;
+    std::u32string target;
 };
 
 struct EOFToken
@@ -235,5 +236,7 @@ extern const std::vector<TokenizerTest> kNumericEntitiesTests;
 extern const std::vector<TokenizerTest> kUnicodeCharTests;
 extern const std::vector<TokenizerTest> kTest1Tests;
 extern const std::vector<TokenizerTest> kTest2Tests;
+extern const std::vector<TokenizerTest> kTest3Tests;
+extern const std::vector<TokenizerTest> kTest4Tests;
 
 }

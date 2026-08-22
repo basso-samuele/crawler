@@ -36,9 +36,15 @@ typedef struct {
     CrawlerAttributeNode* attributes;
 } CrawlerStartTag;
 
+typedef struct {
+    CrawlerString data;
+    CrawlerString target;
+} CrawlerProcessingInstruction;
+
 typedef struct CrawlerInternalToken {
     CrawlerTokenType type;
     union {
+        CrawlerProcessingInstruction proc_in;
         CrawlerTokenDocType doc_type;
         CrawlerStartTag start_tag;
         CrawlerString end_tag;

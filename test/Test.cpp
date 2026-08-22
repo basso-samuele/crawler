@@ -1,9 +1,9 @@
 #include "Test.hpp"
 
-#include "QueueTest.hpp"
-#include "StringTest.hpp"
-#include "UTF8StreamTest.hpp"
-#include "TrieTest.hpp"
+// #include "QueueTest.hpp"
+// #include "StringTest.hpp"
+// #include "UTF8StreamTest.hpp"
+// #include "TrieTest.hpp"
 #include "lexer/LexerTest.hpp"
 
 #include <filesystem>

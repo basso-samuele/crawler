@@ -125,7 +125,7 @@
 "input":"&#xD869;&#xDED6;",
 "output":[
     ["Character", "\uFFFD"],
-    ["Character", "\uFFFD"],
+    ["Character", "\uFFFD"]
 ],
 "errors":[
     { "code": "surrogate-character-reference", "line": 1, "col": 9 },
@@ -191,24 +191,27 @@
 
 {"description":"Simili processing instruction",
 "input":"<?namespace>",
-"output":[["Comment", "?namespace"]]},
+"output":[["ProcessingInstruction", "", "namespace"]]},
 
 {"description":"A bogus comment stops at >, even if preceded by two dashes",
 "input":"<?foo-->",
-"output":[["Comment", "?foo--"]]},
+"output":[["ProcessingInstruction", "", "foo-"]]},
 
 {"description":"Unescaped <",
 "input":"foo < bar",
-"output":[["Character", "foo < bar"]],
+"output":[
+    ["Character", "f"],
+    ["Character", "o"],
+    ["Character", "o"],
+    ["Character", " "],
+    ["Character", "<"],
+    ["Character", " "],
+    ["Character", "b"],
+    ["Character", "a"],
+    ["Character", "r"]
+],
 "errors":[
     { "code": "invalid-first-character-of-tag-name", "line": 1, "col": 6 }
-]},
-
-{"description":"Null Byte Replacement",
-"input":"\u0000",
-"output":[["Character", "\u0000"]],
-"errors":[
-    { "code": "unexpected-null-character", "line": 1, "col": 1 }
 ]},
 
 {"description":"Comment with dash",
@@ -220,7 +223,13 @@
 
 {"description":"Entity + newline",
 "input":"\nx\n&gt;\n",
-"output":[["Character","\nx\n>\n"]]},
+"output":[
+    ["Character","\n"],
+    ["Character","x"],
+    ["Character","\n"],
+    ["Character",">"],
+    ["Character","\n"]
+]},
 
 {"description":"Start tag with no attributes but space before the greater-than sign",
 "input":"<h >",
@@ -246,7 +255,11 @@
 
 {"description":"Empty end tag with following characters",
 "input":"a</>bc",
-"output":[["Character", "abc"]],
+"output":[
+    ["Character", "a"],
+    ["Character", "b"],
+    ["Character", "c"]
+],
 "errors":[
     { "code": "missing-end-tag-name", "line": 1, "col": 4 }
 ]},

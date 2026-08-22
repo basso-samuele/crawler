@@ -62,6 +62,9 @@ static CrawlerStreamResult stream_peek_one_byte(const CrawlerUTF8Stream* is, con
         int ncp = (int)buffer->base[offset+1];
         *cp_size = ncp == 0x000A ? 2 : 1;
         return CRAWLER_STREAM_SUCCESS;
+    } if (buffer->eof) {
+        *cp_size = 1;
+        return CRAWLER_STREAM_SUCCESS;
     } else {
         return CRAWLER_STREAM_MISSING_ELEMENT;
     }
@@ -215,7 +218,7 @@ void crawler_stream_reset(CrawlerUTF8Stream* stream) {
 
 bool crawler_stream_consume_match(CrawlerUTF8Stream* stream, const char* prefix, size_t length, bool case_sensitive) {
     bool matched =
-        (stream->current_code_point_offset + length < stream->buffer->size) &&
+        (stream->current_code_point_offset + length <= stream->buffer->size) &&
         (case_sensitive ? !strncmp(stream->buffer->base + stream->current_code_point_offset, prefix, length)
                         : !strncasecmp(stream->buffer->base + stream->current_code_point_offset, prefix, length));
     if (matched) {

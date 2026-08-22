@@ -105,8 +105,11 @@ void Equals(const DoctypeToken& expected, const CrawlerToken& actual) {
 }
 
 void Equals(const ProcessingInstructionToken& expected, const CrawlerToken& actual) {
-    size_t len = std::min(expected.data.size(), actual.data.str.length)*sizeof *expected.data.c_str();
-    ASSERT_TRUE(memcmp(expected.data.c_str(), actual.data.str.data, len) == 0);
+    size_t len = std::min(expected.data.size(), actual.data.proc_in.data.length)*sizeof *expected.data.c_str();
+    ASSERT_TRUE(memcmp(expected.data.c_str(), actual.data.proc_in.data.data, len) == 0);
+
+    len = std::min(expected.target.size(), actual.data.proc_in.target.length)*sizeof *expected.data.c_str();
+    ASSERT_TRUE(memcmp(expected.target.c_str(), actual.data.proc_in.target.data, len) == 0);
 }
 
 void Equals(const EOFToken& expected, const CrawlerToken& actual) {
@@ -138,6 +141,7 @@ protected:
 
 TEST_P(Entity, Compare) {
     const auto& tc = GetParam();
+    SCOPED_TRACE(tc.description);
 
     CrawlerBuffer buffer;
     buffer.base = (unsigned char*)tc.input.c_str();
@@ -162,7 +166,7 @@ TEST_P(Entity, Compare) {
     }
 }
 
-#if 0
+#if 1
 INSTANTIATE_TEST_SUITE_P(
     NamedEntities,
     Entity,
@@ -194,13 +198,29 @@ INSTANTIATE_TEST_SUITE_P(
         kTest1Tests
     )
 );
-#endif
 
 INSTANTIATE_TEST_SUITE_P(
     Test2,
     Entity,
     ::testing::ValuesIn(
         kTest2Tests
+    )
+);
+
+INSTANTIATE_TEST_SUITE_P(
+    Test3,
+    Entity,
+    ::testing::ValuesIn(
+        kTest3Tests
+    )
+);
+#endif
+
+INSTANTIATE_TEST_SUITE_P(
+    Test4,
+    Entity,
+    ::testing::ValuesIn(
+        kTest4Tests
     )
 );
 

@@ -98,7 +98,7 @@ static void char_ref_code_zero(CrawlerParserContext* parser) {
 }
 
 static bool create_doctype_token(CrawlerParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    crawler_token_destroy(&parser->current_token);
     if (!crawler_string_create(&parser->current_token.data.doc_type.name, 8))
         return false;
     if (!crawler_string_create(&parser->current_token.data.doc_type.public_identifier, 8))
@@ -113,7 +113,7 @@ static bool create_doctype_token(CrawlerParserContext* parser) {
 }
 
 static bool create_start_tag_token(CrawlerParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    crawler_token_destroy(&parser->current_token);
     if (!crawler_string_create(&parser->current_token.data.start_tag.name, 8))
         return false;
     parser->current_token.data.start_tag.is_self_closing = false;
@@ -123,7 +123,7 @@ static bool create_start_tag_token(CrawlerParserContext* parser) {
 }
 
 static bool create_end_tag_token(CrawlerParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    crawler_token_destroy(&parser->current_token);
     if (!crawler_string_create(&parser->current_token.data.end_tag, 8))
         return false;
     parser->current_token.type = CRAWLER_TOKEN_END_TAG;
@@ -131,7 +131,7 @@ static bool create_end_tag_token(CrawlerParserContext* parser) {
 }
 
 static bool create_comment_token(CrawlerParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    crawler_token_destroy(&parser->current_token);
     if (!crawler_string_create(&parser->current_token.data.str, 16))
         return false;
     parser->current_token.type = CRAWLER_TOKEN_COMMENT;
@@ -147,16 +147,24 @@ static bool create_character_token(CrawlerParserContext* parser) {
 }
 
 static void create_eof_token(CrawlerParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
+    crawler_token_destroy(&parser->current_token);
     parser->current_token.type = CRAWLER_TOKEN_EOF;
 }
 
 static bool create_processing_instruction_token(CrawlerParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_TYPE_UNKNOWN);
-    if (!crawler_string_create(&parser->current_token.data.str, 16))
+    crawler_token_destroy(&parser->current_token);
+    if (!crawler_string_create(&parser->current_token.data.proc_in.data, 1))
+        return false;
+    if (!crawler_string_create(&parser->current_token.data.proc_in.target, 1))
         return false;
     parser->current_token.type = CRAWLER_TOKEN_PROCESSING_INSTRUCTION;
     return true;
+}
+
+static bool temporary_to_target(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_PROCESSING_INSTRUCTION);
+    crawler_string_destroy(&parser->current_token.data.proc_in.target);
+    return crawler_string_clone(&parser->current_token.data.proc_in.target, &parser->lexer.temporary_buffer);
 }
 
 static bool manual_emit_character(CrawlerParserContext* parser, int cp) {
@@ -203,13 +211,28 @@ static bool emit_temporary_buffer_character(CrawlerParserContext* parser) {
 }
 
 static void set_self_closing(CrawlerParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG);
-    parser->current_token.data.start_tag.is_self_closing = true;
+    if (parser->current_token.type == CRAWLER_TOKEN_START_TAG)
+        parser->current_token.data.start_tag.is_self_closing = true;
+}
+
+static void finalize_current_attribute(CrawlerParserContext* parser) {
+    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG || parser->current_token.type == CRAWLER_TOKEN_END_TAG);
+    if (parser->lexer.current_attribute_node == NULL) {
+        crawler_debug("Possibly discarded attribute, not finalizing.\n");
+        return;
+    }
+    if (parser->current_token.type == CRAWLER_TOKEN_START_TAG) {
+        crawler_attribute_list_insert(&parser->current_token.data.start_tag.attributes, parser->lexer.current_attribute_node);
+        parser->lexer.current_attribute_node = NULL;
+    } else {
+        crawler_attribute_list_destroy(&parser->lexer.current_attribute_node);
+    }
 }
 
 static bool start_new_attribute(CrawlerParserContext* parser) {
     assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG || parser->current_token.type == CRAWLER_TOKEN_END_TAG);
-    assert(parser->lexer.current_attribute_node == NULL);
+    if (parser->lexer.current_attribute_node != NULL)
+        finalize_current_attribute(parser);
     parser->lexer.current_attribute_node = _crawler_alloc(sizeof *parser->lexer.current_attribute_node);
     crawler_attribute_node_init(parser->lexer.current_attribute_node);
     return crawler_attribute_node_create(parser->lexer.current_attribute_node);
@@ -233,20 +256,6 @@ static bool append_to_current_attribute_value(CrawlerParserContext* parser, int 
 static bool append_to_comment(CrawlerParserContext* parser, int cp) {
     assert(parser->current_token.type == CRAWLER_TOKEN_COMMENT);
     return crawler_string_append(&parser->current_token.data.str, cp);
-}
-
-static void finalize_current_attribute(CrawlerParserContext* parser) {
-    assert(parser->current_token.type == CRAWLER_TOKEN_START_TAG || parser->current_token.type == CRAWLER_TOKEN_END_TAG);
-    if (parser->lexer.current_attribute_node == NULL) {
-        crawler_debug("Possibly discarded attribute, not finalizing.\n");
-        return;
-    }
-    if (parser->current_token.type == CRAWLER_TOKEN_START_TAG) {
-        crawler_attribute_list_insert(&parser->current_token.data.start_tag.attributes, parser->lexer.current_attribute_node);
-        parser->lexer.current_attribute_node = NULL;
-    } else {
-        crawler_attribute_list_destroy(&parser->lexer.current_attribute_node);
-    }
 }
 
 static void discard_current_attribute(CrawlerParserContext* parser) {
@@ -1267,6 +1276,7 @@ static CrawlerLexerResult handle_after_attribute_name_state(struct CrawlerIntern
         return CRAWLER_LEXER_NEXT_CP;
     case 0x002F:
         switch_state(parser, CRAWLER_LEXER_STATE_SELF_CLOSING_START_TAG);
+        finalize_current_attribute(parser);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x003D:
         switch_state(parser, CRAWLER_LEXER_STATE_BEFORE_ATTRIBUTE_VALUE);
@@ -1295,7 +1305,6 @@ static CrawlerLexerResult handle_before_attribute_value_state(struct CrawlerInte
     case 0x000A: // LINE FEED (LF)
     case 0x000C: // FORM FEED (FF)
     case 0x0020: // SPACE
-        
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0022: // QUOTATION MARK (")
         switch_state(parser, CRAWLER_LEXER_STATE_ATTRIBUTE_VALUE_DOUBLE_QUOTED);
@@ -1305,8 +1314,8 @@ static CrawlerLexerResult handle_before_attribute_value_state(struct CrawlerInte
         return CRAWLER_LEXER_NEXT_CP;
     case 0x003E: // GREATER-THAN SIGN (>)
         crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_ATTRIBUTE_VALUE);
+        finalize_current_attribute(parser);
         switch_state(parser, CRAWLER_LEXER_STATE_DATA);
-        
         return emit_current_tag_token(parser);
     default:
         switch_state(parser, CRAWLER_LEXER_STATE_ATTRIBUTE_VALUE_UNQUOTED);
@@ -1880,9 +1889,9 @@ static CrawlerLexerResult handle_after_doctype_name_state(struct CrawlerInternal
         assert(parser->current_token.type == CRAWLER_TOKEN_DOCTYPE);
         return CRAWLER_LEXER_SUCCESS;
     default:
-        if (crawler_stream_consume_match(&parser->is, "PUBLIC", 6, true)) {
+        if (crawler_stream_consume_match(&parser->is, "PUBLIC", 6, false)) {
             switch_state(parser, CRAWLER_LEXER_STATE_AFTER_DOCTYPE_PUBLIC_KEYWORD);
-        } else if (crawler_stream_consume_match(&parser->is, "SYSTEM", 6, true)) {
+        } else if (crawler_stream_consume_match(&parser->is, "SYSTEM", 6, false)) {
             switch_state(parser, CRAWLER_LEXER_STATE_AFTER_DOCTYPE_SYSTEM_KEYWORD);
         } else {
             crawler_parser_register_error(parser, CRAWLER_ERROR_INVALID_CHARACTER_SEQUENCE_AFTER_DOCTYPE_NAME);
@@ -1904,10 +1913,12 @@ static CrawlerLexerResult handle_after_doctype_public_keyword_state(struct Crawl
         switch_state(parser, CRAWLER_LEXER_STATE_BEFORE_DOCTYPE_PUBLIC_IDENTIFIER);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0022: // QUOTATION MARK (")
+        parser->current_token.data.doc_type.has_public_identifier = true;
         crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_WHITESPACE_AFTER_DOCTYPE_PUBLIC_KEYWORD);
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE_PUBLIC_IDENTIFIER_DOUBLE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0027: // APOSTROPHE (')
+        parser->current_token.data.doc_type.has_public_identifier = true;
         crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_WHITESPACE_AFTER_DOCTYPE_PUBLIC_KEYWORD);
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE_PUBLIC_IDENTIFIER_SINGLE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
@@ -2047,10 +2058,12 @@ static CrawlerLexerResult handle_after_doctype_public_identifier_state(struct Cr
         assert(parser->current_token.type == CRAWLER_TOKEN_DOCTYPE);
         return CRAWLER_LEXER_SUCCESS;
     case 0x0022: // QUOTATION MARK (")
+        parser->current_token.data.doc_type.has_system_identifier = true;
         crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_WHITESPACE_BETWEEN_DOCTYPE_PUBLIC_AND_SYSTEM_IDENTIFIERS);
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE_SYSTEM_IDENTIFIER_DOUBLE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0027: // APOSTROPHE (')
+        parser->current_token.data.doc_type.has_system_identifier = true;
         crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_WHITESPACE_BETWEEN_DOCTYPE_PUBLIC_AND_SYSTEM_IDENTIFIERS);
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE_SYSTEM_IDENTIFIER_SINGLE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
@@ -2116,10 +2129,12 @@ static CrawlerLexerResult handle_after_doctype_system_keyword_state(struct Crawl
         switch_state(parser, CRAWLER_LEXER_STATE_BEFORE_DOCTYPE_SYSTEM_IDENTIFIER);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0022: // QUOTATION MARK (")
+        parser->current_token.data.doc_type.has_system_identifier = true;
         crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_WHITESPACE_AFTER_DOCTYPE_SYSTEM_KEYWORD);
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE_SYSTEM_IDENTIFIER_DOUBLE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
     case 0x0027: // APOSTROPHE (')
+        parser->current_token.data.doc_type.has_system_identifier = true;
         crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_WHITESPACE_AFTER_DOCTYPE_SYSTEM_KEYWORD);
         switch_state(parser, CRAWLER_LEXER_STATE_DOCTYPE_SYSTEM_IDENTIFIER_SINGLE_QUOTED);
         return CRAWLER_LEXER_NEXT_CP;
@@ -2355,6 +2370,8 @@ static CrawlerLexerResult handle_processing_instruction_open_state(struct Crawle
             return CRAWLER_LEXER_NEXT_CP;
         } else {
             crawler_parser_register_error(parser, CRAWLER_ERROR_INVALID_FIRST_CHARACTER_OF_PROCESSING_INSTRUCTION_TARGET);
+            if (!create_comment_token(parser))
+                return CRAWLER_LEXER_FAILURE;
             if (!convert_temporary_to_comment(parser))
                 return CRAWLER_LEXER_FAILURE;
             switch_state(parser, CRAWLER_LEXER_STATE_BOGUS_COMMENT);
@@ -2377,7 +2394,7 @@ static CrawlerLexerResult handle_processing_instruction_target_state(struct Craw
             &parser->lexer.temporary_buffer;
 
         if (crawler_string_compare_with_literal_ins(target, "xml", 3) ||
-            crawler_string_compare_with_literal_ins(target, "xml-stylesheet", 3)) {
+            crawler_string_compare_with_literal_ins(target, "xml-stylesheet", 14)) {
             crawler_parser_register_error(parser, CRAWLER_ERROR_DISALLOWED_PROCESSING_INSTRUCTION_TARGET);
             if (!convert_temporary_to_comment(parser))
                 return CRAWLER_LEXER_FAILURE;
@@ -2386,6 +2403,8 @@ static CrawlerLexerResult handle_processing_instruction_target_state(struct Craw
             return CRAWLER_LEXER_NEXT_CP;
         } else {
             if (!create_processing_instruction_token(parser))
+                return CRAWLER_LEXER_FAILURE;
+            if (!temporary_to_target(parser))
                 return CRAWLER_LEXER_FAILURE;
             switch_state(parser, CRAWLER_LEXER_STATE_AFTER_PROCESSING_INSTRUCTION_TARGET);
             stream_reconsume(parser);
@@ -2585,12 +2604,11 @@ static CrawlerLexerResult handle_numeric_character_reference_state(struct Crawle
         if (!temporary_append(parser, cp))
             return CRAWLER_LEXER_FAILURE;
         switch_state(parser, CRAWLER_LEXER_STATE_HEXADECIMAL_CHARACTER_REFERENCE_START);
-        
         return CRAWLER_LEXER_NEXT_CP;
     default:
+        stream_reconsume(parser);
         if (is_ascii_digit(cp)) {
             switch_state(parser, CRAWLER_LEXER_STATE_DECIMAL_CHARACTER_REFERENCE);
-            stream_reconsume(parser);
             return CRAWLER_LEXER_NEXT_CP;
         } else {
             crawler_parser_register_error(parser, CRAWLER_ERROR_ABSENCE_OF_DIGITS_IN_NUMERIC_CHARACTER_REFERENCE);
@@ -2602,15 +2620,29 @@ static CrawlerLexerResult handle_numeric_character_reference_state(struct Crawle
 
 // https://html.spec.whatwg.org/#hexadecimal-character-reference-start-state
 static CrawlerLexerResult handle_hexadecimal_character_reference_start_state(struct CrawlerInternalParserContext* parser, int cp) {
+    stream_reconsume(parser);
     if (is_ascii_hex_digit(cp)) {
         switch_state(parser, CRAWLER_LEXER_STATE_HEXADECIMAL_CHARACTER_REFERENCE);
-        stream_reconsume(parser);
         return CRAWLER_LEXER_NEXT_CP;
     } else {
         crawler_parser_register_error(parser, CRAWLER_ERROR_ABSENCE_OF_DIGITS_IN_NUMERIC_CHARACTER_REFERENCE);
         switch_to_return_state(parser);
         return flush_code_points_consumed_as_a_character_reference(parser);
     }
+}
+
+static void multiply_hex_by_16(int* value) {
+    if (*value > UINT32_MAX / 16)
+        *value = UINT32_MAX;
+    else
+        *value *= 16;
+}
+
+static void add_to_value_safe(int* value, int add) {
+    if (*value > UINT32_MAX - add)
+        *value = UINT32_MAX;
+    else
+        *value += add;
 }
 
 // https://html.spec.whatwg.org/#hexadecimal-character-reference-state
@@ -2622,19 +2654,16 @@ static CrawlerLexerResult handle_hexadecimal_character_reference_state(struct Cr
         return CRAWLER_LEXER_NEXT_CP;
     default:
         if (is_ascii_digit(cp)) {
-            parser->lexer.character_reference_code *= 16;
-            parser->lexer.character_reference_code += cp - 0x0030;
-            
+            multiply_hex_by_16(&parser->lexer.character_reference_code);
+            add_to_value_safe(&parser->lexer.character_reference_code, cp-0x0030);
             return CRAWLER_LEXER_NEXT_CP;
         } else if (is_ascii_upper_hex_digit(cp)) {
-            parser->lexer.character_reference_code *= 16;
-            parser->lexer.character_reference_code += cp - 0x0037;
-            
+            multiply_hex_by_16(&parser->lexer.character_reference_code);
+            add_to_value_safe(&parser->lexer.character_reference_code, cp-0x0037);
             return CRAWLER_LEXER_NEXT_CP;
         } else if (is_ascii_lower_hex_digit(cp)) {
-            parser->lexer.character_reference_code *= 16;
-            parser->lexer.character_reference_code += cp - 0x0057;
-            
+            multiply_hex_by_16(&parser->lexer.character_reference_code);
+            add_to_value_safe(&parser->lexer.character_reference_code, cp-0x0057);
             return CRAWLER_LEXER_NEXT_CP;
         } else {
             crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_SEMICOLON_AFTER_CHARACTER_REFERENCE);
@@ -2654,9 +2683,12 @@ static CrawlerLexerResult handle_decimal_character_reference_state(struct Crawle
         return CRAWLER_LEXER_NEXT_CP;
     default:
         if (is_ascii_digit(cp)) {
-            parser->lexer.character_reference_code *= 10;
-            parser->lexer.character_reference_code += cp - 0x0030;
-            
+            if (parser->lexer.character_reference_code > UINT32_MAX / 10)
+                parser->lexer.character_reference_code = UINT32_MAX;
+            else
+                parser->lexer.character_reference_code *= 10;
+
+            add_to_value_safe(&parser->lexer.character_reference_code, cp-0x0030);
             return CRAWLER_LEXER_NEXT_CP;
         } else {
             crawler_parser_register_error(parser, CRAWLER_ERROR_MISSING_SEMICOLON_AFTER_CHARACTER_REFERENCE);

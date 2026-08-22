@@ -28,7 +28,8 @@ void crawler_token_destroy(CrawlerToken* token) {
         break;
     case CRAWLER_TOKEN_EOF:
     case CRAWLER_TOKEN_PROCESSING_INSTRUCTION:
-        crawler_string_destroy(&token->data.str);
+        crawler_string_destroy(&token->data.proc_in.data);
+        crawler_string_destroy(&token->data.proc_in.target);
         break;
     default:
     }
