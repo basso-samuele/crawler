@@ -1,0 +1,13 @@
+TokenizerTest{
+    "<!---- >", // description
+    "<!---- >"s, // input
+    { // expectedTokens
+        CommentToken{U"-- >"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInComment, 9 }
+    }
+},

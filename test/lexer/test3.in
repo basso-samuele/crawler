@@ -8,54 +8,40 @@ TokenizerTest{
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "[empty]", // description
     ""s, // input
     { // expectedTokens
-        EOFToken{},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "[empty]", // description
     ""s, // input
     { // expectedTokens
-        EOFToken{},
-        EOFToken{},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "[empty]", // description
     ""s, // input
     { // expectedTokens
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "[empty]", // description
     ""s, // input
     { // expectedTokens
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -77,65 +63,51 @@ TokenizerTest{
     "\\u0009", // description
     "\t"s, // input
     { // expectedTokens
-        CharacterToken{U"\t"},
+        CharacterToken{U"\t"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u0009", // description
     "\t"s, // input
     { // expectedTokens
-        CharacterToken{U"\t"},
-        EOFToken{},
+        CharacterToken{U"\t"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u0009", // description
     "\t"s, // input
     { // expectedTokens
-        CharacterToken{U"\t"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\t"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u0009", // description
     "\t"s, // input
     { // expectedTokens
-        CharacterToken{U"\t"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\t"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u0009", // description
     "\t"s, // input
     { // expectedTokens
-        CharacterToken{U"\t"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\t"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -146,7 +118,7 @@ TokenizerTest{
     "\\u0009", // description
     "\t"s, // input
     { // expectedTokens
-        CharacterToken{U"\t"},
+        CharacterToken{U"\t"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -158,65 +130,51 @@ TokenizerTest{
     "\\u000A", // description
     "\n"s, // input
     { // expectedTokens
-        CharacterToken{U"\n"},
+        CharacterToken{U"\n"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u000A", // description
     "\n"s, // input
     { // expectedTokens
-        CharacterToken{U"\n"},
-        EOFToken{},
+        CharacterToken{U"\n"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u000A", // description
     "\n"s, // input
     { // expectedTokens
-        CharacterToken{U"\n"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\n"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u000A", // description
     "\n"s, // input
     { // expectedTokens
-        CharacterToken{U"\n"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\n"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u000A", // description
     "\n"s, // input
     { // expectedTokens
-        CharacterToken{U"\n"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\n"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -227,7 +185,7 @@ TokenizerTest{
     "\\u000A", // description
     "\n"s, // input
     { // expectedTokens
-        CharacterToken{U"\n"},
+        CharacterToken{U"\n"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -239,7 +197,7 @@ TokenizerTest{
     "\\u000B", // description
     "\u000B"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000B"},
+        CharacterToken{U"\u000B"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -247,13 +205,11 @@ TokenizerTest{
     { // expectedErrors
         { ErrorType::ControlCharacterInInputStream, 1 }
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u000B", // description
     "\u000B"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000B"},
-        EOFToken{},
+        CharacterToken{U"\u000B"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
@@ -261,14 +217,11 @@ TokenizerTest{
     { // expectedErrors
         { ErrorType::ControlCharacterInInputStream, 1 }
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u000B", // description
     "\u000B"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000B"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\u000B"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
@@ -276,15 +229,11 @@ TokenizerTest{
     { // expectedErrors
         { ErrorType::ControlCharacterInInputStream, 1 }
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u000B", // description
     "\u000B"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000B"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\u000B"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
@@ -292,16 +241,11 @@ TokenizerTest{
     { // expectedErrors
         { ErrorType::ControlCharacterInInputStream, 1 }
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u000B", // description
     "\u000B"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000B"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\u000B"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -313,7 +257,7 @@ TokenizerTest{
     "\\u000B", // description
     "\u000B"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000B"},
+        CharacterToken{U"\u000B"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -326,65 +270,51 @@ TokenizerTest{
     "\\u000C", // description
     "\u000C"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000C"},
+        CharacterToken{U"\u000C"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u000C", // description
     "\u000C"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000C"},
-        EOFToken{},
+        CharacterToken{U"\u000C"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u000C", // description
     "\u000C"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000C"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\u000C"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u000C", // description
     "\u000C"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000C"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\u000C"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\\u000C", // description
     "\u000C"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000C"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\u000C"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -395,7 +325,7 @@ TokenizerTest{
     "\\u000C", // description
     "\u000C"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000C"},
+        CharacterToken{U"\u000C"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -407,65 +337,51 @@ TokenizerTest{
     " ", // description
     " "s, // input
     { // expectedTokens
-        CharacterToken{U" "},
+        CharacterToken{U" "s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     " ", // description
     " "s, // input
     { // expectedTokens
-        CharacterToken{U" "},
-        EOFToken{},
+        CharacterToken{U" "s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     " ", // description
     " "s, // input
     { // expectedTokens
-        CharacterToken{U" "},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U" "s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     " ", // description
     " "s, // input
     { // expectedTokens
-        CharacterToken{U" "},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U" "s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     " ", // description
     " "s, // input
     { // expectedTokens
-        CharacterToken{U" "},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U" "s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -476,7 +392,7 @@ TokenizerTest{
     " ", // description
     " "s, // input
     { // expectedTokens
-        CharacterToken{U" "},
+        CharacterToken{U" "s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -488,65 +404,51 @@ TokenizerTest{
     "!", // description
     "!"s, // input
     { // expectedTokens
-        CharacterToken{U"!"},
+        CharacterToken{U"!"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "!", // description
     "!"s, // input
     { // expectedTokens
-        CharacterToken{U"!"},
-        EOFToken{},
+        CharacterToken{U"!"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "!", // description
     "!"s, // input
     { // expectedTokens
-        CharacterToken{U"!"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"!"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "!", // description
     "!"s, // input
     { // expectedTokens
-        CharacterToken{U"!"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"!"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "!", // description
     "!"s, // input
     { // expectedTokens
-        CharacterToken{U"!"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"!"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -557,7 +459,7 @@ TokenizerTest{
     "!", // description
     "!"s, // input
     { // expectedTokens
-        CharacterToken{U"!"},
+        CharacterToken{U"!"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -569,65 +471,51 @@ TokenizerTest{
     "\"", // description
     "\""s, // input
     { // expectedTokens
-        CharacterToken{U"\""},
+        CharacterToken{U"\""s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\"", // description
     "\""s, // input
     { // expectedTokens
-        CharacterToken{U"\""},
-        EOFToken{},
+        CharacterToken{U"\""s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\"", // description
     "\""s, // input
     { // expectedTokens
-        CharacterToken{U"\""},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\""s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\"", // description
     "\""s, // input
     { // expectedTokens
-        CharacterToken{U"\""},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\""s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "\"", // description
     "\""s, // input
     { // expectedTokens
-        CharacterToken{U"\""},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"\""s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -638,7 +526,7 @@ TokenizerTest{
     "\"", // description
     "\""s, // input
     { // expectedTokens
-        CharacterToken{U"\""},
+        CharacterToken{U"\""s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -650,65 +538,51 @@ TokenizerTest{
     "%", // description
     "%"s, // input
     { // expectedTokens
-        CharacterToken{U"%"},
+        CharacterToken{U"%"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "%", // description
     "%"s, // input
     { // expectedTokens
-        CharacterToken{U"%"},
-        EOFToken{},
+        CharacterToken{U"%"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "%", // description
     "%"s, // input
     { // expectedTokens
-        CharacterToken{U"%"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"%"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "%", // description
     "%"s, // input
     { // expectedTokens
-        CharacterToken{U"%"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"%"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "%", // description
     "%"s, // input
     { // expectedTokens
-        CharacterToken{U"%"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"%"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -719,7 +593,7 @@ TokenizerTest{
     "%", // description
     "%"s, // input
     { // expectedTokens
-        CharacterToken{U"%"},
+        CharacterToken{U"%"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -731,65 +605,51 @@ TokenizerTest{
     "&", // description
     "&"s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
+        CharacterToken{U"&"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "&", // description
     "&"s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
-        EOFToken{},
+        CharacterToken{U"&"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "&", // description
     "&"s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"&"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "&", // description
     "&"s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"&"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "&", // description
     "&"s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"&"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -800,7 +660,7 @@ TokenizerTest{
     "&", // description
     "&"s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
+        CharacterToken{U"&"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -812,65 +672,51 @@ TokenizerTest{
     "'", // description
     "'"s, // input
     { // expectedTokens
-        CharacterToken{U"'"},
+        CharacterToken{U"'"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "'", // description
     "'"s, // input
     { // expectedTokens
-        CharacterToken{U"'"},
-        EOFToken{},
+        CharacterToken{U"'"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "'", // description
     "'"s, // input
     { // expectedTokens
-        CharacterToken{U"'"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"'"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "'", // description
     "'"s, // input
     { // expectedTokens
-        CharacterToken{U"'"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"'"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "'", // description
     "'"s, // input
     { // expectedTokens
-        CharacterToken{U"'"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"'"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -881,7 +727,7 @@ TokenizerTest{
     "'", // description
     "'"s, // input
     { // expectedTokens
-        CharacterToken{U"'"},
+        CharacterToken{U"'"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -893,65 +739,51 @@ TokenizerTest{
     ",", // description
     ","s, // input
     { // expectedTokens
-        CharacterToken{U","},
+        CharacterToken{U","s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ",", // description
     ","s, // input
     { // expectedTokens
-        CharacterToken{U","},
-        EOFToken{},
+        CharacterToken{U","s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ",", // description
     ","s, // input
     { // expectedTokens
-        CharacterToken{U","},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U","s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ",", // description
     ","s, // input
     { // expectedTokens
-        CharacterToken{U","},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U","s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ",", // description
     ","s, // input
     { // expectedTokens
-        CharacterToken{U","},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U","s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -962,7 +794,7 @@ TokenizerTest{
     ",", // description
     ","s, // input
     { // expectedTokens
-        CharacterToken{U","},
+        CharacterToken{U","s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -974,65 +806,51 @@ TokenizerTest{
     "-", // description
     "-"s, // input
     { // expectedTokens
-        CharacterToken{U"-"},
+        CharacterToken{U"-"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "-", // description
     "-"s, // input
     { // expectedTokens
-        CharacterToken{U"-"},
-        EOFToken{},
+        CharacterToken{U"-"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "-", // description
     "-"s, // input
     { // expectedTokens
-        CharacterToken{U"-"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"-"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "-", // description
     "-"s, // input
     { // expectedTokens
-        CharacterToken{U"-"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"-"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "-", // description
     "-"s, // input
     { // expectedTokens
-        CharacterToken{U"-"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"-"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -1043,7 +861,7 @@ TokenizerTest{
     "-", // description
     "-"s, // input
     { // expectedTokens
-        CharacterToken{U"-"},
+        CharacterToken{U"-"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -1055,65 +873,51 @@ TokenizerTest{
     ".", // description
     "."s, // input
     { // expectedTokens
-        CharacterToken{U"."},
+        CharacterToken{U"."s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ".", // description
     "."s, // input
     { // expectedTokens
-        CharacterToken{U"."},
-        EOFToken{},
+        CharacterToken{U"."s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ".", // description
     "."s, // input
     { // expectedTokens
-        CharacterToken{U"."},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"."s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ".", // description
     "."s, // input
     { // expectedTokens
-        CharacterToken{U"."},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"."s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ".", // description
     "."s, // input
     { // expectedTokens
-        CharacterToken{U"."},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"."s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -1124,7 +928,7 @@ TokenizerTest{
     ".", // description
     "."s, // input
     { // expectedTokens
-        CharacterToken{U"."},
+        CharacterToken{U"."s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -1136,65 +940,51 @@ TokenizerTest{
     "/", // description
     "/"s, // input
     { // expectedTokens
-        CharacterToken{U"/"},
+        CharacterToken{U"/"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "/", // description
     "/"s, // input
     { // expectedTokens
-        CharacterToken{U"/"},
-        EOFToken{},
+        CharacterToken{U"/"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "/", // description
     "/"s, // input
     { // expectedTokens
-        CharacterToken{U"/"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"/"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "/", // description
     "/"s, // input
     { // expectedTokens
-        CharacterToken{U"/"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"/"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "/", // description
     "/"s, // input
     { // expectedTokens
-        CharacterToken{U"/"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"/"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -1205,7 +995,7 @@ TokenizerTest{
     "/", // description
     "/"s, // input
     { // expectedTokens
-        CharacterToken{U"/"},
+        CharacterToken{U"/"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -1217,65 +1007,51 @@ TokenizerTest{
     "0", // description
     "0"s, // input
     { // expectedTokens
-        CharacterToken{U"0"},
+        CharacterToken{U"0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "0", // description
     "0"s, // input
     { // expectedTokens
-        CharacterToken{U"0"},
-        EOFToken{},
+        CharacterToken{U"0"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "0", // description
     "0"s, // input
     { // expectedTokens
-        CharacterToken{U"0"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"0"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "0", // description
     "0"s, // input
     { // expectedTokens
-        CharacterToken{U"0"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"0"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "0", // description
     "0"s, // input
     { // expectedTokens
-        CharacterToken{U"0"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"0"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -1286,7 +1062,7 @@ TokenizerTest{
     "0", // description
     "0"s, // input
     { // expectedTokens
-        CharacterToken{U"0"},
+        CharacterToken{U"0"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -1298,65 +1074,51 @@ TokenizerTest{
     "1", // description
     "1"s, // input
     { // expectedTokens
-        CharacterToken{U"1"},
+        CharacterToken{U"1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "1", // description
     "1"s, // input
     { // expectedTokens
-        CharacterToken{U"1"},
-        EOFToken{},
+        CharacterToken{U"1"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "1", // description
     "1"s, // input
     { // expectedTokens
-        CharacterToken{U"1"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"1"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "1", // description
     "1"s, // input
     { // expectedTokens
-        CharacterToken{U"1"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"1"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "1", // description
     "1"s, // input
     { // expectedTokens
-        CharacterToken{U"1"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"1"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -1367,7 +1129,7 @@ TokenizerTest{
     "1", // description
     "1"s, // input
     { // expectedTokens
-        CharacterToken{U"1"},
+        CharacterToken{U"1"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -1379,65 +1141,51 @@ TokenizerTest{
     "9", // description
     "9"s, // input
     { // expectedTokens
-        CharacterToken{U"9"},
+        CharacterToken{U"9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "9", // description
     "9"s, // input
     { // expectedTokens
-        CharacterToken{U"9"},
-        EOFToken{},
+        CharacterToken{U"9"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "9", // description
     "9"s, // input
     { // expectedTokens
-        CharacterToken{U"9"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"9"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "9", // description
     "9"s, // input
     { // expectedTokens
-        CharacterToken{U"9"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"9"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "9", // description
     "9"s, // input
     { // expectedTokens
-        CharacterToken{U"9"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"9"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -1448,7 +1196,7 @@ TokenizerTest{
     "9", // description
     "9"s, // input
     { // expectedTokens
-        CharacterToken{U"9"},
+        CharacterToken{U"9"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -1460,65 +1208,51 @@ TokenizerTest{
     ";", // description
     ";"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
+        CharacterToken{U";"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";", // description
     ";"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        EOFToken{},
+        CharacterToken{U";"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";", // description
     ";"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";", // description
     ";"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";", // description
     ";"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -1529,7 +1263,7 @@ TokenizerTest{
     ";", // description
     ";"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
+        CharacterToken{U";"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -1541,70 +1275,56 @@ TokenizerTest{
     ";=", // description
     ";="s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"="},
+        CharacterToken{U";"s},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";=", // description
     ";="s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"="},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";=", // description
     ";="s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"="},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";=", // description
     ";="s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"="},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";=", // description
     ";="s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"="},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -1615,8 +1335,8 @@ TokenizerTest{
     ";=", // description
     ";="s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"="},
+        CharacterToken{U";"s},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -1628,70 +1348,56 @@ TokenizerTest{
     ";>", // description
     ";>"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U">"},
+        CharacterToken{U";"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";>", // description
     ";>"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U">"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";>", // description
     ";>"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U">"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";>", // description
     ";>"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U">"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";>", // description
     ";>"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U">"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -1702,8 +1408,8 @@ TokenizerTest{
     ";>", // description
     ";>"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U">"},
+        CharacterToken{U";"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -1715,70 +1421,56 @@ TokenizerTest{
     ";?", // description
     ";?"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"?"},
+        CharacterToken{U";"s},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";?", // description
     ";?"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"?"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";?", // description
     ";?"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"?"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";?", // description
     ";?"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"?"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";?", // description
     ";?"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"?"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -1789,8 +1481,8 @@ TokenizerTest{
     ";?", // description
     ";?"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"?"},
+        CharacterToken{U";"s},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -1802,70 +1494,56 @@ TokenizerTest{
     ";@", // description
     ";@"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"@"},
+        CharacterToken{U";"s},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";@", // description
     ";@"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"@"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";@", // description
     ";@"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"@"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";@", // description
     ";@"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"@"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";@", // description
     ";@"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"@"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -1876,8 +1554,8 @@ TokenizerTest{
     ";@", // description
     ";@"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"@"},
+        CharacterToken{U";"s},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -1889,70 +1567,56 @@ TokenizerTest{
     ";A", // description
     ";A"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"A"},
+        CharacterToken{U";"s},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";A", // description
     ";A"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"A"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";A", // description
     ";A"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"A"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";A", // description
     ";A"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"A"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";A", // description
     ";A"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"A"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -1963,8 +1627,8 @@ TokenizerTest{
     ";A", // description
     ";A"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"A"},
+        CharacterToken{U";"s},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -1976,70 +1640,56 @@ TokenizerTest{
     ";B", // description
     ";B"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"B"},
+        CharacterToken{U";"s},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";B", // description
     ";B"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"B"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";B", // description
     ";B"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"B"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";B", // description
     ";B"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"B"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";B", // description
     ";B"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"B"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -2050,8 +1700,8 @@ TokenizerTest{
     ";B", // description
     ";B"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"B"},
+        CharacterToken{U";"s},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -2063,70 +1713,56 @@ TokenizerTest{
     ";Y", // description
     ";Y"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"Y"},
+        CharacterToken{U";"s},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";Y", // description
     ";Y"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"Y"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";Y", // description
     ";Y"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"Y"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";Y", // description
     ";Y"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"Y"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";Y", // description
     ";Y"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"Y"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -2137,8 +1773,8 @@ TokenizerTest{
     ";Y", // description
     ";Y"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"Y"},
+        CharacterToken{U";"s},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -2150,70 +1786,56 @@ TokenizerTest{
     ";Z", // description
     ";Z"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"Z"},
+        CharacterToken{U";"s},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";Z", // description
     ";Z"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"Z"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";Z", // description
     ";Z"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"Z"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";Z", // description
     ";Z"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"Z"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";Z", // description
     ";Z"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"Z"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -2224,8 +1846,8 @@ TokenizerTest{
     ";Z", // description
     ";Z"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"Z"},
+        CharacterToken{U";"s},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -2237,70 +1859,56 @@ TokenizerTest{
     ";`", // description
     ";`"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"`"},
+        CharacterToken{U";"s},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";`", // description
     ";`"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"`"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";`", // description
     ";`"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"`"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";`", // description
     ";`"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"`"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";`", // description
     ";`"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"`"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -2311,8 +1919,8 @@ TokenizerTest{
     ";`", // description
     ";`"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"`"},
+        CharacterToken{U";"s},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -2324,70 +1932,56 @@ TokenizerTest{
     ";a", // description
     ";a"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"a"},
+        CharacterToken{U";"s},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";a", // description
     ";a"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"a"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";a", // description
     ";a"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"a"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";a", // description
     ";a"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"a"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";a", // description
     ";a"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"a"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -2398,8 +1992,8 @@ TokenizerTest{
     ";a", // description
     ";a"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"a"},
+        CharacterToken{U";"s},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -2411,70 +2005,56 @@ TokenizerTest{
     ";b", // description
     ";b"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"b"},
+        CharacterToken{U";"s},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";b", // description
     ";b"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"b"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";b", // description
     ";b"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"b"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";b", // description
     ";b"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"b"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";b", // description
     ";b"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"b"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -2485,8 +2065,8 @@ TokenizerTest{
     ";b", // description
     ";b"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"b"},
+        CharacterToken{U";"s},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -2498,70 +2078,56 @@ TokenizerTest{
     ";y", // description
     ";y"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"y"},
+        CharacterToken{U";"s},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";y", // description
     ";y"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"y"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";y", // description
     ";y"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"y"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";y", // description
     ";y"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"y"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";y", // description
     ";y"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"y"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -2572,8 +2138,8 @@ TokenizerTest{
     ";y", // description
     ";y"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"y"},
+        CharacterToken{U";"s},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -2585,70 +2151,56 @@ TokenizerTest{
     ";z", // description
     ";z"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"z"},
+        CharacterToken{U";"s},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";z", // description
     ";z"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"z"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";z", // description
     ";z"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"z"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";z", // description
     ";z"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"z"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";z", // description
     ";z"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"z"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -2659,8 +2211,8 @@ TokenizerTest{
     ";z", // description
     ";z"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"z"},
+        CharacterToken{U";"s},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -2672,70 +2224,56 @@ TokenizerTest{
     ";{", // description
     ";{"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"{"},
+        CharacterToken{U";"s},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";{", // description
     ";{"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"{"},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";{", // description
     ";{"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"{"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";{", // description
     ";{"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"{"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ";{", // description
     ";{"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"{"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U";"s},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -2746,8 +2284,8 @@ TokenizerTest{
     ";{", // description
     ";{"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
-        CharacterToken{U"{"},
+        CharacterToken{U";"s},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -2759,7 +2297,7 @@ TokenizerTest{
     "<", // description
     "<"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
+        CharacterToken{U"<"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2771,8 +2309,8 @@ TokenizerTest{
     "<\\u0009", // description
     "<\t"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"\t"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"\t"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2784,8 +2322,8 @@ TokenizerTest{
     "<\\u000A", // description
     "<\n"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"\n"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"\n"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2797,8 +2335,8 @@ TokenizerTest{
     "<\\u000B", // description
     "<\u000B"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"\u000B"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"\u000B"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2811,8 +2349,8 @@ TokenizerTest{
     "<\\u000C", // description
     "<\u000C"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"\u000C"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"\u000C"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2824,8 +2362,8 @@ TokenizerTest{
     "< ", // description
     "< "s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U" "},
+        CharacterToken{U"<"s},
+        CharacterToken{U" "s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -15814,8 +15352,8 @@ TokenizerTest{
     "<\"", // description
     "<\""s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"\""},
+        CharacterToken{U"<"s},
+        CharacterToken{U"\""s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -15827,8 +15365,8 @@ TokenizerTest{
     "<&", // description
     "<&"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"&"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"&"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -15840,8 +15378,8 @@ TokenizerTest{
     "<'", // description
     "<'"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"'"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"'"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -15853,8 +15391,8 @@ TokenizerTest{
     "<-", // description
     "<-"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"-"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"-"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -15866,8 +15404,8 @@ TokenizerTest{
     "<.", // description
     "<."s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"."},
+        CharacterToken{U"<"s},
+        CharacterToken{U"."s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -15879,7 +15417,7 @@ TokenizerTest{
     "</", // description
     "</"s, // input
     { // expectedTokens
-        CharacterToken{U"</"},
+        CharacterToken{U"</"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -16269,8 +15807,8 @@ TokenizerTest{
     "<0", // description
     "<0"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"0"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -16282,8 +15820,8 @@ TokenizerTest{
     "<1", // description
     "<1"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"1"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -16295,8 +15833,8 @@ TokenizerTest{
     "<9", // description
     "<9"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"9"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -16308,8 +15846,8 @@ TokenizerTest{
     "<<", // description
     "<<"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"<"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"<"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -16322,8 +15860,8 @@ TokenizerTest{
     "<=", // description
     "<="s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"="},
+        CharacterToken{U"<"s},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -16335,8 +15873,8 @@ TokenizerTest{
     "<>", // description
     "<>"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U">"},
+        CharacterToken{U"<"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -16694,8 +16232,8 @@ TokenizerTest{
     "<@", // description
     "<@"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"@"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -16751,8 +16289,8 @@ TokenizerTest{
     "<[", // description
     "<["s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"["},
+        CharacterToken{U"<"s},
+        CharacterToken{U"["s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -16764,8 +16302,8 @@ TokenizerTest{
     "<`", // description
     "<`"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"`"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -20755,8 +20293,8 @@ TokenizerTest{
     "<{", // description
     "<{"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"{"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -20768,65 +20306,51 @@ TokenizerTest{
     "=", // description
     "="s, // input
     { // expectedTokens
-        CharacterToken{U"="},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "=", // description
     "="s, // input
     { // expectedTokens
-        CharacterToken{U"="},
-        EOFToken{},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "=", // description
     "="s, // input
     { // expectedTokens
-        CharacterToken{U"="},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "=", // description
     "="s, // input
     { // expectedTokens
-        CharacterToken{U"="},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "=", // description
     "="s, // input
     { // expectedTokens
-        CharacterToken{U"="},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -20837,7 +20361,7 @@ TokenizerTest{
     "=", // description
     "="s, // input
     { // expectedTokens
-        CharacterToken{U"="},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -20849,65 +20373,51 @@ TokenizerTest{
     ">", // description
     ">"s, // input
     { // expectedTokens
-        CharacterToken{U">"},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ">", // description
     ">"s, // input
     { // expectedTokens
-        CharacterToken{U">"},
-        EOFToken{},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ">", // description
     ">"s, // input
     { // expectedTokens
-        CharacterToken{U">"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ">", // description
     ">"s, // input
     { // expectedTokens
-        CharacterToken{U">"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     ">", // description
     ">"s, // input
     { // expectedTokens
-        CharacterToken{U">"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -20918,7 +20428,7 @@ TokenizerTest{
     ">", // description
     ">"s, // input
     { // expectedTokens
-        CharacterToken{U">"},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -20930,65 +20440,51 @@ TokenizerTest{
     "?", // description
     "?"s, // input
     { // expectedTokens
-        CharacterToken{U"?"},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "?", // description
     "?"s, // input
     { // expectedTokens
-        CharacterToken{U"?"},
-        EOFToken{},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "?", // description
     "?"s, // input
     { // expectedTokens
-        CharacterToken{U"?"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "?", // description
     "?"s, // input
     { // expectedTokens
-        CharacterToken{U"?"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "?", // description
     "?"s, // input
     { // expectedTokens
-        CharacterToken{U"?"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -20999,7 +20495,7 @@ TokenizerTest{
     "?", // description
     "?"s, // input
     { // expectedTokens
-        CharacterToken{U"?"},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -21011,65 +20507,51 @@ TokenizerTest{
     "@", // description
     "@"s, // input
     { // expectedTokens
-        CharacterToken{U"@"},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "@", // description
     "@"s, // input
     { // expectedTokens
-        CharacterToken{U"@"},
-        EOFToken{},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "@", // description
     "@"s, // input
     { // expectedTokens
-        CharacterToken{U"@"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "@", // description
     "@"s, // input
     { // expectedTokens
-        CharacterToken{U"@"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "@", // description
     "@"s, // input
     { // expectedTokens
-        CharacterToken{U"@"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -21080,7 +20562,7 @@ TokenizerTest{
     "@", // description
     "@"s, // input
     { // expectedTokens
-        CharacterToken{U"@"},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -21092,65 +20574,51 @@ TokenizerTest{
     "A", // description
     "A"s, // input
     { // expectedTokens
-        CharacterToken{U"A"},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "A", // description
     "A"s, // input
     { // expectedTokens
-        CharacterToken{U"A"},
-        EOFToken{},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "A", // description
     "A"s, // input
     { // expectedTokens
-        CharacterToken{U"A"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "A", // description
     "A"s, // input
     { // expectedTokens
-        CharacterToken{U"A"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "A", // description
     "A"s, // input
     { // expectedTokens
-        CharacterToken{U"A"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -21161,7 +20629,7 @@ TokenizerTest{
     "A", // description
     "A"s, // input
     { // expectedTokens
-        CharacterToken{U"A"},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -21173,65 +20641,51 @@ TokenizerTest{
     "B", // description
     "B"s, // input
     { // expectedTokens
-        CharacterToken{U"B"},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "B", // description
     "B"s, // input
     { // expectedTokens
-        CharacterToken{U"B"},
-        EOFToken{},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "B", // description
     "B"s, // input
     { // expectedTokens
-        CharacterToken{U"B"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "B", // description
     "B"s, // input
     { // expectedTokens
-        CharacterToken{U"B"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "B", // description
     "B"s, // input
     { // expectedTokens
-        CharacterToken{U"B"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -21242,7 +20696,7 @@ TokenizerTest{
     "B", // description
     "B"s, // input
     { // expectedTokens
-        CharacterToken{U"B"},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -21254,65 +20708,51 @@ TokenizerTest{
     "Y", // description
     "Y"s, // input
     { // expectedTokens
-        CharacterToken{U"Y"},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "Y", // description
     "Y"s, // input
     { // expectedTokens
-        CharacterToken{U"Y"},
-        EOFToken{},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "Y", // description
     "Y"s, // input
     { // expectedTokens
-        CharacterToken{U"Y"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "Y", // description
     "Y"s, // input
     { // expectedTokens
-        CharacterToken{U"Y"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "Y", // description
     "Y"s, // input
     { // expectedTokens
-        CharacterToken{U"Y"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -21323,7 +20763,7 @@ TokenizerTest{
     "Y", // description
     "Y"s, // input
     { // expectedTokens
-        CharacterToken{U"Y"},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -21335,65 +20775,51 @@ TokenizerTest{
     "Z", // description
     "Z"s, // input
     { // expectedTokens
-        CharacterToken{U"Z"},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "Z", // description
     "Z"s, // input
     { // expectedTokens
-        CharacterToken{U"Z"},
-        EOFToken{},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "Z", // description
     "Z"s, // input
     { // expectedTokens
-        CharacterToken{U"Z"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "Z", // description
     "Z"s, // input
     { // expectedTokens
-        CharacterToken{U"Z"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "Z", // description
     "Z"s, // input
     { // expectedTokens
-        CharacterToken{U"Z"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -21404,7 +20830,7 @@ TokenizerTest{
     "Z", // description
     "Z"s, // input
     { // expectedTokens
-        CharacterToken{U"Z"},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -21416,65 +20842,51 @@ TokenizerTest{
     "`", // description
     "`"s, // input
     { // expectedTokens
-        CharacterToken{U"`"},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "`", // description
     "`"s, // input
     { // expectedTokens
-        CharacterToken{U"`"},
-        EOFToken{},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "`", // description
     "`"s, // input
     { // expectedTokens
-        CharacterToken{U"`"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "`", // description
     "`"s, // input
     { // expectedTokens
-        CharacterToken{U"`"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "`", // description
     "`"s, // input
     { // expectedTokens
-        CharacterToken{U"`"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -21485,7 +20897,7 @@ TokenizerTest{
     "`", // description
     "`"s, // input
     { // expectedTokens
-        CharacterToken{U"`"},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -21497,65 +20909,51 @@ TokenizerTest{
     "a", // description
     "a"s, // input
     { // expectedTokens
-        CharacterToken{U"a"},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "a", // description
     "a"s, // input
     { // expectedTokens
-        CharacterToken{U"a"},
-        EOFToken{},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "a", // description
     "a"s, // input
     { // expectedTokens
-        CharacterToken{U"a"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "a", // description
     "a"s, // input
     { // expectedTokens
-        CharacterToken{U"a"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "a", // description
     "a"s, // input
     { // expectedTokens
-        CharacterToken{U"a"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -21566,7 +20964,7 @@ TokenizerTest{
     "a", // description
     "a"s, // input
     { // expectedTokens
-        CharacterToken{U"a"},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -21578,65 +20976,51 @@ TokenizerTest{
     "b", // description
     "b"s, // input
     { // expectedTokens
-        CharacterToken{U"b"},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "b", // description
     "b"s, // input
     { // expectedTokens
-        CharacterToken{U"b"},
-        EOFToken{},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "b", // description
     "b"s, // input
     { // expectedTokens
-        CharacterToken{U"b"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "b", // description
     "b"s, // input
     { // expectedTokens
-        CharacterToken{U"b"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "b", // description
     "b"s, // input
     { // expectedTokens
-        CharacterToken{U"b"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -21647,7 +21031,7 @@ TokenizerTest{
     "b", // description
     "b"s, // input
     { // expectedTokens
-        CharacterToken{U"b"},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -21659,65 +21043,51 @@ TokenizerTest{
     "y", // description
     "y"s, // input
     { // expectedTokens
-        CharacterToken{U"y"},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "y", // description
     "y"s, // input
     { // expectedTokens
-        CharacterToken{U"y"},
-        EOFToken{},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "y", // description
     "y"s, // input
     { // expectedTokens
-        CharacterToken{U"y"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "y", // description
     "y"s, // input
     { // expectedTokens
-        CharacterToken{U"y"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "y", // description
     "y"s, // input
     { // expectedTokens
-        CharacterToken{U"y"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -21728,7 +21098,7 @@ TokenizerTest{
     "y", // description
     "y"s, // input
     { // expectedTokens
-        CharacterToken{U"y"},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -21740,65 +21110,51 @@ TokenizerTest{
     "z", // description
     "z"s, // input
     { // expectedTokens
-        CharacterToken{U"z"},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "z", // description
     "z"s, // input
     { // expectedTokens
-        CharacterToken{U"z"},
-        EOFToken{},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "z", // description
     "z"s, // input
     { // expectedTokens
-        CharacterToken{U"z"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "z", // description
     "z"s, // input
     { // expectedTokens
-        CharacterToken{U"z"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "z", // description
     "z"s, // input
     { // expectedTokens
-        CharacterToken{U"z"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -21809,7 +21165,7 @@ TokenizerTest{
     "z", // description
     "z"s, // input
     { // expectedTokens
-        CharacterToken{U"z"},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState
@@ -21821,65 +21177,51 @@ TokenizerTest{
     "{", // description
     "{"s, // input
     { // expectedTokens
-        CharacterToken{U"{"},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "{", // description
     "{"s, // input
     { // expectedTokens
-        CharacterToken{U"{"},
-        EOFToken{},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::Plaintext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "{", // description
     "{"s, // input
     { // expectedTokens
-        CharacterToken{U"{"},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::Rcdata, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "{", // description
     "{"s, // input
     { // expectedTokens
-        CharacterToken{U"{"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::Rawtext, // initialState
     std::nullopt, // lastStartTag
     { // expectedErrors
     }
-},
-TokenizerTest{
+},TokenizerTest{
     "{", // description
     "{"s, // input
     { // expectedTokens
-        CharacterToken{U"{"},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
-        EOFToken{},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -21890,7 +21232,7 @@ TokenizerTest{
     "{", // description
     "{"s, // input
     { // expectedTokens
-        CharacterToken{U"{"},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::CdataSection, // initialState

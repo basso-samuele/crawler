@@ -1,0 +1,49 @@
+TokenizerTest{
+    "Non-XML character", // description
+    "a\uFFFFb"s, // input
+    { // expectedTokens
+        CharacterToken{U"a"s},
+        CharacterToken{U"\uFFFF"s},
+        CharacterToken{U"b"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Non-XML space", // description
+    "a\u000Cb"s, // input
+    { // expectedTokens
+        CharacterToken{U"a"s},
+        CharacterToken{U"\u000C"s},
+        CharacterToken{U"b"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Double hyphen in comment", // description
+    "<!-- foo -- bar -->"s, // input
+    { // expectedTokens
+        CommentToken{U" foo -- bar "},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "FF between attributes", // description
+    "<a b=''\u000Cc=''>"s, // input
+    { // expectedTokens
+        StartTagToken{U"a", { Attribute{U"c", U""}, Attribute{U"b", U""} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},

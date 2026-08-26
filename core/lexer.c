@@ -401,7 +401,6 @@ static CrawlerLexerResult handle_data_state(struct CrawlerInternalParserContext*
 
 // https://html.spec.whatwg.org/#rcdata-state
 static CrawlerLexerResult handle_rcdata_state(struct CrawlerInternalParserContext* parser, int cp) {
-    
     switch(cp) {
     case 0x0026: // AMPERSAND
         set_return_state(parser, CRAWLER_LEXER_STATE_RCDATA);
@@ -423,7 +422,6 @@ static CrawlerLexerResult handle_rcdata_state(struct CrawlerInternalParserContex
 
 // https://html.spec.whatwg.org/#rawtext-state
 static CrawlerLexerResult handle_rawtext_state(struct CrawlerInternalParserContext* parser, int cp) {
-    
     switch(cp) {
     case 0x003C: // LESS-THAN-SIGN
         switch_state(parser, CRAWLER_LEXER_STATE_RAWTEXT_LESS_THAN_SIGN);
@@ -580,7 +578,6 @@ static CrawlerLexerResult handle_rcdata_less_than_sign_state(struct CrawlerInter
     case 0x002F: // SOLIDUS (/)
         temporary_to_empty_string(parser);
         switch_state(parser, CRAWLER_LEXER_STATE_RCDATA_END_TAG_OPEN);
-        
         return CRAWLER_LEXER_NEXT_CP;
     default:
         switch_state(parser, CRAWLER_LEXER_STATE_RCDATA);
@@ -618,21 +615,18 @@ static CrawlerLexerResult handle_rcdata_end_tag_name_state(struct CrawlerInterna
     case 0x0020: // SPACE
         if (is_appropriate_end_tag_token(parser)) {
             switch_state(parser, CRAWLER_LEXER_STATE_BEFORE_ATTRIBUTE_NAME);
-            
             return CRAWLER_LEXER_NEXT_CP;
         }
         break;
     case 0x002F: // SOLIDUS (/)
         if (is_appropriate_end_tag_token(parser)) {
             switch_state(parser, CRAWLER_LEXER_STATE_SELF_CLOSING_START_TAG);
-            
             return CRAWLER_LEXER_NEXT_CP;
         }
         break;
     case 0x003E: // GREATER-THAN SIGN (>)
         if (is_appropriate_end_tag_token(parser)) {
             switch_state(parser, CRAWLER_LEXER_STATE_DATA);
-            
             return emit_current_tag_token(parser);
         }
         break;
@@ -669,7 +663,6 @@ static CrawlerLexerResult handle_rawtext_less_than_sign_state(struct CrawlerInte
     case 0x002F: // SOLIDUS (/)
         temporary_to_empty_string(parser);
         switch_state(parser, CRAWLER_LEXER_STATE_RAWTEXT_END_TAG_OPEN);
-        
         return CRAWLER_LEXER_NEXT_CP;
     default:
         switch_state(parser, CRAWLER_LEXER_STATE_RAWTEXT);
@@ -708,21 +701,18 @@ static CrawlerLexerResult handle_rawtext_end_tag_name_state(struct CrawlerIntern
     case 0x0020: // SPACE
         if (is_appropriate_end_tag_token(parser)) {
             switch_state(parser, CRAWLER_LEXER_STATE_BEFORE_ATTRIBUTE_NAME);
-            
             return CRAWLER_LEXER_NEXT_CP;
         }
         break;
     case 0x002F: // SOLIDUS (/)
         if (is_appropriate_end_tag_token(parser)) {
             switch_state(parser, CRAWLER_LEXER_STATE_SELF_CLOSING_START_TAG);
-            
             return CRAWLER_LEXER_NEXT_CP;
         }
         break;
     case 0x003E: // GREATER-THAN SIGN (>)
         if (is_appropriate_end_tag_token(parser)) {
             switch_state(parser, CRAWLER_LEXER_STATE_DATA);
-            
             return emit_current_tag_token(parser);
         }
         break;
@@ -731,9 +721,10 @@ static CrawlerLexerResult handle_rawtext_end_tag_name_state(struct CrawlerIntern
             break;
         if (is_ascii_upper_alpha(cp))
             cp += 0x0020;
+        if (!append_tag_name(parser, cp))
+            return CRAWLER_LEXER_FAILURE;
         if (!temporary_append(parser, cp))
             return CRAWLER_LEXER_FAILURE;
-        
         return CRAWLER_LEXER_NEXT_CP;
     }
     // Anything else
@@ -890,9 +881,10 @@ static CrawlerLexerResult handle_script_data_escaped_state(struct CrawlerInterna
     case 0x0000: // NULL
         crawler_parser_register_error(parser, CRAWLER_ERROR_UNEXPECTED_NULL_CHARACTER);
         return emit_character(parser, 0xFFFD); // REPLACEMENT CHARACTER
-    case -1:
+    case -1: // EOF
         crawler_parser_register_error(parser, CRAWLER_ERROR_EOF_IN_SCRIPT_HTML_COMMENT_LIKE_TEXT);
-        return emit_current_character(parser);
+        create_eof_token(parser);
+        return CRAWLER_LEXER_SUCCESS;
     default:
         return emit_current_character(parser);
     }
@@ -1055,7 +1047,6 @@ static CrawlerLexerResult handle_script_data_double_escape_start_state(struct Cr
         } else {
             switch_state(parser, CRAWLER_LEXER_STATE_SCRIPT_DATA_ESCAPED);
         }
-        
         return emit_current_character(parser);
     default:
         if (is_ascii_alpha(cp)) {
@@ -2512,31 +2503,26 @@ static CrawlerLexerResult handle_character_reference_state(struct CrawlerInterna
 
 // https://html.spec.whatwg.org/#named-character-reference-state
 static CrawlerLexerResult handle_named_character_reference_state(struct CrawlerInternalParserContext* parser, int cp) {
-    int next_input_character;
-    CrawlerStreamResult next_input_character_result =
-        crawler_stream_peek(parser, &next_input_character);
-    if (next_input_character_result == CRAWLER_STREAM_ERROR)
+    int ncp;
+    CrawlerStreamResult ncp_result =
+        crawler_stream_peek(parser, &ncp);
+    if (ncp_result == CRAWLER_STREAM_ERROR)
         return CRAWLER_LEXER_FAILURE;
-    if (next_input_character_result == CRAWLER_STREAM_MISSING_ELEMENT) {
+    if (ncp_result == CRAWLER_STREAM_MISSING_ELEMENT) {
         stream_reconsume(parser);
         return CRAWLER_LEXER_MISSING_CP;
     }
 
+    int next_input_character;
     CrawlerCharacterReference cr;
-    CrawlerNamedReferenceResult cr_result = crawler_named_reference_step(parser, cp, &cr);
+    CrawlerNamedReferenceResult cr_result = crawler_named_reference_step(parser, cp, ncp, &cr, &next_input_character);
 
     switch(cr_result) {
     case CRAWLER_CR_SUCCESS:
-        stream_reset(parser);
-        // Recalculating next_input_character
-        CrawlerStreamResult next_input_character_result =
-            crawler_stream_peek(parser, &next_input_character);
-        if (next_input_character_result == CRAWLER_STREAM_ERROR)
-            return CRAWLER_LEXER_FAILURE;
-        if (next_input_character_result == CRAWLER_STREAM_MISSING_ELEMENT) {
+        if (!consumed_as_part_of_an_attribute(parser))
+            stream_reset(parser);
+        else
             stream_reconsume(parser);
-            return CRAWLER_LEXER_MISSING_CP;
-        }
 
         int last_character_matched = parser->lexer.temporary_buffer.data[parser->lexer.temporary_buffer.length-1];
         bool historical =
@@ -2564,7 +2550,7 @@ static CrawlerLexerResult handle_named_character_reference_state(struct CrawlerI
         switch_state(parser, CRAWLER_LEXER_STATE_AMBIGUOUS_AMPERSAND);
         return flush_code_points_consumed_as_a_character_reference(parser);
     case CRAWLER_CR_NEXT_CP:
-        if (!temporary_append(parser, crawler_named_reference_get_last_matched_char(parser)))
+        if (!temporary_append(parser, cp))
             return CRAWLER_LEXER_FAILURE;
         return CRAWLER_LEXER_NEXT_CP;
     }
@@ -2753,9 +2739,10 @@ static CrawlerLexerResult handle_numeric_character_reference_end_state(struct Cr
         crawler_parser_register_error(parser, CRAWLER_ERROR_NONCHARACTER_CHARACTER_REFERENCE);
     } else if (crc == 0x0D || (is_control(crc) && !is_ascii_whitespace(crc))) {
         crawler_parser_register_error(parser, CRAWLER_ERROR_CONTROL_CHARACTER_REFERENCE);
-    } else if (crc >= 0x80 && crc <= 0x9F) {
-        if (windows_1252[crc-0x80] != -1)
-            crc = windows_1252[crc-0x80];
+        if (crc >= 0x80 && crc <= 0x9F) {
+            if (windows_1252[crc-0x80] != -1)
+                crc = windows_1252[crc-0x80];
+        }
     }
 
     temporary_to_empty_string(parser);

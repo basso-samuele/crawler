@@ -155,7 +155,9 @@ bool crawler_string_compare_with_literal(const CrawlerString* string, const char
         return false;
     if (string->data == NULL || !(string->length > 0))
         return false;
-    for (size_t i = 0; i < length && i < string->length; i++) {
+    if (string->length != length)
+        return false;
+    for (size_t i = 0; i < length; i++) {
         if ((int)literal[i] != string->data[i])
             return false;
     }

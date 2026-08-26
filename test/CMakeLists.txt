@@ -24,6 +24,12 @@ target_sources(_test
         ${CMAKE_CURRENT_SOURCE_DIR}/lexer/test2.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/lexer/test3.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/lexer/test4.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/entities.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/escapeFlag.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/pendingSpecChanges.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/contentModelFlags.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/domjs.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer/xmlViolation.cpp
     PUBLIC
     FILE_SET HEADERS
     FILES

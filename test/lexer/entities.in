@@ -1,0 +1,985 @@
+TokenizerTest{
+    "Undefined named entity in a double-quoted attribute value ending in semicolon and whose name starts with a known entity name.", // description
+    "<h a=\"&noti;\">"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&noti;"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Entity name requiring semicolon instead followed by the equals sign in a double-quoted attribute value.", // description
+    "<h a=\"&lang=\">"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&lang="} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid entity name followed by the equals sign in a double-quoted attribute value.", // description
+    "<h a=\"&not=\">"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&not="} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Undefined named entity in a single-quoted attribute value ending in semicolon and whose name starts with a known entity name.", // description
+    "<h a='&noti;'>"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&noti;"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Entity name requiring semicolon instead followed by the equals sign in a single-quoted attribute value.", // description
+    "<h a='&lang='>"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&lang="} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid entity name followed by the equals sign in a single-quoted attribute value.", // description
+    "<h a='&not='>"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&not="} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Undefined named entity in an unquoted attribute value ending in semicolon and whose name starts with a known entity name.", // description
+    "<h a=&noti;>"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&noti;"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Entity name requiring semicolon instead followed by the equals sign in an unquoted attribute value.", // description
+    "<h a=&lang=>"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&lang="} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedCharacterInUnquotedAttributeValue, 11 }
+    }
+},TokenizerTest{
+    "Valid entity name followed by the equals sign in an unquoted attribute value.", // description
+    "<h a=&not=>"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&not="} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedCharacterInUnquotedAttributeValue, 10 }
+    }
+},TokenizerTest{
+    "Ambiguous ampersand.", // description
+    "&rrrraannddom;"s, // input
+    { // expectedTokens
+        CharacterToken{U"&rr"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"n"s},
+        CharacterToken{U"n"s},
+        CharacterToken{U"d"s},
+        CharacterToken{U"d"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U";"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnknownNamedCharacterReference, 14 }
+    }
+},TokenizerTest{
+    "Semicolonless named entity 'not' followed by 'i;' in body", // description
+    "&noti;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AC"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U";"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 5 }
+    }
+},TokenizerTest{
+    "Very long undefined named entity in body", // description
+    "&ammmmmmmmmmmmmp;"s, // input
+    { // expectedTokens
+        CharacterToken{U"&am"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U";"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnknownNamedCharacterReference, 950 }
+    }
+},TokenizerTest{
+    "CR as numeric entity", // description
+    "&#013;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\r"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 7 }
+    }
+},TokenizerTest{
+    "CR as hexadecimal numeric entity", // description
+    "&#x00D;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\r"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 EURO SIGN numeric entity.", // description
+    "&#0128;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u20AC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 REPLACEMENT CHAR numeric entity.", // description
+    "&#0129;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0081"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 SINGLE LOW-9 QUOTATION MARK numeric entity.", // description
+    "&#0130;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u201A"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN SMALL LETTER F WITH HOOK numeric entity.", // description
+    "&#0131;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0192"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 DOUBLE LOW-9 QUOTATION MARK numeric entity.", // description
+    "&#0132;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u201E"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 HORIZONTAL ELLIPSIS numeric entity.", // description
+    "&#0133;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2026"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 DAGGER numeric entity.", // description
+    "&#0134;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2020"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 DOUBLE DAGGER numeric entity.", // description
+    "&#0135;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2021"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 MODIFIER LETTER CIRCUMFLEX ACCENT numeric entity.", // description
+    "&#0136;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u02C6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 PER MILLE SIGN numeric entity.", // description
+    "&#0137;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2030"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN CAPITAL LETTER S WITH CARON numeric entity.", // description
+    "&#0138;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0160"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 SINGLE LEFT-POINTING ANGLE QUOTATION MARK numeric entity.", // description
+    "&#0139;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2039"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN CAPITAL LIGATURE OE numeric entity.", // description
+    "&#0140;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0152"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 REPLACEMENT CHAR numeric entity.", // description
+    "&#0141;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u008D"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN CAPITAL LETTER Z WITH CARON numeric entity.", // description
+    "&#0142;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u017D"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 REPLACEMENT CHAR numeric entity.", // description
+    "&#0143;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u008F"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 REPLACEMENT CHAR numeric entity.", // description
+    "&#0144;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0090"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LEFT SINGLE QUOTATION MARK numeric entity.", // description
+    "&#0145;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2018"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 RIGHT SINGLE QUOTATION MARK numeric entity.", // description
+    "&#0146;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2019"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LEFT DOUBLE QUOTATION MARK numeric entity.", // description
+    "&#0147;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u201C"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 RIGHT DOUBLE QUOTATION MARK numeric entity.", // description
+    "&#0148;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u201D"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 BULLET numeric entity.", // description
+    "&#0149;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2022"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 EN DASH numeric entity.", // description
+    "&#0150;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2013"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 EM DASH numeric entity.", // description
+    "&#0151;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2014"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 SMALL TILDE numeric entity.", // description
+    "&#0152;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u02DC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 TRADE MARK SIGN numeric entity.", // description
+    "&#0153;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2122"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN SMALL LETTER S WITH CARON numeric entity.", // description
+    "&#0154;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0161"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 SINGLE RIGHT-POINTING ANGLE QUOTATION MARK numeric entity.", // description
+    "&#0155;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u203A"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN SMALL LIGATURE OE numeric entity.", // description
+    "&#0156;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0153"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 REPLACEMENT CHAR numeric entity.", // description
+    "&#0157;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u009D"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 EURO SIGN hexadecimal numeric entity.", // description
+    "&#x080;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u20AC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 REPLACEMENT CHAR hexadecimal numeric entity.", // description
+    "&#x081;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0081"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 SINGLE LOW-9 QUOTATION MARK hexadecimal numeric entity.", // description
+    "&#x082;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u201A"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN SMALL LETTER F WITH HOOK hexadecimal numeric entity.", // description
+    "&#x083;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0192"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 DOUBLE LOW-9 QUOTATION MARK hexadecimal numeric entity.", // description
+    "&#x084;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u201E"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 HORIZONTAL ELLIPSIS hexadecimal numeric entity.", // description
+    "&#x085;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2026"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 DAGGER hexadecimal numeric entity.", // description
+    "&#x086;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2020"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 DOUBLE DAGGER hexadecimal numeric entity.", // description
+    "&#x087;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2021"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 MODIFIER LETTER CIRCUMFLEX ACCENT hexadecimal numeric entity.", // description
+    "&#x088;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u02C6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 PER MILLE SIGN hexadecimal numeric entity.", // description
+    "&#x089;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2030"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN CAPITAL LETTER S WITH CARON hexadecimal numeric entity.", // description
+    "&#x08A;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0160"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 SINGLE LEFT-POINTING ANGLE QUOTATION MARK hexadecimal numeric entity.", // description
+    "&#x08B;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2039"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN CAPITAL LIGATURE OE hexadecimal numeric entity.", // description
+    "&#x08C;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0152"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 REPLACEMENT CHAR hexadecimal numeric entity.", // description
+    "&#x08D;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u008D"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN CAPITAL LETTER Z WITH CARON hexadecimal numeric entity.", // description
+    "&#x08E;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u017D"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 REPLACEMENT CHAR hexadecimal numeric entity.", // description
+    "&#x08F;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u008F"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 REPLACEMENT CHAR hexadecimal numeric entity.", // description
+    "&#x090;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0090"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LEFT SINGLE QUOTATION MARK hexadecimal numeric entity.", // description
+    "&#x091;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2018"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 RIGHT SINGLE QUOTATION MARK hexadecimal numeric entity.", // description
+    "&#x092;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2019"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LEFT DOUBLE QUOTATION MARK hexadecimal numeric entity.", // description
+    "&#x093;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u201C"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 RIGHT DOUBLE QUOTATION MARK hexadecimal numeric entity.", // description
+    "&#x094;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u201D"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 BULLET hexadecimal numeric entity.", // description
+    "&#x095;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2022"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 EN DASH hexadecimal numeric entity.", // description
+    "&#x096;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2013"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 EM DASH hexadecimal numeric entity.", // description
+    "&#x097;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2014"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 SMALL TILDE hexadecimal numeric entity.", // description
+    "&#x098;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u02DC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 TRADE MARK SIGN hexadecimal numeric entity.", // description
+    "&#x099;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2122"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN SMALL LETTER S WITH CARON hexadecimal numeric entity.", // description
+    "&#x09A;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0161"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 SINGLE RIGHT-POINTING ANGLE QUOTATION MARK hexadecimal numeric entity.", // description
+    "&#x09B;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u203A"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN SMALL LIGATURE OE hexadecimal numeric entity.", // description
+    "&#x09C;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0153"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 REPLACEMENT CHAR hexadecimal numeric entity.", // description
+    "&#x09D;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u009D"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN SMALL LETTER Z WITH CARON hexadecimal numeric entity.", // description
+    "&#x09E;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u017E"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Windows-1252 LATIN CAPITAL LETTER Y WITH DIAERESIS hexadecimal numeric entity.", // description
+    "&#x09F;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0178"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Decimal numeric entity followed by hex character a.", // description
+    "&#97a"s, // input
+    { // expectedTokens
+        CharacterToken{U"a"s},
+        CharacterToken{U"a"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 5 }
+    }
+},TokenizerTest{
+    "Decimal numeric entity followed by hex character A.", // description
+    "&#97A"s, // input
+    { // expectedTokens
+        CharacterToken{U"a"s},
+        CharacterToken{U"A"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 5 }
+    }
+},TokenizerTest{
+    "Decimal numeric entity followed by hex character f.", // description
+    "&#97f"s, // input
+    { // expectedTokens
+        CharacterToken{U"a"s},
+        CharacterToken{U"f"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 5 }
+    }
+},TokenizerTest{
+    "Decimal numeric entity followed by hex character A.", // description
+    "&#97F"s, // input
+    { // expectedTokens
+        CharacterToken{U"a"s},
+        CharacterToken{U"F"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 5 }
+    }
+},

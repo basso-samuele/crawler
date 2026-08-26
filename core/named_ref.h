@@ -20,12 +20,13 @@ typedef struct {
     CrawlerStaticTrieNode* curr;
 
     int last_character_matched;
+    int next_input_character;
 } CrawlerNamedReferenceContext;
 
 bool crawler_named_reference_create(CrawlerLexerContext* lexer);
 void crawler_named_reference_destroy(CrawlerLexerContext* lexer);
 
-CrawlerNamedReferenceResult crawler_named_reference_step(CrawlerParserContext* parser, int cp, CrawlerCharacterReference* cr);
+CrawlerNamedReferenceResult crawler_named_reference_step(CrawlerParserContext* parser, int cp, int ncp, CrawlerCharacterReference* cr, int* next_input_character);
 int crawler_named_reference_get_last_matched_char(CrawlerParserContext* parser);
 
 #ifdef __cplusplus

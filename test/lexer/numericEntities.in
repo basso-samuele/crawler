@@ -1,8 +1,8 @@
 TokenizerTest{
     "Invalid unterminated numeric entity character overflow before EOF", // description
-    "&#11111111111", // input
+    "&#11111111111"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -13,9 +13,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid unterminated numeric entity character overflow before EOF", // description
-    "&#1111111111", // input
+    "&#1111111111"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -26,9 +26,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid unterminated numeric entity character overflow before EOF", // description
-    "&#111111111111", // input
+    "&#111111111111"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -39,10 +39,10 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid unterminated numeric entity character overflow", // description
-    "&#11111111111x", // input
+    "&#11111111111x"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        CharacterToken{U"x"},
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"x"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -53,10 +53,10 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid unterminated numeric entity character overflow", // description
-    "&#1111111111x", // input
+    "&#1111111111x"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        CharacterToken{U"x"},
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"x"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -67,10 +67,10 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid unterminated numeric entity character overflow", // description
-    "&#111111111111x", // input
+    "&#111111111111x"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        CharacterToken{U"x"},
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"x"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -81,9 +81,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character overflow", // description
-    "&#11111111111;", // input
+    "&#11111111111;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -93,9 +93,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character overflow", // description
-    "&#1111111111;", // input
+    "&#1111111111;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -105,9 +105,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character overflow", // description
-    "&#111111111111;", // input
+    "&#111111111111;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -117,9 +117,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0000", // description
-    "&#x0000;", // input
+    "&#x0000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -129,9 +129,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0001", // description
-    "&#x0001;", // input
+    "&#x0001;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0001"},
+        CharacterToken{U"\u0001"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -141,9 +141,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0002", // description
-    "&#x0002;", // input
+    "&#x0002;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0002"},
+        CharacterToken{U"\u0002"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -153,9 +153,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0003", // description
-    "&#x0003;", // input
+    "&#x0003;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0003"},
+        CharacterToken{U"\u0003"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -165,9 +165,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0004", // description
-    "&#x0004;", // input
+    "&#x0004;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0004"},
+        CharacterToken{U"\u0004"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -177,9 +177,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0005", // description
-    "&#x0005;", // input
+    "&#x0005;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0005"},
+        CharacterToken{U"\u0005"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -189,9 +189,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0006", // description
-    "&#x0006;", // input
+    "&#x0006;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0006"},
+        CharacterToken{U"\u0006"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -201,9 +201,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0007", // description
-    "&#x0007;", // input
+    "&#x0007;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0007"},
+        CharacterToken{U"\u0007"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -213,9 +213,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0008", // description
-    "&#x0008;", // input
+    "&#x0008;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0008"},
+        CharacterToken{U"\u0008"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -225,9 +225,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+000B", // description
-    "&#x000b;", // input
+    "&#x000b;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000B"},
+        CharacterToken{U"\u000B"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -237,9 +237,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+000E", // description
-    "&#x000e;", // input
+    "&#x000e;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000E"},
+        CharacterToken{U"\u000E"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -249,9 +249,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+000F", // description
-    "&#x000f;", // input
+    "&#x000f;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000F"},
+        CharacterToken{U"\u000F"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -261,9 +261,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0010", // description
-    "&#x0010;", // input
+    "&#x0010;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0010"},
+        CharacterToken{U"\u0010"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -273,9 +273,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0011", // description
-    "&#x0011;", // input
+    "&#x0011;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0011"},
+        CharacterToken{U"\u0011"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -285,9 +285,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0012", // description
-    "&#x0012;", // input
+    "&#x0012;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0012"},
+        CharacterToken{U"\u0012"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -297,9 +297,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0013", // description
-    "&#x0013;", // input
+    "&#x0013;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0013"},
+        CharacterToken{U"\u0013"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -309,9 +309,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0014", // description
-    "&#x0014;", // input
+    "&#x0014;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0014"},
+        CharacterToken{U"\u0014"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -321,9 +321,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0015", // description
-    "&#x0015;", // input
+    "&#x0015;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0015"},
+        CharacterToken{U"\u0015"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -333,9 +333,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0016", // description
-    "&#x0016;", // input
+    "&#x0016;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0016"},
+        CharacterToken{U"\u0016"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -345,9 +345,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0017", // description
-    "&#x0017;", // input
+    "&#x0017;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0017"},
+        CharacterToken{U"\u0017"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -357,9 +357,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0018", // description
-    "&#x0018;", // input
+    "&#x0018;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0018"},
+        CharacterToken{U"\u0018"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -369,9 +369,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+0019", // description
-    "&#x0019;", // input
+    "&#x0019;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0019"},
+        CharacterToken{U"\u0019"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -381,9 +381,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+001A", // description
-    "&#x001a;", // input
+    "&#x001a;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u001A"},
+        CharacterToken{U"\u001A"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -393,9 +393,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+001B", // description
-    "&#x001b;", // input
+    "&#x001b;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u001B"},
+        CharacterToken{U"\u001B"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -405,9 +405,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+001C", // description
-    "&#x001c;", // input
+    "&#x001c;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u001C"},
+        CharacterToken{U"\u001C"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -417,9 +417,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+001D", // description
-    "&#x001d;", // input
+    "&#x001d;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u001D"},
+        CharacterToken{U"\u001D"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -429,9 +429,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+001E", // description
-    "&#x001e;", // input
+    "&#x001e;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u001E"},
+        CharacterToken{U"\u001E"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -441,9 +441,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+001F", // description
-    "&#x001f;", // input
+    "&#x001f;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u001F"},
+        CharacterToken{U"\u001F"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -453,9 +453,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+007F", // description
-    "&#x007f;", // input
+    "&#x007f;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u007F"},
+        CharacterToken{U"\u007F"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -465,9 +465,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+D800", // description
-    "&#xd800;", // input
+    "&#xd800;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -477,9 +477,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+DFFF", // description
-    "&#xdfff;", // input
+    "&#xdfff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -489,9 +489,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDD0", // description
-    "&#xfdd0;", // input
+    "&#xfdd0;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD0"},
+        CharacterToken{U"\uFDD0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -501,9 +501,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDD1", // description
-    "&#xfdd1;", // input
+    "&#xfdd1;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD1"},
+        CharacterToken{U"\uFDD1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -513,9 +513,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDD2", // description
-    "&#xfdd2;", // input
+    "&#xfdd2;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD2"},
+        CharacterToken{U"\uFDD2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -525,9 +525,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDD3", // description
-    "&#xfdd3;", // input
+    "&#xfdd3;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD3"},
+        CharacterToken{U"\uFDD3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -537,9 +537,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDD4", // description
-    "&#xfdd4;", // input
+    "&#xfdd4;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD4"},
+        CharacterToken{U"\uFDD4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -549,9 +549,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDD5", // description
-    "&#xfdd5;", // input
+    "&#xfdd5;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD5"},
+        CharacterToken{U"\uFDD5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -561,9 +561,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDD6", // description
-    "&#xfdd6;", // input
+    "&#xfdd6;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD6"},
+        CharacterToken{U"\uFDD6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -573,9 +573,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDD7", // description
-    "&#xfdd7;", // input
+    "&#xfdd7;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD7"},
+        CharacterToken{U"\uFDD7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -585,9 +585,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDD8", // description
-    "&#xfdd8;", // input
+    "&#xfdd8;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD8"},
+        CharacterToken{U"\uFDD8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -597,9 +597,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDD9", // description
-    "&#xfdd9;", // input
+    "&#xfdd9;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD9"},
+        CharacterToken{U"\uFDD9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -609,9 +609,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDDA", // description
-    "&#xfdda;", // input
+    "&#xfdda;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDDA"},
+        CharacterToken{U"\uFDDA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -621,9 +621,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDDB", // description
-    "&#xfddb;", // input
+    "&#xfddb;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDDB"},
+        CharacterToken{U"\uFDDB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -633,9 +633,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDDC", // description
-    "&#xfddc;", // input
+    "&#xfddc;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDDC"},
+        CharacterToken{U"\uFDDC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -645,9 +645,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDDD", // description
-    "&#xfddd;", // input
+    "&#xfddd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDDD"},
+        CharacterToken{U"\uFDDD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -657,9 +657,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDDE", // description
-    "&#xfdde;", // input
+    "&#xfdde;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDDE"},
+        CharacterToken{U"\uFDDE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -669,9 +669,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDDF", // description
-    "&#xfddf;", // input
+    "&#xfddf;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDDF"},
+        CharacterToken{U"\uFDDF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -681,9 +681,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDE0", // description
-    "&#xfde0;", // input
+    "&#xfde0;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE0"},
+        CharacterToken{U"\uFDE0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -693,9 +693,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDE1", // description
-    "&#xfde1;", // input
+    "&#xfde1;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE1"},
+        CharacterToken{U"\uFDE1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -705,9 +705,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDE2", // description
-    "&#xfde2;", // input
+    "&#xfde2;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE2"},
+        CharacterToken{U"\uFDE2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -717,9 +717,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDE3", // description
-    "&#xfde3;", // input
+    "&#xfde3;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE3"},
+        CharacterToken{U"\uFDE3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -729,9 +729,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDE4", // description
-    "&#xfde4;", // input
+    "&#xfde4;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE4"},
+        CharacterToken{U"\uFDE4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -741,9 +741,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDE5", // description
-    "&#xfde5;", // input
+    "&#xfde5;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE5"},
+        CharacterToken{U"\uFDE5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -753,9 +753,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDE6", // description
-    "&#xfde6;", // input
+    "&#xfde6;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE6"},
+        CharacterToken{U"\uFDE6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -765,9 +765,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDE7", // description
-    "&#xfde7;", // input
+    "&#xfde7;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE7"},
+        CharacterToken{U"\uFDE7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -777,9 +777,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDE8", // description
-    "&#xfde8;", // input
+    "&#xfde8;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE8"},
+        CharacterToken{U"\uFDE8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -789,9 +789,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDE9", // description
-    "&#xfde9;", // input
+    "&#xfde9;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE9"},
+        CharacterToken{U"\uFDE9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -801,9 +801,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDEA", // description
-    "&#xfdea;", // input
+    "&#xfdea;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDEA"},
+        CharacterToken{U"\uFDEA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -813,9 +813,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDEB", // description
-    "&#xfdeb;", // input
+    "&#xfdeb;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDEB"},
+        CharacterToken{U"\uFDEB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -825,9 +825,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDEC", // description
-    "&#xfdec;", // input
+    "&#xfdec;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDEC"},
+        CharacterToken{U"\uFDEC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -837,9 +837,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDED", // description
-    "&#xfded;", // input
+    "&#xfded;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDED"},
+        CharacterToken{U"\uFDED"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -849,9 +849,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDEE", // description
-    "&#xfdee;", // input
+    "&#xfdee;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDEE"},
+        CharacterToken{U"\uFDEE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -861,9 +861,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FDEF", // description
-    "&#xfdef;", // input
+    "&#xfdef;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDEF"},
+        CharacterToken{U"\uFDEF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -873,9 +873,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FFFE", // description
-    "&#xfffe;", // input
+    "&#xfffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFE"},
+        CharacterToken{U"\uFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -885,9 +885,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FFFF", // description
-    "&#xffff;", // input
+    "&#xffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFF"},
+        CharacterToken{U"\uFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -897,9 +897,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+1FFFE", // description
-    "&#x1fffe;", // input
+    "&#x1fffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0001FFFE"},
+        CharacterToken{U"\U0001FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -909,9 +909,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+1FFFF", // description
-    "&#x1ffff;", // input
+    "&#x1ffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0001FFFF"},
+        CharacterToken{U"\U0001FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -921,9 +921,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+2FFFE", // description
-    "&#x2fffe;", // input
+    "&#x2fffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0002FFFE"},
+        CharacterToken{U"\U0002FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -933,9 +933,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+2FFFF", // description
-    "&#x2ffff;", // input
+    "&#x2ffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0002FFFF"},
+        CharacterToken{U"\U0002FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -945,9 +945,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+3FFFE", // description
-    "&#x3fffe;", // input
+    "&#x3fffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0003FFFE"},
+        CharacterToken{U"\U0003FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -957,9 +957,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+3FFFF", // description
-    "&#x3ffff;", // input
+    "&#x3ffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0003FFFF"},
+        CharacterToken{U"\U0003FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -969,9 +969,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+4FFFE", // description
-    "&#x4fffe;", // input
+    "&#x4fffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0004FFFE"},
+        CharacterToken{U"\U0004FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -981,9 +981,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+4FFFF", // description
-    "&#x4ffff;", // input
+    "&#x4ffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0004FFFF"},
+        CharacterToken{U"\U0004FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -993,9 +993,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+5FFFE", // description
-    "&#x5fffe;", // input
+    "&#x5fffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0005FFFE"},
+        CharacterToken{U"\U0005FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1005,9 +1005,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+5FFFF", // description
-    "&#x5ffff;", // input
+    "&#x5ffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0005FFFF"},
+        CharacterToken{U"\U0005FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1017,9 +1017,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+6FFFE", // description
-    "&#x6fffe;", // input
+    "&#x6fffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0006FFFE"},
+        CharacterToken{U"\U0006FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1029,9 +1029,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+6FFFF", // description
-    "&#x6ffff;", // input
+    "&#x6ffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0006FFFF"},
+        CharacterToken{U"\U0006FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1041,9 +1041,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+7FFFE", // description
-    "&#x7fffe;", // input
+    "&#x7fffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0007FFFE"},
+        CharacterToken{U"\U0007FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1053,9 +1053,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+7FFFF", // description
-    "&#x7ffff;", // input
+    "&#x7ffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0007FFFF"},
+        CharacterToken{U"\U0007FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1065,9 +1065,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+8FFFE", // description
-    "&#x8fffe;", // input
+    "&#x8fffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0008FFFE"},
+        CharacterToken{U"\U0008FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1077,9 +1077,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+8FFFF", // description
-    "&#x8ffff;", // input
+    "&#x8ffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0008FFFF"},
+        CharacterToken{U"\U0008FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1089,9 +1089,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+9FFFE", // description
-    "&#x9fffe;", // input
+    "&#x9fffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0009FFFE"},
+        CharacterToken{U"\U0009FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1101,9 +1101,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+9FFFF", // description
-    "&#x9ffff;", // input
+    "&#x9ffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0009FFFF"},
+        CharacterToken{U"\U0009FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1113,9 +1113,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+AFFFE", // description
-    "&#xafffe;", // input
+    "&#xafffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000AFFFE"},
+        CharacterToken{U"\U000AFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1125,9 +1125,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+AFFFF", // description
-    "&#xaffff;", // input
+    "&#xaffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000AFFFF"},
+        CharacterToken{U"\U000AFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1137,9 +1137,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+BFFFE", // description
-    "&#xbfffe;", // input
+    "&#xbfffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000BFFFE"},
+        CharacterToken{U"\U000BFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1149,9 +1149,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+BFFFF", // description
-    "&#xbffff;", // input
+    "&#xbffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000BFFFF"},
+        CharacterToken{U"\U000BFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1161,9 +1161,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+CFFFE", // description
-    "&#xcfffe;", // input
+    "&#xcfffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000CFFFE"},
+        CharacterToken{U"\U000CFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1173,9 +1173,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+CFFFF", // description
-    "&#xcffff;", // input
+    "&#xcffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000CFFFF"},
+        CharacterToken{U"\U000CFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1185,9 +1185,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+DFFFE", // description
-    "&#xdfffe;", // input
+    "&#xdfffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000DFFFE"},
+        CharacterToken{U"\U000DFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1197,9 +1197,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+DFFFF", // description
-    "&#xdffff;", // input
+    "&#xdffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000DFFFF"},
+        CharacterToken{U"\U000DFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1209,9 +1209,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+EFFFE", // description
-    "&#xefffe;", // input
+    "&#xefffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000EFFFE"},
+        CharacterToken{U"\U000EFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1221,9 +1221,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+EFFFF", // description
-    "&#xeffff;", // input
+    "&#xeffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000EFFFF"},
+        CharacterToken{U"\U000EFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1233,9 +1233,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FFFFE", // description
-    "&#xffffe;", // input
+    "&#xffffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000FFFFE"},
+        CharacterToken{U"\U000FFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1245,9 +1245,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+FFFFF", // description
-    "&#xfffff;", // input
+    "&#xfffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000FFFFF"},
+        CharacterToken{U"\U000FFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1257,9 +1257,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+10FFFE", // description
-    "&#x10fffe;", // input
+    "&#x10fffe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0010FFFE"},
+        CharacterToken{U"\U0010FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1269,9 +1269,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid numeric entity character U+10FFFF", // description
-    "&#x10ffff;", // input
+    "&#x10ffff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0010FFFF"},
+        CharacterToken{U"\U0010FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1281,9 +1281,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0009", // description
-    "&#x0009;", // input
+    "&#x0009;"s, // input
     { // expectedTokens
-        CharacterToken{U"\t"},
+        CharacterToken{U"\t"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1292,9 +1292,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+000A", // description
-    "&#x000a;", // input
+    "&#x000a;"s, // input
     { // expectedTokens
-        CharacterToken{U"\n"},
+        CharacterToken{U"\n"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1303,9 +1303,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0020", // description
-    "&#x0020;", // input
+    "&#x0020;"s, // input
     { // expectedTokens
-        CharacterToken{U" "},
+        CharacterToken{U" "s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1314,9 +1314,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0021", // description
-    "&#x0021;", // input
+    "&#x0021;"s, // input
     { // expectedTokens
-        CharacterToken{U"!"},
+        CharacterToken{U"!"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1325,9 +1325,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0022", // description
-    "&#x0022;", // input
+    "&#x0022;"s, // input
     { // expectedTokens
-        CharacterToken{U"\""},
+        CharacterToken{U"\""s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1336,9 +1336,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0023", // description
-    "&#x0023;", // input
+    "&#x0023;"s, // input
     { // expectedTokens
-        CharacterToken{U"#"},
+        CharacterToken{U"#"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1347,9 +1347,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0024", // description
-    "&#x0024;", // input
+    "&#x0024;"s, // input
     { // expectedTokens
-        CharacterToken{U"$"},
+        CharacterToken{U"$"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1358,9 +1358,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0025", // description
-    "&#x0025;", // input
+    "&#x0025;"s, // input
     { // expectedTokens
-        CharacterToken{U"%"},
+        CharacterToken{U"%"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1369,9 +1369,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0026", // description
-    "&#x0026;", // input
+    "&#x0026;"s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
+        CharacterToken{U"&"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1380,9 +1380,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0027", // description
-    "&#x0027;", // input
+    "&#x0027;"s, // input
     { // expectedTokens
-        CharacterToken{U"'"},
+        CharacterToken{U"'"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1391,9 +1391,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0028", // description
-    "&#x0028;", // input
+    "&#x0028;"s, // input
     { // expectedTokens
-        CharacterToken{U"("},
+        CharacterToken{U"("s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1402,9 +1402,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0029", // description
-    "&#x0029;", // input
+    "&#x0029;"s, // input
     { // expectedTokens
-        CharacterToken{U")"},
+        CharacterToken{U")"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1413,9 +1413,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+002A", // description
-    "&#x002a;", // input
+    "&#x002a;"s, // input
     { // expectedTokens
-        CharacterToken{U"*"},
+        CharacterToken{U"*"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1424,9 +1424,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+002B", // description
-    "&#x002b;", // input
+    "&#x002b;"s, // input
     { // expectedTokens
-        CharacterToken{U"+"},
+        CharacterToken{U"+"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1435,9 +1435,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+002C", // description
-    "&#x002c;", // input
+    "&#x002c;"s, // input
     { // expectedTokens
-        CharacterToken{U","},
+        CharacterToken{U","s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1446,9 +1446,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+002D", // description
-    "&#x002d;", // input
+    "&#x002d;"s, // input
     { // expectedTokens
-        CharacterToken{U"-"},
+        CharacterToken{U"-"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1457,9 +1457,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+002E", // description
-    "&#x002e;", // input
+    "&#x002e;"s, // input
     { // expectedTokens
-        CharacterToken{U"."},
+        CharacterToken{U"."s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1468,9 +1468,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+002F", // description
-    "&#x002f;", // input
+    "&#x002f;"s, // input
     { // expectedTokens
-        CharacterToken{U"/"},
+        CharacterToken{U"/"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1479,9 +1479,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0030", // description
-    "&#x0030;", // input
+    "&#x0030;"s, // input
     { // expectedTokens
-        CharacterToken{U"0"},
+        CharacterToken{U"0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1490,9 +1490,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0031", // description
-    "&#x0031;", // input
+    "&#x0031;"s, // input
     { // expectedTokens
-        CharacterToken{U"1"},
+        CharacterToken{U"1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1501,9 +1501,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0032", // description
-    "&#x0032;", // input
+    "&#x0032;"s, // input
     { // expectedTokens
-        CharacterToken{U"2"},
+        CharacterToken{U"2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1512,9 +1512,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0033", // description
-    "&#x0033;", // input
+    "&#x0033;"s, // input
     { // expectedTokens
-        CharacterToken{U"3"},
+        CharacterToken{U"3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1523,9 +1523,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0034", // description
-    "&#x0034;", // input
+    "&#x0034;"s, // input
     { // expectedTokens
-        CharacterToken{U"4"},
+        CharacterToken{U"4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1534,9 +1534,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0035", // description
-    "&#x0035;", // input
+    "&#x0035;"s, // input
     { // expectedTokens
-        CharacterToken{U"5"},
+        CharacterToken{U"5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1545,9 +1545,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0036", // description
-    "&#x0036;", // input
+    "&#x0036;"s, // input
     { // expectedTokens
-        CharacterToken{U"6"},
+        CharacterToken{U"6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1556,9 +1556,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0037", // description
-    "&#x0037;", // input
+    "&#x0037;"s, // input
     { // expectedTokens
-        CharacterToken{U"7"},
+        CharacterToken{U"7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1567,9 +1567,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0038", // description
-    "&#x0038;", // input
+    "&#x0038;"s, // input
     { // expectedTokens
-        CharacterToken{U"8"},
+        CharacterToken{U"8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1578,9 +1578,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0039", // description
-    "&#x0039;", // input
+    "&#x0039;"s, // input
     { // expectedTokens
-        CharacterToken{U"9"},
+        CharacterToken{U"9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1589,9 +1589,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+003A", // description
-    "&#x003a;", // input
+    "&#x003a;"s, // input
     { // expectedTokens
-        CharacterToken{U":"},
+        CharacterToken{U":"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1600,9 +1600,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+003B", // description
-    "&#x003b;", // input
+    "&#x003b;"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
+        CharacterToken{U";"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1611,9 +1611,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+003C", // description
-    "&#x003c;", // input
+    "&#x003c;"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
+        CharacterToken{U"<"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1622,9 +1622,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+003D", // description
-    "&#x003d;", // input
+    "&#x003d;"s, // input
     { // expectedTokens
-        CharacterToken{U"="},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1633,9 +1633,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+003E", // description
-    "&#x003e;", // input
+    "&#x003e;"s, // input
     { // expectedTokens
-        CharacterToken{U">"},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1644,9 +1644,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+003F", // description
-    "&#x003f;", // input
+    "&#x003f;"s, // input
     { // expectedTokens
-        CharacterToken{U"?"},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1655,9 +1655,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0040", // description
-    "&#x0040;", // input
+    "&#x0040;"s, // input
     { // expectedTokens
-        CharacterToken{U"@"},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1666,9 +1666,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0041", // description
-    "&#x0041;", // input
+    "&#x0041;"s, // input
     { // expectedTokens
-        CharacterToken{U"A"},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1677,9 +1677,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0042", // description
-    "&#x0042;", // input
+    "&#x0042;"s, // input
     { // expectedTokens
-        CharacterToken{U"B"},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1688,9 +1688,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0043", // description
-    "&#x0043;", // input
+    "&#x0043;"s, // input
     { // expectedTokens
-        CharacterToken{U"C"},
+        CharacterToken{U"C"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1699,9 +1699,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0044", // description
-    "&#x0044;", // input
+    "&#x0044;"s, // input
     { // expectedTokens
-        CharacterToken{U"D"},
+        CharacterToken{U"D"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1710,9 +1710,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0045", // description
-    "&#x0045;", // input
+    "&#x0045;"s, // input
     { // expectedTokens
-        CharacterToken{U"E"},
+        CharacterToken{U"E"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1721,9 +1721,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0046", // description
-    "&#x0046;", // input
+    "&#x0046;"s, // input
     { // expectedTokens
-        CharacterToken{U"F"},
+        CharacterToken{U"F"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1732,9 +1732,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0047", // description
-    "&#x0047;", // input
+    "&#x0047;"s, // input
     { // expectedTokens
-        CharacterToken{U"G"},
+        CharacterToken{U"G"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1743,9 +1743,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0048", // description
-    "&#x0048;", // input
+    "&#x0048;"s, // input
     { // expectedTokens
-        CharacterToken{U"H"},
+        CharacterToken{U"H"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1754,9 +1754,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0049", // description
-    "&#x0049;", // input
+    "&#x0049;"s, // input
     { // expectedTokens
-        CharacterToken{U"I"},
+        CharacterToken{U"I"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1765,9 +1765,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+004A", // description
-    "&#x004a;", // input
+    "&#x004a;"s, // input
     { // expectedTokens
-        CharacterToken{U"J"},
+        CharacterToken{U"J"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1776,9 +1776,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+004B", // description
-    "&#x004b;", // input
+    "&#x004b;"s, // input
     { // expectedTokens
-        CharacterToken{U"K"},
+        CharacterToken{U"K"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1787,9 +1787,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+004C", // description
-    "&#x004c;", // input
+    "&#x004c;"s, // input
     { // expectedTokens
-        CharacterToken{U"L"},
+        CharacterToken{U"L"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1798,9 +1798,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+004D", // description
-    "&#x004d;", // input
+    "&#x004d;"s, // input
     { // expectedTokens
-        CharacterToken{U"M"},
+        CharacterToken{U"M"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1809,9 +1809,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+004E", // description
-    "&#x004e;", // input
+    "&#x004e;"s, // input
     { // expectedTokens
-        CharacterToken{U"N"},
+        CharacterToken{U"N"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1820,9 +1820,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+004F", // description
-    "&#x004f;", // input
+    "&#x004f;"s, // input
     { // expectedTokens
-        CharacterToken{U"O"},
+        CharacterToken{U"O"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1831,9 +1831,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0050", // description
-    "&#x0050;", // input
+    "&#x0050;"s, // input
     { // expectedTokens
-        CharacterToken{U"P"},
+        CharacterToken{U"P"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1842,9 +1842,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0051", // description
-    "&#x0051;", // input
+    "&#x0051;"s, // input
     { // expectedTokens
-        CharacterToken{U"Q"},
+        CharacterToken{U"Q"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1853,9 +1853,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0052", // description
-    "&#x0052;", // input
+    "&#x0052;"s, // input
     { // expectedTokens
-        CharacterToken{U"R"},
+        CharacterToken{U"R"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1864,9 +1864,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0053", // description
-    "&#x0053;", // input
+    "&#x0053;"s, // input
     { // expectedTokens
-        CharacterToken{U"S"},
+        CharacterToken{U"S"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1875,9 +1875,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0054", // description
-    "&#x0054;", // input
+    "&#x0054;"s, // input
     { // expectedTokens
-        CharacterToken{U"T"},
+        CharacterToken{U"T"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1886,9 +1886,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0055", // description
-    "&#x0055;", // input
+    "&#x0055;"s, // input
     { // expectedTokens
-        CharacterToken{U"U"},
+        CharacterToken{U"U"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1897,9 +1897,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0056", // description
-    "&#x0056;", // input
+    "&#x0056;"s, // input
     { // expectedTokens
-        CharacterToken{U"V"},
+        CharacterToken{U"V"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1908,9 +1908,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0057", // description
-    "&#x0057;", // input
+    "&#x0057;"s, // input
     { // expectedTokens
-        CharacterToken{U"W"},
+        CharacterToken{U"W"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1919,9 +1919,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0058", // description
-    "&#x0058;", // input
+    "&#x0058;"s, // input
     { // expectedTokens
-        CharacterToken{U"X"},
+        CharacterToken{U"X"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1930,9 +1930,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0059", // description
-    "&#x0059;", // input
+    "&#x0059;"s, // input
     { // expectedTokens
-        CharacterToken{U"Y"},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1941,9 +1941,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+005A", // description
-    "&#x005a;", // input
+    "&#x005a;"s, // input
     { // expectedTokens
-        CharacterToken{U"Z"},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1952,9 +1952,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+005B", // description
-    "&#x005b;", // input
+    "&#x005b;"s, // input
     { // expectedTokens
-        CharacterToken{U"["},
+        CharacterToken{U"["s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1963,9 +1963,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+005C", // description
-    "&#x005c;", // input
+    "&#x005c;"s, // input
     { // expectedTokens
-        CharacterToken{U"\\"},
+        CharacterToken{U"\\"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1974,9 +1974,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+005D", // description
-    "&#x005d;", // input
+    "&#x005d;"s, // input
     { // expectedTokens
-        CharacterToken{U"]"},
+        CharacterToken{U"]"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1985,9 +1985,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+005E", // description
-    "&#x005e;", // input
+    "&#x005e;"s, // input
     { // expectedTokens
-        CharacterToken{U"^"},
+        CharacterToken{U"^"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1996,9 +1996,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+005F", // description
-    "&#x005f;", // input
+    "&#x005f;"s, // input
     { // expectedTokens
-        CharacterToken{U"_"},
+        CharacterToken{U"_"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2007,9 +2007,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0060", // description
-    "&#x0060;", // input
+    "&#x0060;"s, // input
     { // expectedTokens
-        CharacterToken{U"`"},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2018,9 +2018,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0061", // description
-    "&#x0061;", // input
+    "&#x0061;"s, // input
     { // expectedTokens
-        CharacterToken{U"a"},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2029,9 +2029,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0062", // description
-    "&#x0062;", // input
+    "&#x0062;"s, // input
     { // expectedTokens
-        CharacterToken{U"b"},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2040,9 +2040,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0063", // description
-    "&#x0063;", // input
+    "&#x0063;"s, // input
     { // expectedTokens
-        CharacterToken{U"c"},
+        CharacterToken{U"c"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2051,9 +2051,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0064", // description
-    "&#x0064;", // input
+    "&#x0064;"s, // input
     { // expectedTokens
-        CharacterToken{U"d"},
+        CharacterToken{U"d"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2062,9 +2062,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0065", // description
-    "&#x0065;", // input
+    "&#x0065;"s, // input
     { // expectedTokens
-        CharacterToken{U"e"},
+        CharacterToken{U"e"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2073,9 +2073,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0066", // description
-    "&#x0066;", // input
+    "&#x0066;"s, // input
     { // expectedTokens
-        CharacterToken{U"f"},
+        CharacterToken{U"f"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2084,9 +2084,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0067", // description
-    "&#x0067;", // input
+    "&#x0067;"s, // input
     { // expectedTokens
-        CharacterToken{U"g"},
+        CharacterToken{U"g"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2095,9 +2095,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0068", // description
-    "&#x0068;", // input
+    "&#x0068;"s, // input
     { // expectedTokens
-        CharacterToken{U"h"},
+        CharacterToken{U"h"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2106,9 +2106,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0069", // description
-    "&#x0069;", // input
+    "&#x0069;"s, // input
     { // expectedTokens
-        CharacterToken{U"i"},
+        CharacterToken{U"i"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2117,9 +2117,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+006A", // description
-    "&#x006a;", // input
+    "&#x006a;"s, // input
     { // expectedTokens
-        CharacterToken{U"j"},
+        CharacterToken{U"j"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2128,9 +2128,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+006B", // description
-    "&#x006b;", // input
+    "&#x006b;"s, // input
     { // expectedTokens
-        CharacterToken{U"k"},
+        CharacterToken{U"k"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2139,9 +2139,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+006C", // description
-    "&#x006c;", // input
+    "&#x006c;"s, // input
     { // expectedTokens
-        CharacterToken{U"l"},
+        CharacterToken{U"l"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2150,9 +2150,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+006D", // description
-    "&#x006d;", // input
+    "&#x006d;"s, // input
     { // expectedTokens
-        CharacterToken{U"m"},
+        CharacterToken{U"m"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2161,9 +2161,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+006E", // description
-    "&#x006e;", // input
+    "&#x006e;"s, // input
     { // expectedTokens
-        CharacterToken{U"n"},
+        CharacterToken{U"n"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2172,9 +2172,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+006F", // description
-    "&#x006f;", // input
+    "&#x006f;"s, // input
     { // expectedTokens
-        CharacterToken{U"o"},
+        CharacterToken{U"o"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2183,9 +2183,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0070", // description
-    "&#x0070;", // input
+    "&#x0070;"s, // input
     { // expectedTokens
-        CharacterToken{U"p"},
+        CharacterToken{U"p"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2194,9 +2194,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0071", // description
-    "&#x0071;", // input
+    "&#x0071;"s, // input
     { // expectedTokens
-        CharacterToken{U"q"},
+        CharacterToken{U"q"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2205,9 +2205,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0072", // description
-    "&#x0072;", // input
+    "&#x0072;"s, // input
     { // expectedTokens
-        CharacterToken{U"r"},
+        CharacterToken{U"r"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2216,9 +2216,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0073", // description
-    "&#x0073;", // input
+    "&#x0073;"s, // input
     { // expectedTokens
-        CharacterToken{U"s"},
+        CharacterToken{U"s"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2227,9 +2227,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0074", // description
-    "&#x0074;", // input
+    "&#x0074;"s, // input
     { // expectedTokens
-        CharacterToken{U"t"},
+        CharacterToken{U"t"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2238,9 +2238,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0075", // description
-    "&#x0075;", // input
+    "&#x0075;"s, // input
     { // expectedTokens
-        CharacterToken{U"u"},
+        CharacterToken{U"u"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2249,9 +2249,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0076", // description
-    "&#x0076;", // input
+    "&#x0076;"s, // input
     { // expectedTokens
-        CharacterToken{U"v"},
+        CharacterToken{U"v"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2260,9 +2260,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0077", // description
-    "&#x0077;", // input
+    "&#x0077;"s, // input
     { // expectedTokens
-        CharacterToken{U"w"},
+        CharacterToken{U"w"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2271,9 +2271,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0078", // description
-    "&#x0078;", // input
+    "&#x0078;"s, // input
     { // expectedTokens
-        CharacterToken{U"x"},
+        CharacterToken{U"x"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2282,9 +2282,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+0079", // description
-    "&#x0079;", // input
+    "&#x0079;"s, // input
     { // expectedTokens
-        CharacterToken{U"y"},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2293,9 +2293,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+007A", // description
-    "&#x007a;", // input
+    "&#x007a;"s, // input
     { // expectedTokens
-        CharacterToken{U"z"},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2304,9 +2304,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+007B", // description
-    "&#x007b;", // input
+    "&#x007b;"s, // input
     { // expectedTokens
-        CharacterToken{U"{"},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2315,9 +2315,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+007C", // description
-    "&#x007c;", // input
+    "&#x007c;"s, // input
     { // expectedTokens
-        CharacterToken{U"|"},
+        CharacterToken{U"|"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2326,9 +2326,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+007D", // description
-    "&#x007d;", // input
+    "&#x007d;"s, // input
     { // expectedTokens
-        CharacterToken{U"}"},
+        CharacterToken{U"}"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2337,9 +2337,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+007E", // description
-    "&#x007e;", // input
+    "&#x007e;"s, // input
     { // expectedTokens
-        CharacterToken{U"~"},
+        CharacterToken{U"~"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2348,9 +2348,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00A0", // description
-    "&#x00a0;", // input
+    "&#x00a0;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A0"},
+        CharacterToken{U"\u00A0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2359,9 +2359,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00A1", // description
-    "&#x00a1;", // input
+    "&#x00a1;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A1"},
+        CharacterToken{U"\u00A1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2370,9 +2370,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00A2", // description
-    "&#x00a2;", // input
+    "&#x00a2;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A2"},
+        CharacterToken{U"\u00A2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2381,9 +2381,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00A3", // description
-    "&#x00a3;", // input
+    "&#x00a3;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A3"},
+        CharacterToken{U"\u00A3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2392,9 +2392,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00A4", // description
-    "&#x00a4;", // input
+    "&#x00a4;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A4"},
+        CharacterToken{U"\u00A4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2403,9 +2403,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00A5", // description
-    "&#x00a5;", // input
+    "&#x00a5;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A5"},
+        CharacterToken{U"\u00A5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2414,9 +2414,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00A6", // description
-    "&#x00a6;", // input
+    "&#x00a6;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A6"},
+        CharacterToken{U"\u00A6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2425,9 +2425,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00A7", // description
-    "&#x00a7;", // input
+    "&#x00a7;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A7"},
+        CharacterToken{U"\u00A7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2436,9 +2436,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00A8", // description
-    "&#x00a8;", // input
+    "&#x00a8;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A8"},
+        CharacterToken{U"\u00A8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2447,9 +2447,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00A9", // description
-    "&#x00a9;", // input
+    "&#x00a9;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A9"},
+        CharacterToken{U"\u00A9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2458,9 +2458,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00AA", // description
-    "&#x00aa;", // input
+    "&#x00aa;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00AA"},
+        CharacterToken{U"\u00AA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2469,9 +2469,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00AB", // description
-    "&#x00ab;", // input
+    "&#x00ab;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00AB"},
+        CharacterToken{U"\u00AB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2480,9 +2480,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00AC", // description
-    "&#x00ac;", // input
+    "&#x00ac;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00AC"},
+        CharacterToken{U"\u00AC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2491,9 +2491,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00AD", // description
-    "&#x00ad;", // input
+    "&#x00ad;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00AD"},
+        CharacterToken{U"\u00AD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2502,9 +2502,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00AE", // description
-    "&#x00ae;", // input
+    "&#x00ae;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00AE"},
+        CharacterToken{U"\u00AE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2513,9 +2513,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00AF", // description
-    "&#x00af;", // input
+    "&#x00af;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00AF"},
+        CharacterToken{U"\u00AF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2524,9 +2524,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00B0", // description
-    "&#x00b0;", // input
+    "&#x00b0;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B0"},
+        CharacterToken{U"\u00B0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2535,9 +2535,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00B1", // description
-    "&#x00b1;", // input
+    "&#x00b1;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B1"},
+        CharacterToken{U"\u00B1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2546,9 +2546,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00B2", // description
-    "&#x00b2;", // input
+    "&#x00b2;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B2"},
+        CharacterToken{U"\u00B2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2557,9 +2557,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00B3", // description
-    "&#x00b3;", // input
+    "&#x00b3;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B3"},
+        CharacterToken{U"\u00B3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2568,9 +2568,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00B4", // description
-    "&#x00b4;", // input
+    "&#x00b4;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B4"},
+        CharacterToken{U"\u00B4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2579,9 +2579,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00B5", // description
-    "&#x00b5;", // input
+    "&#x00b5;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B5"},
+        CharacterToken{U"\u00B5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2590,9 +2590,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00B6", // description
-    "&#x00b6;", // input
+    "&#x00b6;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B6"},
+        CharacterToken{U"\u00B6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2601,9 +2601,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00B7", // description
-    "&#x00b7;", // input
+    "&#x00b7;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B7"},
+        CharacterToken{U"\u00B7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2612,9 +2612,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00B8", // description
-    "&#x00b8;", // input
+    "&#x00b8;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B8"},
+        CharacterToken{U"\u00B8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2623,9 +2623,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00B9", // description
-    "&#x00b9;", // input
+    "&#x00b9;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B9"},
+        CharacterToken{U"\u00B9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2634,9 +2634,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00BA", // description
-    "&#x00ba;", // input
+    "&#x00ba;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00BA"},
+        CharacterToken{U"\u00BA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2645,9 +2645,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00BB", // description
-    "&#x00bb;", // input
+    "&#x00bb;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00BB"},
+        CharacterToken{U"\u00BB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2656,9 +2656,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00BC", // description
-    "&#x00bc;", // input
+    "&#x00bc;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00BC"},
+        CharacterToken{U"\u00BC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2667,9 +2667,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00BD", // description
-    "&#x00bd;", // input
+    "&#x00bd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00BD"},
+        CharacterToken{U"\u00BD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2678,9 +2678,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00BE", // description
-    "&#x00be;", // input
+    "&#x00be;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00BE"},
+        CharacterToken{U"\u00BE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2689,9 +2689,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00BF", // description
-    "&#x00bf;", // input
+    "&#x00bf;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00BF"},
+        CharacterToken{U"\u00BF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2700,9 +2700,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00C0", // description
-    "&#x00c0;", // input
+    "&#x00c0;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C0"},
+        CharacterToken{U"\u00C0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2711,9 +2711,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00C1", // description
-    "&#x00c1;", // input
+    "&#x00c1;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C1"},
+        CharacterToken{U"\u00C1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2722,9 +2722,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00C2", // description
-    "&#x00c2;", // input
+    "&#x00c2;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C2"},
+        CharacterToken{U"\u00C2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2733,9 +2733,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00C3", // description
-    "&#x00c3;", // input
+    "&#x00c3;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C3"},
+        CharacterToken{U"\u00C3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2744,9 +2744,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00C4", // description
-    "&#x00c4;", // input
+    "&#x00c4;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C4"},
+        CharacterToken{U"\u00C4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2755,9 +2755,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00C5", // description
-    "&#x00c5;", // input
+    "&#x00c5;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C5"},
+        CharacterToken{U"\u00C5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2766,9 +2766,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00C6", // description
-    "&#x00c6;", // input
+    "&#x00c6;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C6"},
+        CharacterToken{U"\u00C6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2777,9 +2777,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00C7", // description
-    "&#x00c7;", // input
+    "&#x00c7;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C7"},
+        CharacterToken{U"\u00C7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2788,9 +2788,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00C8", // description
-    "&#x00c8;", // input
+    "&#x00c8;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C8"},
+        CharacterToken{U"\u00C8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2799,9 +2799,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00C9", // description
-    "&#x00c9;", // input
+    "&#x00c9;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C9"},
+        CharacterToken{U"\u00C9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2810,9 +2810,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00CA", // description
-    "&#x00ca;", // input
+    "&#x00ca;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00CA"},
+        CharacterToken{U"\u00CA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2821,9 +2821,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00CB", // description
-    "&#x00cb;", // input
+    "&#x00cb;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00CB"},
+        CharacterToken{U"\u00CB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2832,9 +2832,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00CC", // description
-    "&#x00cc;", // input
+    "&#x00cc;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00CC"},
+        CharacterToken{U"\u00CC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2843,9 +2843,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00CD", // description
-    "&#x00cd;", // input
+    "&#x00cd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00CD"},
+        CharacterToken{U"\u00CD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2854,9 +2854,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00CE", // description
-    "&#x00ce;", // input
+    "&#x00ce;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00CE"},
+        CharacterToken{U"\u00CE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2865,9 +2865,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00CF", // description
-    "&#x00cf;", // input
+    "&#x00cf;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00CF"},
+        CharacterToken{U"\u00CF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2876,9 +2876,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00D0", // description
-    "&#x00d0;", // input
+    "&#x00d0;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D0"},
+        CharacterToken{U"\u00D0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2887,9 +2887,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00D1", // description
-    "&#x00d1;", // input
+    "&#x00d1;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D1"},
+        CharacterToken{U"\u00D1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2898,9 +2898,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00D2", // description
-    "&#x00d2;", // input
+    "&#x00d2;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D2"},
+        CharacterToken{U"\u00D2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2909,9 +2909,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00D3", // description
-    "&#x00d3;", // input
+    "&#x00d3;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D3"},
+        CharacterToken{U"\u00D3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2920,9 +2920,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00D4", // description
-    "&#x00d4;", // input
+    "&#x00d4;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D4"},
+        CharacterToken{U"\u00D4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2931,9 +2931,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00D5", // description
-    "&#x00d5;", // input
+    "&#x00d5;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D5"},
+        CharacterToken{U"\u00D5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2942,9 +2942,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00D6", // description
-    "&#x00d6;", // input
+    "&#x00d6;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D6"},
+        CharacterToken{U"\u00D6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2953,9 +2953,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00D7", // description
-    "&#x00d7;", // input
+    "&#x00d7;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D7"},
+        CharacterToken{U"\u00D7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2964,9 +2964,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00D8", // description
-    "&#x00d8;", // input
+    "&#x00d8;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D8"},
+        CharacterToken{U"\u00D8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2975,9 +2975,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00D9", // description
-    "&#x00d9;", // input
+    "&#x00d9;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D9"},
+        CharacterToken{U"\u00D9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2986,9 +2986,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00DA", // description
-    "&#x00da;", // input
+    "&#x00da;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00DA"},
+        CharacterToken{U"\u00DA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2997,9 +2997,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00DB", // description
-    "&#x00db;", // input
+    "&#x00db;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00DB"},
+        CharacterToken{U"\u00DB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3008,9 +3008,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00DC", // description
-    "&#x00dc;", // input
+    "&#x00dc;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00DC"},
+        CharacterToken{U"\u00DC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3019,9 +3019,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00DD", // description
-    "&#x00dd;", // input
+    "&#x00dd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00DD"},
+        CharacterToken{U"\u00DD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3030,9 +3030,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00DE", // description
-    "&#x00de;", // input
+    "&#x00de;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00DE"},
+        CharacterToken{U"\u00DE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3041,9 +3041,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00DF", // description
-    "&#x00df;", // input
+    "&#x00df;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00DF"},
+        CharacterToken{U"\u00DF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3052,9 +3052,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00E0", // description
-    "&#x00e0;", // input
+    "&#x00e0;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E0"},
+        CharacterToken{U"\u00E0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3063,9 +3063,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00E1", // description
-    "&#x00e1;", // input
+    "&#x00e1;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E1"},
+        CharacterToken{U"\u00E1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3074,9 +3074,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00E2", // description
-    "&#x00e2;", // input
+    "&#x00e2;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E2"},
+        CharacterToken{U"\u00E2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3085,9 +3085,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00E3", // description
-    "&#x00e3;", // input
+    "&#x00e3;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E3"},
+        CharacterToken{U"\u00E3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3096,9 +3096,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00E4", // description
-    "&#x00e4;", // input
+    "&#x00e4;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E4"},
+        CharacterToken{U"\u00E4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3107,9 +3107,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00E5", // description
-    "&#x00e5;", // input
+    "&#x00e5;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E5"},
+        CharacterToken{U"\u00E5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3118,9 +3118,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00E6", // description
-    "&#x00e6;", // input
+    "&#x00e6;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E6"},
+        CharacterToken{U"\u00E6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3129,9 +3129,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00E7", // description
-    "&#x00e7;", // input
+    "&#x00e7;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E7"},
+        CharacterToken{U"\u00E7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3140,9 +3140,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00E8", // description
-    "&#x00e8;", // input
+    "&#x00e8;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E8"},
+        CharacterToken{U"\u00E8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3151,9 +3151,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00E9", // description
-    "&#x00e9;", // input
+    "&#x00e9;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E9"},
+        CharacterToken{U"\u00E9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3162,9 +3162,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00EA", // description
-    "&#x00ea;", // input
+    "&#x00ea;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00EA"},
+        CharacterToken{U"\u00EA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3173,9 +3173,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00EB", // description
-    "&#x00eb;", // input
+    "&#x00eb;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00EB"},
+        CharacterToken{U"\u00EB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3184,9 +3184,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00EC", // description
-    "&#x00ec;", // input
+    "&#x00ec;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00EC"},
+        CharacterToken{U"\u00EC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3195,9 +3195,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00ED", // description
-    "&#x00ed;", // input
+    "&#x00ed;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00ED"},
+        CharacterToken{U"\u00ED"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3206,9 +3206,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00EE", // description
-    "&#x00ee;", // input
+    "&#x00ee;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00EE"},
+        CharacterToken{U"\u00EE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3217,9 +3217,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00EF", // description
-    "&#x00ef;", // input
+    "&#x00ef;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00EF"},
+        CharacterToken{U"\u00EF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3228,9 +3228,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00F0", // description
-    "&#x00f0;", // input
+    "&#x00f0;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F0"},
+        CharacterToken{U"\u00F0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3239,9 +3239,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00F1", // description
-    "&#x00f1;", // input
+    "&#x00f1;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F1"},
+        CharacterToken{U"\u00F1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3250,9 +3250,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00F2", // description
-    "&#x00f2;", // input
+    "&#x00f2;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F2"},
+        CharacterToken{U"\u00F2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3261,9 +3261,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00F3", // description
-    "&#x00f3;", // input
+    "&#x00f3;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F3"},
+        CharacterToken{U"\u00F3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3272,9 +3272,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00F4", // description
-    "&#x00f4;", // input
+    "&#x00f4;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F4"},
+        CharacterToken{U"\u00F4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3283,9 +3283,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00F5", // description
-    "&#x00f5;", // input
+    "&#x00f5;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F5"},
+        CharacterToken{U"\u00F5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3294,9 +3294,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00F6", // description
-    "&#x00f6;", // input
+    "&#x00f6;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F6"},
+        CharacterToken{U"\u00F6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3305,9 +3305,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00F7", // description
-    "&#x00f7;", // input
+    "&#x00f7;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F7"},
+        CharacterToken{U"\u00F7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3316,9 +3316,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00F8", // description
-    "&#x00f8;", // input
+    "&#x00f8;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F8"},
+        CharacterToken{U"\u00F8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3327,9 +3327,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00F9", // description
-    "&#x00f9;", // input
+    "&#x00f9;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F9"},
+        CharacterToken{U"\u00F9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3338,9 +3338,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00FA", // description
-    "&#x00fa;", // input
+    "&#x00fa;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00FA"},
+        CharacterToken{U"\u00FA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3349,9 +3349,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00FB", // description
-    "&#x00fb;", // input
+    "&#x00fb;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00FB"},
+        CharacterToken{U"\u00FB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3360,9 +3360,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00FC", // description
-    "&#x00fc;", // input
+    "&#x00fc;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00FC"},
+        CharacterToken{U"\u00FC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3371,9 +3371,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00FD", // description
-    "&#x00fd;", // input
+    "&#x00fd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00FD"},
+        CharacterToken{U"\u00FD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3382,9 +3382,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00FE", // description
-    "&#x00fe;", // input
+    "&#x00fe;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00FE"},
+        CharacterToken{U"\u00FE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3393,9 +3393,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+00FF", // description
-    "&#x00ff;", // input
+    "&#x00ff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00FF"},
+        CharacterToken{U"\u00FF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3404,9 +3404,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+D7FF", // description
-    "&#xd7ff;", // input
+    "&#xd7ff;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uD7FF"},
+        CharacterToken{U"\uD7FF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3415,9 +3415,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+E000", // description
-    "&#xe000;", // input
+    "&#xe000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uE000"},
+        CharacterToken{U"\uE000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3426,9 +3426,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+FDCF", // description
-    "&#xfdcf;", // input
+    "&#xfdcf;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDCF"},
+        CharacterToken{U"\uFDCF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3437,9 +3437,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+FDF0", // description
-    "&#xfdf0;", // input
+    "&#xfdf0;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDF0"},
+        CharacterToken{U"\uFDF0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3448,9 +3448,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+FFFD", // description
-    "&#xfffd;", // input
+    "&#xfffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3459,9 +3459,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+10000", // description
-    "&#x10000;", // input
+    "&#x10000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00010000"},
+        CharacterToken{U"\U00010000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3470,9 +3470,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+1FFFD", // description
-    "&#x1fffd;", // input
+    "&#x1fffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0001FFFD"},
+        CharacterToken{U"\U0001FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3481,9 +3481,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+20000", // description
-    "&#x20000;", // input
+    "&#x20000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00020000"},
+        CharacterToken{U"\U00020000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3492,9 +3492,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+2FFFD", // description
-    "&#x2fffd;", // input
+    "&#x2fffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0002FFFD"},
+        CharacterToken{U"\U0002FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3503,9 +3503,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+30000", // description
-    "&#x30000;", // input
+    "&#x30000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00030000"},
+        CharacterToken{U"\U00030000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3514,9 +3514,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+3FFFD", // description
-    "&#x3fffd;", // input
+    "&#x3fffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0003FFFD"},
+        CharacterToken{U"\U0003FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3525,9 +3525,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+40000", // description
-    "&#x40000;", // input
+    "&#x40000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00040000"},
+        CharacterToken{U"\U00040000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3536,9 +3536,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+4FFFD", // description
-    "&#x4fffd;", // input
+    "&#x4fffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0004FFFD"},
+        CharacterToken{U"\U0004FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3547,9 +3547,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+50000", // description
-    "&#x50000;", // input
+    "&#x50000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00050000"},
+        CharacterToken{U"\U00050000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3558,9 +3558,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+5FFFD", // description
-    "&#x5fffd;", // input
+    "&#x5fffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0005FFFD"},
+        CharacterToken{U"\U0005FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3569,9 +3569,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+60000", // description
-    "&#x60000;", // input
+    "&#x60000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00060000"},
+        CharacterToken{U"\U00060000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3580,9 +3580,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+6FFFD", // description
-    "&#x6fffd;", // input
+    "&#x6fffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0006FFFD"},
+        CharacterToken{U"\U0006FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3591,9 +3591,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+70000", // description
-    "&#x70000;", // input
+    "&#x70000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00070000"},
+        CharacterToken{U"\U00070000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3602,9 +3602,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+7FFFD", // description
-    "&#x7fffd;", // input
+    "&#x7fffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0007FFFD"},
+        CharacterToken{U"\U0007FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3613,9 +3613,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+80000", // description
-    "&#x80000;", // input
+    "&#x80000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00080000"},
+        CharacterToken{U"\U00080000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3624,9 +3624,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+8FFFD", // description
-    "&#x8fffd;", // input
+    "&#x8fffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0008FFFD"},
+        CharacterToken{U"\U0008FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3635,9 +3635,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+90000", // description
-    "&#x90000;", // input
+    "&#x90000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00090000"},
+        CharacterToken{U"\U00090000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3646,9 +3646,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+9FFFD", // description
-    "&#x9fffd;", // input
+    "&#x9fffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0009FFFD"},
+        CharacterToken{U"\U0009FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3657,9 +3657,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+A0000", // description
-    "&#xa0000;", // input
+    "&#xa0000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000A0000"},
+        CharacterToken{U"\U000A0000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3668,9 +3668,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+AFFFD", // description
-    "&#xafffd;", // input
+    "&#xafffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000AFFFD"},
+        CharacterToken{U"\U000AFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3679,9 +3679,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+B0000", // description
-    "&#xb0000;", // input
+    "&#xb0000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000B0000"},
+        CharacterToken{U"\U000B0000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3690,9 +3690,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+BFFFD", // description
-    "&#xbfffd;", // input
+    "&#xbfffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000BFFFD"},
+        CharacterToken{U"\U000BFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3701,9 +3701,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+C0000", // description
-    "&#xc0000;", // input
+    "&#xc0000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000C0000"},
+        CharacterToken{U"\U000C0000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3712,9 +3712,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+CFFFD", // description
-    "&#xcfffd;", // input
+    "&#xcfffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000CFFFD"},
+        CharacterToken{U"\U000CFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3723,9 +3723,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+D0000", // description
-    "&#xd0000;", // input
+    "&#xd0000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000D0000"},
+        CharacterToken{U"\U000D0000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3734,9 +3734,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+DFFFD", // description
-    "&#xdfffd;", // input
+    "&#xdfffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000DFFFD"},
+        CharacterToken{U"\U000DFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3745,9 +3745,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+E0000", // description
-    "&#xe0000;", // input
+    "&#xe0000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000E0000"},
+        CharacterToken{U"\U000E0000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3756,9 +3756,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+EFFFD", // description
-    "&#xefffd;", // input
+    "&#xefffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000EFFFD"},
+        CharacterToken{U"\U000EFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3767,9 +3767,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+F0000", // description
-    "&#xf0000;", // input
+    "&#xf0000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000F0000"},
+        CharacterToken{U"\U000F0000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3778,9 +3778,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+FFFFD", // description
-    "&#xffffd;", // input
+    "&#xffffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000FFFFD"},
+        CharacterToken{U"\U000FFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3789,9 +3789,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+100000", // description
-    "&#x100000;", // input
+    "&#x100000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00100000"},
+        CharacterToken{U"\U00100000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3800,9 +3800,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid numeric entity character U+10FFFD", // description
-    "&#x10fffd;", // input
+    "&#x10fffd;"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0010FFFD"},
+        CharacterToken{U"\U0010FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState

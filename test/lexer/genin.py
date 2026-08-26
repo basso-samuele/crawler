@@ -296,8 +296,6 @@ def test_case(test, initial_state):
     # expected tokens
     lines.append("    { // expectedTokens")
     output = test["output"]
-    # the current tokenizer implementation may not emit any token otherwise and some tests may not run correctly
-    output.append(["EOF"])
     for i, token in enumerate(output):
         comma = "," if i+1 < len(output) else ""
         lines.append(f"        {cpp_token(token)}{comma}")
@@ -327,8 +325,10 @@ def test_case(test, initial_state):
     return "\n".join(lines)
 
 def flatten_test(test):
+    # the current tokenizer implementation may not emit any token otherwise and some tests may not run correctly
+    test["output"].append(["EOF"])
     initial_states = test.get("initialStates") or ["Data state"]
-    return "\n".join(
+    return "".join(
         test_case(test, initial_state)
         for initial_state in initial_states
     )

@@ -1,8 +1,8 @@
 TokenizerTest{
     "Invalid Unicode character U+0001", // description
-    "\u0001", // input
+    "\u0001"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0001"},
+        CharacterToken{U"\u0001"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -12,9 +12,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0002", // description
-    "\u0002", // input
+    "\u0002"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0002"},
+        CharacterToken{U"\u0002"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -24,9 +24,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0003", // description
-    "\u0003", // input
+    "\u0003"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0003"},
+        CharacterToken{U"\u0003"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -36,9 +36,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0004", // description
-    "\u0004", // input
+    "\u0004"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0004"},
+        CharacterToken{U"\u0004"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -48,9 +48,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0005", // description
-    "\u0005", // input
+    "\u0005"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0005"},
+        CharacterToken{U"\u0005"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -60,9 +60,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0006", // description
-    "\u0006", // input
+    "\u0006"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0006"},
+        CharacterToken{U"\u0006"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -72,9 +72,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0007", // description
-    "\u0007", // input
+    "\u0007"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0007"},
+        CharacterToken{U"\u0007"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -84,9 +84,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0008", // description
-    "\u0008", // input
+    "\u0008"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0008"},
+        CharacterToken{U"\u0008"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -96,9 +96,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+000B", // description
-    "\u000B", // input
+    "\u000B"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000B"},
+        CharacterToken{U"\u000B"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -108,9 +108,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+000E", // description
-    "\u000E", // input
+    "\u000E"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000E"},
+        CharacterToken{U"\u000E"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -120,9 +120,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+000F", // description
-    "\u000F", // input
+    "\u000F"s, // input
     { // expectedTokens
-        CharacterToken{U"\u000F"},
+        CharacterToken{U"\u000F"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -132,9 +132,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0010", // description
-    "\u0010", // input
+    "\u0010"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0010"},
+        CharacterToken{U"\u0010"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -144,9 +144,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0011", // description
-    "\u0011", // input
+    "\u0011"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0011"},
+        CharacterToken{U"\u0011"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -156,9 +156,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0012", // description
-    "\u0012", // input
+    "\u0012"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0012"},
+        CharacterToken{U"\u0012"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -168,9 +168,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0013", // description
-    "\u0013", // input
+    "\u0013"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0013"},
+        CharacterToken{U"\u0013"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -180,9 +180,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0014", // description
-    "\u0014", // input
+    "\u0014"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0014"},
+        CharacterToken{U"\u0014"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -192,9 +192,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0015", // description
-    "\u0015", // input
+    "\u0015"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0015"},
+        CharacterToken{U"\u0015"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -204,9 +204,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0016", // description
-    "\u0016", // input
+    "\u0016"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0016"},
+        CharacterToken{U"\u0016"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -216,9 +216,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0017", // description
-    "\u0017", // input
+    "\u0017"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0017"},
+        CharacterToken{U"\u0017"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -228,9 +228,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0018", // description
-    "\u0018", // input
+    "\u0018"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0018"},
+        CharacterToken{U"\u0018"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -240,9 +240,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+0019", // description
-    "\u0019", // input
+    "\u0019"s, // input
     { // expectedTokens
-        CharacterToken{U"\u0019"},
+        CharacterToken{U"\u0019"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -252,9 +252,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+001A", // description
-    "\u001A", // input
+    "\u001A"s, // input
     { // expectedTokens
-        CharacterToken{U"\u001A"},
+        CharacterToken{U"\u001A"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -264,9 +264,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+001B", // description
-    "\u001B", // input
+    "\u001B"s, // input
     { // expectedTokens
-        CharacterToken{U"\u001B"},
+        CharacterToken{U"\u001B"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -276,9 +276,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+001C", // description
-    "\u001C", // input
+    "\u001C"s, // input
     { // expectedTokens
-        CharacterToken{U"\u001C"},
+        CharacterToken{U"\u001C"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -288,9 +288,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+001D", // description
-    "\u001D", // input
+    "\u001D"s, // input
     { // expectedTokens
-        CharacterToken{U"\u001D"},
+        CharacterToken{U"\u001D"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -300,9 +300,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+001E", // description
-    "\u001E", // input
+    "\u001E"s, // input
     { // expectedTokens
-        CharacterToken{U"\u001E"},
+        CharacterToken{U"\u001E"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -312,9 +312,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+001F", // description
-    "\u001F", // input
+    "\u001F"s, // input
     { // expectedTokens
-        CharacterToken{U"\u001F"},
+        CharacterToken{U"\u001F"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -324,9 +324,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+007F", // description
-    "\u007F", // input
+    "\u007F"s, // input
     { // expectedTokens
-        CharacterToken{U"\u007F"},
+        CharacterToken{U"\u007F"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -336,9 +336,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDD0", // description
-    "\uFDD0", // input
+    "\uFDD0"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD0"},
+        CharacterToken{U"\uFDD0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -348,9 +348,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDD1", // description
-    "\uFDD1", // input
+    "\uFDD1"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD1"},
+        CharacterToken{U"\uFDD1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -360,9 +360,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDD2", // description
-    "\uFDD2", // input
+    "\uFDD2"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD2"},
+        CharacterToken{U"\uFDD2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -372,9 +372,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDD3", // description
-    "\uFDD3", // input
+    "\uFDD3"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD3"},
+        CharacterToken{U"\uFDD3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -384,9 +384,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDD4", // description
-    "\uFDD4", // input
+    "\uFDD4"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD4"},
+        CharacterToken{U"\uFDD4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -396,9 +396,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDD5", // description
-    "\uFDD5", // input
+    "\uFDD5"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD5"},
+        CharacterToken{U"\uFDD5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -408,9 +408,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDD6", // description
-    "\uFDD6", // input
+    "\uFDD6"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD6"},
+        CharacterToken{U"\uFDD6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -420,9 +420,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDD7", // description
-    "\uFDD7", // input
+    "\uFDD7"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD7"},
+        CharacterToken{U"\uFDD7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -432,9 +432,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDD8", // description
-    "\uFDD8", // input
+    "\uFDD8"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD8"},
+        CharacterToken{U"\uFDD8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -444,9 +444,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDD9", // description
-    "\uFDD9", // input
+    "\uFDD9"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDD9"},
+        CharacterToken{U"\uFDD9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -456,9 +456,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDDA", // description
-    "\uFDDA", // input
+    "\uFDDA"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDDA"},
+        CharacterToken{U"\uFDDA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -468,9 +468,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDDB", // description
-    "\uFDDB", // input
+    "\uFDDB"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDDB"},
+        CharacterToken{U"\uFDDB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -480,9 +480,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDDC", // description
-    "\uFDDC", // input
+    "\uFDDC"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDDC"},
+        CharacterToken{U"\uFDDC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -492,9 +492,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDDD", // description
-    "\uFDDD", // input
+    "\uFDDD"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDDD"},
+        CharacterToken{U"\uFDDD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -504,9 +504,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDDE", // description
-    "\uFDDE", // input
+    "\uFDDE"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDDE"},
+        CharacterToken{U"\uFDDE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -516,9 +516,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDDF", // description
-    "\uFDDF", // input
+    "\uFDDF"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDDF"},
+        CharacterToken{U"\uFDDF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -528,9 +528,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDE0", // description
-    "\uFDE0", // input
+    "\uFDE0"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE0"},
+        CharacterToken{U"\uFDE0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -540,9 +540,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDE1", // description
-    "\uFDE1", // input
+    "\uFDE1"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE1"},
+        CharacterToken{U"\uFDE1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -552,9 +552,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDE2", // description
-    "\uFDE2", // input
+    "\uFDE2"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE2"},
+        CharacterToken{U"\uFDE2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -564,9 +564,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDE3", // description
-    "\uFDE3", // input
+    "\uFDE3"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE3"},
+        CharacterToken{U"\uFDE3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -576,9 +576,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDE4", // description
-    "\uFDE4", // input
+    "\uFDE4"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE4"},
+        CharacterToken{U"\uFDE4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -588,9 +588,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDE5", // description
-    "\uFDE5", // input
+    "\uFDE5"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE5"},
+        CharacterToken{U"\uFDE5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -600,9 +600,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDE6", // description
-    "\uFDE6", // input
+    "\uFDE6"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE6"},
+        CharacterToken{U"\uFDE6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -612,9 +612,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDE7", // description
-    "\uFDE7", // input
+    "\uFDE7"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE7"},
+        CharacterToken{U"\uFDE7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -624,9 +624,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDE8", // description
-    "\uFDE8", // input
+    "\uFDE8"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE8"},
+        CharacterToken{U"\uFDE8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -636,9 +636,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDE9", // description
-    "\uFDE9", // input
+    "\uFDE9"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDE9"},
+        CharacterToken{U"\uFDE9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -648,9 +648,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDEA", // description
-    "\uFDEA", // input
+    "\uFDEA"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDEA"},
+        CharacterToken{U"\uFDEA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -660,9 +660,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDEB", // description
-    "\uFDEB", // input
+    "\uFDEB"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDEB"},
+        CharacterToken{U"\uFDEB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -672,9 +672,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDEC", // description
-    "\uFDEC", // input
+    "\uFDEC"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDEC"},
+        CharacterToken{U"\uFDEC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -684,9 +684,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDED", // description
-    "\uFDED", // input
+    "\uFDED"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDED"},
+        CharacterToken{U"\uFDED"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -696,9 +696,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDEE", // description
-    "\uFDEE", // input
+    "\uFDEE"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDEE"},
+        CharacterToken{U"\uFDEE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -708,9 +708,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FDEF", // description
-    "\uFDEF", // input
+    "\uFDEF"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDEF"},
+        CharacterToken{U"\uFDEF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -720,9 +720,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FFFE", // description
-    "\uFFFE", // input
+    "\uFFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFE"},
+        CharacterToken{U"\uFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -732,9 +732,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FFFF", // description
-    "\uFFFF", // input
+    "\uFFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFF"},
+        CharacterToken{U"\uFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -744,9 +744,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+1FFFE", // description
-    "\U0001FFFE", // input
+    "\U0001FFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0001FFFE"},
+        CharacterToken{U"\U0001FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -756,9 +756,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+1FFFF", // description
-    "\U0001FFFF", // input
+    "\U0001FFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0001FFFF"},
+        CharacterToken{U"\U0001FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -768,9 +768,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+2FFFE", // description
-    "\U0002FFFE", // input
+    "\U0002FFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0002FFFE"},
+        CharacterToken{U"\U0002FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -780,9 +780,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+2FFFF", // description
-    "\U0002FFFF", // input
+    "\U0002FFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0002FFFF"},
+        CharacterToken{U"\U0002FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -792,9 +792,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+3FFFE", // description
-    "\U0003FFFE", // input
+    "\U0003FFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0003FFFE"},
+        CharacterToken{U"\U0003FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -804,9 +804,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+3FFFF", // description
-    "\U0003FFFF", // input
+    "\U0003FFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0003FFFF"},
+        CharacterToken{U"\U0003FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -816,9 +816,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+4FFFE", // description
-    "\U0004FFFE", // input
+    "\U0004FFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0004FFFE"},
+        CharacterToken{U"\U0004FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -828,9 +828,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+4FFFF", // description
-    "\U0004FFFF", // input
+    "\U0004FFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0004FFFF"},
+        CharacterToken{U"\U0004FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -840,9 +840,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+5FFFE", // description
-    "\U0005FFFE", // input
+    "\U0005FFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0005FFFE"},
+        CharacterToken{U"\U0005FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -852,9 +852,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+5FFFF", // description
-    "\U0005FFFF", // input
+    "\U0005FFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0005FFFF"},
+        CharacterToken{U"\U0005FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -864,9 +864,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+6FFFE", // description
-    "\U0006FFFE", // input
+    "\U0006FFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0006FFFE"},
+        CharacterToken{U"\U0006FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -876,9 +876,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+6FFFF", // description
-    "\U0006FFFF", // input
+    "\U0006FFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0006FFFF"},
+        CharacterToken{U"\U0006FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -888,9 +888,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+7FFFE", // description
-    "\U0007FFFE", // input
+    "\U0007FFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0007FFFE"},
+        CharacterToken{U"\U0007FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -900,9 +900,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+7FFFF", // description
-    "\U0007FFFF", // input
+    "\U0007FFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0007FFFF"},
+        CharacterToken{U"\U0007FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -912,9 +912,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+8FFFE", // description
-    "\U0008FFFE", // input
+    "\U0008FFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0008FFFE"},
+        CharacterToken{U"\U0008FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -924,9 +924,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+8FFFF", // description
-    "\U0008FFFF", // input
+    "\U0008FFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0008FFFF"},
+        CharacterToken{U"\U0008FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -936,9 +936,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+9FFFE", // description
-    "\U0009FFFE", // input
+    "\U0009FFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0009FFFE"},
+        CharacterToken{U"\U0009FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -948,9 +948,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+9FFFF", // description
-    "\U0009FFFF", // input
+    "\U0009FFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0009FFFF"},
+        CharacterToken{U"\U0009FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -960,9 +960,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+AFFFE", // description
-    "\U000AFFFE", // input
+    "\U000AFFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000AFFFE"},
+        CharacterToken{U"\U000AFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -972,9 +972,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+AFFFF", // description
-    "\U000AFFFF", // input
+    "\U000AFFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000AFFFF"},
+        CharacterToken{U"\U000AFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -984,9 +984,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+BFFFE", // description
-    "\U000BFFFE", // input
+    "\U000BFFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000BFFFE"},
+        CharacterToken{U"\U000BFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -996,9 +996,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+BFFFF", // description
-    "\U000BFFFF", // input
+    "\U000BFFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000BFFFF"},
+        CharacterToken{U"\U000BFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1008,9 +1008,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+CFFFE", // description
-    "\U000CFFFE", // input
+    "\U000CFFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000CFFFE"},
+        CharacterToken{U"\U000CFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1020,9 +1020,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+CFFFF", // description
-    "\U000CFFFF", // input
+    "\U000CFFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000CFFFF"},
+        CharacterToken{U"\U000CFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1032,9 +1032,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+DFFFE", // description
-    "\U000DFFFE", // input
+    "\U000DFFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000DFFFE"},
+        CharacterToken{U"\U000DFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1044,9 +1044,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+DFFFF", // description
-    "\U000DFFFF", // input
+    "\U000DFFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000DFFFF"},
+        CharacterToken{U"\U000DFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1056,9 +1056,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+EFFFE", // description
-    "\U000EFFFE", // input
+    "\U000EFFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000EFFFE"},
+        CharacterToken{U"\U000EFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1068,9 +1068,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+EFFFF", // description
-    "\U000EFFFF", // input
+    "\U000EFFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000EFFFF"},
+        CharacterToken{U"\U000EFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1080,9 +1080,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FFFFE", // description
-    "\U000FFFFE", // input
+    "\U000FFFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000FFFFE"},
+        CharacterToken{U"\U000FFFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1092,9 +1092,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+FFFFF", // description
-    "\U000FFFFF", // input
+    "\U000FFFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000FFFFF"},
+        CharacterToken{U"\U000FFFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1104,9 +1104,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+10FFFE", // description
-    "\U0010FFFE", // input
+    "\U0010FFFE"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0010FFFE"},
+        CharacterToken{U"\U0010FFFE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1116,9 +1116,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Invalid Unicode character U+10FFFF", // description
-    "\U0010FFFF", // input
+    "\U0010FFFF"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0010FFFF"},
+        CharacterToken{U"\U0010FFFF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1128,9 +1128,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0009", // description
-    "\t", // input
+    "\t"s, // input
     { // expectedTokens
-        CharacterToken{U"\t"},
+        CharacterToken{U"\t"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1139,9 +1139,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+000A", // description
-    "\n", // input
+    "\n"s, // input
     { // expectedTokens
-        CharacterToken{U"\n"},
+        CharacterToken{U"\n"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1150,9 +1150,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0020", // description
-    " ", // input
+    " "s, // input
     { // expectedTokens
-        CharacterToken{U" "},
+        CharacterToken{U" "s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1161,9 +1161,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0021", // description
-    "!", // input
+    "!"s, // input
     { // expectedTokens
-        CharacterToken{U"!"},
+        CharacterToken{U"!"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1172,9 +1172,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0022", // description
-    "\"", // input
+    "\""s, // input
     { // expectedTokens
-        CharacterToken{U"\""},
+        CharacterToken{U"\""s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1183,9 +1183,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0023", // description
-    "#", // input
+    "#"s, // input
     { // expectedTokens
-        CharacterToken{U"#"},
+        CharacterToken{U"#"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1194,9 +1194,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0024", // description
-    "$", // input
+    "$"s, // input
     { // expectedTokens
-        CharacterToken{U"$"},
+        CharacterToken{U"$"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1205,9 +1205,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0025", // description
-    "%", // input
+    "%"s, // input
     { // expectedTokens
-        CharacterToken{U"%"},
+        CharacterToken{U"%"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1216,9 +1216,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0026", // description
-    "&", // input
+    "&"s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
+        CharacterToken{U"&"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1227,9 +1227,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0027", // description
-    "'", // input
+    "'"s, // input
     { // expectedTokens
-        CharacterToken{U"'"},
+        CharacterToken{U"'"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1238,9 +1238,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0028", // description
-    "(", // input
+    "("s, // input
     { // expectedTokens
-        CharacterToken{U"("},
+        CharacterToken{U"("s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1249,9 +1249,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0029", // description
-    ")", // input
+    ")"s, // input
     { // expectedTokens
-        CharacterToken{U")"},
+        CharacterToken{U")"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1260,9 +1260,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+002A", // description
-    "*", // input
+    "*"s, // input
     { // expectedTokens
-        CharacterToken{U"*"},
+        CharacterToken{U"*"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1271,9 +1271,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+002B", // description
-    "+", // input
+    "+"s, // input
     { // expectedTokens
-        CharacterToken{U"+"},
+        CharacterToken{U"+"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1282,9 +1282,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+002C", // description
-    ",", // input
+    ","s, // input
     { // expectedTokens
-        CharacterToken{U","},
+        CharacterToken{U","s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1293,9 +1293,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+002D", // description
-    "-", // input
+    "-"s, // input
     { // expectedTokens
-        CharacterToken{U"-"},
+        CharacterToken{U"-"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1304,9 +1304,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+002E", // description
-    ".", // input
+    "."s, // input
     { // expectedTokens
-        CharacterToken{U"."},
+        CharacterToken{U"."s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1315,9 +1315,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+002F", // description
-    "/", // input
+    "/"s, // input
     { // expectedTokens
-        CharacterToken{U"/"},
+        CharacterToken{U"/"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1326,9 +1326,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0030", // description
-    "0", // input
+    "0"s, // input
     { // expectedTokens
-        CharacterToken{U"0"},
+        CharacterToken{U"0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1337,9 +1337,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0031", // description
-    "1", // input
+    "1"s, // input
     { // expectedTokens
-        CharacterToken{U"1"},
+        CharacterToken{U"1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1348,9 +1348,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0032", // description
-    "2", // input
+    "2"s, // input
     { // expectedTokens
-        CharacterToken{U"2"},
+        CharacterToken{U"2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1359,9 +1359,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0033", // description
-    "3", // input
+    "3"s, // input
     { // expectedTokens
-        CharacterToken{U"3"},
+        CharacterToken{U"3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1370,9 +1370,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0034", // description
-    "4", // input
+    "4"s, // input
     { // expectedTokens
-        CharacterToken{U"4"},
+        CharacterToken{U"4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1381,9 +1381,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0035", // description
-    "5", // input
+    "5"s, // input
     { // expectedTokens
-        CharacterToken{U"5"},
+        CharacterToken{U"5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1392,9 +1392,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0036", // description
-    "6", // input
+    "6"s, // input
     { // expectedTokens
-        CharacterToken{U"6"},
+        CharacterToken{U"6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1403,9 +1403,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0037", // description
-    "7", // input
+    "7"s, // input
     { // expectedTokens
-        CharacterToken{U"7"},
+        CharacterToken{U"7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1414,9 +1414,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0038", // description
-    "8", // input
+    "8"s, // input
     { // expectedTokens
-        CharacterToken{U"8"},
+        CharacterToken{U"8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1425,9 +1425,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0039", // description
-    "9", // input
+    "9"s, // input
     { // expectedTokens
-        CharacterToken{U"9"},
+        CharacterToken{U"9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1436,9 +1436,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+003A", // description
-    ":", // input
+    ":"s, // input
     { // expectedTokens
-        CharacterToken{U":"},
+        CharacterToken{U":"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1447,9 +1447,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+003B", // description
-    ";", // input
+    ";"s, // input
     { // expectedTokens
-        CharacterToken{U";"},
+        CharacterToken{U";"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1458,9 +1458,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+003D", // description
-    "=", // input
+    "="s, // input
     { // expectedTokens
-        CharacterToken{U"="},
+        CharacterToken{U"="s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1469,9 +1469,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+003E", // description
-    ">", // input
+    ">"s, // input
     { // expectedTokens
-        CharacterToken{U">"},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1480,9 +1480,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+003F", // description
-    "?", // input
+    "?"s, // input
     { // expectedTokens
-        CharacterToken{U"?"},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1491,9 +1491,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0040", // description
-    "@", // input
+    "@"s, // input
     { // expectedTokens
-        CharacterToken{U"@"},
+        CharacterToken{U"@"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1502,9 +1502,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0041", // description
-    "A", // input
+    "A"s, // input
     { // expectedTokens
-        CharacterToken{U"A"},
+        CharacterToken{U"A"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1513,9 +1513,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0042", // description
-    "B", // input
+    "B"s, // input
     { // expectedTokens
-        CharacterToken{U"B"},
+        CharacterToken{U"B"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1524,9 +1524,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0043", // description
-    "C", // input
+    "C"s, // input
     { // expectedTokens
-        CharacterToken{U"C"},
+        CharacterToken{U"C"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1535,9 +1535,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0044", // description
-    "D", // input
+    "D"s, // input
     { // expectedTokens
-        CharacterToken{U"D"},
+        CharacterToken{U"D"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1546,9 +1546,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0045", // description
-    "E", // input
+    "E"s, // input
     { // expectedTokens
-        CharacterToken{U"E"},
+        CharacterToken{U"E"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1557,9 +1557,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0046", // description
-    "F", // input
+    "F"s, // input
     { // expectedTokens
-        CharacterToken{U"F"},
+        CharacterToken{U"F"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1568,9 +1568,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0047", // description
-    "G", // input
+    "G"s, // input
     { // expectedTokens
-        CharacterToken{U"G"},
+        CharacterToken{U"G"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1579,9 +1579,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0048", // description
-    "H", // input
+    "H"s, // input
     { // expectedTokens
-        CharacterToken{U"H"},
+        CharacterToken{U"H"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1590,9 +1590,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0049", // description
-    "I", // input
+    "I"s, // input
     { // expectedTokens
-        CharacterToken{U"I"},
+        CharacterToken{U"I"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1601,9 +1601,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+004A", // description
-    "J", // input
+    "J"s, // input
     { // expectedTokens
-        CharacterToken{U"J"},
+        CharacterToken{U"J"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1612,9 +1612,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+004B", // description
-    "K", // input
+    "K"s, // input
     { // expectedTokens
-        CharacterToken{U"K"},
+        CharacterToken{U"K"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1623,9 +1623,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+004C", // description
-    "L", // input
+    "L"s, // input
     { // expectedTokens
-        CharacterToken{U"L"},
+        CharacterToken{U"L"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1634,9 +1634,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+004D", // description
-    "M", // input
+    "M"s, // input
     { // expectedTokens
-        CharacterToken{U"M"},
+        CharacterToken{U"M"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1645,9 +1645,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+004E", // description
-    "N", // input
+    "N"s, // input
     { // expectedTokens
-        CharacterToken{U"N"},
+        CharacterToken{U"N"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1656,9 +1656,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+004F", // description
-    "O", // input
+    "O"s, // input
     { // expectedTokens
-        CharacterToken{U"O"},
+        CharacterToken{U"O"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1667,9 +1667,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0050", // description
-    "P", // input
+    "P"s, // input
     { // expectedTokens
-        CharacterToken{U"P"},
+        CharacterToken{U"P"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1678,9 +1678,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0051", // description
-    "Q", // input
+    "Q"s, // input
     { // expectedTokens
-        CharacterToken{U"Q"},
+        CharacterToken{U"Q"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1689,9 +1689,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0052", // description
-    "R", // input
+    "R"s, // input
     { // expectedTokens
-        CharacterToken{U"R"},
+        CharacterToken{U"R"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1700,9 +1700,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0053", // description
-    "S", // input
+    "S"s, // input
     { // expectedTokens
-        CharacterToken{U"S"},
+        CharacterToken{U"S"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1711,9 +1711,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0054", // description
-    "T", // input
+    "T"s, // input
     { // expectedTokens
-        CharacterToken{U"T"},
+        CharacterToken{U"T"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1722,9 +1722,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0055", // description
-    "U", // input
+    "U"s, // input
     { // expectedTokens
-        CharacterToken{U"U"},
+        CharacterToken{U"U"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1733,9 +1733,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0056", // description
-    "V", // input
+    "V"s, // input
     { // expectedTokens
-        CharacterToken{U"V"},
+        CharacterToken{U"V"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1744,9 +1744,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0057", // description
-    "W", // input
+    "W"s, // input
     { // expectedTokens
-        CharacterToken{U"W"},
+        CharacterToken{U"W"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1755,9 +1755,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0058", // description
-    "X", // input
+    "X"s, // input
     { // expectedTokens
-        CharacterToken{U"X"},
+        CharacterToken{U"X"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1766,9 +1766,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0059", // description
-    "Y", // input
+    "Y"s, // input
     { // expectedTokens
-        CharacterToken{U"Y"},
+        CharacterToken{U"Y"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1777,9 +1777,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+005A", // description
-    "Z", // input
+    "Z"s, // input
     { // expectedTokens
-        CharacterToken{U"Z"},
+        CharacterToken{U"Z"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1788,9 +1788,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+005B", // description
-    "[", // input
+    "["s, // input
     { // expectedTokens
-        CharacterToken{U"["},
+        CharacterToken{U"["s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1799,9 +1799,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+005C", // description
-    "\\", // input
+    "\\"s, // input
     { // expectedTokens
-        CharacterToken{U"\\"},
+        CharacterToken{U"\\"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1810,9 +1810,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+005D", // description
-    "]", // input
+    "]"s, // input
     { // expectedTokens
-        CharacterToken{U"]"},
+        CharacterToken{U"]"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1821,9 +1821,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+005E", // description
-    "^", // input
+    "^"s, // input
     { // expectedTokens
-        CharacterToken{U"^"},
+        CharacterToken{U"^"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1832,9 +1832,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+005F", // description
-    "_", // input
+    "_"s, // input
     { // expectedTokens
-        CharacterToken{U"_"},
+        CharacterToken{U"_"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1843,9 +1843,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0060", // description
-    "`", // input
+    "`"s, // input
     { // expectedTokens
-        CharacterToken{U"`"},
+        CharacterToken{U"`"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1854,9 +1854,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0061", // description
-    "a", // input
+    "a"s, // input
     { // expectedTokens
-        CharacterToken{U"a"},
+        CharacterToken{U"a"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1865,9 +1865,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0062", // description
-    "b", // input
+    "b"s, // input
     { // expectedTokens
-        CharacterToken{U"b"},
+        CharacterToken{U"b"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1876,9 +1876,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0063", // description
-    "c", // input
+    "c"s, // input
     { // expectedTokens
-        CharacterToken{U"c"},
+        CharacterToken{U"c"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1887,9 +1887,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0064", // description
-    "d", // input
+    "d"s, // input
     { // expectedTokens
-        CharacterToken{U"d"},
+        CharacterToken{U"d"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1898,9 +1898,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0065", // description
-    "e", // input
+    "e"s, // input
     { // expectedTokens
-        CharacterToken{U"e"},
+        CharacterToken{U"e"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1909,9 +1909,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0066", // description
-    "f", // input
+    "f"s, // input
     { // expectedTokens
-        CharacterToken{U"f"},
+        CharacterToken{U"f"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1920,9 +1920,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0067", // description
-    "g", // input
+    "g"s, // input
     { // expectedTokens
-        CharacterToken{U"g"},
+        CharacterToken{U"g"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1931,9 +1931,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0068", // description
-    "h", // input
+    "h"s, // input
     { // expectedTokens
-        CharacterToken{U"h"},
+        CharacterToken{U"h"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1942,9 +1942,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0069", // description
-    "i", // input
+    "i"s, // input
     { // expectedTokens
-        CharacterToken{U"i"},
+        CharacterToken{U"i"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1953,9 +1953,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+006A", // description
-    "j", // input
+    "j"s, // input
     { // expectedTokens
-        CharacterToken{U"j"},
+        CharacterToken{U"j"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1964,9 +1964,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+006B", // description
-    "k", // input
+    "k"s, // input
     { // expectedTokens
-        CharacterToken{U"k"},
+        CharacterToken{U"k"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1975,9 +1975,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+006C", // description
-    "l", // input
+    "l"s, // input
     { // expectedTokens
-        CharacterToken{U"l"},
+        CharacterToken{U"l"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1986,9 +1986,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+006D", // description
-    "m", // input
+    "m"s, // input
     { // expectedTokens
-        CharacterToken{U"m"},
+        CharacterToken{U"m"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1997,9 +1997,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+006E", // description
-    "n", // input
+    "n"s, // input
     { // expectedTokens
-        CharacterToken{U"n"},
+        CharacterToken{U"n"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2008,9 +2008,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+006F", // description
-    "o", // input
+    "o"s, // input
     { // expectedTokens
-        CharacterToken{U"o"},
+        CharacterToken{U"o"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2019,9 +2019,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0070", // description
-    "p", // input
+    "p"s, // input
     { // expectedTokens
-        CharacterToken{U"p"},
+        CharacterToken{U"p"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2030,9 +2030,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0071", // description
-    "q", // input
+    "q"s, // input
     { // expectedTokens
-        CharacterToken{U"q"},
+        CharacterToken{U"q"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2041,9 +2041,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0072", // description
-    "r", // input
+    "r"s, // input
     { // expectedTokens
-        CharacterToken{U"r"},
+        CharacterToken{U"r"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2052,9 +2052,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0073", // description
-    "s", // input
+    "s"s, // input
     { // expectedTokens
-        CharacterToken{U"s"},
+        CharacterToken{U"s"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2063,9 +2063,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0074", // description
-    "t", // input
+    "t"s, // input
     { // expectedTokens
-        CharacterToken{U"t"},
+        CharacterToken{U"t"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2074,9 +2074,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0075", // description
-    "u", // input
+    "u"s, // input
     { // expectedTokens
-        CharacterToken{U"u"},
+        CharacterToken{U"u"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2085,9 +2085,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0076", // description
-    "v", // input
+    "v"s, // input
     { // expectedTokens
-        CharacterToken{U"v"},
+        CharacterToken{U"v"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2096,9 +2096,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0077", // description
-    "w", // input
+    "w"s, // input
     { // expectedTokens
-        CharacterToken{U"w"},
+        CharacterToken{U"w"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2107,9 +2107,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0078", // description
-    "x", // input
+    "x"s, // input
     { // expectedTokens
-        CharacterToken{U"x"},
+        CharacterToken{U"x"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2118,9 +2118,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+0079", // description
-    "y", // input
+    "y"s, // input
     { // expectedTokens
-        CharacterToken{U"y"},
+        CharacterToken{U"y"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2129,9 +2129,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+007A", // description
-    "z", // input
+    "z"s, // input
     { // expectedTokens
-        CharacterToken{U"z"},
+        CharacterToken{U"z"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2140,9 +2140,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+007B", // description
-    "{", // input
+    "{"s, // input
     { // expectedTokens
-        CharacterToken{U"{"},
+        CharacterToken{U"{"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2151,9 +2151,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+007C", // description
-    "|", // input
+    "|"s, // input
     { // expectedTokens
-        CharacterToken{U"|"},
+        CharacterToken{U"|"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2162,9 +2162,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+007D", // description
-    "}", // input
+    "}"s, // input
     { // expectedTokens
-        CharacterToken{U"}"},
+        CharacterToken{U"}"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2173,9 +2173,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+007E", // description
-    "~", // input
+    "~"s, // input
     { // expectedTokens
-        CharacterToken{U"~"},
+        CharacterToken{U"~"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2184,9 +2184,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00A0", // description
-    "\u00A0", // input
+    "\u00A0"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A0"},
+        CharacterToken{U"\u00A0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2195,9 +2195,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00A1", // description
-    "\u00A1", // input
+    "\u00A1"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A1"},
+        CharacterToken{U"\u00A1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2206,9 +2206,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00A2", // description
-    "\u00A2", // input
+    "\u00A2"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A2"},
+        CharacterToken{U"\u00A2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2217,9 +2217,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00A3", // description
-    "\u00A3", // input
+    "\u00A3"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A3"},
+        CharacterToken{U"\u00A3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2228,9 +2228,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00A4", // description
-    "\u00A4", // input
+    "\u00A4"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A4"},
+        CharacterToken{U"\u00A4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2239,9 +2239,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00A5", // description
-    "\u00A5", // input
+    "\u00A5"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A5"},
+        CharacterToken{U"\u00A5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2250,9 +2250,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00A6", // description
-    "\u00A6", // input
+    "\u00A6"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A6"},
+        CharacterToken{U"\u00A6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2261,9 +2261,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00A7", // description
-    "\u00A7", // input
+    "\u00A7"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A7"},
+        CharacterToken{U"\u00A7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2272,9 +2272,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00A8", // description
-    "\u00A8", // input
+    "\u00A8"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A8"},
+        CharacterToken{U"\u00A8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2283,9 +2283,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00A9", // description
-    "\u00A9", // input
+    "\u00A9"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00A9"},
+        CharacterToken{U"\u00A9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2294,9 +2294,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00AA", // description
-    "\u00AA", // input
+    "\u00AA"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00AA"},
+        CharacterToken{U"\u00AA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2305,9 +2305,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00AB", // description
-    "\u00AB", // input
+    "\u00AB"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00AB"},
+        CharacterToken{U"\u00AB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2316,9 +2316,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00AC", // description
-    "\u00AC", // input
+    "\u00AC"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00AC"},
+        CharacterToken{U"\u00AC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2327,9 +2327,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00AD", // description
-    "\u00AD", // input
+    "\u00AD"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00AD"},
+        CharacterToken{U"\u00AD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2338,9 +2338,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00AE", // description
-    "\u00AE", // input
+    "\u00AE"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00AE"},
+        CharacterToken{U"\u00AE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2349,9 +2349,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00AF", // description
-    "\u00AF", // input
+    "\u00AF"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00AF"},
+        CharacterToken{U"\u00AF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2360,9 +2360,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00B0", // description
-    "\u00B0", // input
+    "\u00B0"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B0"},
+        CharacterToken{U"\u00B0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2371,9 +2371,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00B1", // description
-    "\u00B1", // input
+    "\u00B1"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B1"},
+        CharacterToken{U"\u00B1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2382,9 +2382,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00B2", // description
-    "\u00B2", // input
+    "\u00B2"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B2"},
+        CharacterToken{U"\u00B2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2393,9 +2393,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00B3", // description
-    "\u00B3", // input
+    "\u00B3"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B3"},
+        CharacterToken{U"\u00B3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2404,9 +2404,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00B4", // description
-    "\u00B4", // input
+    "\u00B4"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B4"},
+        CharacterToken{U"\u00B4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2415,9 +2415,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00B5", // description
-    "\u00B5", // input
+    "\u00B5"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B5"},
+        CharacterToken{U"\u00B5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2426,9 +2426,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00B6", // description
-    "\u00B6", // input
+    "\u00B6"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B6"},
+        CharacterToken{U"\u00B6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2437,9 +2437,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00B7", // description
-    "\u00B7", // input
+    "\u00B7"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B7"},
+        CharacterToken{U"\u00B7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2448,9 +2448,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00B8", // description
-    "\u00B8", // input
+    "\u00B8"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B8"},
+        CharacterToken{U"\u00B8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2459,9 +2459,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00B9", // description
-    "\u00B9", // input
+    "\u00B9"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00B9"},
+        CharacterToken{U"\u00B9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2470,9 +2470,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00BA", // description
-    "\u00BA", // input
+    "\u00BA"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00BA"},
+        CharacterToken{U"\u00BA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2481,9 +2481,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00BB", // description
-    "\u00BB", // input
+    "\u00BB"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00BB"},
+        CharacterToken{U"\u00BB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2492,9 +2492,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00BC", // description
-    "\u00BC", // input
+    "\u00BC"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00BC"},
+        CharacterToken{U"\u00BC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2503,9 +2503,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00BD", // description
-    "\u00BD", // input
+    "\u00BD"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00BD"},
+        CharacterToken{U"\u00BD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2514,9 +2514,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00BE", // description
-    "\u00BE", // input
+    "\u00BE"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00BE"},
+        CharacterToken{U"\u00BE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2525,9 +2525,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00BF", // description
-    "\u00BF", // input
+    "\u00BF"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00BF"},
+        CharacterToken{U"\u00BF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2536,9 +2536,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00C0", // description
-    "\u00C0", // input
+    "\u00C0"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C0"},
+        CharacterToken{U"\u00C0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2547,9 +2547,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00C1", // description
-    "\u00C1", // input
+    "\u00C1"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C1"},
+        CharacterToken{U"\u00C1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2558,9 +2558,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00C2", // description
-    "\u00C2", // input
+    "\u00C2"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C2"},
+        CharacterToken{U"\u00C2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2569,9 +2569,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00C3", // description
-    "\u00C3", // input
+    "\u00C3"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C3"},
+        CharacterToken{U"\u00C3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2580,9 +2580,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00C4", // description
-    "\u00C4", // input
+    "\u00C4"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C4"},
+        CharacterToken{U"\u00C4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2591,9 +2591,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00C5", // description
-    "\u00C5", // input
+    "\u00C5"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C5"},
+        CharacterToken{U"\u00C5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2602,9 +2602,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00C6", // description
-    "\u00C6", // input
+    "\u00C6"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C6"},
+        CharacterToken{U"\u00C6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2613,9 +2613,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00C7", // description
-    "\u00C7", // input
+    "\u00C7"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C7"},
+        CharacterToken{U"\u00C7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2624,9 +2624,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00C8", // description
-    "\u00C8", // input
+    "\u00C8"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C8"},
+        CharacterToken{U"\u00C8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2635,9 +2635,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00C9", // description
-    "\u00C9", // input
+    "\u00C9"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00C9"},
+        CharacterToken{U"\u00C9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2646,9 +2646,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00CA", // description
-    "\u00CA", // input
+    "\u00CA"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00CA"},
+        CharacterToken{U"\u00CA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2657,9 +2657,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00CB", // description
-    "\u00CB", // input
+    "\u00CB"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00CB"},
+        CharacterToken{U"\u00CB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2668,9 +2668,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00CC", // description
-    "\u00CC", // input
+    "\u00CC"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00CC"},
+        CharacterToken{U"\u00CC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2679,9 +2679,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00CD", // description
-    "\u00CD", // input
+    "\u00CD"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00CD"},
+        CharacterToken{U"\u00CD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2690,9 +2690,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00CE", // description
-    "\u00CE", // input
+    "\u00CE"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00CE"},
+        CharacterToken{U"\u00CE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2701,9 +2701,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00CF", // description
-    "\u00CF", // input
+    "\u00CF"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00CF"},
+        CharacterToken{U"\u00CF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2712,9 +2712,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00D0", // description
-    "\u00D0", // input
+    "\u00D0"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D0"},
+        CharacterToken{U"\u00D0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2723,9 +2723,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00D1", // description
-    "\u00D1", // input
+    "\u00D1"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D1"},
+        CharacterToken{U"\u00D1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2734,9 +2734,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00D2", // description
-    "\u00D2", // input
+    "\u00D2"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D2"},
+        CharacterToken{U"\u00D2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2745,9 +2745,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00D3", // description
-    "\u00D3", // input
+    "\u00D3"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D3"},
+        CharacterToken{U"\u00D3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2756,9 +2756,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00D4", // description
-    "\u00D4", // input
+    "\u00D4"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D4"},
+        CharacterToken{U"\u00D4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2767,9 +2767,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00D5", // description
-    "\u00D5", // input
+    "\u00D5"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D5"},
+        CharacterToken{U"\u00D5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2778,9 +2778,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00D6", // description
-    "\u00D6", // input
+    "\u00D6"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D6"},
+        CharacterToken{U"\u00D6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2789,9 +2789,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00D7", // description
-    "\u00D7", // input
+    "\u00D7"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D7"},
+        CharacterToken{U"\u00D7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2800,9 +2800,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00D8", // description
-    "\u00D8", // input
+    "\u00D8"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D8"},
+        CharacterToken{U"\u00D8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2811,9 +2811,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00D9", // description
-    "\u00D9", // input
+    "\u00D9"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00D9"},
+        CharacterToken{U"\u00D9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2822,9 +2822,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00DA", // description
-    "\u00DA", // input
+    "\u00DA"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00DA"},
+        CharacterToken{U"\u00DA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2833,9 +2833,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00DB", // description
-    "\u00DB", // input
+    "\u00DB"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00DB"},
+        CharacterToken{U"\u00DB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2844,9 +2844,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00DC", // description
-    "\u00DC", // input
+    "\u00DC"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00DC"},
+        CharacterToken{U"\u00DC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2855,9 +2855,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00DD", // description
-    "\u00DD", // input
+    "\u00DD"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00DD"},
+        CharacterToken{U"\u00DD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2866,9 +2866,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00DE", // description
-    "\u00DE", // input
+    "\u00DE"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00DE"},
+        CharacterToken{U"\u00DE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2877,9 +2877,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00DF", // description
-    "\u00DF", // input
+    "\u00DF"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00DF"},
+        CharacterToken{U"\u00DF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2888,9 +2888,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00E0", // description
-    "\u00E0", // input
+    "\u00E0"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E0"},
+        CharacterToken{U"\u00E0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2899,9 +2899,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00E1", // description
-    "\u00E1", // input
+    "\u00E1"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E1"},
+        CharacterToken{U"\u00E1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2910,9 +2910,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00E2", // description
-    "\u00E2", // input
+    "\u00E2"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E2"},
+        CharacterToken{U"\u00E2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2921,9 +2921,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00E3", // description
-    "\u00E3", // input
+    "\u00E3"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E3"},
+        CharacterToken{U"\u00E3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2932,9 +2932,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00E4", // description
-    "\u00E4", // input
+    "\u00E4"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E4"},
+        CharacterToken{U"\u00E4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2943,9 +2943,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00E5", // description
-    "\u00E5", // input
+    "\u00E5"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E5"},
+        CharacterToken{U"\u00E5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2954,9 +2954,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00E6", // description
-    "\u00E6", // input
+    "\u00E6"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E6"},
+        CharacterToken{U"\u00E6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2965,9 +2965,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00E7", // description
-    "\u00E7", // input
+    "\u00E7"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E7"},
+        CharacterToken{U"\u00E7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2976,9 +2976,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00E8", // description
-    "\u00E8", // input
+    "\u00E8"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E8"},
+        CharacterToken{U"\u00E8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2987,9 +2987,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00E9", // description
-    "\u00E9", // input
+    "\u00E9"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00E9"},
+        CharacterToken{U"\u00E9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -2998,9 +2998,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00EA", // description
-    "\u00EA", // input
+    "\u00EA"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00EA"},
+        CharacterToken{U"\u00EA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3009,9 +3009,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00EB", // description
-    "\u00EB", // input
+    "\u00EB"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00EB"},
+        CharacterToken{U"\u00EB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3020,9 +3020,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00EC", // description
-    "\u00EC", // input
+    "\u00EC"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00EC"},
+        CharacterToken{U"\u00EC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3031,9 +3031,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00ED", // description
-    "\u00ED", // input
+    "\u00ED"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00ED"},
+        CharacterToken{U"\u00ED"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3042,9 +3042,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00EE", // description
-    "\u00EE", // input
+    "\u00EE"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00EE"},
+        CharacterToken{U"\u00EE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3053,9 +3053,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00EF", // description
-    "\u00EF", // input
+    "\u00EF"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00EF"},
+        CharacterToken{U"\u00EF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3064,9 +3064,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00F0", // description
-    "\u00F0", // input
+    "\u00F0"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F0"},
+        CharacterToken{U"\u00F0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3075,9 +3075,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00F1", // description
-    "\u00F1", // input
+    "\u00F1"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F1"},
+        CharacterToken{U"\u00F1"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3086,9 +3086,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00F2", // description
-    "\u00F2", // input
+    "\u00F2"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F2"},
+        CharacterToken{U"\u00F2"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3097,9 +3097,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00F3", // description
-    "\u00F3", // input
+    "\u00F3"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F3"},
+        CharacterToken{U"\u00F3"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3108,9 +3108,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00F4", // description
-    "\u00F4", // input
+    "\u00F4"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F4"},
+        CharacterToken{U"\u00F4"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3119,9 +3119,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00F5", // description
-    "\u00F5", // input
+    "\u00F5"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F5"},
+        CharacterToken{U"\u00F5"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3130,9 +3130,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00F6", // description
-    "\u00F6", // input
+    "\u00F6"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F6"},
+        CharacterToken{U"\u00F6"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3141,9 +3141,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00F7", // description
-    "\u00F7", // input
+    "\u00F7"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F7"},
+        CharacterToken{U"\u00F7"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3152,9 +3152,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00F8", // description
-    "\u00F8", // input
+    "\u00F8"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F8"},
+        CharacterToken{U"\u00F8"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3163,9 +3163,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00F9", // description
-    "\u00F9", // input
+    "\u00F9"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00F9"},
+        CharacterToken{U"\u00F9"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3174,9 +3174,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00FA", // description
-    "\u00FA", // input
+    "\u00FA"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00FA"},
+        CharacterToken{U"\u00FA"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3185,9 +3185,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00FB", // description
-    "\u00FB", // input
+    "\u00FB"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00FB"},
+        CharacterToken{U"\u00FB"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3196,9 +3196,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00FC", // description
-    "\u00FC", // input
+    "\u00FC"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00FC"},
+        CharacterToken{U"\u00FC"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3207,9 +3207,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00FD", // description
-    "\u00FD", // input
+    "\u00FD"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00FD"},
+        CharacterToken{U"\u00FD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3218,9 +3218,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00FE", // description
-    "\u00FE", // input
+    "\u00FE"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00FE"},
+        CharacterToken{U"\u00FE"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3229,9 +3229,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+00FF", // description
-    "\u00FF", // input
+    "\u00FF"s, // input
     { // expectedTokens
-        CharacterToken{U"\u00FF"},
+        CharacterToken{U"\u00FF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3240,9 +3240,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+D7FF", // description
-    "\uD7FF", // input
+    "\uD7FF"s, // input
     { // expectedTokens
-        CharacterToken{U"\uD7FF"},
+        CharacterToken{U"\uD7FF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3251,9 +3251,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+E000", // description
-    "\uE000", // input
+    "\uE000"s, // input
     { // expectedTokens
-        CharacterToken{U"\uE000"},
+        CharacterToken{U"\uE000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3262,9 +3262,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+FDCF", // description
-    "\uFDCF", // input
+    "\uFDCF"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDCF"},
+        CharacterToken{U"\uFDCF"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3273,9 +3273,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+FDF0", // description
-    "\uFDF0", // input
+    "\uFDF0"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFDF0"},
+        CharacterToken{U"\uFDF0"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3284,9 +3284,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+FFFD", // description
-    "\uFFFD", // input
+    "\uFFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3295,9 +3295,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+10000", // description
-    "\U00010000", // input
+    "\U00010000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00010000"},
+        CharacterToken{U"\U00010000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3306,9 +3306,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+1FFFD", // description
-    "\U0001FFFD", // input
+    "\U0001FFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0001FFFD"},
+        CharacterToken{U"\U0001FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3317,9 +3317,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+20000", // description
-    "\U00020000", // input
+    "\U00020000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00020000"},
+        CharacterToken{U"\U00020000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3328,9 +3328,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+2FFFD", // description
-    "\U0002FFFD", // input
+    "\U0002FFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0002FFFD"},
+        CharacterToken{U"\U0002FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3339,9 +3339,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+30000", // description
-    "\U00030000", // input
+    "\U00030000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00030000"},
+        CharacterToken{U"\U00030000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3350,9 +3350,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+3FFFD", // description
-    "\U0003FFFD", // input
+    "\U0003FFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0003FFFD"},
+        CharacterToken{U"\U0003FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3361,9 +3361,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+40000", // description
-    "\U00040000", // input
+    "\U00040000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00040000"},
+        CharacterToken{U"\U00040000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3372,9 +3372,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+4FFFD", // description
-    "\U0004FFFD", // input
+    "\U0004FFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0004FFFD"},
+        CharacterToken{U"\U0004FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3383,9 +3383,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+50000", // description
-    "\U00050000", // input
+    "\U00050000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00050000"},
+        CharacterToken{U"\U00050000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3394,9 +3394,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+5FFFD", // description
-    "\U0005FFFD", // input
+    "\U0005FFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0005FFFD"},
+        CharacterToken{U"\U0005FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3405,9 +3405,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+60000", // description
-    "\U00060000", // input
+    "\U00060000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00060000"},
+        CharacterToken{U"\U00060000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3416,9 +3416,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+6FFFD", // description
-    "\U0006FFFD", // input
+    "\U0006FFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0006FFFD"},
+        CharacterToken{U"\U0006FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3427,9 +3427,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+70000", // description
-    "\U00070000", // input
+    "\U00070000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00070000"},
+        CharacterToken{U"\U00070000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3438,9 +3438,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+7FFFD", // description
-    "\U0007FFFD", // input
+    "\U0007FFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0007FFFD"},
+        CharacterToken{U"\U0007FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3449,9 +3449,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+80000", // description
-    "\U00080000", // input
+    "\U00080000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00080000"},
+        CharacterToken{U"\U00080000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3460,9 +3460,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+8FFFD", // description
-    "\U0008FFFD", // input
+    "\U0008FFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0008FFFD"},
+        CharacterToken{U"\U0008FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3471,9 +3471,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+90000", // description
-    "\U00090000", // input
+    "\U00090000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00090000"},
+        CharacterToken{U"\U00090000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3482,9 +3482,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+9FFFD", // description
-    "\U0009FFFD", // input
+    "\U0009FFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0009FFFD"},
+        CharacterToken{U"\U0009FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3493,9 +3493,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+A0000", // description
-    "\U000A0000", // input
+    "\U000A0000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000A0000"},
+        CharacterToken{U"\U000A0000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3504,9 +3504,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+AFFFD", // description
-    "\U000AFFFD", // input
+    "\U000AFFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000AFFFD"},
+        CharacterToken{U"\U000AFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3515,9 +3515,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+B0000", // description
-    "\U000B0000", // input
+    "\U000B0000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000B0000"},
+        CharacterToken{U"\U000B0000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3526,9 +3526,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+BFFFD", // description
-    "\U000BFFFD", // input
+    "\U000BFFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000BFFFD"},
+        CharacterToken{U"\U000BFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3537,9 +3537,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+C0000", // description
-    "\U000C0000", // input
+    "\U000C0000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000C0000"},
+        CharacterToken{U"\U000C0000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3548,9 +3548,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+CFFFD", // description
-    "\U000CFFFD", // input
+    "\U000CFFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000CFFFD"},
+        CharacterToken{U"\U000CFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3559,9 +3559,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+D0000", // description
-    "\U000D0000", // input
+    "\U000D0000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000D0000"},
+        CharacterToken{U"\U000D0000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3570,9 +3570,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+DFFFD", // description
-    "\U000DFFFD", // input
+    "\U000DFFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000DFFFD"},
+        CharacterToken{U"\U000DFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3581,9 +3581,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+E0000", // description
-    "\U000E0000", // input
+    "\U000E0000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000E0000"},
+        CharacterToken{U"\U000E0000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3592,9 +3592,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+EFFFD", // description
-    "\U000EFFFD", // input
+    "\U000EFFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000EFFFD"},
+        CharacterToken{U"\U000EFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3603,9 +3603,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+F0000", // description
-    "\U000F0000", // input
+    "\U000F0000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000F0000"},
+        CharacterToken{U"\U000F0000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3614,9 +3614,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+FFFFD", // description
-    "\U000FFFFD", // input
+    "\U000FFFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U000FFFFD"},
+        CharacterToken{U"\U000FFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3625,9 +3625,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+100000", // description
-    "\U00100000", // input
+    "\U00100000"s, // input
     { // expectedTokens
-        CharacterToken{U"\U00100000"},
+        CharacterToken{U"\U00100000"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -3636,9 +3636,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Valid Unicode character U+10FFFD", // description
-    "\U0010FFFD", // input
+    "\U0010FFFD"s, // input
     { // expectedTokens
-        CharacterToken{U"\U0010FFFD"},
+        CharacterToken{U"\U0010FFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState

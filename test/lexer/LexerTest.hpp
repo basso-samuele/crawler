@@ -153,6 +153,25 @@ TEST_P(Entity, Compare) {
         static_cast<std::underlying_type_t<LexerState>>(tc.initialState)
     );
 
+    if (tc.lastStartTag.has_value()) {
+        parser.lexer.last_emitted_start_tag_name.data =
+            (int*)_crawler_alloc(
+                tc.lastStartTag.value().length()*sizeof *parser.lexer.last_emitted_start_tag_name.data
+            );
+
+        parser.lexer.last_emitted_start_tag_name.length =
+        parser.lexer.last_emitted_start_tag_name.capacity =
+            tc.lastStartTag.value().length();
+
+        memcpy(
+            parser.lexer.last_emitted_start_tag_name.data,
+            tc.lastStartTag.value().c_str(),
+            tc.lastStartTag.value().length()*sizeof *parser.lexer.last_emitted_start_tag_name.data
+        );
+
+        parser.lexer.start_tag_emitted = true;
+    }
+
     for (auto& expectedToken : tc.expectedTokens) {
         ASSERT_EQ(CRAWLER_LEXER_SUCCESS, crawler_lexer_gen_token(&parser));
         const CrawlerToken& ct = parser.current_token;
@@ -164,9 +183,11 @@ TEST_P(Entity, Compare) {
 
         crawler_token_destroy(&parser.current_token);
     }
+
+    crawler_string_destroy(&parser.lexer.last_emitted_start_tag_name);
+    parser.lexer.start_tag_emitted = false;
 }
 
-#if 1
 INSTANTIATE_TEST_SUITE_P(
     NamedEntities,
     Entity,
@@ -214,13 +235,60 @@ INSTANTIATE_TEST_SUITE_P(
         kTest3Tests
     )
 );
-#endif
 
 INSTANTIATE_TEST_SUITE_P(
     Test4,
     Entity,
     ::testing::ValuesIn(
         kTest4Tests
+    )
+);
+
+INSTANTIATE_TEST_SUITE_P(
+    Entities,
+    Entity,
+    ::testing::ValuesIn(
+        kEntitiesTests
+    )
+);
+
+INSTANTIATE_TEST_SUITE_P(
+    EscapeFlag,
+    Entity,
+    ::testing::ValuesIn(
+        kEscapeFlagTests
+    )
+);
+
+INSTANTIATE_TEST_SUITE_P(
+    PendingSpecChanges,
+    Entity,
+    ::testing::ValuesIn(
+        kPendingSpecChangesTests
+    )
+);
+
+INSTANTIATE_TEST_SUITE_P(
+    ContentModelFlags,
+    Entity,
+    ::testing::ValuesIn(
+        kContentModelFlagsTests
+    )
+);
+
+INSTANTIATE_TEST_SUITE_P(
+    Domjs,
+    Entity,
+    ::testing::ValuesIn(
+        kDomjsTests
+    )
+);
+
+INSTANTIATE_TEST_SUITE_P(
+    XMLViolation,
+    Entity,
+    ::testing::ValuesIn(
+        kXMLViolationTests
     )
 );
 

@@ -1,6 +1,6 @@
 TokenizerTest{
     "Correct Doctype lowercase", // description
-    "<!DOCTYPE html>", // input
+    "<!DOCTYPE html>"s, // input
     { // expectedTokens
         DoctypeToken{U"html", std::nullopt, std::nullopt, true},
         EOFToken{}
@@ -11,7 +11,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Correct Doctype uppercase", // description
-    "<!DOCTYPE HTML>", // input
+    "<!DOCTYPE HTML>"s, // input
     { // expectedTokens
         DoctypeToken{U"html", std::nullopt, std::nullopt, true},
         EOFToken{}
@@ -22,7 +22,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Correct Doctype mixed case", // description
-    "<!DOCTYPE HtMl>", // input
+    "<!DOCTYPE HtMl>"s, // input
     { // expectedTokens
         DoctypeToken{U"html", std::nullopt, std::nullopt, true},
         EOFToken{}
@@ -33,7 +33,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Correct Doctype case with EOF", // description
-    "<!DOCTYPE HtMl", // input
+    "<!DOCTYPE HtMl"s, // input
     { // expectedTokens
         DoctypeToken{U"html", std::nullopt, std::nullopt, false},
         EOFToken{}
@@ -45,7 +45,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Truncated doctype start", // description
-    "<!DOC>", // input
+    "<!DOC>"s, // input
     { // expectedTokens
         CommentToken{U"DOC"},
         EOFToken{}
@@ -57,7 +57,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Doctype in error", // description
-    "<!DOCTYPE foo>", // input
+    "<!DOCTYPE foo>"s, // input
     { // expectedTokens
         DoctypeToken{U"foo", std::nullopt, std::nullopt, true},
         EOFToken{}
@@ -68,7 +68,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Single Start Tag", // description
-    "<h>", // input
+    "<h>"s, // input
     { // expectedTokens
         StartTagToken{U"h", {  }, false},
         EOFToken{}
@@ -79,7 +79,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Empty end tag", // description
-    "</>", // input
+    "</>"s, // input
     { // expectedTokens
         EOFToken{}
     },
@@ -90,10 +90,10 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Empty start tag", // description
-    "<>", // input
+    "<>"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U">"},
+        CharacterToken{U"<"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -103,7 +103,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Start Tag w/attribute", // description
-    "<h a='b'>", // input
+    "<h a='b'>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"a", U"b"} }, false},
         EOFToken{}
@@ -114,7 +114,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Start Tag w/attribute no quotes", // description
-    "<h a=b>", // input
+    "<h a=b>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"a", U"b"} }, false},
         EOFToken{}
@@ -125,7 +125,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Start/End Tag", // description
-    "<h></h>", // input
+    "<h></h>"s, // input
     { // expectedTokens
         StartTagToken{U"h", {  }, false},
         EndTagToken{U"h"},
@@ -137,16 +137,16 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Two unclosed start tags", // description
-    "<p>One<p>Two", // input
+    "<p>One<p>Two"s, // input
     { // expectedTokens
         StartTagToken{U"p", {  }, false},
-        CharacterToken{U"O"},
-        CharacterToken{U"n"},
-        CharacterToken{U"e"},
+        CharacterToken{U"O"s},
+        CharacterToken{U"n"s},
+        CharacterToken{U"e"s},
         StartTagToken{U"p", {  }, false},
-        CharacterToken{U"T"},
-        CharacterToken{U"w"},
-        CharacterToken{U"o"},
+        CharacterToken{U"T"s},
+        CharacterToken{U"w"s},
+        CharacterToken{U"o"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -155,7 +155,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "End Tag w/attribute", // description
-    "<h></h a='b'>", // input
+    "<h></h a='b'>"s, // input
     { // expectedTokens
         StartTagToken{U"h", {  }, false},
         EndTagToken{U"h"},
@@ -168,7 +168,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Multiple atts", // description
-    "<h a='b' c='d'>", // input
+    "<h a='b' c='d'>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"c", U"d"}, Attribute{U"a", U"b"} }, false},
         EOFToken{}
@@ -179,7 +179,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Multiple atts no space", // description
-    "<h a='b'c='d'>", // input
+    "<h a='b'c='d'>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"c", U"d"}, Attribute{U"a", U"b"} }, false},
         EOFToken{}
@@ -191,7 +191,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Repeated attr", // description
-    "<h a='b' a='d'>", // input
+    "<h a='b' a='d'>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"a", U"b"} }, false},
         EOFToken{}
@@ -203,7 +203,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Simple comment", // description
-    "<!--comment-->", // input
+    "<!--comment-->"s, // input
     { // expectedTokens
         CommentToken{U"comment"},
         EOFToken{}
@@ -214,7 +214,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Comment, Central dash no space", // description
-    "<!----->", // input
+    "<!----->"s, // input
     { // expectedTokens
         CommentToken{U"-"},
         EOFToken{}
@@ -225,7 +225,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Comment, two central dashes", // description
-    "<!-- --comment -->", // input
+    "<!-- --comment -->"s, // input
     { // expectedTokens
         CommentToken{U" --comment "},
         EOFToken{}
@@ -236,7 +236,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Comment, central less-than bang", // description
-    "<!--<!-->", // input
+    "<!--<!-->"s, // input
     { // expectedTokens
         CommentToken{U"<!"},
         EOFToken{}
@@ -247,7 +247,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Unfinished comment", // description
-    "<!--comment", // input
+    "<!--comment"s, // input
     { // expectedTokens
         CommentToken{U"comment"},
         EOFToken{}
@@ -259,7 +259,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Unfinished comment after start of nested comment", // description
-    "<!-- <!--", // input
+    "<!-- <!--"s, // input
     { // expectedTokens
         CommentToken{U" <!"},
         EOFToken{}
@@ -271,7 +271,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Start of a comment", // description
-    "<!-", // input
+    "<!-"s, // input
     { // expectedTokens
         CommentToken{U"-"},
         EOFToken{}
@@ -283,7 +283,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Short comment", // description
-    "<!-->", // input
+    "<!-->"s, // input
     { // expectedTokens
         CommentToken{U""},
         EOFToken{}
@@ -295,7 +295,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Short comment two", // description
-    "<!--->", // input
+    "<!--->"s, // input
     { // expectedTokens
         CommentToken{U""},
         EOFToken{}
@@ -307,7 +307,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Short comment three", // description
-    "<!---->", // input
+    "<!---->"s, // input
     { // expectedTokens
         CommentToken{U""},
         EOFToken{}
@@ -318,7 +318,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "< in comment", // description
-    "<!-- <test-->", // input
+    "<!-- <test-->"s, // input
     { // expectedTokens
         CommentToken{U" <test"},
         EOFToken{}
@@ -329,7 +329,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "<< in comment", // description
-    "<!--<<-->", // input
+    "<!--<<-->"s, // input
     { // expectedTokens
         CommentToken{U"<<"},
         EOFToken{}
@@ -340,7 +340,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "<! in comment", // description
-    "<!-- <!test-->", // input
+    "<!-- <!test-->"s, // input
     { // expectedTokens
         CommentToken{U" <!test"},
         EOFToken{}
@@ -351,7 +351,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "<!- in comment", // description
-    "<!-- <!-test-->", // input
+    "<!-- <!-test-->"s, // input
     { // expectedTokens
         CommentToken{U" <!-test"},
         EOFToken{}
@@ -362,7 +362,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Nested comment", // description
-    "<!-- <!--test-->", // input
+    "<!-- <!--test-->"s, // input
     { // expectedTokens
         CommentToken{U" <!--test"},
         EOFToken{}
@@ -374,7 +374,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Nested comment with extra <", // description
-    "<!-- <<!--test-->", // input
+    "<!-- <<!--test-->"s, // input
     { // expectedTokens
         CommentToken{U" <<!--test"},
         EOFToken{}
@@ -386,16 +386,16 @@ TokenizerTest{
     }
 },TokenizerTest{
     "< in script data", // description
-    "<test-->", // input
+    "<test-->"s, // input
     { // expectedTokens
-        CharacterToken{U"<"},
-        CharacterToken{U"t"},
-        CharacterToken{U"e"},
-        CharacterToken{U"s"},
-        CharacterToken{U"t"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -404,16 +404,16 @@ TokenizerTest{
     }
 },TokenizerTest{
     "<! in script data", // description
-    "<!test-->", // input
+    "<!test-->"s, // input
     { // expectedTokens
-        CharacterToken{U"<!"},
-        CharacterToken{U"t"},
-        CharacterToken{U"e"},
-        CharacterToken{U"s"},
-        CharacterToken{U"t"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -422,17 +422,17 @@ TokenizerTest{
     }
 },TokenizerTest{
     "<!- in script data", // description
-    "<!-test-->", // input
+    "<!-test-->"s, // input
     { // expectedTokens
-        CharacterToken{U"<!"},
-        CharacterToken{U"-"},
-        CharacterToken{U"t"},
-        CharacterToken{U"e"},
-        CharacterToken{U"s"},
-        CharacterToken{U"t"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -441,18 +441,18 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Escaped script data", // description
-    "<!--test-->", // input
+    "<!--test-->"s, // input
     { // expectedTokens
-        CharacterToken{U"<!"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U"t"},
-        CharacterToken{U"e"},
-        CharacterToken{U"s"},
-        CharacterToken{U"t"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -461,22 +461,22 @@ TokenizerTest{
     }
 },TokenizerTest{
     "< in script HTML comment", // description
-    "<!-- < test -->", // input
+    "<!-- < test -->"s, // input
     { // expectedTokens
-        CharacterToken{U"<!"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U" "},
-        CharacterToken{U"<"},
-        CharacterToken{U" "},
-        CharacterToken{U"t"},
-        CharacterToken{U"e"},
-        CharacterToken{U"s"},
-        CharacterToken{U"t"},
-        CharacterToken{U" "},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"<"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -485,22 +485,22 @@ TokenizerTest{
     }
 },TokenizerTest{
     "</ in script HTML comment", // description
-    "<!-- </ test -->", // input
+    "<!-- </ test -->"s, // input
     { // expectedTokens
-        CharacterToken{U"<!"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U" "},
-        CharacterToken{U"</"},
-        CharacterToken{U" "},
-        CharacterToken{U"t"},
-        CharacterToken{U"e"},
-        CharacterToken{U"s"},
-        CharacterToken{U"t"},
-        CharacterToken{U" "},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"</"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -509,22 +509,22 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Start tag in script HTML comment", // description
-    "<!-- <test> -->", // input
+    "<!-- <test> -->"s, // input
     { // expectedTokens
-        CharacterToken{U"<!"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U" "},
-        CharacterToken{U"<"},
-        CharacterToken{U"t"},
-        CharacterToken{U"e"},
-        CharacterToken{U"s"},
-        CharacterToken{U"t"},
-        CharacterToken{U">"},
-        CharacterToken{U" "},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -533,18 +533,18 @@ TokenizerTest{
     }
 },TokenizerTest{
     "End tag in script HTML comment", // description
-    "<!-- </test> -->", // input
+    "<!-- </test> -->"s, // input
     { // expectedTokens
-        CharacterToken{U"<!"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U" "},
-        CharacterToken{U"</test"},
-        CharacterToken{U">"},
-        CharacterToken{U" "},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"</test"s},
+        CharacterToken{U">"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -553,32 +553,32 @@ TokenizerTest{
     }
 },TokenizerTest{
     "- in script HTML comment double escaped", // description
-    "<!--<script>-</script>-->", // input
+    "<!--<script>-</script>-->"s, // input
     { // expectedTokens
-        CharacterToken{U"<!"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U"<"},
-        CharacterToken{U"s"},
-        CharacterToken{U"c"},
-        CharacterToken{U"r"},
-        CharacterToken{U"i"},
-        CharacterToken{U"p"},
-        CharacterToken{U"t"},
-        CharacterToken{U">"},
-        CharacterToken{U"-"},
-        CharacterToken{U"<"},
-        CharacterToken{U"/"},
-        CharacterToken{U"s"},
-        CharacterToken{U"c"},
-        CharacterToken{U"r"},
-        CharacterToken{U"i"},
-        CharacterToken{U"p"},
-        CharacterToken{U"t"},
-        CharacterToken{U">"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"/"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -587,33 +587,33 @@ TokenizerTest{
     }
 },TokenizerTest{
     "-- in script HTML comment double escaped", // description
-    "<!--<script>--</script>-->", // input
+    "<!--<script>--</script>-->"s, // input
     { // expectedTokens
-        CharacterToken{U"<!"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U"<"},
-        CharacterToken{U"s"},
-        CharacterToken{U"c"},
-        CharacterToken{U"r"},
-        CharacterToken{U"i"},
-        CharacterToken{U"p"},
-        CharacterToken{U"t"},
-        CharacterToken{U">"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U"<"},
-        CharacterToken{U"/"},
-        CharacterToken{U"s"},
-        CharacterToken{U"c"},
-        CharacterToken{U"r"},
-        CharacterToken{U"i"},
-        CharacterToken{U"p"},
-        CharacterToken{U"t"},
-        CharacterToken{U">"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"/"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -622,34 +622,34 @@ TokenizerTest{
     }
 },TokenizerTest{
     "--- in script HTML comment double escaped", // description
-    "<!--<script>---</script>-->", // input
+    "<!--<script>---</script>-->"s, // input
     { // expectedTokens
-        CharacterToken{U"<!"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U"<"},
-        CharacterToken{U"s"},
-        CharacterToken{U"c"},
-        CharacterToken{U"r"},
-        CharacterToken{U"i"},
-        CharacterToken{U"p"},
-        CharacterToken{U"t"},
-        CharacterToken{U">"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U"<"},
-        CharacterToken{U"/"},
-        CharacterToken{U"s"},
-        CharacterToken{U"c"},
-        CharacterToken{U"r"},
-        CharacterToken{U"i"},
-        CharacterToken{U"p"},
-        CharacterToken{U"t"},
-        CharacterToken{U">"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"/"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -658,34 +658,34 @@ TokenizerTest{
     }
 },TokenizerTest{
     "- spaced in script HTML comment double escaped", // description
-    "<!--<script> - </script>-->", // input
+    "<!--<script> - </script>-->"s, // input
     { // expectedTokens
-        CharacterToken{U"<!"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U"<"},
-        CharacterToken{U"s"},
-        CharacterToken{U"c"},
-        CharacterToken{U"r"},
-        CharacterToken{U"i"},
-        CharacterToken{U"p"},
-        CharacterToken{U"t"},
-        CharacterToken{U">"},
-        CharacterToken{U" "},
-        CharacterToken{U"-"},
-        CharacterToken{U" "},
-        CharacterToken{U"<"},
-        CharacterToken{U"/"},
-        CharacterToken{U"s"},
-        CharacterToken{U"c"},
-        CharacterToken{U"r"},
-        CharacterToken{U"i"},
-        CharacterToken{U"p"},
-        CharacterToken{U"t"},
-        CharacterToken{U">"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"/"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -694,35 +694,35 @@ TokenizerTest{
     }
 },TokenizerTest{
     "-- spaced in script HTML comment double escaped", // description
-    "<!--<script> -- </script>-->", // input
+    "<!--<script> -- </script>-->"s, // input
     { // expectedTokens
-        CharacterToken{U"<!"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U"<"},
-        CharacterToken{U"s"},
-        CharacterToken{U"c"},
-        CharacterToken{U"r"},
-        CharacterToken{U"i"},
-        CharacterToken{U"p"},
-        CharacterToken{U"t"},
-        CharacterToken{U">"},
-        CharacterToken{U" "},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U" "},
-        CharacterToken{U"<"},
-        CharacterToken{U"/"},
-        CharacterToken{U"s"},
-        CharacterToken{U"c"},
-        CharacterToken{U"r"},
-        CharacterToken{U"i"},
-        CharacterToken{U"p"},
-        CharacterToken{U"t"},
-        CharacterToken{U">"},
-        CharacterToken{U"-"},
-        CharacterToken{U"-"},
-        CharacterToken{U">"},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"/"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
         EOFToken{}
     },
     LexerState::ScriptData, // initialState
@@ -731,9 +731,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Ampersand EOF", // description
-    "&", // input
+    "&"s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
+        CharacterToken{U"&"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -742,10 +742,10 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Ampersand ampersand EOF", // description
-    "&&", // input
+    "&&"s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
-        CharacterToken{U"&"},
+        CharacterToken{U"&"s},
+        CharacterToken{U"&"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -754,10 +754,10 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Ampersand space EOF", // description
-    "& ", // input
+    "& "s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
-        CharacterToken{U" "},
+        CharacterToken{U"&"s},
+        CharacterToken{U" "s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -766,9 +766,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Unfinished entity", // description
-    "&f", // input
+    "&f"s, // input
     { // expectedTokens
-        CharacterToken{U"&f"},
+        CharacterToken{U"&f"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -777,9 +777,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Ampersand, number sign", // description
-    "&#", // input
+    "&#"s, // input
     { // expectedTokens
-        CharacterToken{U"&#"},
+        CharacterToken{U"&#"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -789,9 +789,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Unfinished numeric entity", // description
-    "&#x", // input
+    "&#x"s, // input
     { // expectedTokens
-        CharacterToken{U"&#x"},
+        CharacterToken{U"&#x"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -801,15 +801,15 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Entity with trailing semicolon (1)", // description
-    "I'm &not;it", // input
+    "I'm &not;it"s, // input
     { // expectedTokens
-        CharacterToken{U"I"},
-        CharacterToken{U"'"},
-        CharacterToken{U"m"},
-        CharacterToken{U" "},
-        CharacterToken{U"\u00AC"},
-        CharacterToken{U"i"},
-        CharacterToken{U"t"},
+        CharacterToken{U"I"s},
+        CharacterToken{U"'"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"\u00AC"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"t"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -818,13 +818,13 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Entity with trailing semicolon (2)", // description
-    "I'm &notin;", // input
+    "I'm &notin;"s, // input
     { // expectedTokens
-        CharacterToken{U"I"},
-        CharacterToken{U"'"},
-        CharacterToken{U"m"},
-        CharacterToken{U" "},
-        CharacterToken{U"\u2209"},
+        CharacterToken{U"I"s},
+        CharacterToken{U"'"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"\u2209"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -833,15 +833,15 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Entity without trailing semicolon (1)", // description
-    "I'm &notit", // input
+    "I'm &notit"s, // input
     { // expectedTokens
-        CharacterToken{U"I"},
-        CharacterToken{U"'"},
-        CharacterToken{U"m"},
-        CharacterToken{U" "},
-        CharacterToken{U"\u00AC"},
-        CharacterToken{U"i"},
-        CharacterToken{U"t"},
+        CharacterToken{U"I"s},
+        CharacterToken{U"'"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"\u00AC"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"t"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -851,15 +851,15 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Entity without trailing semicolon (2)", // description
-    "I'm &notin", // input
+    "I'm &notin"s, // input
     { // expectedTokens
-        CharacterToken{U"I"},
-        CharacterToken{U"'"},
-        CharacterToken{U"m"},
-        CharacterToken{U" "},
-        CharacterToken{U"\u00AC"},
-        CharacterToken{U"i"},
-        CharacterToken{U"n"},
+        CharacterToken{U"I"s},
+        CharacterToken{U"'"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"\u00AC"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"n"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -869,13 +869,13 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Partial entity match at end of file", // description
-    "I'm &no", // input
+    "I'm &no"s, // input
     { // expectedTokens
-        CharacterToken{U"I"},
-        CharacterToken{U"'"},
-        CharacterToken{U"m"},
-        CharacterToken{U" "},
-        CharacterToken{U"&no"},
+        CharacterToken{U"I"s},
+        CharacterToken{U"'"s},
+        CharacterToken{U"m"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"&no"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -884,11 +884,11 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Non-ASCII character reference name", // description
-    "&\u00AC;", // input
+    "&\u00AC;"s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
-        CharacterToken{U"\u00AC"},
-        CharacterToken{U";"},
+        CharacterToken{U"&"s},
+        CharacterToken{U"\u00AC"s},
+        CharacterToken{U";"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -897,9 +897,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "ASCII decimal entity", // description
-    "&#0036;", // input
+    "&#0036;"s, // input
     { // expectedTokens
-        CharacterToken{U"$"},
+        CharacterToken{U"$"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -908,9 +908,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "ASCII hexadecimal entity", // description
-    "&#x3f;", // input
+    "&#x3f;"s, // input
     { // expectedTokens
-        CharacterToken{U"?"},
+        CharacterToken{U"?"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -919,7 +919,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Hexadecimal entity in attribute", // description
-    "<h a='&#x3f;'></h>", // input
+    "<h a='&#x3f;'></h>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"a", U"?"} }, false},
         EndTagToken{U"h"},
@@ -931,7 +931,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Entity in attribute without semicolon ending in x", // description
-    "<h a='&notx'>", // input
+    "<h a='&notx'>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"a", U"&notx"} }, false},
         EOFToken{}
@@ -942,7 +942,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Entity in attribute without semicolon ending in 1", // description
-    "<h a='&not1'>", // input
+    "<h a='&not1'>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"a", U"&not1"} }, false},
         EOFToken{}
@@ -953,7 +953,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Entity in attribute without semicolon ending in i", // description
-    "<h a='&noti'>", // input
+    "<h a='&noti'>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"a", U"&noti"} }, false},
         EOFToken{}
@@ -964,7 +964,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Entity in attribute without semicolon", // description
-    "<h a='&COPY'>", // input
+    "<h a='&COPY'>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"a", U"\u00A9"} }, false},
         EOFToken{}
@@ -976,7 +976,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Unquoted attribute ending in ampersand", // description
-    "<s o=& t>", // input
+    "<s o=& t>"s, // input
     { // expectedTokens
         StartTagToken{U"s", { Attribute{U"t", U""}, Attribute{U"o", U"&"} }, false},
         EOFToken{}
@@ -987,12 +987,12 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Unquoted attribute at end of tag with final character of &, with tag followed by characters", // description
-    "<a a=a&>foo", // input
+    "<a a=a&>foo"s, // input
     { // expectedTokens
         StartTagToken{U"a", { Attribute{U"a", U"a&"} }, false},
-        CharacterToken{U"f"},
-        CharacterToken{U"o"},
-        CharacterToken{U"o"},
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1001,15 +1001,15 @@ TokenizerTest{
     }
 },TokenizerTest{
     "plaintext element", // description
-    "<plaintext>foobar", // input
+    "<plaintext>foobar"s, // input
     { // expectedTokens
         StartTagToken{U"plaintext", {  }, false},
-        CharacterToken{U"f"},
-        CharacterToken{U"o"},
-        CharacterToken{U"o"},
-        CharacterToken{U"b"},
-        CharacterToken{U"a"},
-        CharacterToken{U"r"},
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"r"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -1018,7 +1018,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Open angled bracket in unquoted attribute value state", // description
-    "<a a=f<>", // input
+    "<a a=f<>"s, // input
     { // expectedTokens
         StartTagToken{U"a", { Attribute{U"a", U"f<"} }, false},
         EOFToken{}

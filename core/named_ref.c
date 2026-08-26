@@ -13,6 +13,7 @@ static void reset(CrawlerLexerContext* lexer) {
     named_ref->curr = named_ref->entities_trie.data;
     named_ref->last_match = NULL;
     named_ref->last_character_matched = 0;
+    named_ref->next_input_character = -1;
 }
 
 bool crawler_named_reference_create(CrawlerLexerContext* lexer) {
@@ -39,7 +40,7 @@ void crawler_named_reference_destroy(CrawlerLexerContext* lexer) {
     *named_ref = NULL;
 }
 
-static CrawlerNamedReferenceResult final_step(CrawlerParserContext* parser, CrawlerCharacterReference* cr) {
+static CrawlerNamedReferenceResult final_step(CrawlerParserContext* parser, CrawlerCharacterReference* cr, int* next_input_character) {
     CrawlerNamedReferenceContext* named_ref =
         (CrawlerNamedReferenceContext*)(parser->lexer.named_ref);
 
@@ -50,27 +51,29 @@ static CrawlerNamedReferenceResult final_step(CrawlerParserContext* parser, Craw
 
     cr->first = named_ref->last_match->char_ref.first;
     cr->second = named_ref->last_match->char_ref.second;
+    *next_input_character = named_ref->next_input_character;
     reset(&parser->lexer);
     return CRAWLER_CR_SUCCESS;
 }
 
-CrawlerNamedReferenceResult crawler_named_reference_step(CrawlerParserContext* parser, int cp, CrawlerCharacterReference* cr) {
+CrawlerNamedReferenceResult crawler_named_reference_step(CrawlerParserContext* parser, int cp, int ncp, CrawlerCharacterReference* cr, int* next_input_character) {
     CrawlerNamedReferenceContext* named_ref =
         (CrawlerNamedReferenceContext*)(parser->lexer.named_ref);
 
     size_t index = crawler_char_index(cp);
     if (index == -1)
-        return final_step(parser, cr);
+        return final_step(parser, cr, next_input_character);
 
     size_t child_offset = named_ref->curr->children_offsets[index];
     if (child_offset == 0)
-        return final_step(parser, cr);
+        return final_step(parser, cr, next_input_character);
 
     assert(child_offset < named_ref->entities_trie.node_count);
     named_ref->curr = &named_ref->entities_trie.data[child_offset];
     named_ref->last_character_matched = cp;
 
     if (named_ref->curr->is_terminal) {
+        named_ref->next_input_character = ncp;
         named_ref->last_match = named_ref->curr;
         crawler_stream_commit(&parser->is);
     }

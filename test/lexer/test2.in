@@ -1,6 +1,6 @@
 TokenizerTest{
     "DOCTYPE without name", // description
-    "<!DOCTYPE>", // input
+    "<!DOCTYPE>"s, // input
     { // expectedTokens
         DoctypeToken{std::nullopt, std::nullopt, std::nullopt, false},
         EOFToken{}
@@ -12,7 +12,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "DOCTYPE without space before name", // description
-    "<!DOCTYPEhtml>", // input
+    "<!DOCTYPEhtml>"s, // input
     { // expectedTokens
         DoctypeToken{U"html", std::nullopt, std::nullopt, true},
         EOFToken{}
@@ -24,7 +24,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Incorrect DOCTYPE without a space before name", // description
-    "<!DOCTYPEfoo>", // input
+    "<!DOCTYPEfoo>"s, // input
     { // expectedTokens
         DoctypeToken{U"foo", std::nullopt, std::nullopt, true},
         EOFToken{}
@@ -36,7 +36,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "DOCTYPE with publicId", // description
-    "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML Transitional 4.01//EN\">", // input
+    "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML Transitional 4.01//EN\">"s, // input
     { // expectedTokens
         DoctypeToken{U"html", U"-//W3C//DTD HTML Transitional 4.01//EN", std::nullopt, true},
         EOFToken{}
@@ -47,7 +47,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "DOCTYPE with EOF after PUBLIC", // description
-    "<!DOCTYPE html PUBLIC", // input
+    "<!DOCTYPE html PUBLIC"s, // input
     { // expectedTokens
         DoctypeToken{U"html", std::nullopt, std::nullopt, false},
         EOFToken{}
@@ -59,7 +59,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "DOCTYPE with EOF after PUBLIC '", // description
-    "<!DOCTYPE html PUBLIC '", // input
+    "<!DOCTYPE html PUBLIC '"s, // input
     { // expectedTokens
         DoctypeToken{U"html", U"", std::nullopt, false},
         EOFToken{}
@@ -71,7 +71,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "DOCTYPE with EOF after PUBLIC 'x", // description
-    "<!DOCTYPE html PUBLIC 'x", // input
+    "<!DOCTYPE html PUBLIC 'x"s, // input
     { // expectedTokens
         DoctypeToken{U"html", U"x", std::nullopt, false},
         EOFToken{}
@@ -83,7 +83,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "DOCTYPE with systemId", // description
-    "<!DOCTYPE html SYSTEM \"-//W3C//DTD HTML Transitional 4.01//EN\">", // input
+    "<!DOCTYPE html SYSTEM \"-//W3C//DTD HTML Transitional 4.01//EN\">"s, // input
     { // expectedTokens
         DoctypeToken{U"html", std::nullopt, U"-//W3C//DTD HTML Transitional 4.01//EN", true},
         EOFToken{}
@@ -94,7 +94,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "DOCTYPE with single-quoted systemId", // description
-    "<!DOCTYPE html SYSTEM '-//W3C//DTD HTML Transitional 4.01//EN'>", // input
+    "<!DOCTYPE html SYSTEM '-//W3C//DTD HTML Transitional 4.01//EN'>"s, // input
     { // expectedTokens
         DoctypeToken{U"html", std::nullopt, U"-//W3C//DTD HTML Transitional 4.01//EN", true},
         EOFToken{}
@@ -105,7 +105,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "DOCTYPE with publicId and systemId", // description
-    "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML Transitional 4.01//EN\" \"-//W3C//DTD HTML Transitional 4.01//EN\">", // input
+    "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML Transitional 4.01//EN\" \"-//W3C//DTD HTML Transitional 4.01//EN\">"s, // input
     { // expectedTokens
         DoctypeToken{U"html", U"-//W3C//DTD HTML Transitional 4.01//EN", U"-//W3C//DTD HTML Transitional 4.01//EN", true},
         EOFToken{}
@@ -116,10 +116,10 @@ TokenizerTest{
     }
 },TokenizerTest{
     "DOCTYPE with > in double-quoted publicId", // description
-    "<!DOCTYPE html PUBLIC \">x", // input
+    "<!DOCTYPE html PUBLIC \">x"s, // input
     { // expectedTokens
         DoctypeToken{U"html", U"", std::nullopt, false},
-        CharacterToken{U"x"},
+        CharacterToken{U"x"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -129,10 +129,10 @@ TokenizerTest{
     }
 },TokenizerTest{
     "DOCTYPE with > in single-quoted publicId", // description
-    "<!DOCTYPE html PUBLIC '>x", // input
+    "<!DOCTYPE html PUBLIC '>x"s, // input
     { // expectedTokens
         DoctypeToken{U"html", U"", std::nullopt, false},
-        CharacterToken{U"x"},
+        CharacterToken{U"x"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -142,10 +142,10 @@ TokenizerTest{
     }
 },TokenizerTest{
     "DOCTYPE with > in double-quoted systemId", // description
-    "<!DOCTYPE html PUBLIC \"foo\" \">x", // input
+    "<!DOCTYPE html PUBLIC \"foo\" \">x"s, // input
     { // expectedTokens
         DoctypeToken{U"html", U"foo", U"", false},
-        CharacterToken{U"x"},
+        CharacterToken{U"x"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -155,10 +155,10 @@ TokenizerTest{
     }
 },TokenizerTest{
     "DOCTYPE with > in single-quoted systemId", // description
-    "<!DOCTYPE html PUBLIC 'foo' '>x", // input
+    "<!DOCTYPE html PUBLIC 'foo' '>x"s, // input
     { // expectedTokens
         DoctypeToken{U"html", U"foo", U"", false},
-        CharacterToken{U"x"},
+        CharacterToken{U"x"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -168,7 +168,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Incomplete doctype", // description
-    "<!DOCTYPE html ", // input
+    "<!DOCTYPE html "s, // input
     { // expectedTokens
         DoctypeToken{U"html", std::nullopt, std::nullopt, false},
         EOFToken{}
@@ -180,9 +180,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Numeric entity representing the NUL character", // description
-    "&#0000;", // input
+    "&#0000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -192,9 +192,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Hexadecimal entity representing the NUL character", // description
-    "&#x0000;", // input
+    "&#x0000;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -204,9 +204,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Numeric entity representing a codepoint after 1114111 (U+10FFFF)", // description
-    "&#2225222;", // input
+    "&#2225222;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -216,9 +216,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Hexadecimal entity representing a codepoint after 1114111 (U+10FFFF)", // description
-    "&#x1010FFFF;", // input
+    "&#x1010FFFF;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -228,10 +228,10 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Hexadecimal entity pair representing a surrogate pair", // description
-    "&#xD869;&#xDED6;", // input
+    "&#xD869;&#xDED6;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uFFFD"},
-        CharacterToken{U"\uFFFD"},
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"\uFFFD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -242,9 +242,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Hexadecimal entity with mixed uppercase and lowercase", // description
-    "&#xaBcD;", // input
+    "&#xaBcD;"s, // input
     { // expectedTokens
-        CharacterToken{U"\uABCD"},
+        CharacterToken{U"\uABCD"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -253,10 +253,10 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Entity without a name", // description
-    "&;", // input
+    "&;"s, // input
     { // expectedTokens
-        CharacterToken{U"&"},
-        CharacterToken{U";"},
+        CharacterToken{U"&"s},
+        CharacterToken{U";"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -265,7 +265,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Unescaped ampersand in attribute value", // description
-    "<h a='&'>", // input
+    "<h a='&'>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"a", U"&"} }, false},
         EOFToken{}
@@ -276,7 +276,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "StartTag containing <", // description
-    "<a<b>", // input
+    "<a<b>"s, // input
     { // expectedTokens
         StartTagToken{U"a<b", {  }, false},
         EOFToken{}
@@ -287,7 +287,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Non-void element containing trailing /", // description
-    "<h/>", // input
+    "<h/>"s, // input
     { // expectedTokens
         StartTagToken{U"h", {  }, true},
         EOFToken{}
@@ -298,7 +298,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Void element with permitted slash", // description
-    "<br/>", // input
+    "<br/>"s, // input
     { // expectedTokens
         StartTagToken{U"br", {  }, true},
         EOFToken{}
@@ -309,7 +309,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Void element with permitted slash (with attribute)", // description
-    "<br foo='bar'/>", // input
+    "<br foo='bar'/>"s, // input
     { // expectedTokens
         StartTagToken{U"br", { Attribute{U"foo", U"bar"} }, true},
         EOFToken{}
@@ -320,7 +320,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "StartTag containing /", // description
-    "<h/a='b'>", // input
+    "<h/a='b'>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"a", U"b"} }, false},
         EOFToken{}
@@ -332,7 +332,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Double-quoted attribute value", // description
-    "<h a=\"b\">", // input
+    "<h a=\"b\">"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"a", U"b"} }, false},
         EOFToken{}
@@ -343,9 +343,9 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Unescaped </", // description
-    "</", // input
+    "</"s, // input
     { // expectedTokens
-        CharacterToken{U"</"},
+        CharacterToken{U"</"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -355,7 +355,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Illegal end tag name", // description
-    "</1>", // input
+    "</1>"s, // input
     { // expectedTokens
         CommentToken{U"1"},
         EOFToken{}
@@ -367,7 +367,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Simili processing instruction", // description
-    "<?namespace>", // input
+    "<?namespace>"s, // input
     { // expectedTokens
         ProcessingInstructionToken{U"", U"namespace"},
         EOFToken{}
@@ -378,7 +378,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "A bogus comment stops at >, even if preceded by two dashes", // description
-    "<?foo-->", // input
+    "<?foo-->"s, // input
     { // expectedTokens
         ProcessingInstructionToken{U"", U"foo-"},
         EOFToken{}
@@ -389,17 +389,17 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Unescaped <", // description
-    "foo < bar", // input
+    "foo < bar"s, // input
     { // expectedTokens
-        CharacterToken{U"f"},
-        CharacterToken{U"o"},
-        CharacterToken{U"o"},
-        CharacterToken{U" "},
-        CharacterToken{U"<"},
-        CharacterToken{U" "},
-        CharacterToken{U"b"},
-        CharacterToken{U"a"},
-        CharacterToken{U"r"},
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"<"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"r"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -409,7 +409,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Comment with dash", // description
-    "<!---x", // input
+    "<!---x"s, // input
     { // expectedTokens
         CommentToken{U"-x"},
         EOFToken{}
@@ -421,13 +421,13 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Entity + newline", // description
-    "\nx\n&gt;\n", // input
+    "\nx\n&gt;\n"s, // input
     { // expectedTokens
-        CharacterToken{U"\n"},
-        CharacterToken{U"x"},
-        CharacterToken{U"\n"},
-        CharacterToken{U">"},
-        CharacterToken{U"\n"},
+        CharacterToken{U"\n"s},
+        CharacterToken{U"x"s},
+        CharacterToken{U"\n"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"\n"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -436,7 +436,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Start tag with no attributes but space before the greater-than sign", // description
-    "<h >", // input
+    "<h >"s, // input
     { // expectedTokens
         StartTagToken{U"h", {  }, false},
         EOFToken{}
@@ -447,7 +447,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Empty attribute followed by uppercase attribute", // description
-    "<h a B=''>", // input
+    "<h a B=''>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"b", U""}, Attribute{U"a", U""} }, false},
         EOFToken{}
@@ -458,7 +458,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Double-quote after attribute name", // description
-    "<h a \">", // input
+    "<h a \">"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"\"", U""}, Attribute{U"a", U""} }, false},
         EOFToken{}
@@ -470,7 +470,7 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Single-quote after attribute name", // description
-    "<h a '>", // input
+    "<h a '>"s, // input
     { // expectedTokens
         StartTagToken{U"h", { Attribute{U"'", U""}, Attribute{U"a", U""} }, false},
         EOFToken{}
@@ -482,11 +482,11 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Empty end tag with following characters", // description
-    "a</>bc", // input
+    "a</>bc"s, // input
     { // expectedTokens
-        CharacterToken{U"a"},
-        CharacterToken{U"b"},
-        CharacterToken{U"c"},
+        CharacterToken{U"a"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"c"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -496,11 +496,11 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Empty end tag with following tag", // description
-    "a</><b>c", // input
+    "a</><b>c"s, // input
     { // expectedTokens
-        CharacterToken{U"a"},
+        CharacterToken{U"a"s},
         StartTagToken{U"b", {  }, false},
-        CharacterToken{U"c"},
+        CharacterToken{U"c"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -510,11 +510,11 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Empty end tag with following comment", // description
-    "a</><!--b-->c", // input
+    "a</><!--b-->c"s, // input
     { // expectedTokens
-        CharacterToken{U"a"},
+        CharacterToken{U"a"s},
         CommentToken{U"b"},
-        CharacterToken{U"c"},
+        CharacterToken{U"c"s},
         EOFToken{}
     },
     LexerState::Data, // initialState
@@ -524,11 +524,11 @@ TokenizerTest{
     }
 },TokenizerTest{
     "Empty end tag with following end tag", // description
-    "a</></b>c", // input
+    "a</></b>c"s, // input
     { // expectedTokens
-        CharacterToken{U"a"},
+        CharacterToken{U"a"s},
         EndTagToken{U"b"},
-        CharacterToken{U"c"},
+        CharacterToken{U"c"s},
         EOFToken{}
     },
     LexerState::Data, // initialState

@@ -238,5 +238,11 @@ extern const std::vector<TokenizerTest> kTest1Tests;
 extern const std::vector<TokenizerTest> kTest2Tests;
 extern const std::vector<TokenizerTest> kTest3Tests;
 extern const std::vector<TokenizerTest> kTest4Tests;
+extern const std::vector<TokenizerTest> kEntitiesTests;
+extern const std::vector<TokenizerTest> kEscapeFlagTests;
+extern const std::vector<TokenizerTest> kPendingSpecChangesTests;
+extern const std::vector<TokenizerTest> kContentModelFlagsTests;
+extern const std::vector<TokenizerTest> kDomjsTests;
+extern const std::vector<TokenizerTest> kXMLViolationTests;
 
 }

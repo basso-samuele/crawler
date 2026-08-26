@@ -1,0 +1,1074 @@
+TokenizerTest{
+    "CR in bogus comment state", // description
+    "<?\r"s, // input
+    { // expectedTokens
+        CommentToken{U"?\n"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "CRLF in bogus comment state", // description
+    "<?\r\n"s, // input
+    { // expectedTokens
+        CommentToken{U"?\n"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "CRLFLF in bogus comment state", // description
+    "<?\r\n\n"s, // input
+    { // expectedTokens
+        CommentToken{U"?\n\n"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Raw NUL replacement", // description
+    "\u0000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedNullCharacter, 1 }
+    }
+},TokenizerTest{
+    "Raw NUL replacement", // description
+    "\u0000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedNullCharacter, 1 }
+    }
+},TokenizerTest{
+    "Raw NUL replacement", // description
+    "\u0000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Plaintext, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedNullCharacter, 1 }
+    }
+},TokenizerTest{
+    "Raw NUL replacement", // description
+    "\u0000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedNullCharacter, 1 }
+    }
+},TokenizerTest{
+    "NUL in CDATA section", // description
+    "\u0000]]>"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0000"s},
+        EOFToken{}
+    },
+    LexerState::CdataSection, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "NUL in script HTML comment", // description
+    "<!--test\u0000--><!--test-\u0000--><!--test--\u0000-->"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedNullCharacter, 9 },
+        { ErrorType::UnexpectedNullCharacter, 22 },
+        { ErrorType::UnexpectedNullCharacter, 36 }
+    }
+},TokenizerTest{
+    "NUL in script HTML comment - double escaped", // description
+    "<!--<script>\u0000--><!--<script>-\u0000--><!--<script>--\u0000-->"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedNullCharacter, 13 },
+        { ErrorType::UnexpectedNullCharacter, 30 },
+        { ErrorType::UnexpectedNullCharacter, 48 }
+    }
+},TokenizerTest{
+    "EOF in script HTML comment", // description
+    "<!--test"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInScriptHtmlCommentLikeText, 9 }
+    }
+},TokenizerTest{
+    "EOF in script HTML comment after dash", // description
+    "<!--test-"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"-"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInScriptHtmlCommentLikeText, 10 }
+    }
+},TokenizerTest{
+    "EOF in script HTML comment after dash dash", // description
+    "<!--test--"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInScriptHtmlCommentLikeText, 11 }
+    }
+},TokenizerTest{
+    "EOF in script HTML comment double escaped after dash", // description
+    "<!--<script>-"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInScriptHtmlCommentLikeText, 14 }
+    }
+},TokenizerTest{
+    "EOF in script HTML comment double escaped after dash dash", // description
+    "<!--<script>--"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInScriptHtmlCommentLikeText, 15 }
+    }
+},TokenizerTest{
+    "EOF in script HTML comment - double escaped", // description
+    "<!--<script>"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInScriptHtmlCommentLikeText, 13 }
+    }
+},TokenizerTest{
+    "Dash in script HTML comment", // description
+    "<!-- - -->"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Dash less-than in script HTML comment", // description
+    "<!-- -< -->"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Dash at end of script HTML comment", // description
+    "<!--test--->"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "</script> in script HTML comment", // description
+    "<!-- </script> --></script>"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        EndTagToken{U"script"},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EndTagToken{U"script"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"script", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "</script> in script HTML comment - double escaped", // description
+    "<!-- <script></script> --></script>"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"/"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EndTagToken{U"script"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"script", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "</script> in script HTML comment - double escaped with nested <script>", // description
+    "<!-- <script><script></script></script> --></script>"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"/"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        EndTagToken{U"script"},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EndTagToken{U"script"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"script", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "</script> in script HTML comment - double escaped with abrupt end", // description
+    "<!-- <script>--></script> --></script>"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EndTagToken{U"script"},
+        CharacterToken{U" "s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EndTagToken{U"script"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"script", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Incomplete start tag in script HTML comment double escaped", // description
+    "<!--<scrip></script>-->"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U">"s},
+        EndTagToken{U"script"},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"script", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Unclosed start tag in script HTML comment double escaped", // description
+    "<!--<script</script>-->"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        EndTagToken{U"script"},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"script", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Incomplete end tag in script HTML comment double escaped", // description
+    "<!--<script></scrip>-->"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"/"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"script", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Unclosed end tag in script HTML comment double escaped", // description
+    "<!--<script></script-->"s, // input
+    { // expectedTokens
+        CharacterToken{U"<!"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"<"s},
+        CharacterToken{U"/"s},
+        CharacterToken{U"s"s},
+        CharacterToken{U"c"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U"-"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"script", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "leading U+FEFF must pass through", // description
+    "\uFEFFfoo\uFEFFbar"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFEFF"s},
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"\uFEFF"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"r"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "leading U+FEFF must pass through", // description
+    "\uFEFFfoo\uFEFFbar"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFEFF"s},
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"\uFEFF"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"r"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "leading U+FEFF must pass through", // description
+    "\uFEFFfoo\uFEFFbar"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFEFF"s},
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"\uFEFF"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"r"s},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "leading U+FEFF must pass through", // description
+    "\uFEFFfoo\uFEFFbar"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFEFF"s},
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"\uFEFF"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"r"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Non BMP-charref in RCDATA", // description
+    "&NotEqualTilde;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u2242\u0338"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Bad charref in RCDATA", // description
+    "&NotEqualTild;"s, // input
+    { // expectedTokens
+        CharacterToken{U"&NotEqualTild"s},
+        CharacterToken{U";"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnknownNamedCharacterReference, 14 }
+    }
+},TokenizerTest{
+    "lowercase endtags", // description
+    "</XMP>"s, // input
+    { // expectedTokens
+        EndTagToken{U"xmp"},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "lowercase endtags", // description
+    "</XMP>"s, // input
+    { // expectedTokens
+        EndTagToken{U"xmp"},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "lowercase endtags", // description
+    "</XMP>"s, // input
+    { // expectedTokens
+        EndTagToken{U"xmp"},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "bad endtag (space before name)", // description
+    "</ XMP>"s, // input
+    { // expectedTokens
+        CharacterToken{U"</"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"X"s},
+        CharacterToken{U"M"s},
+        CharacterToken{U"P"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "bad endtag (space before name)", // description
+    "</ XMP>"s, // input
+    { // expectedTokens
+        CharacterToken{U"</"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"X"s},
+        CharacterToken{U"M"s},
+        CharacterToken{U"P"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "bad endtag (space before name)", // description
+    "</ XMP>"s, // input
+    { // expectedTokens
+        CharacterToken{U"</"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"X"s},
+        CharacterToken{U"M"s},
+        CharacterToken{U"P"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "bad endtag (not matching last start tag)", // description
+    "</xm>"s, // input
+    { // expectedTokens
+        CharacterToken{U"</xm"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "bad endtag (not matching last start tag)", // description
+    "</xm>"s, // input
+    { // expectedTokens
+        CharacterToken{U"</xm"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "bad endtag (not matching last start tag)", // description
+    "</xm>"s, // input
+    { // expectedTokens
+        CharacterToken{U"</xm"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "bad endtag (without close bracket)", // description
+    "</xm "s, // input
+    { // expectedTokens
+        CharacterToken{U"</xm"s},
+        CharacterToken{U" "s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "bad endtag (without close bracket)", // description
+    "</xm "s, // input
+    { // expectedTokens
+        CharacterToken{U"</xm"s},
+        CharacterToken{U" "s},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "bad endtag (without close bracket)", // description
+    "</xm "s, // input
+    { // expectedTokens
+        CharacterToken{U"</xm"s},
+        CharacterToken{U" "s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "bad endtag (trailing solidus)", // description
+    "</xm/"s, // input
+    { // expectedTokens
+        CharacterToken{U"</xm"s},
+        CharacterToken{U"/"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "bad endtag (trailing solidus)", // description
+    "</xm/"s, // input
+    { // expectedTokens
+        CharacterToken{U"</xm"s},
+        CharacterToken{U"/"s},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "bad endtag (trailing solidus)", // description
+    "</xm/"s, // input
+    { // expectedTokens
+        CharacterToken{U"</xm"s},
+        CharacterToken{U"/"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Non BMP-charref in attribute", // description
+    "<p id=\"&NotEqualTilde;\">"s, // input
+    { // expectedTokens
+        StartTagToken{U"p", { Attribute{U"id", U"\u2242\u0338"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "--!NUL in comment ", // description
+    "<!----!\u0000-->"s, // input
+    { // expectedTokens
+        CommentToken{U"--!\uFFFD"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedNullCharacter, 8 }
+    }
+},TokenizerTest{
+    "space EOF after doctype ", // description
+    "<!DOCTYPE html "s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", std::nullopt, std::nullopt, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInDoctype, 16 }
+    }
+},TokenizerTest{
+    "CDATA content", // description
+    "foo&#32;]]>"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"&"s},
+        CharacterToken{U"#"s},
+        CharacterToken{U"3"s},
+        CharacterToken{U"2"s},
+        CharacterToken{U";"s},
+        EOFToken{}
+    },
+    LexerState::CdataSection, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "CDATA followed by HTML content", // description
+    "foo&#32;]]>&#32;"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"&"s},
+        CharacterToken{U"#"s},
+        CharacterToken{U"3"s},
+        CharacterToken{U"2"s},
+        CharacterToken{U";"s},
+        CharacterToken{U" "s},
+        EOFToken{}
+    },
+    LexerState::CdataSection, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "CDATA with extra bracket", // description
+    "foo]]]>"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"]"s},
+        EOFToken{}
+    },
+    LexerState::CdataSection, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "CDATA without end marker", // description
+    "foo"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        EOFToken{}
+    },
+    LexerState::CdataSection, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInCdata, 4 }
+    }
+},TokenizerTest{
+    "CDATA with single bracket ending", // description
+    "foo]"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"]"s},
+        EOFToken{}
+    },
+    LexerState::CdataSection, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInCdata, 5 }
+    }
+},TokenizerTest{
+    "CDATA with two brackets ending", // description
+    "foo]]"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"]]"s},
+        EOFToken{}
+    },
+    LexerState::CdataSection, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInCdata, 6 }
+    }
+},TokenizerTest{
+    "HTML tag in script data", // description
+    "<b>hello world</b>"s, // input
+    { // expectedTokens
+        CharacterToken{U"<"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"h"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"l"s},
+        CharacterToken{U"l"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"w"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"l"s},
+        CharacterToken{U"d"s},
+        CharacterToken{U"</b"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::ScriptData, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},
