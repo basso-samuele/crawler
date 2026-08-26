@@ -1,0 +1,761 @@
+{
+    "tests": [
+        {
+            "description":"CR in bogus comment state",
+            "input":"<?\u000d",
+            "output":[["Comment", "?\u000a"]]
+        },
+        {
+            "description":"CRLF in bogus comment state",
+            "input":"<?\u000d\u000a",
+            "output":[["Comment", "?\u000a"]]
+        },
+        {
+            "description":"CRLFLF in bogus comment state",
+            "input":"<?\u000d\u000a\u000a",
+            "output":[["Comment", "?\u000a\u000a"]]
+        },
+        {
+            "description":"Raw NUL replacement",
+            "doubleEscaped":true,
+            "initialStates":["RCDATA state", "RAWTEXT state", "PLAINTEXT state", "Script data state"],
+            "input":"\u0000",
+            "output":[["Character", "\uFFFD"]],
+            "errors":[
+                { "code": "unexpected-null-character", "line": 1, "col": 1 }
+            ]
+        },
+        {
+            "description":"NUL in CDATA section",
+            "doubleEscaped":true,
+            "initialStates":["CDATA section state"],
+            "input":"\u0000]]>",
+            "output":[["Character", "\u0000"]]
+        },
+        {
+           "description":"NUL in script HTML comment",
+           "doubleEscaped":true,
+           "initialStates":["Script data state"],
+           "input":"<!--test\u0000--><!--test-\u0000--><!--test--\u0000-->",
+           "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "t"],
+                ["Character", "e"],
+                ["Character", "s"],
+                ["Character", "t"],
+                ["Character", "\uFFFD"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"],
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "t"],
+                ["Character", "e"],
+                ["Character", "s"],
+                ["Character", "t"],
+                ["Character", "-"],
+                ["Character", "\uFFFD"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"],
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "t"],
+                ["Character", "e"],
+                ["Character", "s"],
+                ["Character", "t"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "\uFFFD"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"]
+            ],
+           "errors":[
+               { "code": "unexpected-null-character", "line": 1, "col": 9 },
+               { "code": "unexpected-null-character", "line": 1, "col": 22 },
+               { "code": "unexpected-null-character", "line": 1, "col": 36 }
+           ]
+        },
+        {
+           "description":"NUL in script HTML comment - double escaped",
+           "doubleEscaped":true,
+           "initialStates":["Script data state"],
+           "input":"<!--<script>\u0000--><!--<script>-\u0000--><!--<script>--\u0000-->",
+           "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["Character", "\uFFFD"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"],
+
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["Character", "-"],
+                ["Character", "\uFFFD"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"],
+
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "\uFFFD"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"]
+            ],
+           "errors":[
+                { "code": "unexpected-null-character", "line": 1, "col": 13 },
+                { "code": "unexpected-null-character", "line": 1, "col": 30 },
+                { "code": "unexpected-null-character", "line": 1, "col": 48 }
+           ]
+        },
+        {
+           "description":"EOF in script HTML comment",
+           "initialStates":["Script data state"],
+           "input":"<!--test",
+           "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "t"],
+                ["Character", "e"],
+                ["Character", "s"],
+                ["Character", "t"]
+            ],
+           "errors":[
+               { "code": "eof-in-script-html-comment-like-text", "line": 1, "col": 9 }
+           ]
+        },
+        {
+           "description":"EOF in script HTML comment after dash",
+           "initialStates":["Script data state"],
+           "input":"<!--test-",
+           "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "t"],
+                ["Character", "e"],
+                ["Character", "s"],
+                ["Character", "t"],
+                ["Character", "-"]
+            ],
+           "errors":[
+               { "code": "eof-in-script-html-comment-like-text", "line": 1, "col": 10 }
+           ]
+        },
+        {
+           "description":"EOF in script HTML comment after dash dash",
+           "initialStates":["Script data state"],
+           "input":"<!--test--",
+           "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "t"],
+                ["Character", "e"],
+                ["Character", "s"],
+                ["Character", "t"],
+                ["Character", "-"],
+                ["Character", "-"]
+            ],
+           "errors":[
+               { "code": "eof-in-script-html-comment-like-text", "line": 1, "col": 11 }
+           ]
+        },
+        {
+           "description":"EOF in script HTML comment double escaped after dash",
+           "initialStates":["Script data state"],
+           "input":"<!--<script>-",
+           "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["Character", "-"]
+            ],
+           "errors":[
+               { "code": "eof-in-script-html-comment-like-text", "line": 1, "col": 14 }
+           ]
+        },
+        {
+           "description":"EOF in script HTML comment double escaped after dash dash",
+           "initialStates":["Script data state"],
+           "input":"<!--<script>--",
+           "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["Character", "-"],
+                ["Character", "-"]
+            ],
+           "errors":[
+               { "code": "eof-in-script-html-comment-like-text", "line": 1, "col": 15 }
+           ]
+        },
+        {
+           "description":"EOF in script HTML comment - double escaped",
+           "initialStates":["Script data state"],
+           "input":"<!--<script>",
+           "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"]
+           ],
+           "errors":[
+               { "code": "eof-in-script-html-comment-like-text", "line": 1, "col": 13 }
+           ]
+        },
+        {
+            "description":"Dash in script HTML comment",
+            "initialStates":["Script data state"],
+            "input":"<!-- - -->",
+            "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", " "],
+                ["Character", "-"],
+                ["Character", " "],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"]
+            ]
+        },
+        {
+            "description":"Dash less-than in script HTML comment",
+            "initialStates":["Script data state"],
+            "input":"<!-- -< -->",
+            "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", " "],
+                ["Character", "-"],
+                ["Character", "<"],
+                ["Character", " "],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"]
+            ]
+        },
+        {
+            "description":"Dash at end of script HTML comment",
+            "initialStates":["Script data state"],
+            "input":"<!--test--->",
+            "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "t"],
+                ["Character", "e"],
+                ["Character", "s"],
+                ["Character", "t"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"]
+            ]
+        },
+        {
+            "description":"</script> in script HTML comment",
+            "initialStates":["Script data state"],
+            "lastStartTag":"script",
+            "input":"<!-- </script> --></script>",
+            "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", " "],
+                ["EndTag", "script"],
+                ["Character", " "],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"],
+                ["EndTag", "script"]
+            ]
+        },
+        {
+            "description":"</script> in script HTML comment - double escaped",
+            "initialStates":["Script data state"],
+            "lastStartTag":"script",
+            "input":"<!-- <script></script> --></script>",
+            "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", " "],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["Character", "<"],
+                ["Character", "/"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["Character", " "],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"],
+                ["EndTag", "script"]
+            ]
+        },
+        {
+            "description":"</script> in script HTML comment - double escaped with nested <script>",
+            "initialStates":["Script data state"],
+            "lastStartTag":"script",
+            "input":"<!-- <script><script></script></script> --></script>",
+            "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", " "],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["Character", "<"],
+                ["Character", "/"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["EndTag", "script"],
+                ["Character", " "],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"],
+                ["EndTag", "script"]
+            ]
+        },
+        {
+            "description":"</script> in script HTML comment - double escaped with abrupt end",
+            "initialStates":["Script data state"],
+            "lastStartTag":"script",
+            "input":"<!-- <script>--></script> --></script>",
+            "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", " "],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"],
+                ["EndTag", "script"],
+                ["Character", " "],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"],
+                ["EndTag", "script"]]
+        },
+        {
+            "description":"Incomplete start tag in script HTML comment double escaped",
+            "initialStates":["Script data state"],
+            "lastStartTag":"script",
+            "input":"<!--<scrip></script>-->",
+            "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", ">"],
+                ["EndTag", "script"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"]
+            ]
+        },
+        {
+            "description":"Unclosed start tag in script HTML comment double escaped",
+            "initialStates":["Script data state"],
+            "lastStartTag":"script",
+            "input":"<!--<script</script>-->",
+            "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["EndTag", "script"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"]
+            ]
+        },
+        {
+            "description":"Incomplete end tag in script HTML comment double escaped",
+            "initialStates":["Script data state"],
+            "lastStartTag":"script",
+            "input":"<!--<script></scrip>-->",
+            "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["Character", "<"],
+                ["Character", "/"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", ">"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"]
+            ]
+        },
+        {
+            "description":"Unclosed end tag in script HTML comment double escaped",
+            "initialStates":["Script data state"],
+            "lastStartTag":"script",
+            "input":"<!--<script></script-->",
+            "output":[
+                ["Character", "<!"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", "<"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", ">"],
+                ["Character", "<"],
+                ["Character", "/"],
+                ["Character", "s"],
+                ["Character", "c"],
+                ["Character", "r"],
+                ["Character", "i"],
+                ["Character", "p"],
+                ["Character", "t"],
+                ["Character", "-"],
+                ["Character", "-"],
+                ["Character", ">"]
+            ]
+        },
+        {
+            "description":"leading U+FEFF must pass through",
+            "initialStates":["Data state", "RCDATA state", "RAWTEXT state", "Script data state"],
+            "doubleEscaped":true,
+            "input":"\uFEFFfoo\uFEFFbar",
+            "output":[
+                ["Character", "\uFEFF"],
+                ["Character", "f"],
+                ["Character", "o"],
+                ["Character", "o"],
+                ["Character", "\uFEFF"],
+                ["Character", "b"],
+                ["Character", "a"],
+                ["Character", "r"]
+            ]
+        },
+        {
+            "description":"Non BMP-charref in RCDATA",
+            "initialStates":["RCDATA state"],
+            "input":"&NotEqualTilde;",
+            "output":[
+                ["Character", "\u2242\u0338"]
+            ]
+        },
+        {
+            "description":"Bad charref in RCDATA",
+            "initialStates":["RCDATA state"],
+            "input":"&NotEqualTild;",
+            "output":[
+                ["Character", "&NotEqualTild"],
+                ["Character", ";"]
+            ],
+            "errors":[
+               { "code": "unknown-named-character-reference", "line": 1, "col": 14 }
+            ]
+        },
+        {
+            "description":"lowercase endtags",
+            "initialStates":["RCDATA state", "RAWTEXT state", "Script data state"],
+            "lastStartTag":"xmp",
+            "input":"</XMP>",
+            "output":[["EndTag","xmp"]]
+        },
+        {
+            "description":"bad endtag (space before name)",
+            "initialStates":["RCDATA state", "RAWTEXT state", "Script data state"],
+            "lastStartTag":"xmp",
+            "input":"</ XMP>",
+            "output":[
+                ["Character","</"],
+                ["Character"," "],
+                ["Character","X"],
+                ["Character","M"],
+                ["Character","P"],
+                ["Character",">"]
+            ]
+        },
+        {
+            "description":"bad endtag (not matching last start tag)",
+            "initialStates":["RCDATA state", "RAWTEXT state", "Script data state"],
+            "lastStartTag":"xmp",
+            "input":"</xm>",
+            "output":[
+                ["Character","</xm"],
+                ["Character",">"]
+            ]
+        },
+        {
+            "description":"bad endtag (without close bracket)",
+            "initialStates":["RCDATA state", "RAWTEXT state", "Script data state"],
+            "lastStartTag":"xmp",
+            "input":"</xm ",
+            "output":[
+                ["Character","</xm"],
+                ["Character"," "]
+            ]
+        },
+        {
+            "description":"bad endtag (trailing solidus)",
+            "initialStates":["RCDATA state", "RAWTEXT state", "Script data state"],
+            "lastStartTag":"xmp",
+            "input":"</xm/",
+            "output":[
+                ["Character","</xm"],
+                ["Character","/"]
+            ]
+        },
+        {
+            "description":"Non BMP-charref in attribute",
+            "input":"<p id=\"&NotEqualTilde;\">",
+            "output":[["StartTag", "p", {"id":"\u2242\u0338"}]]
+        },
+        {
+            "description":"--!NUL in comment ",
+            "doubleEscaped":true,
+            "input":"<!----!\u0000-->",
+            "output":[["Comment", "--!\uFFFD"]],
+            "errors":[
+                { "code": "unexpected-null-character", "line": 1, "col": 8 }
+            ]
+        },
+        {
+            "description":"space EOF after doctype ",
+            "input":"<!DOCTYPE html ",
+            "output":[["DOCTYPE", "html", null, null , false]],
+            "errors":[
+                { "code": "eof-in-doctype", "line": 1, "col": 16 }
+            ]
+        },
+        {
+            "description":"CDATA content",
+            "input":"foo&#32;]]>",
+            "initialStates":["CDATA section state"],
+            "output":[
+                ["Character", "f"],
+                ["Character", "o"],
+                ["Character", "o"],
+                ["Character", "&"],
+                ["Character", "#"],
+                ["Character", "3"],
+                ["Character", "2"],
+                ["Character", ";"]
+            ]
+        },
+        {
+            "description":"CDATA followed by HTML content",
+            "input":"foo&#32;]]>&#32;",
+            "initialStates":["CDATA section state"],
+            "output":[
+                ["Character", "f"],
+                ["Character", "o"],
+                ["Character", "o"],
+                ["Character", "&"],
+                ["Character", "#"],
+                ["Character", "3"],
+                ["Character", "2"],
+                ["Character", ";"],
+                ["Character", " "]
+            ]
+        },
+        {
+            "description":"CDATA with extra bracket",
+            "input":"foo]]]>",
+            "initialStates":["CDATA section state"],
+            "output":[
+                ["Character", "f"],
+                ["Character", "o"],
+                ["Character", "o"],
+                ["Character", "]"]
+            ]
+        },
+        {
+            "description":"CDATA without end marker",
+            "input":"foo",
+            "initialStates":["CDATA section state"],
+            "output":[
+                ["Character", "f"],
+                ["Character", "o"],
+                ["Character", "o"]
+            ],
+            "errors":[
+                { "code": "eof-in-cdata", "line": 1, "col": 4 }
+            ]
+        },
+        {
+            "description":"CDATA with single bracket ending",
+            "input":"foo]",
+            "initialStates":["CDATA section state"],
+            "output":[
+                ["Character", "f"],
+                ["Character", "o"],
+                ["Character", "o"],
+                ["Character", "]"]
+            ],
+            "errors":[
+                { "code": "eof-in-cdata", "line": 1, "col": 5 }
+            ]
+        },
+        {
+            "description":"CDATA with two brackets ending",
+            "input":"foo]]",
+            "initialStates":["CDATA section state"],
+            "output":[
+                ["Character", "f"],
+                ["Character", "o"],
+                ["Character", "o"],
+                ["Character", "]]"]
+            ],
+            "errors":[
+                { "code": "eof-in-cdata", "line": 1, "col": 6 }
+            ]
+        },
+        {
+            "description": "HTML tag in script data",
+            "input": "<b>hello world</b>",
+            "initialStates": ["Script data state"],
+            "output": [
+                ["Character", "<"],
+                ["Character", "b"],
+                ["Character", ">"],
+                ["Character", "h"],
+                ["Character", "e"],
+                ["Character", "l"],
+                ["Character", "l"],
+                ["Character", "o"],
+                ["Character", " "],
+                ["Character", "w"],
+                ["Character", "o"],
+                ["Character", "r"],
+                ["Character", "l"],
+                ["Character", "d"],
+                ["Character", "</b"],
+                ["Character", ">"]
+            ]
+        }
+    ]
+}

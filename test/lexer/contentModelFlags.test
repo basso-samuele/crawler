@@ -1,0 +1,185 @@
+{"tests": [
+
+{"description":"PLAINTEXT content model flag",
+"initialStates":["PLAINTEXT state"],
+"lastStartTag":"plaintext",
+"input":"<head>&body;",
+"output":[
+    ["Character", "<"],
+    ["Character", "h"],
+    ["Character", "e"],
+    ["Character", "a"],
+    ["Character", "d"],
+    ["Character", ">"],
+    ["Character", "&"],
+    ["Character", "b"],
+    ["Character", "o"],
+    ["Character", "d"],
+    ["Character", "y"],
+    ["Character", ";"]
+]},
+
+{"description":"PLAINTEXT with seeming close tag",
+"initialStates":["PLAINTEXT state"],
+"lastStartTag":"plaintext",
+"input":"</plaintext>&body;",
+"output":[
+    ["Character", "<"],
+    ["Character", "/"],
+    ["Character", "p"],
+    ["Character", "l"],
+    ["Character", "a"],
+    ["Character", "i"],
+    ["Character", "n"],
+    ["Character", "t"],
+    ["Character", "e"],
+    ["Character", "x"],
+    ["Character", "t"],
+    ["Character", ">"],
+    ["Character", "&"],
+    ["Character", "b"],
+    ["Character", "o"],
+    ["Character", "d"],
+    ["Character", "y"],
+    ["Character", ";"]
+]},
+
+{"description":"End tag closing RCDATA or RAWTEXT",
+"initialStates":["RCDATA state", "RAWTEXT state"],
+"lastStartTag":"xmp",
+"input":"foo</xmp>",
+"output":[
+    ["Character", "f"],
+    ["Character", "o"],
+    ["Character", "o"],
+    ["EndTag", "xmp"]
+]},
+
+{"description":"End tag closing RCDATA or RAWTEXT (case-insensitivity)",
+"initialStates":["RCDATA state", "RAWTEXT state"],
+"lastStartTag":"xmp",
+"input":"foo</xMp>",
+"output":[
+    ["Character", "f"],
+    ["Character", "o"],
+    ["Character", "o"],
+    ["EndTag", "xmp"]
+]},
+
+{"description":"End tag closing RCDATA or RAWTEXT (ending with space)",
+"initialStates":["RCDATA state", "RAWTEXT state"],
+"lastStartTag":"xmp",
+"input":"foo</xmp ",
+"output":[
+    ["Character", "f"],
+    ["Character", "o"],
+    ["Character", "o"]
+],
+"errors":[
+    { "code": "eof-in-tag", "line": 1, "col": 10 }
+]},
+
+{"description":"End tag closing RCDATA or RAWTEXT (ending with EOF)",
+"initialStates":["RCDATA state", "RAWTEXT state"],
+"lastStartTag":"xmp",
+"input":"foo</xmp",
+"output":[
+    ["Character", "f"],
+    ["Character", "o"],
+    ["Character", "o"],
+    ["Character", "</xmp"]
+]},
+
+{"description":"End tag closing RCDATA or RAWTEXT (ending with slash)",
+"initialStates":["RCDATA state", "RAWTEXT state"],
+"lastStartTag":"xmp",
+"input":"foo</xmp/",
+"output":[
+    ["Character", "f"],
+    ["Character", "o"],
+    ["Character", "o"]
+],
+"errors":[
+    { "code": "eof-in-tag", "line": 1, "col": 10 }
+]},
+
+{"description":"End tag not closing RCDATA or RAWTEXT (ending with left-angle-bracket)",
+"initialStates":["RCDATA state", "RAWTEXT state"],
+"lastStartTag":"xmp",
+"input":"foo</xmp<",
+"output":[
+    ["Character", "f"],
+    ["Character", "o"],
+    ["Character", "o"],
+    ["Character", "</xmp"],
+    ["Character", "<"]
+]},
+
+{"description":"End tag with incorrect name in RCDATA or RAWTEXT",
+"initialStates":["RCDATA state", "RAWTEXT state"],
+"lastStartTag":"xmp",
+"input":"</foo>bar</xmp>",
+"output":[
+    ["Character", "</foo"],
+    ["Character", ">"],
+    ["Character", "b"],
+    ["Character", "a"],
+    ["Character", "r"],
+    ["EndTag", "xmp"]
+]},
+
+{"description":"Partial end tags leading straight into partial end tags",
+"initialStates":["RCDATA state", "RAWTEXT state"],
+"lastStartTag":"xmp",
+"input":"</xmp</xmp</xmp>",
+"output":[
+    ["Character", "</xmp"],
+    ["Character", "</xmp"],
+    ["EndTag", "xmp"]
+]},
+
+{"description":"End tag with incorrect name in RCDATA or RAWTEXT (starting like correct name)",
+"initialStates":["RCDATA state", "RAWTEXT state"],
+"lastStartTag":"xmp",
+"input":"</foo>bar</xmpaar>",
+"output":[
+    ["Character", "</foo"],
+    ["Character", ">"],
+    ["Character", "b"],
+    ["Character", "a"],
+    ["Character", "r"],
+    ["Character", "</xmpaar"],
+    ["Character", ">"]
+]},
+
+{"description":"End tag closing RCDATA or RAWTEXT, switching back to PCDATA",
+"initialStates":["RCDATA state", "RAWTEXT state"],
+"lastStartTag":"xmp",
+"input":"foo</xmp></baz>",
+"output":[
+    ["Character", "f"],
+    ["Character", "o"],
+    ["Character", "o"],
+    ["EndTag", "xmp"],
+    ["EndTag", "baz"]
+]},
+
+{"description":"RAWTEXT w/ something looking like an entity",
+"initialStates":["RAWTEXT state"],
+"lastStartTag":"xmp",
+"input":"&foo;",
+"output":[
+    ["Character", "&"],
+    ["Character", "f"],
+    ["Character", "o"],
+    ["Character", "o"],
+    ["Character", ";"]
+]},
+
+{"description":"RCDATA w/ an entity",
+"initialStates":["RCDATA state"],
+"lastStartTag":"textarea",
+"input":"&lt;",
+"output":[["Character", "<"]]}
+
+]}

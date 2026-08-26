@@ -1,0 +1,3812 @@
+TokenizerTest{
+    "Invalid unterminated numeric entity character overflow before EOF", // description
+    "&#11111111111"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 14 },
+        { ErrorType::CharacterReferenceOutsideUnicodeRange, 14 }
+    }
+},TokenizerTest{
+    "Invalid unterminated numeric entity character overflow before EOF", // description
+    "&#1111111111"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 13 },
+        { ErrorType::CharacterReferenceOutsideUnicodeRange, 13 }
+    }
+},TokenizerTest{
+    "Invalid unterminated numeric entity character overflow before EOF", // description
+    "&#111111111111"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 15 },
+        { ErrorType::CharacterReferenceOutsideUnicodeRange, 15 }
+    }
+},TokenizerTest{
+    "Invalid unterminated numeric entity character overflow", // description
+    "&#11111111111x"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"x"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 14 },
+        { ErrorType::CharacterReferenceOutsideUnicodeRange, 14 }
+    }
+},TokenizerTest{
+    "Invalid unterminated numeric entity character overflow", // description
+    "&#1111111111x"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"x"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 13 },
+        { ErrorType::CharacterReferenceOutsideUnicodeRange, 13 }
+    }
+},TokenizerTest{
+    "Invalid unterminated numeric entity character overflow", // description
+    "&#111111111111x"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"x"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingSemicolonAfterCharacterReference, 15 },
+        { ErrorType::CharacterReferenceOutsideUnicodeRange, 15 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character overflow", // description
+    "&#11111111111;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::CharacterReferenceOutsideUnicodeRange, 15 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character overflow", // description
+    "&#1111111111;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::CharacterReferenceOutsideUnicodeRange, 14 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character overflow", // description
+    "&#111111111111;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::CharacterReferenceOutsideUnicodeRange, 16 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0000", // description
+    "&#x0000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NullCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0001", // description
+    "&#x0001;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0001"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0002", // description
+    "&#x0002;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0002"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0003", // description
+    "&#x0003;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0003"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0004", // description
+    "&#x0004;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0004"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0005", // description
+    "&#x0005;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0005"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0006", // description
+    "&#x0006;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0006"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0007", // description
+    "&#x0007;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0007"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0008", // description
+    "&#x0008;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0008"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+000B", // description
+    "&#x000b;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u000B"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+000E", // description
+    "&#x000e;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u000E"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+000F", // description
+    "&#x000f;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u000F"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0010", // description
+    "&#x0010;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0010"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0011", // description
+    "&#x0011;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0011"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0012", // description
+    "&#x0012;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0012"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0013", // description
+    "&#x0013;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0013"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0014", // description
+    "&#x0014;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0014"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0015", // description
+    "&#x0015;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0015"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0016", // description
+    "&#x0016;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0016"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0017", // description
+    "&#x0017;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0017"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0018", // description
+    "&#x0018;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0018"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+0019", // description
+    "&#x0019;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0019"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+001A", // description
+    "&#x001a;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u001A"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+001B", // description
+    "&#x001b;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u001B"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+001C", // description
+    "&#x001c;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u001C"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+001D", // description
+    "&#x001d;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u001D"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+001E", // description
+    "&#x001e;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u001E"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+001F", // description
+    "&#x001f;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u001F"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+007F", // description
+    "&#x007f;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u007F"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+D800", // description
+    "&#xd800;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::SurrogateCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+DFFF", // description
+    "&#xdfff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::SurrogateCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDD0", // description
+    "&#xfdd0;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDD1", // description
+    "&#xfdd1;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDD2", // description
+    "&#xfdd2;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDD3", // description
+    "&#xfdd3;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDD4", // description
+    "&#xfdd4;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDD5", // description
+    "&#xfdd5;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDD6", // description
+    "&#xfdd6;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDD7", // description
+    "&#xfdd7;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDD8", // description
+    "&#xfdd8;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDD9", // description
+    "&#xfdd9;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDDA", // description
+    "&#xfdda;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDDA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDDB", // description
+    "&#xfddb;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDDB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDDC", // description
+    "&#xfddc;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDDC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDDD", // description
+    "&#xfddd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDDD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDDE", // description
+    "&#xfdde;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDDE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDDF", // description
+    "&#xfddf;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDDF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDE0", // description
+    "&#xfde0;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDE1", // description
+    "&#xfde1;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDE2", // description
+    "&#xfde2;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDE3", // description
+    "&#xfde3;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDE4", // description
+    "&#xfde4;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDE5", // description
+    "&#xfde5;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDE6", // description
+    "&#xfde6;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDE7", // description
+    "&#xfde7;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDE8", // description
+    "&#xfde8;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDE9", // description
+    "&#xfde9;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDEA", // description
+    "&#xfdea;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDEA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDEB", // description
+    "&#xfdeb;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDEB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDEC", // description
+    "&#xfdec;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDEC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDED", // description
+    "&#xfded;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDED"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDEE", // description
+    "&#xfdee;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDEE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FDEF", // description
+    "&#xfdef;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDEF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FFFE", // description
+    "&#xfffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FFFF", // description
+    "&#xffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+1FFFE", // description
+    "&#x1fffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0001FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+1FFFF", // description
+    "&#x1ffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0001FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+2FFFE", // description
+    "&#x2fffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0002FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+2FFFF", // description
+    "&#x2ffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0002FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+3FFFE", // description
+    "&#x3fffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0003FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+3FFFF", // description
+    "&#x3ffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0003FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+4FFFE", // description
+    "&#x4fffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0004FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+4FFFF", // description
+    "&#x4ffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0004FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+5FFFE", // description
+    "&#x5fffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0005FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+5FFFF", // description
+    "&#x5ffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0005FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+6FFFE", // description
+    "&#x6fffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0006FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+6FFFF", // description
+    "&#x6ffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0006FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+7FFFE", // description
+    "&#x7fffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0007FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+7FFFF", // description
+    "&#x7ffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0007FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+8FFFE", // description
+    "&#x8fffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0008FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+8FFFF", // description
+    "&#x8ffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0008FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+9FFFE", // description
+    "&#x9fffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0009FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+9FFFF", // description
+    "&#x9ffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0009FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+AFFFE", // description
+    "&#xafffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000AFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+AFFFF", // description
+    "&#xaffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000AFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+BFFFE", // description
+    "&#xbfffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000BFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+BFFFF", // description
+    "&#xbffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000BFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+CFFFE", // description
+    "&#xcfffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000CFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+CFFFF", // description
+    "&#xcffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000CFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+DFFFE", // description
+    "&#xdfffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000DFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+DFFFF", // description
+    "&#xdffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000DFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+EFFFE", // description
+    "&#xefffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000EFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+EFFFF", // description
+    "&#xeffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000EFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FFFFE", // description
+    "&#xffffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000FFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+FFFFF", // description
+    "&#xfffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000FFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 10 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+10FFFE", // description
+    "&#x10fffe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0010FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 11 }
+    }
+},TokenizerTest{
+    "Invalid numeric entity character U+10FFFF", // description
+    "&#x10ffff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0010FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterCharacterReference, 11 }
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0009", // description
+    "&#x0009;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\t"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+000A", // description
+    "&#x000a;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\n"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0020", // description
+    "&#x0020;"s, // input
+    { // expectedTokens
+        CharacterToken{U" "s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0021", // description
+    "&#x0021;"s, // input
+    { // expectedTokens
+        CharacterToken{U"!"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0022", // description
+    "&#x0022;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\""s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0023", // description
+    "&#x0023;"s, // input
+    { // expectedTokens
+        CharacterToken{U"#"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0024", // description
+    "&#x0024;"s, // input
+    { // expectedTokens
+        CharacterToken{U"$"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0025", // description
+    "&#x0025;"s, // input
+    { // expectedTokens
+        CharacterToken{U"%"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0026", // description
+    "&#x0026;"s, // input
+    { // expectedTokens
+        CharacterToken{U"&"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0027", // description
+    "&#x0027;"s, // input
+    { // expectedTokens
+        CharacterToken{U"'"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0028", // description
+    "&#x0028;"s, // input
+    { // expectedTokens
+        CharacterToken{U"("s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0029", // description
+    "&#x0029;"s, // input
+    { // expectedTokens
+        CharacterToken{U")"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+002A", // description
+    "&#x002a;"s, // input
+    { // expectedTokens
+        CharacterToken{U"*"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+002B", // description
+    "&#x002b;"s, // input
+    { // expectedTokens
+        CharacterToken{U"+"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+002C", // description
+    "&#x002c;"s, // input
+    { // expectedTokens
+        CharacterToken{U","s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+002D", // description
+    "&#x002d;"s, // input
+    { // expectedTokens
+        CharacterToken{U"-"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+002E", // description
+    "&#x002e;"s, // input
+    { // expectedTokens
+        CharacterToken{U"."s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+002F", // description
+    "&#x002f;"s, // input
+    { // expectedTokens
+        CharacterToken{U"/"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0030", // description
+    "&#x0030;"s, // input
+    { // expectedTokens
+        CharacterToken{U"0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0031", // description
+    "&#x0031;"s, // input
+    { // expectedTokens
+        CharacterToken{U"1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0032", // description
+    "&#x0032;"s, // input
+    { // expectedTokens
+        CharacterToken{U"2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0033", // description
+    "&#x0033;"s, // input
+    { // expectedTokens
+        CharacterToken{U"3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0034", // description
+    "&#x0034;"s, // input
+    { // expectedTokens
+        CharacterToken{U"4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0035", // description
+    "&#x0035;"s, // input
+    { // expectedTokens
+        CharacterToken{U"5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0036", // description
+    "&#x0036;"s, // input
+    { // expectedTokens
+        CharacterToken{U"6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0037", // description
+    "&#x0037;"s, // input
+    { // expectedTokens
+        CharacterToken{U"7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0038", // description
+    "&#x0038;"s, // input
+    { // expectedTokens
+        CharacterToken{U"8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0039", // description
+    "&#x0039;"s, // input
+    { // expectedTokens
+        CharacterToken{U"9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+003A", // description
+    "&#x003a;"s, // input
+    { // expectedTokens
+        CharacterToken{U":"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+003B", // description
+    "&#x003b;"s, // input
+    { // expectedTokens
+        CharacterToken{U";"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+003C", // description
+    "&#x003c;"s, // input
+    { // expectedTokens
+        CharacterToken{U"<"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+003D", // description
+    "&#x003d;"s, // input
+    { // expectedTokens
+        CharacterToken{U"="s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+003E", // description
+    "&#x003e;"s, // input
+    { // expectedTokens
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+003F", // description
+    "&#x003f;"s, // input
+    { // expectedTokens
+        CharacterToken{U"?"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0040", // description
+    "&#x0040;"s, // input
+    { // expectedTokens
+        CharacterToken{U"@"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0041", // description
+    "&#x0041;"s, // input
+    { // expectedTokens
+        CharacterToken{U"A"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0042", // description
+    "&#x0042;"s, // input
+    { // expectedTokens
+        CharacterToken{U"B"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0043", // description
+    "&#x0043;"s, // input
+    { // expectedTokens
+        CharacterToken{U"C"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0044", // description
+    "&#x0044;"s, // input
+    { // expectedTokens
+        CharacterToken{U"D"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0045", // description
+    "&#x0045;"s, // input
+    { // expectedTokens
+        CharacterToken{U"E"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0046", // description
+    "&#x0046;"s, // input
+    { // expectedTokens
+        CharacterToken{U"F"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0047", // description
+    "&#x0047;"s, // input
+    { // expectedTokens
+        CharacterToken{U"G"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0048", // description
+    "&#x0048;"s, // input
+    { // expectedTokens
+        CharacterToken{U"H"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0049", // description
+    "&#x0049;"s, // input
+    { // expectedTokens
+        CharacterToken{U"I"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+004A", // description
+    "&#x004a;"s, // input
+    { // expectedTokens
+        CharacterToken{U"J"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+004B", // description
+    "&#x004b;"s, // input
+    { // expectedTokens
+        CharacterToken{U"K"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+004C", // description
+    "&#x004c;"s, // input
+    { // expectedTokens
+        CharacterToken{U"L"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+004D", // description
+    "&#x004d;"s, // input
+    { // expectedTokens
+        CharacterToken{U"M"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+004E", // description
+    "&#x004e;"s, // input
+    { // expectedTokens
+        CharacterToken{U"N"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+004F", // description
+    "&#x004f;"s, // input
+    { // expectedTokens
+        CharacterToken{U"O"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0050", // description
+    "&#x0050;"s, // input
+    { // expectedTokens
+        CharacterToken{U"P"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0051", // description
+    "&#x0051;"s, // input
+    { // expectedTokens
+        CharacterToken{U"Q"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0052", // description
+    "&#x0052;"s, // input
+    { // expectedTokens
+        CharacterToken{U"R"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0053", // description
+    "&#x0053;"s, // input
+    { // expectedTokens
+        CharacterToken{U"S"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0054", // description
+    "&#x0054;"s, // input
+    { // expectedTokens
+        CharacterToken{U"T"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0055", // description
+    "&#x0055;"s, // input
+    { // expectedTokens
+        CharacterToken{U"U"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0056", // description
+    "&#x0056;"s, // input
+    { // expectedTokens
+        CharacterToken{U"V"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0057", // description
+    "&#x0057;"s, // input
+    { // expectedTokens
+        CharacterToken{U"W"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0058", // description
+    "&#x0058;"s, // input
+    { // expectedTokens
+        CharacterToken{U"X"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0059", // description
+    "&#x0059;"s, // input
+    { // expectedTokens
+        CharacterToken{U"Y"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+005A", // description
+    "&#x005a;"s, // input
+    { // expectedTokens
+        CharacterToken{U"Z"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+005B", // description
+    "&#x005b;"s, // input
+    { // expectedTokens
+        CharacterToken{U"["s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+005C", // description
+    "&#x005c;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\\"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+005D", // description
+    "&#x005d;"s, // input
+    { // expectedTokens
+        CharacterToken{U"]"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+005E", // description
+    "&#x005e;"s, // input
+    { // expectedTokens
+        CharacterToken{U"^"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+005F", // description
+    "&#x005f;"s, // input
+    { // expectedTokens
+        CharacterToken{U"_"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0060", // description
+    "&#x0060;"s, // input
+    { // expectedTokens
+        CharacterToken{U"`"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0061", // description
+    "&#x0061;"s, // input
+    { // expectedTokens
+        CharacterToken{U"a"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0062", // description
+    "&#x0062;"s, // input
+    { // expectedTokens
+        CharacterToken{U"b"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0063", // description
+    "&#x0063;"s, // input
+    { // expectedTokens
+        CharacterToken{U"c"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0064", // description
+    "&#x0064;"s, // input
+    { // expectedTokens
+        CharacterToken{U"d"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0065", // description
+    "&#x0065;"s, // input
+    { // expectedTokens
+        CharacterToken{U"e"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0066", // description
+    "&#x0066;"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0067", // description
+    "&#x0067;"s, // input
+    { // expectedTokens
+        CharacterToken{U"g"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0068", // description
+    "&#x0068;"s, // input
+    { // expectedTokens
+        CharacterToken{U"h"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0069", // description
+    "&#x0069;"s, // input
+    { // expectedTokens
+        CharacterToken{U"i"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+006A", // description
+    "&#x006a;"s, // input
+    { // expectedTokens
+        CharacterToken{U"j"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+006B", // description
+    "&#x006b;"s, // input
+    { // expectedTokens
+        CharacterToken{U"k"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+006C", // description
+    "&#x006c;"s, // input
+    { // expectedTokens
+        CharacterToken{U"l"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+006D", // description
+    "&#x006d;"s, // input
+    { // expectedTokens
+        CharacterToken{U"m"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+006E", // description
+    "&#x006e;"s, // input
+    { // expectedTokens
+        CharacterToken{U"n"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+006F", // description
+    "&#x006f;"s, // input
+    { // expectedTokens
+        CharacterToken{U"o"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0070", // description
+    "&#x0070;"s, // input
+    { // expectedTokens
+        CharacterToken{U"p"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0071", // description
+    "&#x0071;"s, // input
+    { // expectedTokens
+        CharacterToken{U"q"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0072", // description
+    "&#x0072;"s, // input
+    { // expectedTokens
+        CharacterToken{U"r"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0073", // description
+    "&#x0073;"s, // input
+    { // expectedTokens
+        CharacterToken{U"s"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0074", // description
+    "&#x0074;"s, // input
+    { // expectedTokens
+        CharacterToken{U"t"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0075", // description
+    "&#x0075;"s, // input
+    { // expectedTokens
+        CharacterToken{U"u"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0076", // description
+    "&#x0076;"s, // input
+    { // expectedTokens
+        CharacterToken{U"v"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0077", // description
+    "&#x0077;"s, // input
+    { // expectedTokens
+        CharacterToken{U"w"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0078", // description
+    "&#x0078;"s, // input
+    { // expectedTokens
+        CharacterToken{U"x"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+0079", // description
+    "&#x0079;"s, // input
+    { // expectedTokens
+        CharacterToken{U"y"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+007A", // description
+    "&#x007a;"s, // input
+    { // expectedTokens
+        CharacterToken{U"z"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+007B", // description
+    "&#x007b;"s, // input
+    { // expectedTokens
+        CharacterToken{U"{"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+007C", // description
+    "&#x007c;"s, // input
+    { // expectedTokens
+        CharacterToken{U"|"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+007D", // description
+    "&#x007d;"s, // input
+    { // expectedTokens
+        CharacterToken{U"}"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+007E", // description
+    "&#x007e;"s, // input
+    { // expectedTokens
+        CharacterToken{U"~"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00A0", // description
+    "&#x00a0;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00A1", // description
+    "&#x00a1;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00A2", // description
+    "&#x00a2;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00A3", // description
+    "&#x00a3;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00A4", // description
+    "&#x00a4;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00A5", // description
+    "&#x00a5;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00A6", // description
+    "&#x00a6;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00A7", // description
+    "&#x00a7;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00A8", // description
+    "&#x00a8;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00A9", // description
+    "&#x00a9;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00AA", // description
+    "&#x00aa;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00AB", // description
+    "&#x00ab;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00AC", // description
+    "&#x00ac;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00AD", // description
+    "&#x00ad;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00AE", // description
+    "&#x00ae;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00AF", // description
+    "&#x00af;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00B0", // description
+    "&#x00b0;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00B1", // description
+    "&#x00b1;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00B2", // description
+    "&#x00b2;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00B3", // description
+    "&#x00b3;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00B4", // description
+    "&#x00b4;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00B5", // description
+    "&#x00b5;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00B6", // description
+    "&#x00b6;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00B7", // description
+    "&#x00b7;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00B8", // description
+    "&#x00b8;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00B9", // description
+    "&#x00b9;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00BA", // description
+    "&#x00ba;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00BA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00BB", // description
+    "&#x00bb;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00BB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00BC", // description
+    "&#x00bc;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00BC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00BD", // description
+    "&#x00bd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00BD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00BE", // description
+    "&#x00be;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00BE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00BF", // description
+    "&#x00bf;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00BF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00C0", // description
+    "&#x00c0;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00C1", // description
+    "&#x00c1;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00C2", // description
+    "&#x00c2;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00C3", // description
+    "&#x00c3;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00C4", // description
+    "&#x00c4;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00C5", // description
+    "&#x00c5;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00C6", // description
+    "&#x00c6;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00C7", // description
+    "&#x00c7;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00C8", // description
+    "&#x00c8;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00C9", // description
+    "&#x00c9;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00CA", // description
+    "&#x00ca;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00CA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00CB", // description
+    "&#x00cb;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00CB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00CC", // description
+    "&#x00cc;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00CC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00CD", // description
+    "&#x00cd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00CD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00CE", // description
+    "&#x00ce;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00CE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00CF", // description
+    "&#x00cf;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00CF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00D0", // description
+    "&#x00d0;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00D1", // description
+    "&#x00d1;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00D2", // description
+    "&#x00d2;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00D3", // description
+    "&#x00d3;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00D4", // description
+    "&#x00d4;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00D5", // description
+    "&#x00d5;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00D6", // description
+    "&#x00d6;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00D7", // description
+    "&#x00d7;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00D8", // description
+    "&#x00d8;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00D9", // description
+    "&#x00d9;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00DA", // description
+    "&#x00da;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00DA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00DB", // description
+    "&#x00db;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00DB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00DC", // description
+    "&#x00dc;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00DC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00DD", // description
+    "&#x00dd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00DD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00DE", // description
+    "&#x00de;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00DE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00DF", // description
+    "&#x00df;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00DF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00E0", // description
+    "&#x00e0;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00E1", // description
+    "&#x00e1;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00E2", // description
+    "&#x00e2;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00E3", // description
+    "&#x00e3;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00E4", // description
+    "&#x00e4;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00E5", // description
+    "&#x00e5;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00E6", // description
+    "&#x00e6;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00E7", // description
+    "&#x00e7;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00E8", // description
+    "&#x00e8;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00E9", // description
+    "&#x00e9;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00EA", // description
+    "&#x00ea;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00EA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00EB", // description
+    "&#x00eb;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00EB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00EC", // description
+    "&#x00ec;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00EC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00ED", // description
+    "&#x00ed;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00ED"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00EE", // description
+    "&#x00ee;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00EE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00EF", // description
+    "&#x00ef;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00EF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00F0", // description
+    "&#x00f0;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00F1", // description
+    "&#x00f1;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00F2", // description
+    "&#x00f2;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00F3", // description
+    "&#x00f3;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00F4", // description
+    "&#x00f4;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00F5", // description
+    "&#x00f5;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00F6", // description
+    "&#x00f6;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00F7", // description
+    "&#x00f7;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00F8", // description
+    "&#x00f8;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00F9", // description
+    "&#x00f9;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00FA", // description
+    "&#x00fa;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00FA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00FB", // description
+    "&#x00fb;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00FB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00FC", // description
+    "&#x00fc;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00FC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00FD", // description
+    "&#x00fd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00FD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00FE", // description
+    "&#x00fe;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00FE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+00FF", // description
+    "&#x00ff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00FF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+D7FF", // description
+    "&#xd7ff;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uD7FF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+E000", // description
+    "&#xe000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uE000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+FDCF", // description
+    "&#xfdcf;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDCF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+FDF0", // description
+    "&#xfdf0;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDF0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+FFFD", // description
+    "&#xfffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+10000", // description
+    "&#x10000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00010000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+1FFFD", // description
+    "&#x1fffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0001FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+20000", // description
+    "&#x20000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00020000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+2FFFD", // description
+    "&#x2fffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0002FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+30000", // description
+    "&#x30000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00030000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+3FFFD", // description
+    "&#x3fffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0003FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+40000", // description
+    "&#x40000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00040000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+4FFFD", // description
+    "&#x4fffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0004FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+50000", // description
+    "&#x50000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00050000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+5FFFD", // description
+    "&#x5fffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0005FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+60000", // description
+    "&#x60000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00060000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+6FFFD", // description
+    "&#x6fffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0006FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+70000", // description
+    "&#x70000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00070000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+7FFFD", // description
+    "&#x7fffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0007FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+80000", // description
+    "&#x80000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00080000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+8FFFD", // description
+    "&#x8fffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0008FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+90000", // description
+    "&#x90000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00090000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+9FFFD", // description
+    "&#x9fffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0009FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+A0000", // description
+    "&#xa0000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000A0000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+AFFFD", // description
+    "&#xafffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000AFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+B0000", // description
+    "&#xb0000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000B0000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+BFFFD", // description
+    "&#xbfffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000BFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+C0000", // description
+    "&#xc0000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000C0000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+CFFFD", // description
+    "&#xcfffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000CFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+D0000", // description
+    "&#xd0000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000D0000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+DFFFD", // description
+    "&#xdfffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000DFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+E0000", // description
+    "&#xe0000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000E0000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+EFFFD", // description
+    "&#xefffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000EFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+F0000", // description
+    "&#xf0000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000F0000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+FFFFD", // description
+    "&#xffffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000FFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+100000", // description
+    "&#x100000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00100000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid numeric entity character U+10FFFD", // description
+    "&#x10fffd;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0010FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},

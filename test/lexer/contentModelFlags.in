@@ -1,0 +1,369 @@
+TokenizerTest{
+    "PLAINTEXT content model flag", // description
+    "<head>&body;"s, // input
+    { // expectedTokens
+        CharacterToken{U"<"s},
+        CharacterToken{U"h"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"d"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"&"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"d"s},
+        CharacterToken{U"y"s},
+        CharacterToken{U";"s},
+        EOFToken{}
+    },
+    LexerState::Plaintext, // initialState
+    U"plaintext", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "PLAINTEXT with seeming close tag", // description
+    "</plaintext>&body;"s, // input
+    { // expectedTokens
+        CharacterToken{U"<"s},
+        CharacterToken{U"/"s},
+        CharacterToken{U"p"s},
+        CharacterToken{U"l"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"i"s},
+        CharacterToken{U"n"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U"e"s},
+        CharacterToken{U"x"s},
+        CharacterToken{U"t"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"&"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"d"s},
+        CharacterToken{U"y"s},
+        CharacterToken{U";"s},
+        EOFToken{}
+    },
+    LexerState::Plaintext, // initialState
+    U"plaintext", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag closing RCDATA or RAWTEXT", // description
+    "foo</xmp>"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        EndTagToken{U"xmp"},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag closing RCDATA or RAWTEXT", // description
+    "foo</xmp>"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        EndTagToken{U"xmp"},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag closing RCDATA or RAWTEXT (case-insensitivity)", // description
+    "foo</xMp>"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        EndTagToken{U"xmp"},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag closing RCDATA or RAWTEXT (case-insensitivity)", // description
+    "foo</xMp>"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        EndTagToken{U"xmp"},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag closing RCDATA or RAWTEXT (ending with space)", // description
+    "foo</xmp "s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInTag, 10 }
+    }
+},TokenizerTest{
+    "End tag closing RCDATA or RAWTEXT (ending with space)", // description
+    "foo</xmp "s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInTag, 10 }
+    }
+},TokenizerTest{
+    "End tag closing RCDATA or RAWTEXT (ending with EOF)", // description
+    "foo</xmp"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"</xmp"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag closing RCDATA or RAWTEXT (ending with EOF)", // description
+    "foo</xmp"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"</xmp"s},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag closing RCDATA or RAWTEXT (ending with slash)", // description
+    "foo</xmp/"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInTag, 10 }
+    }
+},TokenizerTest{
+    "End tag closing RCDATA or RAWTEXT (ending with slash)", // description
+    "foo</xmp/"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInTag, 10 }
+    }
+},TokenizerTest{
+    "End tag not closing RCDATA or RAWTEXT (ending with left-angle-bracket)", // description
+    "foo</xmp<"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"</xmp"s},
+        CharacterToken{U"<"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag not closing RCDATA or RAWTEXT (ending with left-angle-bracket)", // description
+    "foo</xmp<"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"</xmp"s},
+        CharacterToken{U"<"s},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag with incorrect name in RCDATA or RAWTEXT", // description
+    "</foo>bar</xmp>"s, // input
+    { // expectedTokens
+        CharacterToken{U"</foo"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"r"s},
+        EndTagToken{U"xmp"},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag with incorrect name in RCDATA or RAWTEXT", // description
+    "</foo>bar</xmp>"s, // input
+    { // expectedTokens
+        CharacterToken{U"</foo"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"r"s},
+        EndTagToken{U"xmp"},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Partial end tags leading straight into partial end tags", // description
+    "</xmp</xmp</xmp>"s, // input
+    { // expectedTokens
+        CharacterToken{U"</xmp"s},
+        CharacterToken{U"</xmp"s},
+        EndTagToken{U"xmp"},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Partial end tags leading straight into partial end tags", // description
+    "</xmp</xmp</xmp>"s, // input
+    { // expectedTokens
+        CharacterToken{U"</xmp"s},
+        CharacterToken{U"</xmp"s},
+        EndTagToken{U"xmp"},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag with incorrect name in RCDATA or RAWTEXT (starting like correct name)", // description
+    "</foo>bar</xmpaar>"s, // input
+    { // expectedTokens
+        CharacterToken{U"</foo"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"</xmpaar"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag with incorrect name in RCDATA or RAWTEXT (starting like correct name)", // description
+    "</foo>bar</xmpaar>"s, // input
+    { // expectedTokens
+        CharacterToken{U"</foo"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"r"s},
+        CharacterToken{U"</xmpaar"s},
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag closing RCDATA or RAWTEXT, switching back to PCDATA", // description
+    "foo</xmp></baz>"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        EndTagToken{U"xmp"},
+        EndTagToken{U"baz"},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "End tag closing RCDATA or RAWTEXT, switching back to PCDATA", // description
+    "foo</xmp></baz>"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        EndTagToken{U"xmp"},
+        EndTagToken{U"baz"},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "RAWTEXT w/ something looking like an entity", // description
+    "&foo;"s, // input
+    { // expectedTokens
+        CharacterToken{U"&"s},
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U";"s},
+        EOFToken{}
+    },
+    LexerState::Rawtext, // initialState
+    U"xmp", // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "RCDATA w/ an entity", // description
+    "&lt;"s, // input
+    { // expectedTokens
+        CharacterToken{U"<"s},
+        EOFToken{}
+    },
+    LexerState::Rcdata, // initialState
+    U"textarea", // lastStartTag
+    { // expectedErrors
+    }
+},

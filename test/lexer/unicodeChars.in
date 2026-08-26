@@ -1,0 +1,3648 @@
+TokenizerTest{
+    "Invalid Unicode character U+0001", // description
+    "\u0001"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0001"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0002", // description
+    "\u0002"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0002"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0003", // description
+    "\u0003"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0003"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0004", // description
+    "\u0004"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0004"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0005", // description
+    "\u0005"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0005"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0006", // description
+    "\u0006"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0006"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0007", // description
+    "\u0007"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0007"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0008", // description
+    "\u0008"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0008"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+000B", // description
+    "\u000B"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u000B"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+000E", // description
+    "\u000E"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u000E"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+000F", // description
+    "\u000F"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u000F"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0010", // description
+    "\u0010"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0010"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0011", // description
+    "\u0011"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0011"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0012", // description
+    "\u0012"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0012"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0013", // description
+    "\u0013"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0013"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0014", // description
+    "\u0014"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0014"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0015", // description
+    "\u0015"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0015"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0016", // description
+    "\u0016"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0016"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0017", // description
+    "\u0017"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0017"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0018", // description
+    "\u0018"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0018"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+0019", // description
+    "\u0019"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u0019"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+001A", // description
+    "\u001A"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u001A"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+001B", // description
+    "\u001B"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u001B"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+001C", // description
+    "\u001C"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u001C"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+001D", // description
+    "\u001D"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u001D"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+001E", // description
+    "\u001E"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u001E"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+001F", // description
+    "\u001F"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u001F"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+007F", // description
+    "\u007F"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u007F"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::ControlCharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDD0", // description
+    "\uFDD0"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDD1", // description
+    "\uFDD1"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDD2", // description
+    "\uFDD2"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDD3", // description
+    "\uFDD3"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDD4", // description
+    "\uFDD4"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDD5", // description
+    "\uFDD5"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDD6", // description
+    "\uFDD6"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDD7", // description
+    "\uFDD7"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDD8", // description
+    "\uFDD8"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDD9", // description
+    "\uFDD9"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDD9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDDA", // description
+    "\uFDDA"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDDA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDDB", // description
+    "\uFDDB"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDDB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDDC", // description
+    "\uFDDC"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDDC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDDD", // description
+    "\uFDDD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDDD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDDE", // description
+    "\uFDDE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDDE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDDF", // description
+    "\uFDDF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDDF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDE0", // description
+    "\uFDE0"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDE1", // description
+    "\uFDE1"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDE2", // description
+    "\uFDE2"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDE3", // description
+    "\uFDE3"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDE4", // description
+    "\uFDE4"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDE5", // description
+    "\uFDE5"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDE6", // description
+    "\uFDE6"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDE7", // description
+    "\uFDE7"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDE8", // description
+    "\uFDE8"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDE9", // description
+    "\uFDE9"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDE9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDEA", // description
+    "\uFDEA"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDEA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDEB", // description
+    "\uFDEB"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDEB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDEC", // description
+    "\uFDEC"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDEC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDED", // description
+    "\uFDED"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDED"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDEE", // description
+    "\uFDEE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDEE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FDEF", // description
+    "\uFDEF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDEF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FFFE", // description
+    "\uFFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FFFF", // description
+    "\uFFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+1FFFE", // description
+    "\U0001FFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0001FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+1FFFF", // description
+    "\U0001FFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0001FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+2FFFE", // description
+    "\U0002FFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0002FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+2FFFF", // description
+    "\U0002FFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0002FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+3FFFE", // description
+    "\U0003FFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0003FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+3FFFF", // description
+    "\U0003FFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0003FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+4FFFE", // description
+    "\U0004FFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0004FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+4FFFF", // description
+    "\U0004FFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0004FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+5FFFE", // description
+    "\U0005FFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0005FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+5FFFF", // description
+    "\U0005FFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0005FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+6FFFE", // description
+    "\U0006FFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0006FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+6FFFF", // description
+    "\U0006FFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0006FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+7FFFE", // description
+    "\U0007FFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0007FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+7FFFF", // description
+    "\U0007FFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0007FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+8FFFE", // description
+    "\U0008FFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0008FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+8FFFF", // description
+    "\U0008FFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0008FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+9FFFE", // description
+    "\U0009FFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0009FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+9FFFF", // description
+    "\U0009FFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0009FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+AFFFE", // description
+    "\U000AFFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000AFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+AFFFF", // description
+    "\U000AFFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000AFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+BFFFE", // description
+    "\U000BFFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000BFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+BFFFF", // description
+    "\U000BFFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000BFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+CFFFE", // description
+    "\U000CFFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000CFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+CFFFF", // description
+    "\U000CFFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000CFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+DFFFE", // description
+    "\U000DFFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000DFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+DFFFF", // description
+    "\U000DFFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000DFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+EFFFE", // description
+    "\U000EFFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000EFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+EFFFF", // description
+    "\U000EFFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000EFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FFFFE", // description
+    "\U000FFFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000FFFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+FFFFF", // description
+    "\U000FFFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000FFFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+10FFFE", // description
+    "\U0010FFFE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0010FFFE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Invalid Unicode character U+10FFFF", // description
+    "\U0010FFFF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0010FFFF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NoncharacterInInputStream, 1 }
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0009", // description
+    "\t"s, // input
+    { // expectedTokens
+        CharacterToken{U"\t"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+000A", // description
+    "\n"s, // input
+    { // expectedTokens
+        CharacterToken{U"\n"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0020", // description
+    " "s, // input
+    { // expectedTokens
+        CharacterToken{U" "s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0021", // description
+    "!"s, // input
+    { // expectedTokens
+        CharacterToken{U"!"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0022", // description
+    "\""s, // input
+    { // expectedTokens
+        CharacterToken{U"\""s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0023", // description
+    "#"s, // input
+    { // expectedTokens
+        CharacterToken{U"#"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0024", // description
+    "$"s, // input
+    { // expectedTokens
+        CharacterToken{U"$"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0025", // description
+    "%"s, // input
+    { // expectedTokens
+        CharacterToken{U"%"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0026", // description
+    "&"s, // input
+    { // expectedTokens
+        CharacterToken{U"&"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0027", // description
+    "'"s, // input
+    { // expectedTokens
+        CharacterToken{U"'"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0028", // description
+    "("s, // input
+    { // expectedTokens
+        CharacterToken{U"("s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0029", // description
+    ")"s, // input
+    { // expectedTokens
+        CharacterToken{U")"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+002A", // description
+    "*"s, // input
+    { // expectedTokens
+        CharacterToken{U"*"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+002B", // description
+    "+"s, // input
+    { // expectedTokens
+        CharacterToken{U"+"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+002C", // description
+    ","s, // input
+    { // expectedTokens
+        CharacterToken{U","s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+002D", // description
+    "-"s, // input
+    { // expectedTokens
+        CharacterToken{U"-"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+002E", // description
+    "."s, // input
+    { // expectedTokens
+        CharacterToken{U"."s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+002F", // description
+    "/"s, // input
+    { // expectedTokens
+        CharacterToken{U"/"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0030", // description
+    "0"s, // input
+    { // expectedTokens
+        CharacterToken{U"0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0031", // description
+    "1"s, // input
+    { // expectedTokens
+        CharacterToken{U"1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0032", // description
+    "2"s, // input
+    { // expectedTokens
+        CharacterToken{U"2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0033", // description
+    "3"s, // input
+    { // expectedTokens
+        CharacterToken{U"3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0034", // description
+    "4"s, // input
+    { // expectedTokens
+        CharacterToken{U"4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0035", // description
+    "5"s, // input
+    { // expectedTokens
+        CharacterToken{U"5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0036", // description
+    "6"s, // input
+    { // expectedTokens
+        CharacterToken{U"6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0037", // description
+    "7"s, // input
+    { // expectedTokens
+        CharacterToken{U"7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0038", // description
+    "8"s, // input
+    { // expectedTokens
+        CharacterToken{U"8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0039", // description
+    "9"s, // input
+    { // expectedTokens
+        CharacterToken{U"9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+003A", // description
+    ":"s, // input
+    { // expectedTokens
+        CharacterToken{U":"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+003B", // description
+    ";"s, // input
+    { // expectedTokens
+        CharacterToken{U";"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+003D", // description
+    "="s, // input
+    { // expectedTokens
+        CharacterToken{U"="s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+003E", // description
+    ">"s, // input
+    { // expectedTokens
+        CharacterToken{U">"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+003F", // description
+    "?"s, // input
+    { // expectedTokens
+        CharacterToken{U"?"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0040", // description
+    "@"s, // input
+    { // expectedTokens
+        CharacterToken{U"@"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0041", // description
+    "A"s, // input
+    { // expectedTokens
+        CharacterToken{U"A"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0042", // description
+    "B"s, // input
+    { // expectedTokens
+        CharacterToken{U"B"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0043", // description
+    "C"s, // input
+    { // expectedTokens
+        CharacterToken{U"C"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0044", // description
+    "D"s, // input
+    { // expectedTokens
+        CharacterToken{U"D"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0045", // description
+    "E"s, // input
+    { // expectedTokens
+        CharacterToken{U"E"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0046", // description
+    "F"s, // input
+    { // expectedTokens
+        CharacterToken{U"F"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0047", // description
+    "G"s, // input
+    { // expectedTokens
+        CharacterToken{U"G"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0048", // description
+    "H"s, // input
+    { // expectedTokens
+        CharacterToken{U"H"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0049", // description
+    "I"s, // input
+    { // expectedTokens
+        CharacterToken{U"I"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+004A", // description
+    "J"s, // input
+    { // expectedTokens
+        CharacterToken{U"J"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+004B", // description
+    "K"s, // input
+    { // expectedTokens
+        CharacterToken{U"K"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+004C", // description
+    "L"s, // input
+    { // expectedTokens
+        CharacterToken{U"L"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+004D", // description
+    "M"s, // input
+    { // expectedTokens
+        CharacterToken{U"M"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+004E", // description
+    "N"s, // input
+    { // expectedTokens
+        CharacterToken{U"N"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+004F", // description
+    "O"s, // input
+    { // expectedTokens
+        CharacterToken{U"O"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0050", // description
+    "P"s, // input
+    { // expectedTokens
+        CharacterToken{U"P"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0051", // description
+    "Q"s, // input
+    { // expectedTokens
+        CharacterToken{U"Q"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0052", // description
+    "R"s, // input
+    { // expectedTokens
+        CharacterToken{U"R"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0053", // description
+    "S"s, // input
+    { // expectedTokens
+        CharacterToken{U"S"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0054", // description
+    "T"s, // input
+    { // expectedTokens
+        CharacterToken{U"T"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0055", // description
+    "U"s, // input
+    { // expectedTokens
+        CharacterToken{U"U"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0056", // description
+    "V"s, // input
+    { // expectedTokens
+        CharacterToken{U"V"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0057", // description
+    "W"s, // input
+    { // expectedTokens
+        CharacterToken{U"W"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0058", // description
+    "X"s, // input
+    { // expectedTokens
+        CharacterToken{U"X"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0059", // description
+    "Y"s, // input
+    { // expectedTokens
+        CharacterToken{U"Y"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+005A", // description
+    "Z"s, // input
+    { // expectedTokens
+        CharacterToken{U"Z"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+005B", // description
+    "["s, // input
+    { // expectedTokens
+        CharacterToken{U"["s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+005C", // description
+    "\\"s, // input
+    { // expectedTokens
+        CharacterToken{U"\\"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+005D", // description
+    "]"s, // input
+    { // expectedTokens
+        CharacterToken{U"]"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+005E", // description
+    "^"s, // input
+    { // expectedTokens
+        CharacterToken{U"^"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+005F", // description
+    "_"s, // input
+    { // expectedTokens
+        CharacterToken{U"_"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0060", // description
+    "`"s, // input
+    { // expectedTokens
+        CharacterToken{U"`"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0061", // description
+    "a"s, // input
+    { // expectedTokens
+        CharacterToken{U"a"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0062", // description
+    "b"s, // input
+    { // expectedTokens
+        CharacterToken{U"b"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0063", // description
+    "c"s, // input
+    { // expectedTokens
+        CharacterToken{U"c"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0064", // description
+    "d"s, // input
+    { // expectedTokens
+        CharacterToken{U"d"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0065", // description
+    "e"s, // input
+    { // expectedTokens
+        CharacterToken{U"e"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0066", // description
+    "f"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0067", // description
+    "g"s, // input
+    { // expectedTokens
+        CharacterToken{U"g"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0068", // description
+    "h"s, // input
+    { // expectedTokens
+        CharacterToken{U"h"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0069", // description
+    "i"s, // input
+    { // expectedTokens
+        CharacterToken{U"i"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+006A", // description
+    "j"s, // input
+    { // expectedTokens
+        CharacterToken{U"j"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+006B", // description
+    "k"s, // input
+    { // expectedTokens
+        CharacterToken{U"k"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+006C", // description
+    "l"s, // input
+    { // expectedTokens
+        CharacterToken{U"l"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+006D", // description
+    "m"s, // input
+    { // expectedTokens
+        CharacterToken{U"m"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+006E", // description
+    "n"s, // input
+    { // expectedTokens
+        CharacterToken{U"n"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+006F", // description
+    "o"s, // input
+    { // expectedTokens
+        CharacterToken{U"o"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0070", // description
+    "p"s, // input
+    { // expectedTokens
+        CharacterToken{U"p"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0071", // description
+    "q"s, // input
+    { // expectedTokens
+        CharacterToken{U"q"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0072", // description
+    "r"s, // input
+    { // expectedTokens
+        CharacterToken{U"r"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0073", // description
+    "s"s, // input
+    { // expectedTokens
+        CharacterToken{U"s"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0074", // description
+    "t"s, // input
+    { // expectedTokens
+        CharacterToken{U"t"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0075", // description
+    "u"s, // input
+    { // expectedTokens
+        CharacterToken{U"u"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0076", // description
+    "v"s, // input
+    { // expectedTokens
+        CharacterToken{U"v"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0077", // description
+    "w"s, // input
+    { // expectedTokens
+        CharacterToken{U"w"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0078", // description
+    "x"s, // input
+    { // expectedTokens
+        CharacterToken{U"x"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+0079", // description
+    "y"s, // input
+    { // expectedTokens
+        CharacterToken{U"y"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+007A", // description
+    "z"s, // input
+    { // expectedTokens
+        CharacterToken{U"z"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+007B", // description
+    "{"s, // input
+    { // expectedTokens
+        CharacterToken{U"{"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+007C", // description
+    "|"s, // input
+    { // expectedTokens
+        CharacterToken{U"|"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+007D", // description
+    "}"s, // input
+    { // expectedTokens
+        CharacterToken{U"}"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+007E", // description
+    "~"s, // input
+    { // expectedTokens
+        CharacterToken{U"~"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00A0", // description
+    "\u00A0"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00A1", // description
+    "\u00A1"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00A2", // description
+    "\u00A2"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00A3", // description
+    "\u00A3"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00A4", // description
+    "\u00A4"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00A5", // description
+    "\u00A5"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00A6", // description
+    "\u00A6"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00A7", // description
+    "\u00A7"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00A8", // description
+    "\u00A8"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00A9", // description
+    "\u00A9"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00A9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00AA", // description
+    "\u00AA"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00AB", // description
+    "\u00AB"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00AC", // description
+    "\u00AC"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00AD", // description
+    "\u00AD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00AE", // description
+    "\u00AE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00AF", // description
+    "\u00AF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00AF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00B0", // description
+    "\u00B0"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00B1", // description
+    "\u00B1"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00B2", // description
+    "\u00B2"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00B3", // description
+    "\u00B3"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00B4", // description
+    "\u00B4"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00B5", // description
+    "\u00B5"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00B6", // description
+    "\u00B6"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00B7", // description
+    "\u00B7"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00B8", // description
+    "\u00B8"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00B9", // description
+    "\u00B9"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00B9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00BA", // description
+    "\u00BA"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00BA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00BB", // description
+    "\u00BB"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00BB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00BC", // description
+    "\u00BC"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00BC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00BD", // description
+    "\u00BD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00BD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00BE", // description
+    "\u00BE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00BE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00BF", // description
+    "\u00BF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00BF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00C0", // description
+    "\u00C0"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00C1", // description
+    "\u00C1"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00C2", // description
+    "\u00C2"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00C3", // description
+    "\u00C3"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00C4", // description
+    "\u00C4"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00C5", // description
+    "\u00C5"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00C6", // description
+    "\u00C6"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00C7", // description
+    "\u00C7"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00C8", // description
+    "\u00C8"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00C9", // description
+    "\u00C9"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00C9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00CA", // description
+    "\u00CA"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00CA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00CB", // description
+    "\u00CB"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00CB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00CC", // description
+    "\u00CC"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00CC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00CD", // description
+    "\u00CD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00CD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00CE", // description
+    "\u00CE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00CE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00CF", // description
+    "\u00CF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00CF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00D0", // description
+    "\u00D0"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00D1", // description
+    "\u00D1"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00D2", // description
+    "\u00D2"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00D3", // description
+    "\u00D3"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00D4", // description
+    "\u00D4"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00D5", // description
+    "\u00D5"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00D6", // description
+    "\u00D6"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00D7", // description
+    "\u00D7"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00D8", // description
+    "\u00D8"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00D9", // description
+    "\u00D9"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00D9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00DA", // description
+    "\u00DA"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00DA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00DB", // description
+    "\u00DB"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00DB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00DC", // description
+    "\u00DC"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00DC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00DD", // description
+    "\u00DD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00DD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00DE", // description
+    "\u00DE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00DE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00DF", // description
+    "\u00DF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00DF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00E0", // description
+    "\u00E0"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00E1", // description
+    "\u00E1"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00E2", // description
+    "\u00E2"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00E3", // description
+    "\u00E3"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00E4", // description
+    "\u00E4"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00E5", // description
+    "\u00E5"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00E6", // description
+    "\u00E6"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00E7", // description
+    "\u00E7"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00E8", // description
+    "\u00E8"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00E9", // description
+    "\u00E9"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00E9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00EA", // description
+    "\u00EA"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00EA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00EB", // description
+    "\u00EB"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00EB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00EC", // description
+    "\u00EC"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00EC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00ED", // description
+    "\u00ED"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00ED"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00EE", // description
+    "\u00EE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00EE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00EF", // description
+    "\u00EF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00EF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00F0", // description
+    "\u00F0"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00F1", // description
+    "\u00F1"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F1"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00F2", // description
+    "\u00F2"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F2"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00F3", // description
+    "\u00F3"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F3"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00F4", // description
+    "\u00F4"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F4"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00F5", // description
+    "\u00F5"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F5"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00F6", // description
+    "\u00F6"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F6"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00F7", // description
+    "\u00F7"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F7"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00F8", // description
+    "\u00F8"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F8"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00F9", // description
+    "\u00F9"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00F9"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00FA", // description
+    "\u00FA"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00FA"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00FB", // description
+    "\u00FB"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00FB"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00FC", // description
+    "\u00FC"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00FC"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00FD", // description
+    "\u00FD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00FD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00FE", // description
+    "\u00FE"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00FE"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+00FF", // description
+    "\u00FF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\u00FF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+D7FF", // description
+    "\uD7FF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uD7FF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+E000", // description
+    "\uE000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uE000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+FDCF", // description
+    "\uFDCF"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDCF"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+FDF0", // description
+    "\uFDF0"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFDF0"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+FFFD", // description
+    "\uFFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+10000", // description
+    "\U00010000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00010000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+1FFFD", // description
+    "\U0001FFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0001FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+20000", // description
+    "\U00020000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00020000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+2FFFD", // description
+    "\U0002FFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0002FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+30000", // description
+    "\U00030000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00030000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+3FFFD", // description
+    "\U0003FFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0003FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+40000", // description
+    "\U00040000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00040000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+4FFFD", // description
+    "\U0004FFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0004FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+50000", // description
+    "\U00050000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00050000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+5FFFD", // description
+    "\U0005FFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0005FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+60000", // description
+    "\U00060000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00060000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+6FFFD", // description
+    "\U0006FFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0006FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+70000", // description
+    "\U00070000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00070000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+7FFFD", // description
+    "\U0007FFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0007FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+80000", // description
+    "\U00080000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00080000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+8FFFD", // description
+    "\U0008FFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0008FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+90000", // description
+    "\U00090000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00090000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+9FFFD", // description
+    "\U0009FFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0009FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+A0000", // description
+    "\U000A0000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000A0000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+AFFFD", // description
+    "\U000AFFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000AFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+B0000", // description
+    "\U000B0000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000B0000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+BFFFD", // description
+    "\U000BFFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000BFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+C0000", // description
+    "\U000C0000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000C0000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+CFFFD", // description
+    "\U000CFFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000CFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+D0000", // description
+    "\U000D0000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000D0000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+DFFFD", // description
+    "\U000DFFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000DFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+E0000", // description
+    "\U000E0000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000E0000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+EFFFD", // description
+    "\U000EFFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000EFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+F0000", // description
+    "\U000F0000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000F0000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+FFFFD", // description
+    "\U000FFFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U000FFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+100000", // description
+    "\U00100000"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U00100000"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Valid Unicode character U+10FFFD", // description
+    "\U0010FFFD"s, // input
+    { // expectedTokens
+        CharacterToken{U"\U0010FFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},

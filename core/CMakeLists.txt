@@ -1,48 +1,63 @@
 add_library(core)
 
-include(FetchContent)
-
-FetchContent_Declare(
-    spdlog
-    GIT_REPOSITORY https://github.com/gabime/spdlog.git
-    GIT_TAG        486b55554f11c9cccc913e11a87085b2a91f706f
-)
-
-FetchContent_MakeAvailable(spdlog)
-
-target_link_libraries(core
-    PUBLIC
-        spdlog
-)
+add_subdirectory(vendor/cjson)
 
 target_compile_definitions(core
     PUBLIC
-        -DCRAWLERLOGDIR="${CMAKE_CURRENT_BINARY_DIR}/log/"
+        $<$<CONFIG:Debug>:CRAWLER_DEBUG>
+        CRAWLER_CHAR_REF_TRIE="${CMAKE_CURRENT_BINARY_DIR}/entities.bin"
 )
 
 target_sources(core
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/FileStream.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/vendor/spdlog/SPDLog.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Preprocessor.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Decoder.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Tokenizer.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Definitions.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Tree.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/attributes.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/named_ref.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/parser.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/queue.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/stream.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/string_buffer.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/token.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/trie.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/utils.c
     PUBLIC
     FILE_SET HEADERS
     FILES
-        ${CMAKE_CURRENT_SOURCE_DIR}/FileStream.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Stream.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Log.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Patterns.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Singleton.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ServiceLocator.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Preprocessor.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Decoder.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/TransactionalStream.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Definitions.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Tokenizer.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/pipeline/Tree.hpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Timing.hpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/attributes.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/buffer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/named_ref.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/error.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/lexer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/parser.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/queue.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/stream.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/string_buffer.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/tags.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/token.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/trie.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/utils.h
+)
+
+add_executable(genentities)
+
+target_sources(genentities
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/genentities.c
+)
+
+target_link_libraries(genentities
+    PUBLIC
+        core
+        cjson
+)
+
+target_compile_definitions(genentities
+    PUBLIC
+        CRAWLER_FILE_ENTITIES="${CMAKE_CURRENT_SOURCE_DIR}/entities.json"
+        CRAWLER_CHAR_REF_TRIE="${CMAKE_CURRENT_BINARY_DIR}/entities.bin"
+)
+
+add_custom_command(TARGET genentities POST_BUILD
+    COMMAND $<TARGET_FILE:genentities>
+    COMMENT "Generating entities..."
 )

@@ -1,0 +1,539 @@
+TokenizerTest{
+    "DOCTYPE without name", // description
+    "<!DOCTYPE>"s, // input
+    { // expectedTokens
+        DoctypeToken{std::nullopt, std::nullopt, std::nullopt, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingDoctypeName, 10 }
+    }
+},TokenizerTest{
+    "DOCTYPE without space before name", // description
+    "<!DOCTYPEhtml>"s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", std::nullopt, std::nullopt, true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingWhitespaceBeforeDoctypeName, 10 }
+    }
+},TokenizerTest{
+    "Incorrect DOCTYPE without a space before name", // description
+    "<!DOCTYPEfoo>"s, // input
+    { // expectedTokens
+        DoctypeToken{U"foo", std::nullopt, std::nullopt, true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingWhitespaceBeforeDoctypeName, 10 }
+    }
+},TokenizerTest{
+    "DOCTYPE with publicId", // description
+    "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML Transitional 4.01//EN\">"s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", U"-//W3C//DTD HTML Transitional 4.01//EN", std::nullopt, true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "DOCTYPE with EOF after PUBLIC", // description
+    "<!DOCTYPE html PUBLIC"s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", std::nullopt, std::nullopt, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInDoctype, 22 }
+    }
+},TokenizerTest{
+    "DOCTYPE with EOF after PUBLIC '", // description
+    "<!DOCTYPE html PUBLIC '"s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", U"", std::nullopt, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInDoctype, 24 }
+    }
+},TokenizerTest{
+    "DOCTYPE with EOF after PUBLIC 'x", // description
+    "<!DOCTYPE html PUBLIC 'x"s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", U"x", std::nullopt, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInDoctype, 25 }
+    }
+},TokenizerTest{
+    "DOCTYPE with systemId", // description
+    "<!DOCTYPE html SYSTEM \"-//W3C//DTD HTML Transitional 4.01//EN\">"s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", std::nullopt, U"-//W3C//DTD HTML Transitional 4.01//EN", true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "DOCTYPE with single-quoted systemId", // description
+    "<!DOCTYPE html SYSTEM '-//W3C//DTD HTML Transitional 4.01//EN'>"s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", std::nullopt, U"-//W3C//DTD HTML Transitional 4.01//EN", true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "DOCTYPE with publicId and systemId", // description
+    "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML Transitional 4.01//EN\" \"-//W3C//DTD HTML Transitional 4.01//EN\">"s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", U"-//W3C//DTD HTML Transitional 4.01//EN", U"-//W3C//DTD HTML Transitional 4.01//EN", true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "DOCTYPE with > in double-quoted publicId", // description
+    "<!DOCTYPE html PUBLIC \">x"s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", U"", std::nullopt, false},
+        CharacterToken{U"x"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::AbruptDoctypePublicIdentifier, 24 }
+    }
+},TokenizerTest{
+    "DOCTYPE with > in single-quoted publicId", // description
+    "<!DOCTYPE html PUBLIC '>x"s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", U"", std::nullopt, false},
+        CharacterToken{U"x"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::AbruptDoctypePublicIdentifier, 24 }
+    }
+},TokenizerTest{
+    "DOCTYPE with > in double-quoted systemId", // description
+    "<!DOCTYPE html PUBLIC \"foo\" \">x"s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", U"foo", U"", false},
+        CharacterToken{U"x"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::AbruptDoctypeSystemIdentifier, 30 }
+    }
+},TokenizerTest{
+    "DOCTYPE with > in single-quoted systemId", // description
+    "<!DOCTYPE html PUBLIC 'foo' '>x"s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", U"foo", U"", false},
+        CharacterToken{U"x"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::AbruptDoctypeSystemIdentifier, 30 }
+    }
+},TokenizerTest{
+    "Incomplete doctype", // description
+    "<!DOCTYPE html "s, // input
+    { // expectedTokens
+        DoctypeToken{U"html", std::nullopt, std::nullopt, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInDoctype, 16 }
+    }
+},TokenizerTest{
+    "Numeric entity representing the NUL character", // description
+    "&#0000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NullCharacterReference, 8 }
+    }
+},TokenizerTest{
+    "Hexadecimal entity representing the NUL character", // description
+    "&#x0000;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::NullCharacterReference, 9 }
+    }
+},TokenizerTest{
+    "Numeric entity representing a codepoint after 1114111 (U+10FFFF)", // description
+    "&#2225222;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::CharacterReferenceOutsideUnicodeRange, 11 }
+    }
+},TokenizerTest{
+    "Hexadecimal entity representing a codepoint after 1114111 (U+10FFFF)", // description
+    "&#x1010FFFF;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::CharacterReferenceOutsideUnicodeRange, 13 }
+    }
+},TokenizerTest{
+    "Hexadecimal entity pair representing a surrogate pair", // description
+    "&#xD869;&#xDED6;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uFFFD"s},
+        CharacterToken{U"\uFFFD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::SurrogateCharacterReference, 9 },
+        { ErrorType::SurrogateCharacterReference, 17 }
+    }
+},TokenizerTest{
+    "Hexadecimal entity with mixed uppercase and lowercase", // description
+    "&#xaBcD;"s, // input
+    { // expectedTokens
+        CharacterToken{U"\uABCD"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Entity without a name", // description
+    "&;"s, // input
+    { // expectedTokens
+        CharacterToken{U"&"s},
+        CharacterToken{U";"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Unescaped ampersand in attribute value", // description
+    "<h a='&'>"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"&"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "StartTag containing <", // description
+    "<a<b>"s, // input
+    { // expectedTokens
+        StartTagToken{U"a<b", {  }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Non-void element containing trailing /", // description
+    "<h/>"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", {  }, true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Void element with permitted slash", // description
+    "<br/>"s, // input
+    { // expectedTokens
+        StartTagToken{U"br", {  }, true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Void element with permitted slash (with attribute)", // description
+    "<br foo='bar'/>"s, // input
+    { // expectedTokens
+        StartTagToken{U"br", { Attribute{U"foo", U"bar"} }, true},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "StartTag containing /", // description
+    "<h/a='b'>"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"b"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedSolidusInTag, 4 }
+    }
+},TokenizerTest{
+    "Double-quoted attribute value", // description
+    "<h a=\"b\">"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"a", U"b"} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Unescaped </", // description
+    "</"s, // input
+    { // expectedTokens
+        CharacterToken{U"</"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofBeforeTagName, 3 }
+    }
+},TokenizerTest{
+    "Illegal end tag name", // description
+    "</1>"s, // input
+    { // expectedTokens
+        CommentToken{U"1"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::InvalidFirstCharacterOfTagName, 3 }
+    }
+},TokenizerTest{
+    "Simili processing instruction", // description
+    "<?namespace>"s, // input
+    { // expectedTokens
+        ProcessingInstructionToken{U"", U"namespace"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "A bogus comment stops at >, even if preceded by two dashes", // description
+    "<?foo-->"s, // input
+    { // expectedTokens
+        ProcessingInstructionToken{U"", U"foo-"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Unescaped <", // description
+    "foo < bar"s, // input
+    { // expectedTokens
+        CharacterToken{U"f"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U"o"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"<"s},
+        CharacterToken{U" "s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"a"s},
+        CharacterToken{U"r"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::InvalidFirstCharacterOfTagName, 6 }
+    }
+},TokenizerTest{
+    "Comment with dash", // description
+    "<!---x"s, // input
+    { // expectedTokens
+        CommentToken{U"-x"},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::EofInComment, 7 }
+    }
+},TokenizerTest{
+    "Entity + newline", // description
+    "\nx\n&gt;\n"s, // input
+    { // expectedTokens
+        CharacterToken{U"\n"s},
+        CharacterToken{U"x"s},
+        CharacterToken{U"\n"s},
+        CharacterToken{U">"s},
+        CharacterToken{U"\n"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Start tag with no attributes but space before the greater-than sign", // description
+    "<h >"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", {  }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Empty attribute followed by uppercase attribute", // description
+    "<h a B=''>"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"b", U""}, Attribute{U"a", U""} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+    }
+},TokenizerTest{
+    "Double-quote after attribute name", // description
+    "<h a \">"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"\"", U""}, Attribute{U"a", U""} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedCharacterInAttributeName, 6 }
+    }
+},TokenizerTest{
+    "Single-quote after attribute name", // description
+    "<h a '>"s, // input
+    { // expectedTokens
+        StartTagToken{U"h", { Attribute{U"'", U""}, Attribute{U"a", U""} }, false},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::UnexpectedCharacterInAttributeName, 6 }
+    }
+},TokenizerTest{
+    "Empty end tag with following characters", // description
+    "a</>bc"s, // input
+    { // expectedTokens
+        CharacterToken{U"a"s},
+        CharacterToken{U"b"s},
+        CharacterToken{U"c"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingEndTagName, 4 }
+    }
+},TokenizerTest{
+    "Empty end tag with following tag", // description
+    "a</><b>c"s, // input
+    { // expectedTokens
+        CharacterToken{U"a"s},
+        StartTagToken{U"b", {  }, false},
+        CharacterToken{U"c"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingEndTagName, 4 }
+    }
+},TokenizerTest{
+    "Empty end tag with following comment", // description
+    "a</><!--b-->c"s, // input
+    { // expectedTokens
+        CharacterToken{U"a"s},
+        CommentToken{U"b"},
+        CharacterToken{U"c"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingEndTagName, 4 }
+    }
+},TokenizerTest{
+    "Empty end tag with following end tag", // description
+    "a</></b>c"s, // input
+    { // expectedTokens
+        CharacterToken{U"a"s},
+        EndTagToken{U"b"},
+        CharacterToken{U"c"s},
+        EOFToken{}
+    },
+    LexerState::Data, // initialState
+    std::nullopt, // lastStartTag
+    { // expectedErrors
+        { ErrorType::MissingEndTagName, 4 }
+    }
+},
