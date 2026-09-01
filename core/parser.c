@@ -10,6 +10,15 @@ void crawler_parser_init(CrawlerParserContext* parser) {
     crawler_token_init(&parser->current_token);
 }
 
+bool crawler_parser_create(CrawlerParserContext* parser) {
+    return crawler_lexer_create(&parser->lexer);
+}
+
+void crawler_parser_destroy(CrawlerParserContext* parser) {
+    crawler_lexer_destroy(&parser->lexer);
+    crawler_token_destroy(&parser->current_token);
+}
+
 void crawler_parser_bind_buffer(CrawlerParserContext* parser, CrawlerBuffer* buffer) {
     crawler_stream_init(&parser->is);
     parser->is.buffer = buffer;

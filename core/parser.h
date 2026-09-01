@@ -21,6 +21,9 @@ typedef struct CrawlerInternalParserContext {
 } CrawlerParserContext;
 
 void crawler_parser_init(CrawlerParserContext* parser);
+bool crawler_parser_create(CrawlerParserContext* parser);
+void crawler_parser_destroy(CrawlerParserContext* parser);
+
 void crawler_parser_bind_buffer(CrawlerParserContext* parser, CrawlerBuffer* buffer);
 void crawler_parser_register_error(CrawlerParserContext* parser, CrawlerParseErrorType error_code);
 

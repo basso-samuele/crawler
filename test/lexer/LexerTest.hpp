@@ -122,22 +122,47 @@ protected:
     void SetUp() {
         parser.lexer.current_state = CRAWLER_LEXER_STATE_DATA;
         parser.lexer.start_tag_emitted = false;
-        parser.lexer.current_attribute_node = NULL;
-        crawler_string_create(&parser.lexer.temporary_buffer, 4);
-        crawler_string_create(&parser.lexer.last_emitted_start_tag_name, 4);
+
+        crawler_string_destroy(&parser.lexer.temporary_buffer);
+        ASSERT_TRUE(crawler_string_create(&parser.lexer.temporary_buffer, 4));
+
+        crawler_string_destroy(&parser.lexer.last_emitted_start_tag_name);
+        ASSERT_TRUE(crawler_string_create(&parser.lexer.last_emitted_start_tag_name, 4));
+
+        crawler_attribute_list_destroy(&parser.lexer.current_attribute_node);
     }
 
     static void SetUpTestSuite() {
         crawler_parser_init(&parser);
-        crawler_lexer_create(&parser.lexer);
+        ASSERT_TRUE(crawler_parser_create(&parser));
     }
 
     static void TearDownTestSuite() {
-        crawler_lexer_destroy(&parser.lexer);
+        crawler_parser_destroy(&parser);
     }
 
     inline static CrawlerParserContext parser;
 };
+
+static bool SetLastStartTag(CrawlerParserContext& parser, const std::u32string& name) {
+    parser.lexer.last_emitted_start_tag_name.data = (int*)_crawler_alloc(
+        name.length()*sizeof *parser.lexer.last_emitted_start_tag_name.data
+    );
+    if (parser.lexer.last_emitted_start_tag_name.data == NULL)
+        return false;
+
+    parser.lexer.last_emitted_start_tag_name.length =
+    parser.lexer.last_emitted_start_tag_name.capacity =
+        name.length();
+
+    memcpy(
+        parser.lexer.last_emitted_start_tag_name.data, name.c_str(),
+        name.length()*sizeof *parser.lexer.last_emitted_start_tag_name.data
+    );
+
+    parser.lexer.start_tag_emitted = true;
+    return true;
+}
 
 TEST_P(Entity, Compare) {
     const auto& tc = GetParam();
@@ -153,24 +178,8 @@ TEST_P(Entity, Compare) {
         static_cast<std::underlying_type_t<LexerState>>(tc.initialState)
     );
 
-    if (tc.lastStartTag.has_value()) {
-        parser.lexer.last_emitted_start_tag_name.data =
-            (int*)_crawler_alloc(
-                tc.lastStartTag.value().length()*sizeof *parser.lexer.last_emitted_start_tag_name.data
-            );
-
-        parser.lexer.last_emitted_start_tag_name.length =
-        parser.lexer.last_emitted_start_tag_name.capacity =
-            tc.lastStartTag.value().length();
-
-        memcpy(
-            parser.lexer.last_emitted_start_tag_name.data,
-            tc.lastStartTag.value().c_str(),
-            tc.lastStartTag.value().length()*sizeof *parser.lexer.last_emitted_start_tag_name.data
-        );
-
-        parser.lexer.start_tag_emitted = true;
-    }
+    if (tc.lastStartTag.has_value())
+        ASSERT_TRUE(SetLastStartTag(parser, tc.lastStartTag.value()));
 
     for (auto& expectedToken : tc.expectedTokens) {
         ASSERT_EQ(CRAWLER_LEXER_SUCCESS, crawler_lexer_gen_token(&parser));
@@ -183,9 +192,6 @@ TEST_P(Entity, Compare) {
 
         crawler_token_destroy(&parser.current_token);
     }
-
-    crawler_string_destroy(&parser.lexer.last_emitted_start_tag_name);
-    parser.lexer.start_tag_emitted = false;
 }
 
 INSTANTIATE_TEST_SUITE_P(
